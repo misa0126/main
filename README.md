@@ -34,7 +34,20 @@
 
 以上を理解した上での自己責任利用を前提としたツールです。
 
-## アプリで使う(おすすめ)
+## HTMLの素材シート(インストール不要)
+
+台本と「区切り表」から、開くだけで候補画像を探して並べるHTMLを1ファイルで作れます。
+
+```bash
+python -m material_collector.html_sheet scripts/nishizaki_yoshinobu.txt scripts/nishizaki_yoshinobu_scenes.txt 西崎義展_素材シート.html --title 西崎義展
+```
+
+- 区切り表は「## 話題の見出し」と「開始行: 日本語=English, ...」の並びです(例: `scripts/nishizaki_yoshinobu_scenes.txt`)
+- できたHTMLをChrome / Edgeで開くと、スクロールに合わせてWikimedia Commons・Openverse・メトロポリタン美術館から候補を探します
+- 画像は右クリック →「画像をコピー」でYMM4に貼り付けます。「使う」を押した画像の出典はクレジット一覧にまとまります
+- APIキーもインストールも不要です
+
+## アプリで使う
 
 1. このフォルダの `start_app.bat` をダブルクリックする(初回は準備に数分かかります。Pythonが入っていなければ自動でインストールします)
 2. 「WindowsによってPCが保護されました」と出たら「詳細情報」→「実行」を押す

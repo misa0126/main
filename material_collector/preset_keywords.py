@@ -19,18 +19,23 @@ def parse_keyword_table(text: str) -> dict[int, list[Keyword]]:
         if not match:
             raise ValueError(f"キーワード表の書式が読めません: {line!r}(「番号: キーワード, ...」の形にしてください)")
         index, body = int(match.group(1)), match.group(2).strip()
-        keywords = []
-        if body not in ("", "-", "ー", "－"):
-            for item in re.split(r"[,、，]", body):
-                item = item.strip()
-                if not item:
-                    continue
-                ja, _, en = item.partition("=")
-                ja, en = ja.strip(), en.strip()
-                if ja or en:
-                    keywords.append(Keyword(ja=ja or en, en=en or ja))
+        keywords = parse_keyword_items(body)
         table[index] = keywords
     return table
+
+
+def parse_keyword_items(body: str) -> list[Keyword]:
+    """「日本語=English, 日本語, ...」を読む。「-」や空なら空リスト。"""
+    body = body.strip()
+    if body in ("", "-", "ー", "－"):
+        return []
+    keywords = []
+    for item in re.split(r"[,、，]", body):
+        ja, _, en = item.strip().partition("=")
+        ja, en = ja.strip(), en.strip()
+        if ja or en:
+            keywords.append(Keyword(ja=ja or en, en=en or ja))
+    return keywords
 
 
 class PresetKeywordExtractor:

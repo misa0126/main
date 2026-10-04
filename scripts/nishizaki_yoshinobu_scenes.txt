@@ -1,0 +1,130 @@
+# 西崎義展の解説台本(nishizaki_yoshinobu.txt)の区切りとキーワード
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 日本語の検索語=英語の検索語, ...
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・英語を省略すると日本語だけで検索します
+#   ・「#」で始まる行はメモとして無視されます
+
+## 導入：甲子園で鳴るあの曲
+1: 甲子園 応援 ブラスバンド=Koshien brass band, 阪神甲子園球場=Koshien Stadium, 高校野球=Japanese high school baseball
+3: 護衛艦 出港=JMSDF destroyer departure, 海上自衛隊 音楽隊=JMSDF band, 音楽の教科書=music class Japan
+7: 松本零士=Leiji Matsumoto, 敦賀 宇宙戦艦ヤマト モニュメント=Tsuruga Space Battleship Yamato statue, 映画プロデューサー=film producer
+13: ジェットコースター=roller coaster, 一万円札=10000 yen banknotes, 手錠=handcuffs
+
+## 東京・小石川の名家に生まれる
+17: 小石川=Koishikawa Tokyo, 文京区 白山=Hakusan Bunkyo, 昭和初期の東京=Tokyo 1930s
+20: 開成中学校=Kaisei Academy, 東京大学 赤門=University of Tokyo Akamon, 明治薬科大学=Meiji Pharmaceutical University, 日本舞踊=Nihon buyo dance
+25: 石原慎太郎=Shintaro Ishihara, 蓄音機 レコード=gramophone record, NHK交響楽団=NHK Symphony Orchestra
+
+## 戦争と少年時代
+29: 秩父=Chichibu Saitama, 学童疎開=evacuation of schoolchildren Japan 1944, 終戦 東京 1945=Tokyo 1945
+33: 昭和20年代の子供たち=Japanese children 1940s, 和室=Japanese tatami room
+39: 昭和のテレビスタジオ=1970s television studio Japan, 指切り=pinky promise
+42: 東京大学 安田講堂=Yasuda Auditorium University of Tokyo, 昭和の家族写真=1930s Japanese family photograph
+46: 開成中学校=Kaisei Academy, 家出=runaway boy, 昭和22年の東京=Tokyo 1947
+49: 武蔵高等学校=Musashi High School Tokyo, 受験=entrance exam Japan
+
+## 演劇との出会いと挫折
+53: 文学座=Bungakuza theater, 杉村春子=Haruko Sugimura, 劇場の舞台=theater stage 1950s
+57: 昭和30年代の自動車=1950s Japanese car, 日本大学芸術学部=Nihon University College of Art
+
+## 夜の六本木とジャズ喫茶
+60: 六本木 1950年代=Roppongi 1950s, ジャズ喫茶=jazz kissa Japan, ジャズのレコード=jazz vinyl records
+65: ジャズバンド=jazz band 1950s, ビンテージマイク=vintage microphone
+69: 巡業 バンド=band on tour 1960s, 昭和の地方劇場=Japanese theater 1960s, 夜行列車=night train Japan 1960s
+
+## 音楽プロデューサーとして独立
+74: 1960年代の東京=Tokyo 1963, 昭和のオフィス=1960s Japanese office
+78: 民主音楽協会=Min-On Concert Association, コンサートホール=concert hall Japan, ステージ 照明=stage lights
+
+## ヨーロッパでの修行と差別
+82: パリ 1968=Paris 1968, 興行主=impresario, エッフェル塔=Eiffel Tower 1960s
+86: バレエ団=ballet company 1960s, 東欧の民族舞踊団=Eastern European folk dance ensemble, 劇場のポスター=theater poster 1960s
+89: ヨーロッパの街並み 1960年代=Europe street 1960s, 雨の石畳=rainy cobblestone street
+
+## 手塚治虫のマネージャーに
+94: 手塚治虫=Osamu Tezuka, 虫プロダクション=Mushi Production, 手塚治虫記念館=Osamu Tezuka Manga Museum
+98: 昭和のテレビ局=Japanese TV station 1970s, ふしぎなメルモ=Marvelous Melmo
+101: 労働争議=labor dispute Japan 1970s, 出版社=publishing company Japan, 漫画原稿=manga manuscript
+106: 王冠=royal crown, 会議室=meeting room 1970s
+
+## 海のトリトンと手塚との決裂
+111: 海のトリトン=Triton of the Sea, 青い海=ocean waves
+116: 一万円札の束=stack of yen banknotes
+119: 富野由悠季=Yoshiyuki Tomino, 手塚治虫=Osamu Tezuka
+124: 山ねずみロッキーチャック=Rocky Chuck the Mountain Rat, 虫プロダクション=Mushi Production, ワンサくん=Wansa-kun
+129: 倒産 閉鎖=closed company shutters, 昭和48年=Tokyo 1973
+
+## 宇宙戦艦ヤマト誕生
+133: 山本暎一=Eiichi Yamamoto, 豊田有恒=Aritsune Toyota, SF小説=science fiction paperback
+138: 小惑星=asteroid, 記念艦三笠=Mikasa battleship Yokosuka, 戦艦長門=battleship Nagato, 戦艦大和=battleship Yamato
+142: 企画書 タイプライター=typewriter documents, 日本沈没=Japan Sinks Komatsu, 公害 1970年代=pollution Japan 1970s
+147: 松本零士=Leiji Matsumoto, 銀河鉄道999 像=Galaxy Express 999 statue
+150: 阿久悠=Yu Aku, 原稿用紙 万年筆=manuscript paper fountain pen
+154: ささきいさお=Isao Sasaki, オーケストラ 録音=orchestra recording session, 戦艦武蔵=battleship Musashi
+
+## テレビ放送の惨敗
+159: 昭和のテレビ=1970s Japanese television set, アルプス 牧草地=Swiss Alps meadow
+163: 視聴率 グラフ=TV ratings chart, 赤字=financial loss
+167: 会議=meeting 1970s, 安彦良和=Yoshikazu Yasuhiko, 絵コンテ=storyboard
+
+## 再放送で火がつく
+170: 日本テレビ=Nippon Television, 1970年代の中高生=Japanese students 1970s
+175: ファンクラブ 会報=fan club newsletter, ポスター=poster wall, ラジオのリクエスト番組=1970s radio studio
+180: 東映=Toei Company, 岡田茂=Shigeru Okada, 映写機=film projector
+186: 映画館の行列=movie theater queue, セル画=animation cel, 徹夜の行列=overnight queue
+192: 昭和の映画館=1970s Japanese cinema, アニメ雑誌=anime magazine 1970s
+197: 映画館 満員=packed movie theater, 映画のフィルム=film reel
+
+## 大成功と大豪遊
+201: 銀座の夜=Ginza night, ハーレーダビッドソン=Harley-Davidson motorcycle, クルーザー=motor yacht
+205: 帝国ホテル=Imperial Hotel Tokyo, 祝賀パーティー=banquet party
+209: カジキ=marlin fish, 鯛=sea bream, 高級クラブ 銀座=Ginza club
+212: 税務署=tax office Japan, 申告書=tax return documents
+215: 戦艦大和=battleship Yamato 1941, 屋久島 海=Yakushima sea
+217: ソナー=sonar screen, 深海カメラ=deep sea camera, 調査船=research vessel
+220: 角川春樹=Haruki Kadokawa, ラジオスタジオ マイク=radio studio microphone, オールナイトニッポン=All Night Nippon
+
+## 転落の始まり
+225: 冷凍食品=frozen food, 冷凍倉庫=cold storage warehouse
+229: ホテルオークラ=Hotel Okura Tokyo, 宮川泰=Hiroshi Miyagawa, 石原慎太郎=Shintaro Ishihara
+234: 昭和の新聞=Japanese newspaper 1980s, 記者会見=press conference
+238: 帆船=sailing ship, 東映 撮影所=Toei studio
+244: 本田美奈子=Minako Honda, 映画撮影 カメラ=film camera shooting
+249: レンタルビデオ店=video rental store VHS, シャッター街=closed shop shutters
+254: VHS ビデオテープ=VHS videotapes, 宇宙=outer space nebula
+259: 契約書 署名=contract signing, 質屋=pawn shop, 東北新社=Tohokushinsha
+265: 東京地方裁判所=Tokyo District Court, 破産=bankruptcy documents
+
+## 逮捕、そして銃刀法違反
+270: 渋谷 夜=Shibuya night 1990s, パトカー=Japanese police car
+275: 東京地方裁判所=Tokyo District Court, 裁判所の法廷=courtroom Japan
+278: 自動小銃=assault rifle, 銃弾=ammunition cartridges, 押収品=seized weapons police
+282: 海賊=pirates ship, 尖閣諸島=Senkaku Islands, 石原慎太郎=Shintaro Ishihara
+287: 車椅子=wheelchair, 病院の廊下=hospital corridor
+
+## ヤマトの作者をめぐる裁判
+291: 松本零士=Leiji Matsumoto, 手書きの原稿=handwritten manuscript, 裁判所=courthouse Japan
+298: 東京地方裁判所=Tokyo District Court, 握手=handshake agreement
+303: 阿久悠=Yu Aku, 手紙=handwritten letter
+307: 万年筆=fountain pen writing, 便箋=letter paper
+
+## 服役
+312: 最高裁判所=Supreme Court of Japan, 八王子医療刑務所=Hachioji Medical Prison, 黒羽刑務所=Kurobane Prison
+315: 面会室=prison visiting room, 刑務所の塀=prison wall
+
+## 出所と復活
+319: 赤ワイン=red wine bottle, バイク用ヘルメット=motorcycle helmet
+323: 庵野秀明=Hideaki Anno, 練馬区=Nerima Tokyo, アニメスタジオ=animation studio
+328: 映画館=movie theater, 映画のポスター=movie poster wall
+331: 映画監督 椅子=director chair, 石原慎太郎=Shintaro Ishihara
+
+## 父島での最期
+334: 小笠原諸島 父島=Chichijima Ogasawara, 大型船=ship at sea
+340: 二見港=Futami Port Chichijima, ウェットスーツ=wetsuit, 父島の海=Chichijima sea
+346: 青山葬儀所=Aoyama Funeral Hall, 献花=white flowers memorial, ささきいさお=Isao Sasaki
+
+## 残したもの
+352: 富野由悠季=Yoshiyuki Tomino, ガンダム立像=life-size Gundam statue, 宇宙戦艦ヤマト2199=Space Battleship Yamato 2199
+358: 甲子園 夕日=Koshien sunset, 夕焼けの海=sunset over ocean
