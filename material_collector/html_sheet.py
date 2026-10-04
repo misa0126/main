@@ -2,7 +2,7 @@
 
 使い方:
     python -m material_collector.html_sheet 台本.txt 区切り表.txt --title 西崎義展
-    (出力は「西崎義展_素材シート.html」)
+    (出力は「西崎義展_image_list.html」)
 """
 
 from __future__ import annotations
@@ -88,13 +88,13 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="台本と区切り表から、素材確認用のHTMLを作る")
     parser.add_argument("script", type=Path)
     parser.add_argument("table", type=Path)
-    parser.add_argument("output", type=Path, nargs="?", help="省略すると「タイトル_素材シート.html」")
+    parser.add_argument("output", type=Path, nargs="?", help="省略すると「タイトル_image_list.html」")
     parser.add_argument("--title", required=True)
     args = parser.parse_args(argv)
     html = build_sheet(
         args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title
     )
-    output = args.output or Path(f"{args.title}_素材シート.html")
+    output = args.output or Path(f"{args.title}_image_list.html")
     output.write_text(html, encoding="utf-8")
     print(f"作成しました: {output}")
     return 0

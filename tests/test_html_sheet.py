@@ -27,7 +27,7 @@ class SceneTableTest(unittest.TestCase):
         self.assertEqual([line["text"] for line in second["lines"]], ["三", "四"])
         self.assertEqual(first["images"], [{"no": 1, "ja": "甲子園", "en": "甲子園", "native": ""}])
         self.assertEqual(second["images"], [{"no": 2, "ja": "長崎", "en": "Nagasaki", "native": ""}])
-        self.assertIn("<title>テスト 素材シート</title>", html)
+        self.assertIn("<title>テスト 画像リスト</title>", html)
 
     def test_native_language_and_numbering_across_segments(self):
         html = build_sheet(SCRIPT, "## a\n1: ピアフ=Edith Piaf=Édith Piaf, パリ=Paris\n3: 長崎\n", "テスト")
