@@ -34,18 +34,19 @@
 
 以上を理解した上での自己責任利用を前提としたツールです。
 
-## HTMLの素材シート(インストール不要)
+## HTMLの画像リスト(インストール不要)
 
-台本と「区切り表」から、開くだけで候補画像を探して並べるHTMLを1ファイルで作れます。
+台本と「区切り表」から、台本の順に番号を振った画像の検索リストをHTML1ファイルで作ります。
 
 ```bash
-python -m material_collector.html_sheet scripts/nishizaki_yoshinobu.txt scripts/nishizaki_yoshinobu_scenes.txt 西崎義展_素材シート.html --title 西崎義展
+python -m material_collector.html_sheet scripts/nishizaki_yoshinobu.txt scripts/nishizaki_yoshinobu_scenes.txt --title 西崎義展
+# → 西崎義展_image_list.html
 ```
 
-- 区切り表は「## 話題の見出し」と「開始行: 日本語=English, ...」の並びです(例: `scripts/nishizaki_yoshinobu_scenes.txt`)
-- できたHTMLをChrome / Edgeで開くと、区切りごとにGoogle画像検索のボタンが並び、スクロールに合わせてWikimedia Commons・Openverse・メトロポリタン美術館からも候補を自動で探します(ライセンスでの絞り込みはしません)
-- 画像は右クリック →「画像をコピー」でYMM4に貼り付けます。「使う」を押した画像の出典はクレジット一覧にまとまります
-- APIキーもインストールも不要です
+- 区切り表は「## 話題の見出し」と「開始行: 画像1の日本語=英語, 画像2の日本語=英語, ...」の並びです(例: `scripts/nishizaki_yoshinobu_scenes.txt`)
+- カンマで区切った1つが画像1枚で、台本の順に通し番号が付きます。外国の人物は「日本語=英語=母語」と書くと母語の検索ボタンも付きます
+- 各画像に「Google画像検索(日本語)」「Google画像検索(英語)」のボタンが付き、左には該当する台本が並びます
+- 貼り終わった画像には「済」のチェックを付けられます(ブラウザに保存)
 
 ## アプリで使う
 

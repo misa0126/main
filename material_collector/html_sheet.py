@@ -1,7 +1,8 @@
-"""台本と区切り表から、開くだけで候補画像を探して並べる確認用HTMLを1ファイルで作る。
+"""台本と区切り表から、台本順に番号を振った画像の検索リスト(Google画像検索ボタン付き)をHTML1ファイルで作る。
 
 使い方:
-    python -m material_collector.html_sheet 台本.txt 区切り表.txt 出力.html --title 西崎義展
+    python -m material_collector.html_sheet 台本.txt 区切り表.txt --title 西崎義展
+    (出力は「西崎義展_image_list.html」)
 """
 
 from __future__ import annotations
@@ -62,11 +63,20 @@ def build_sheet(script_text: str, table_text: str, title: str) -> str:
         raise ValueError("区切り表の最初の開始行は 1 にしてください。")
     if segments[-1]["start"] > len(lines):
         raise ValueError(f"開始行 {segments[-1]['start']} が台本の行数({len(lines)}行)を超えています。")
+    number = 0
     for i, segment in enumerate(segments):
         end = segments[i + 1]["start"] - 1 if i + 1 < len(segments) else len(lines)
         segment["end"] = end
         segment["lines"] = lines[segment["start"] - 1 : end]
-        segment["keywords"] = [{"ja": k.ja, "en": k.en} for k in segment["keywords"]]
+        if not segment["keywords"]:
+            raise ValueError(f"{segment['start']}行目からの区切りに画像がありません。どの区切りにも1枚以上入れてください。")
+        images = []
+        for keyword in segment.pop("keywords"):
+            number += 1
+            # 「日本語=英語=母語」の3つ目は母語の検索ワード
+            en, _, native = keyword.en.partition("=")
+            images.append({"no": number, "ja": keyword.ja, "en": en.strip() or keyword.ja, "native": native.strip()})
+        segment["images"] = images
 
     data = {"title": title, "segments": segments}
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
@@ -78,14 +88,15 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="台本と区切り表から、素材確認用のHTMLを作る")
     parser.add_argument("script", type=Path)
     parser.add_argument("table", type=Path)
-    parser.add_argument("output", type=Path)
+    parser.add_argument("output", type=Path, nargs="?", help="省略すると「タイトル_image_list.html」")
     parser.add_argument("--title", required=True)
     args = parser.parse_args(argv)
     html = build_sheet(
         args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title
     )
-    args.output.write_text(html, encoding="utf-8")
-    print(f"作成しました: {args.output}")
+    output = args.output or Path(f"{args.title}_image_list.html")
+    output.write_text(html, encoding="utf-8")
+    print(f"作成しました: {output}")
     return 0
 
 

@@ -25,8 +25,20 @@ class SceneTableTest(unittest.TestCase):
         first, second = data["segments"]
         self.assertEqual((first["start"], first["end"]), (1, 2))
         self.assertEqual([line["text"] for line in second["lines"]], ["三", "四"])
-        self.assertEqual(second["keywords"], [{"ja": "長崎", "en": "Nagasaki"}])
-        self.assertIn("<title>テスト 素材シート</title>", html)
+        self.assertEqual(first["images"], [{"no": 1, "ja": "甲子園", "en": "甲子園", "native": ""}])
+        self.assertEqual(second["images"], [{"no": 2, "ja": "長崎", "en": "Nagasaki", "native": ""}])
+        self.assertIn("<title>テスト 画像リスト</title>", html)
+
+    def test_native_language_and_numbering_across_segments(self):
+        html = build_sheet(SCRIPT, "## a\n1: ピアフ=Edith Piaf=Édith Piaf, パリ=Paris\n3: 長崎\n", "テスト")
+        data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
+        first, second = data["segments"]
+        self.assertEqual(first["images"][0]["native"], "Édith Piaf")
+        self.assertEqual([i["no"] for i in first["images"] + second["images"]], [1, 2, 3])
+
+    def test_segment_without_images_is_an_error(self):
+        with self.assertRaises(ValueError):
+            build_sheet(SCRIPT, "## a\n1: x\n3: -\n", "テスト")
 
     def test_start_beyond_script_is_an_error(self):
         with self.assertRaises(ValueError):

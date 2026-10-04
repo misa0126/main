@@ -1,130 +1,131 @@
-# 西崎義展の解説台本(nishizaki_yoshinobu.txt)の区切りとキーワード
+# 西崎義展の解説台本(nishizaki_yoshinobu.txt)の区切りと画像の検索ワード
 # 書き方:
 #   ## 話題の見出し
-#   開始行: 日本語の検索語=英語の検索語, ...
+#   開始行: 画像1の日本語ワード=英語ワード, 画像2の日本語ワード=英語ワード, ...
+#   ・カンマで区切った1つが画像1枚。台本の順に①②③…と番号が付きます
 #   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
-#   ・英語を省略すると日本語だけで検索します
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付きます
 #   ・「#」で始まる行はメモとして無視されます
 
 ## 導入：甲子園で鳴るあの曲
-1: 甲子園 応援 ブラスバンド=Koshien brass band, 阪神甲子園球場=Koshien Stadium, 高校野球=Japanese high school baseball
-3: 護衛艦 出港=JMSDF destroyer departure, 海上自衛隊 音楽隊=JMSDF band, 音楽の教科書=music class Japan
-7: 松本零士=Leiji Matsumoto, 敦賀 宇宙戦艦ヤマト モニュメント=Tsuruga Space Battleship Yamato statue, 映画プロデューサー=film producer
-13: ジェットコースター=roller coaster, 一万円札=10000 yen banknotes, 手錠=handcuffs
+1: 甲子園 応援 宇宙戦艦ヤマト ブラスバンド=Koshien brass band Space Battleship Yamato, 甲子園 アルプススタンド 応援団=Koshien Alps stand cheering
+3: 宇宙戦艦ヤマト 主題歌 ささきいさお=Space Battleship Yamato theme song Isao Sasaki, 海上自衛隊 音楽隊 宇宙戦艦ヤマト=JMSDF band Space Battleship Yamato, 宇宙戦艦ヤマト 音楽 教科書 2009=Space Battleship Yamato music textbook 2009
+7: 宇宙戦艦ヤマト 1974 テレビアニメ=Space Battleship Yamato 1974 TV anime, 松本零士 1970年代=Leiji Matsumoto 1970s, 西崎義展=Yoshinobu Nishizaki
+13: 西崎義展 プロデューサー=Yoshinobu Nishizaki producer, 西崎義展 逮捕=Yoshinobu Nishizaki arrest, 宇宙戦艦ヤマト 復活篇 2009=Space Battleship Yamato Resurrection 2009
 
 ## 東京・小石川の名家に生まれる
-17: 小石川=Koishikawa Tokyo, 文京区 白山=Hakusan Bunkyo, 昭和初期の東京=Tokyo 1930s
-20: 開成中学校=Kaisei Academy, 東京大学 赤門=University of Tokyo Akamon, 明治薬科大学=Meiji Pharmaceutical University, 日本舞踊=Nihon buyo dance
-25: 石原慎太郎=Shintaro Ishihara, 蓄音機 レコード=gramophone record, NHK交響楽団=NHK Symphony Orchestra
+17: 小石川 昭和初期=Koishikawa Tokyo 1930s, 文京区 白山 昭和10年代=Hakusan Bunkyo Tokyo 1930s
+20: 開成中学 昭和初期=Kaisei Middle School 1930s, 東京帝国大学 法学部 昭和初期=Tokyo Imperial University 1930s, 明治薬学専門学校 歴史=Meiji Pharmaceutical school history, 西崎緑 日本舞踊 西崎流=Midori Nishizaki Japanese dance
+25: 石原慎太郎 1970年代=Shintaro Ishihara 1970s, NHK交響楽団 1940年代 演奏会=NHK Symphony Orchestra 1940s concert
 
 ## 戦争と少年時代
-29: 秩父=Chichibu Saitama, 学童疎開=evacuation of schoolchildren Japan 1944, 終戦 東京 1945=Tokyo 1945
-33: 昭和20年代の子供たち=Japanese children 1940s, 和室=Japanese tatami room
-39: 昭和のテレビスタジオ=1970s television studio Japan, 指切り=pinky promise
-42: 東京大学 安田講堂=Yasuda Auditorium University of Tokyo, 昭和の家族写真=1930s Japanese family photograph
-46: 開成中学校=Kaisei Academy, 家出=runaway boy, 昭和22年の東京=Tokyo 1947
-49: 武蔵高等学校=Musashi High School Tokyo, 受験=entrance exam Japan
+29: 学童疎開 秩父 1944=school evacuation Chichibu 1944, 練馬 昭和10年代=Nerima Tokyo 1940s
+33: 東京 1945 終戦=Tokyo 1945 end of war, 東京 1946 子供たち=Tokyo children 1946
+39: 西崎義展 テレビ出演 1970年代=Yoshinobu Nishizaki TV appearance 1970s
+42: 東京大学 安田講堂 昭和20年代=University of Tokyo Yasuda Auditorium 1940s, 昭和20年代 家族写真 父親=Japanese family photo 1940s
+46: 開成中学 1947=Kaisei Middle School 1947, 東京 1947 街並み=Tokyo 1947 street
+49: 武蔵高校 昭和20年代=Musashi High School Tokyo 1950s, 東京大学 入試 1950年代=University of Tokyo entrance exam 1950s
 
 ## 演劇との出会いと挫折
-53: 文学座=Bungakuza theater, 杉村春子=Haruko Sugimura, 劇場の舞台=theater stage 1950s
-57: 昭和30年代の自動車=1950s Japanese car, 日本大学芸術学部=Nihon University College of Art
+53: 杉村春子 1950年代=Haruko Sugimura 1950s, 文学座 1950年代 舞台=Bungakuza 1950s stage, 文学座 研究生 1955=Bungakuza trainees 1955
+57: 日本大学芸術学部 1950年代=Nihon University College of Art 1950s, 江古田 昭和30年代=Ekoda Tokyo 1950s
 
 ## 夜の六本木とジャズ喫茶
-60: 六本木 1950年代=Roppongi 1950s, ジャズ喫茶=jazz kissa Japan, ジャズのレコード=jazz vinyl records
-65: ジャズバンド=jazz band 1950s, ビンテージマイク=vintage microphone
-69: 巡業 バンド=band on tour 1960s, 昭和の地方劇場=Japanese theater 1960s, 夜行列車=night train Japan 1960s
+60: 六本木 1958=Roppongi 1958, ジャズ喫茶 1950年代 東京=jazz kissa Tokyo 1950s
+65: ジャズ喫茶 司会 昭和30年代=jazz cafe emcee Tokyo 1950s, ジャズバンド 日本 1950年代=Japanese jazz band 1950s
+69: バンド 地方巡業 昭和30年代=Japanese band tour 1960s, 地方公演 昭和30年代 劇場=Japanese theater 1960s
 
 ## 音楽プロデューサーとして独立
-74: 1960年代の東京=Tokyo 1963, 昭和のオフィス=1960s Japanese office
-78: 民主音楽協会=Min-On Concert Association, コンサートホール=concert hall Japan, ステージ 照明=stage lights
+74: 西崎義展 オフィス・アカデミー=Yoshinobu Nishizaki Office Academy, 東京 1963 街並み=Tokyo 1963 street
+78: 民主音楽協会 1960年代=Min-On Concert Association 1960s, 民音 コンサート 1960年代=Min-On concert 1960s
 
 ## ヨーロッパでの修行と差別
-82: パリ 1968=Paris 1968, 興行主=impresario, エッフェル塔=Eiffel Tower 1960s
-86: バレエ団=ballet company 1960s, 東欧の民族舞踊団=Eastern European folk dance ensemble, 劇場のポスター=theater poster 1960s
-89: ヨーロッパの街並み 1960年代=Europe street 1960s, 雨の石畳=rainy cobblestone street
+82: パリ 1968=Paris 1968, フランス 興行主 1960年代=French impresario 1960s
+86: ボリショイ バレエ パリ公演 1968=Bolshoi Ballet Paris 1968, 東欧 民族舞踊団 1960年代 公演=Eastern European folk dance ensemble 1960s
+89: ヨーロッパ 日本人 1960年代=Japanese in Europe 1960s, パリ 街並み 1969=Paris street 1969
 
 ## 手塚治虫のマネージャーに
-94: 手塚治虫=Osamu Tezuka, 虫プロダクション=Mushi Production, 手塚治虫記念館=Osamu Tezuka Manga Museum
-98: 昭和のテレビ局=Japanese TV station 1970s, ふしぎなメルモ=Marvelous Melmo
-101: 労働争議=labor dispute Japan 1970s, 出版社=publishing company Japan, 漫画原稿=manga manuscript
-106: 王冠=royal crown, 会議室=meeting room 1970s
+94: 手塚治虫 1970年=Osamu Tezuka 1970, 虫プロ商事 1970=Mushi Pro Shoji 1970
+98: ふしぎなメルモ 1971=Marvelous Melmo 1971, 手塚治虫 西崎義展=Osamu Tezuka Yoshinobu Nishizaki
+101: 虫プロ商事 労働争議=Mushi Pro Shoji labor dispute, 手塚治虫 1971 仕事場=Osamu Tezuka 1971 studio
+106: 虫プロ商事 1972=Mushi Pro Shoji 1972, 手塚治虫 1972=Osamu Tezuka 1972
 
 ## 海のトリトンと手塚との決裂
-111: 海のトリトン=Triton of the Sea, 青い海=ocean waves
-116: 一万円札の束=stack of yen banknotes
-119: 富野由悠季=Yoshiyuki Tomino, 手塚治虫=Osamu Tezuka
-124: 山ねずみロッキーチャック=Rocky Chuck the Mountain Rat, 虫プロダクション=Mushi Production, ワンサくん=Wansa-kun
-129: 倒産 閉鎖=closed company shutters, 昭和48年=Tokyo 1973
+111: 海のトリトン 1972=Triton of the Sea 1972, 海のトリトン 西崎義展=Triton of the Sea Yoshinobu Nishizaki
+116: 海のトリトン テレビ放送 1972 朝日放送=Triton of the Sea 1972 TV broadcast
+119: 手塚治虫 1972 写真=Osamu Tezuka 1972 photo, 富野由悠季 1970年代=Yoshiyuki Tomino 1970s, 海のトリトン 富野喜幸 監督=Triton of the Sea director Yoshiyuki Tomino
+124: 山ねずみロッキーチャック 1973=Rocky Chuck the Mountain Rat 1973, ワンサくん 1973=Wansa-kun 1973, 虫プロダクション 1973=Mushi Production 1973
+129: 虫プロ 倒産 1973=Mushi Production bankruptcy 1973, 虫プロダクション 富士見台 スタジオ=Mushi Production Fujimidai studio
 
 ## 宇宙戦艦ヤマト誕生
-133: 山本暎一=Eiichi Yamamoto, 豊田有恒=Aritsune Toyota, SF小説=science fiction paperback
-138: 小惑星=asteroid, 記念艦三笠=Mikasa battleship Yokosuka, 戦艦長門=battleship Nagato, 戦艦大和=battleship Yamato
-142: 企画書 タイプライター=typewriter documents, 日本沈没=Japan Sinks Komatsu, 公害 1970年代=pollution Japan 1970s
-147: 松本零士=Leiji Matsumoto, 銀河鉄道999 像=Galaxy Express 999 statue
-150: 阿久悠=Yu Aku, 原稿用紙 万年筆=manuscript paper fountain pen
-154: ささきいさお=Isao Sasaki, オーケストラ 録音=orchestra recording session, 戦艦武蔵=battleship Musashi
+133: 山本暎一 アニメ監督=Eiichi Yamamoto animator, 豊田有恒 1970年代=Aritsune Toyota 1970s, 宇宙戦艦ヤマト 企画 1973=Space Battleship Yamato planning 1973
+138: アステロイド6 宇宙戦艦ヤマト 初期案=Asteroid 6 Space Battleship Yamato early concept, 戦艦三笠=battleship Mikasa, 戦艦長門=battleship Nagato, 戦艦大和 1941=battleship Yamato 1941
+142: 宇宙戦艦ヤマト 企画書=Space Battleship Yamato proposal document, 日本沈没 1973 小松左京=Japan Sinks 1973 Sakyo Komatsu, 公害 1970年代 日本=Japan pollution 1970s
+147: 松本零士 1974=Leiji Matsumoto 1974, 宇宙戦艦ヤマト 松本零士 設定画=Space Battleship Yamato Leiji Matsumoto design
+150: 阿久悠 1970年代=Yu Aku 1970s, 宇宙戦艦ヤマト 主題歌 作詞 阿久悠=Space Battleship Yamato theme lyrics Yu Aku
+154: ささきいさお 1974=Isao Sasaki 1974, 宇宙戦艦ヤマト 主題歌 レコード 1974=Space Battleship Yamato single record 1974, 宮川泰 宇宙戦艦ヤマト=Hiroshi Miyagawa Space Battleship Yamato
 
 ## テレビ放送の惨敗
-159: 昭和のテレビ=1970s Japanese television set, アルプス 牧草地=Swiss Alps meadow
-163: 視聴率 グラフ=TV ratings chart, 赤字=financial loss
-167: 会議=meeting 1970s, 安彦良和=Yoshikazu Yasuhiko, 絵コンテ=storyboard
+159: 宇宙戦艦ヤマト 第1話 1974=Space Battleship Yamato episode 1 1974, アルプスの少女ハイジ 1974=Heidi Girl of the Alps 1974
+163: 宇宙戦艦ヤマト 視聴率 打ち切り=Space Battleship Yamato low ratings cancelled, 宇宙戦艦ヤマト 最終回 1975=Space Battleship Yamato final episode 1975
+167: 安彦良和 1970年代=Yoshikazu Yasuhiko 1970s, 宇宙戦艦ヤマト 絵コンテ=Space Battleship Yamato storyboard
 
 ## 再放送で火がつく
-170: 日本テレビ=Nippon Television, 1970年代の中高生=Japanese students 1970s
-175: ファンクラブ 会報=fan club newsletter, ポスター=poster wall, ラジオのリクエスト番組=1970s radio studio
-180: 東映=Toei Company, 岡田茂=Shigeru Okada, 映写機=film projector
-186: 映画館の行列=movie theater queue, セル画=animation cel, 徹夜の行列=overnight queue
-192: 昭和の映画館=1970s Japanese cinema, アニメ雑誌=anime magazine 1970s
-197: 映画館 満員=packed movie theater, 映画のフィルム=film reel
+170: 宇宙戦艦ヤマト 再放送 1975=Space Battleship Yamato rerun 1975, 宇宙戦艦ヤマト ブーム 中高生 1970年代=Space Battleship Yamato boom teenagers 1970s
+175: 宇宙戦艦ヤマト ファンクラブ 1970年代=Space Battleship Yamato fan club 1970s, 真赤なスカーフ レコード=Makka na Scarf record Yamato
+180: 岡田茂 東映 社長=Shigeru Okada Toei president, 宇宙戦艦ヤマト 劇場版 1977 ポスター=Space Battleship Yamato 1977 movie poster
+186: 宇宙戦艦ヤマト 1977 徹夜 行列 映画館=Space Battleship Yamato 1977 overnight queue cinema, 宇宙戦艦ヤマト セル画 プレゼント 1977=Space Battleship Yamato animation cel giveaway 1977, 西崎義展 1977=Yoshinobu Nishizaki 1977
+192: 宇宙戦艦ヤマト 1977 大ヒット 映画館=Space Battleship Yamato 1977 box office hit, アニメブーム 1978 アニメージュ=anime boom 1978 Animage magazine
+197: さらば宇宙戦艦ヤマト 愛の戦士たち 1978=Farewell to Space Battleship Yamato 1978, さらば宇宙戦艦ヤマト 映画館 行列 1978=Farewell to Space Battleship Yamato 1978 crowd
 
 ## 大成功と大豪遊
-201: 銀座の夜=Ginza night, ハーレーダビッドソン=Harley-Davidson motorcycle, クルーザー=motor yacht
-205: 帝国ホテル=Imperial Hotel Tokyo, 祝賀パーティー=banquet party
-209: カジキ=marlin fish, 鯛=sea bream, 高級クラブ 銀座=Ginza club
-212: 税務署=tax office Japan, 申告書=tax return documents
-215: 戦艦大和=battleship Yamato 1941, 屋久島 海=Yakushima sea
-217: ソナー=sonar screen, 深海カメラ=deep sea camera, 調査船=research vessel
-220: 角川春樹=Haruki Kadokawa, ラジオスタジオ マイク=radio studio microphone, オールナイトニッポン=All Night Nippon
+201: 西崎義展 ハーレーダビッドソン=Yoshinobu Nishizaki Harley-Davidson, 西崎義展 クルーザー=Yoshinobu Nishizaki cruiser yacht, 銀座 夜 1978=Ginza night 1978
+205: 帝国ホテル 1978=Imperial Hotel Tokyo 1978, 西崎義展 パーティー 1978=Yoshinobu Nishizaki party 1978
+209: 西崎義展 釣り カジキ=Yoshinobu Nishizaki marlin fishing, 岡田茂 東映 1978=Shigeru Okada Toei 1978
+212: 西崎義展 申告漏れ 1979=Yoshinobu Nishizaki tax 1979, オフィス・アカデミー 1979=Office Academy 1979 Nishizaki
+215: 戦艦大和 最期 1945=battleship Yamato sinking 1945, 西崎義展 戦艦大和 探索 1979=Yoshinobu Nishizaki battleship Yamato search 1979
+217: 戦艦大和 探索 屋久島沖 1979=battleship Yamato wreck search 1979 Yakushima, 戦艦大和 海底 調査=battleship Yamato wreck seabed survey
+220: 宇宙戦艦ヤマト 新たなる旅立ち 1979=Space Battleship Yamato The New Voyage 1979, 宇宙空母ブルーノア 1979=Space Carrier Blue Noah 1979, ヤマトよ永遠に 1980=Be Forever Yamato 1980, 角川春樹 1970年代=Haruki Kadokawa 1970s, 西崎義展 オールナイトニッポン=Yoshinobu Nishizaki All Night Nippon
 
 ## 転落の始まり
-225: 冷凍食品=frozen food, 冷凍倉庫=cold storage warehouse
-229: ホテルオークラ=Hotel Okura Tokyo, 宮川泰=Hiroshi Miyagawa, 石原慎太郎=Shintaro Ishihara
-234: 昭和の新聞=Japanese newspaper 1980s, 記者会見=press conference
-238: 帆船=sailing ship, 東映 撮影所=Toei studio
-244: 本田美奈子=Minako Honda, 映画撮影 カメラ=film camera shooting
-249: レンタルビデオ店=video rental store VHS, シャッター街=closed shop shutters
-254: VHS ビデオテープ=VHS videotapes, 宇宙=outer space nebula
-259: 契約書 署名=contract signing, 質屋=pawn shop, 東北新社=Tohokushinsha
-265: 東京地方裁判所=Tokyo District Court, 破産=bankruptcy documents
+225: 西崎義展 冷凍食品 会社=Yoshinobu Nishizaki frozen food company, 冷凍食品 1980年代 日本=Japanese frozen food 1980s
+229: ホテルオークラ 1982=Hotel Okura Tokyo 1982, 宮川泰 1980年代=Hiroshi Miyagawa 1980s, 阿久悠 1980年代=Yu Aku 1980s
+234: 宇宙戦艦ヤマト 完結編 1983=Final Yamato 1983, 西崎義展 ヤマト復活 1984=Yoshinobu Nishizaki Yamato revival 1984
+238: オーディーン 光子帆船スターライト 1985=Odin Photon Sailer Starlight 1985, 東映 1985 映画=Toei 1985 film
+244: 本田美奈子 1987=Minako Honda 1987, パッセンジャー 過ぎ去りし日々 1987=Passenger Sugisarishi Hibi 1987 film
+249: パッセンジャー 過ぎ去りし日々 松竹 1987=Passenger 1987 Shochiku, レンタルビデオ店 1980年代=video rental shop Japan 1980s
+254: YAMATO2520 1995=Yamato 2520 1995 OVA, YAMATO2520 シド・ミード=Yamato 2520 Syd Mead design
+259: バンダイビジュアル 1996=Bandai Visual 1996, 東北新社 宇宙戦艦ヤマト 権利=Tohokushinsha Space Battleship Yamato rights
+265: 西崎義展 破産 1997=Yoshinobu Nishizaki bankruptcy 1997, 東京地方裁判所=Tokyo District Court
 
 ## 逮捕、そして銃刀法違反
-270: 渋谷 夜=Shibuya night 1990s, パトカー=Japanese police car
-275: 東京地方裁判所=Tokyo District Court, 裁判所の法廷=courtroom Japan
-278: 自動小銃=assault rifle, 銃弾=ammunition cartridges, 押収品=seized weapons police
-282: 海賊=pirates ship, 尖閣諸島=Senkaku Islands, 石原慎太郎=Shintaro Ishihara
-287: 車椅子=wheelchair, 病院の廊下=hospital corridor
+270: 西崎義展 逮捕 1997=Yoshinobu Nishizaki arrest 1997, 渋谷 1997=Shibuya 1997
+275: 西崎義展 判決 1998=Yoshinobu Nishizaki verdict 1998, 東京地方裁判所 法廷=Tokyo District Court courtroom
+278: 西崎義展 再逮捕 1999 銃=Yoshinobu Nishizaki rearrest 1999 rifle, 西崎義展 自動小銃 押収=Yoshinobu Nishizaki seized assault rifle
+282: 石原慎太郎 尖閣諸島=Shintaro Ishihara Senkaku Islands, 尖閣諸島 魚釣島=Uotsuri Island Senkaku
+287: 西崎義展 車椅子=Yoshinobu Nishizaki wheelchair, 西崎義展 1999=Yoshinobu Nishizaki 1999
 
 ## ヤマトの作者をめぐる裁判
-291: 松本零士=Leiji Matsumoto, 手書きの原稿=handwritten manuscript, 裁判所=courthouse Japan
-298: 東京地方裁判所=Tokyo District Court, 握手=handshake agreement
-303: 阿久悠=Yu Aku, 手紙=handwritten letter
-307: 万年筆=fountain pen writing, 便箋=letter paper
+291: 松本零士 西崎義展 裁判=Leiji Matsumoto Yoshinobu Nishizaki lawsuit, 松本零士 1999=Leiji Matsumoto 1999
+298: 宇宙戦艦ヤマト 著作者 裁判 2002=Space Battleship Yamato authorship lawsuit 2002, 松本零士 2003=Leiji Matsumoto 2003
+303: 阿久悠 2000=Yu Aku 2000, 阿久悠 嘆願書 西崎義展=Yu Aku petition Yoshinobu Nishizaki
+307: 阿久悠 晩年=Yu Aku later years, 阿久悠 記念館 明治大学=Yu Aku memorial museum Meiji University
 
 ## 服役
-312: 最高裁判所=Supreme Court of Japan, 八王子医療刑務所=Hachioji Medical Prison, 黒羽刑務所=Kurobane Prison
-315: 面会室=prison visiting room, 刑務所の塀=prison wall
+312: 最高裁判所 2003=Supreme Court of Japan 2003, 八王子医療刑務所=Hachioji Medical Prison, 黒羽刑務所=Kurobane Prison
+315: 西崎彰司=Shoji Nishizaki, 西崎義展 出所=Yoshinobu Nishizaki released from prison
 
 ## 出所と復活
-319: 赤ワイン=red wine bottle, バイク用ヘルメット=motorcycle helmet
-323: 庵野秀明=Hideaki Anno, 練馬区=Nerima Tokyo, アニメスタジオ=animation studio
-328: 映画館=movie theater, 映画のポスター=movie poster wall
-331: 映画監督 椅子=director chair, 石原慎太郎=Shintaro Ishihara
+319: デスラー総統ワインセット=Desslar wine set Space Battleship Yamato, 宇宙戦艦ヤマト ヘルメット 2007=Space Battleship Yamato helmet 2007
+323: 庵野秀明 2008=Hideaki Anno 2008, 西崎義展 庵野秀明 対談=Yoshinobu Nishizaki Hideaki Anno interview, ヤマト・スタジオ 練馬=Yamato Studio Nerima
+328: 宇宙戦艦ヤマト 復活篇 2009 ポスター=Space Battleship Yamato Resurrection 2009 poster, 宇宙戦艦ヤマト 復活篇 初日 舞台挨拶=Space Battleship Yamato Resurrection premiere
+331: 西崎義展 2009 監督=Yoshinobu Nishizaki director 2009, 石原慎太郎 2009=Shintaro Ishihara 2009
 
 ## 父島での最期
-334: 小笠原諸島 父島=Chichijima Ogasawara, 大型船=ship at sea
-340: 二見港=Futami Port Chichijima, ウェットスーツ=wetsuit, 父島の海=Chichijima sea
-346: 青山葬儀所=Aoyama Funeral Hall, 献花=white flowers memorial, ささきいさお=Isao Sasaki
+334: 父島 二見港=Futami Port Chichijima, 西崎義展 船 YAMATO=Yoshinobu Nishizaki ship YAMATO
+340: 父島 二見港 2010=Chichijima Futami Port 2010, 西崎義展 死去 2010=Yoshinobu Nishizaki death 2010
+346: 西崎義展 お別れの会 2010=Yoshinobu Nishizaki farewell ceremony 2010, 青山葬儀所=Aoyama Funeral Hall, ささきいさお 2010=Isao Sasaki 2010
 
 ## 残したもの
-352: 富野由悠季=Yoshiyuki Tomino, ガンダム立像=life-size Gundam statue, 宇宙戦艦ヤマト2199=Space Battleship Yamato 2199
-358: 甲子園 夕日=Koshien sunset, 夕焼けの海=sunset over ocean
+352: SPACE BATTLESHIP ヤマト 2010 実写=Space Battleship Yamato 2010 live action, 宇宙戦艦ヤマト2199=Space Battleship Yamato 2199, 富野由悠季 機動戦士ガンダム 1979=Yoshiyuki Tomino Mobile Suit Gundam 1979
+358: 西崎義展=Yoshinobu Nishizaki, 甲子園 宇宙戦艦ヤマト 応援=Koshien Space Battleship Yamato cheering

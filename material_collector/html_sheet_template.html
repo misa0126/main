@@ -3,19 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>__TITLE__ 素材シート</title>
+<title>__TITLE__ 画像リスト</title>
 <style>
-/* 左に台本、真ん中にメモと検索、右に候補画像。話題ごとに見出しで区切る */
+/* 左に台本、右に台本順の画像番号と検索ボタン。話題ごとに見出しで区切る */
 :root {
   --bg: #f4f3ef; --panel: #ffffff; --text: #24221e; --muted: #6d685f; --line: #e1ddd4;
-  --accent: #2f5d8a; --marisa: #a87a00; --reimu: #b8382b; --ok: #2e7d4f; --warn: #b4610b;
-  --warn-bg: #fff3e2; --chip: #eef1f5; --pick: #2e7d4f; --shade: rgba(20, 18, 15, 0.82);
+  --accent: #2f5d8a; --accent-2: #5b6f86; --marisa: #a87a00; --reimu: #b8382b; --done: #2e7d4f; --done-bg: #eef7f1;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #1a1917; --panel: #23211e; --text: #ece8e0; --muted: #a39d92; --line: #3a3631;
-    --accent: #8db4dc; --marisa: #e0b43a; --reimu: #ef7b6c; --ok: #6cc28f; --warn: #f0a556;
-    --warn-bg: #3a2c1a; --chip: #2d3138; --pick: #6cc28f; --shade: rgba(0, 0, 0, 0.85);
+    --accent: #4f86bd; --accent-2: #6b7f96; --marisa: #e0b43a; --reimu: #ef7b6c; --done: #6cc28f; --done-bg: #1f2e25;
   }
 }
 * { box-sizing: border-box; }
@@ -23,189 +21,70 @@
 body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.6;
   font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", system-ui, sans-serif; font-size: 14px; }
 header { position: sticky; top: 0; z-index: 10; background: var(--panel); border-bottom: 1px solid var(--line);
-  padding: 10px 20px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; }
+  padding: 10px 20px; display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
 header h1 { font-size: 18px; margin: 0; }
-header .stats { color: var(--muted); font-size: 13px; }
+header .stats { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
 header nav { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
-button, .btn { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--panel); color: var(--text);
-  border-radius: 6px; padding: 3px 10px; cursor: pointer; text-decoration: none; }
-button:hover, .btn:hover { border-color: var(--accent); }
-button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-.notice { max-width: 1560px; margin: 12px auto 0; padding: 0 20px; color: var(--muted); font-size: 13px; }
+button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--panel); color: var(--text);
+  border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.notice { max-width: 1400px; margin: 12px auto 0; padding: 0 20px; color: var(--muted); font-size: 13px; }
 .notice b { color: var(--text); }
-main { max-width: 1560px; margin: 0 auto; padding: 8px 20px 120px; }
-.topic { font-size: 16px; margin: 26px 0 8px; padding-left: 10px; border-left: 4px solid var(--accent); }
-.seg { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.75fr) minmax(0, 1.7fr); gap: 16px;
+main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
+.topic { font-size: 16px; margin: 26px 0 8px; padding-left: 10px; border-left: 4px solid var(--accent); text-wrap: balance; }
+.seg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px;
   background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
-.seg.has-pick { border-color: var(--pick); }
 .lineno { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 4px; }
 .script p { margin: 0 0 3px; }
 .sp { font-weight: bold; }
 .sp.marisa { color: var(--marisa); }
 .sp.reimu { color: var(--reimu); }
-.notes { font-size: 13px; color: var(--muted); border-left: 1px dashed var(--line); padding-left: 14px; display: grid; gap: 6px; align-content: start; }
-.chips { display: flex; flex-wrap: wrap; gap: 4px; }
-.chip { border: 1px solid var(--line); background: var(--chip); color: var(--text); border-radius: 12px; padding: 0 9px; font-size: 12px; cursor: pointer; }
-.chip.active { border-color: var(--accent); color: var(--accent); font-weight: bold; }
-.search { display: flex; gap: 4px; }
-.search input { flex: 1; min-width: 0; font: inherit; font-size: 13px; padding: 2px 6px; border: 1px solid var(--line);
-  border-radius: 6px; background: var(--panel); color: var(--text); }
-.links { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; }
-.links { align-items: center; }
-.links a.google { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; border-radius: 6px; padding: 2px 10px; font-size: 13px; font-weight: bold; }
-.links a.google:hover { filter: brightness(1.1); }
-.status { font-size: 12px; }
-.status.warn { color: var(--warn); }
-.images { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-content: start; }
-.card { margin: 0; border: 2px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--bg); display: flex; flex-direction: column; }
-.card.picked { border-color: var(--pick); }
-.card img { display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #000; cursor: zoom-in; }
-.card figcaption { padding: 5px 7px; font-size: 11px; line-height: 1.45; word-break: break-word; flex: 1; }
-.card figcaption a { color: var(--accent); }
-.badge { display: inline-block; font-size: 11px; font-weight: bold; padding: 0 5px; border-radius: 3px; color: #fff; background: var(--ok); }
-.card .use { margin: 0 7px 7px; }
-.card.picked .use { background: var(--pick); color: #fff; border-color: var(--pick); }
-.more { grid-column: 1 / -1; justify-self: start; }
-.placeholder { grid-column: 1 / -1; color: var(--muted); font-size: 13px; padding: 18px; border: 2px dashed var(--line); border-radius: 8px; text-align: center; }
-.placeholder.warn { color: var(--warn); border-color: var(--warn); }
-#lightbox { position: fixed; inset: 0; background: var(--shade); display: grid; place-items: center; z-index: 30; padding: 24px; }
-#lightbox img { max-width: 92vw; max-height: 86vh; object-fit: contain; }
-#lightbox p { color: #fff; text-align: center; font-size: 13px; margin: 8px 0 0; }
-#credits { position: fixed; right: 16px; bottom: 16px; width: min(560px, calc(100vw - 32px)); max-height: 70vh; z-index: 20;
-  background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; gap: 8px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18); }
-#credits textarea { width: 100%; min-height: 200px; font: 12px/1.5 ui-monospace, Consolas, monospace; background: var(--bg); color: var(--text);
-  border: 1px solid var(--line); border-radius: 6px; padding: 8px; resize: vertical; }
-#credits .row { display: flex; gap: 8px; align-items: center; }
-#credits .row span { margin-right: auto; font-weight: bold; }
-@media (max-width: 960px) {
+.images { display: grid; gap: 8px; align-content: start; }
+.item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px 10px; align-items: start;
+  border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.item.done { background: var(--done-bg); border-color: var(--done); }
+.no { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center;
+  font-weight: bold; font-size: 13px; font-variant-numeric: tabular-nums; }
+.item.done .no { background: var(--done); }
+.words .ja { font-weight: bold; font-size: 15px; word-break: break-word; }
+.words .en { color: var(--muted); font-size: 12px; word-break: break-word; }
+.buttons { grid-column: 2 / 4; display: flex; flex-wrap: wrap; gap: 6px; }
+.buttons a { display: inline-block; text-decoration: none; color: #fff; background: var(--accent); border-radius: 6px;
+  padding: 4px 12px; font-size: 13px; font-weight: bold; }
+.buttons a.en { background: var(--accent-2); }
+.buttons a:hover { filter: brightness(1.12); }
+.check { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; }
+@media (max-width: 860px) {
   .seg { grid-template-columns: 1fr; }
-  .notes { border-left: none; padding-left: 0; }
 }
-@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s; } }
 </style>
 </head>
 <body>
 <header>
-  <h1>__TITLE__ 素材シート</h1>
+  <h1>__TITLE__ 画像リスト</h1>
   <span class="stats" id="stats"></span>
   <nav>
-    <button type="button" id="open-credits">使う画像のクレジット (<span id="pick-count">0</span>)</button>
+    <button type="button" id="next">次の未完了へ</button>
+    <button type="button" id="reset">チェックを全部外す</button>
   </nav>
 </header>
-<p class="notice"><b>使い方:</b> 各区切りの青いボタン(<b>Googleで探す</b>)を押すと、そのキーワードのGoogle画像検索が新しいタブで開きます。
-右側には、Wikimediaなどから自動で探した候補も並びます。使いたい画像を<b>右クリック →「画像をコピー」→ YMM4に貼り付け</b>。<br>
-<b>ChromeかEdgeで開いてください。</b>Claudeのアプリの中のプレビューでは、右側の自動検索は動きません。</p>
+<p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が新しいタブで開きます。
+画像を右クリック →「画像をコピー」→ YMM4に貼り付け。貼り終わった番号は「済」にチェックを入れると、次にどこから始めればいいか分かります(チェックはこのブラウザに保存されます)。</p>
 <main id="main"></main>
-<div id="lightbox" hidden><div><img alt=""><p></p></div></div>
-<div id="credits" hidden>
-  <div class="row"><span>使う画像のクレジット</span><button type="button" id="copy-credits">コピー</button><button type="button" id="close-credits">閉じる</button></div>
-  <textarea id="credits-text" readonly></textarea>
-</div>
 <script>
 const DATA = /*__DATA__*/null;
-const PAGE_SIZE = 3;
-const STORAGE_KEY = "material-sheet:" + DATA.title;
+const STORAGE_KEY = "image-list:" + DATA.title;
 
-function stripHtml(s) {
-  const d = document.createElement("div");
-  d.innerHTML = s || "";
-  return (d.textContent || "").trim();
+let done = {};
+try { done = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { done = {}; }
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(done)); } catch (e) { /* 保存できなくても表示は続ける */ }
+  const total = DATA.segments.reduce((n, s) => n + s.images.length, 0);
+  const count = Object.keys(done).length;
+  document.getElementById("stats").textContent = `${DATA.segments.length}か所 ・ 画像${total}枚 ・ 済 ${count}/${total}`;
 }
 
-// ---------------------------------------------------------------- 取得元
-async function getJson(url) {
-  const res = await fetch(url, { headers: { Accept: "application/json" } });
-  if (!res.ok) throw new Error("HTTP " + res.status);
-  return res.json();
-}
-const SOURCES = {
-  async wikimedia(q, limit) {
-    const p = new URLSearchParams({
-      origin: "*", action: "query", format: "json", generator: "search",
-      gsrsearch: q + " filetype:bitmap", gsrnamespace: "6", gsrlimit: String(Math.min(limit * 3, 50)),
-      prop: "imageinfo", iiprop: "url|extmetadata|mime", iiurlwidth: "1280", iiextmetadatalanguage: "ja",
-      iiextmetadatafilter: "LicenseShortName|LicenseUrl|Artist|ObjectName",
-    });
-    const json = await getJson("https://commons.wikimedia.org/w/api.php?" + p);
-    const pages = Object.values((json.query && json.query.pages) || {}).sort((a, b) => (a.index || 0) - (b.index || 0));
-    const out = [];
-    for (const page of pages) {
-      const info = (page.imageinfo || [])[0] || {};
-      if (!/^image\/(jpeg|png|webp|tiff)$/.test(info.mime || "")) continue;
-      const meta = info.extmetadata || {};
-      const license = stripHtml((meta.LicenseShortName || {}).value);
-      out.push({
-        source: "Wikimedia Commons", image: info.thumburl || info.url, page: info.descriptionurl,
-        title: stripHtml((meta.ObjectName || {}).value) || (page.title || "").replace(/^File:/, ""),
-        author: stripHtml((meta.Artist || {}).value), license, licenseUrl: (meta.LicenseUrl || {}).value || "",
-      });
-      if (out.length >= limit) break;
-    }
-    return out;
-  },
-  async openverse(q, limit) {
-    const p = new URLSearchParams({ q, page_size: String(Math.min(limit * 2, 20)) });
-    const json = await getJson("https://api.openverse.org/v1/images/?" + p);
-    const out = [];
-    for (const item of json.results || []) {
-      const code = (item.license || "").toLowerCase();
-      const license = code === "cc0" ? "CC0" : code === "pdm" ? "Public Domain Mark" : ("CC " + code.toUpperCase() + " " + (item.license_version || "")).trim();
-      if (!item.url) continue;
-      out.push({
-        source: "Openverse(" + (item.source || "") + ")", image: item.url, page: item.foreign_landing_url || item.url,
-        title: item.title || "", author: item.creator || "", license, licenseUrl: item.license_url || "",
-      });
-      if (out.length >= limit) break;
-    }
-    return out;
-  },
-  async met(q, limit) {
-    const search = await getJson("https://collectionapi.metmuseum.org/public/collection/v1/search?hasImages=true&q=" + encodeURIComponent(q));
-    const out = [];
-    for (const id of (search.objectIDs || []).slice(0, 8)) {
-      if (out.length >= limit) break;
-      try {
-        const obj = await getJson("https://collectionapi.metmuseum.org/public/collection/v1/objects/" + id);
-        const image = obj.primaryImageSmall || obj.primaryImage;
-        if (!image) continue;
-        out.push({
-          source: "メトロポリタン美術館", image, page: obj.objectURL || image, title: obj.title || "",
-          author: obj.artistDisplayName || "", license: obj.isPublicDomain ? "Public domain (CC0)" : "権利表記は出典ページで確認", licenseUrl: "",
-        });
-      } catch (e) { /* 1件の失敗は飛ばす */ }
-    }
-    return out;
-  },
-};
-
-// 同時に投げるリクエスト数を絞る
-let active = 0;
-const waiting = [];
-function limited(fn) {
-  return new Promise((resolve, reject) => {
-    const run = () => { active++; fn().then(resolve, reject).finally(() => { active--; if (waiting.length) waiting.shift()(); }); };
-    active < 4 ? run() : waiting.push(run);
-  });
-}
-
-// ---------------------------------------------------------------- 選んだ画像(このブラウザに保存)
-let picks = {};
-try { picks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { picks = {}; }
-function savePicks() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(picks)); } catch (e) { /* 保存できなくても表示は続ける */ }
-  document.getElementById("pick-count").textContent = Object.keys(picks).length;
-  document.getElementById("credits-text").value = creditsText();
-}
-function creditsText() {
-  const items = Object.values(picks).sort((a, b) => a.seg - b.seg);
-  if (!items.length) return "「使う」を押した画像の出典がここにまとまります。";
-  return "【使用素材】\n" + items.map(p =>
-    [p.title || "(無題)", p.author && ("作者: " + p.author), p.license, p.page].filter(Boolean).join(" / ")
-  ).join("\n");
-}
-
-// ---------------------------------------------------------------- 描画
 const el = (tag, attrs = {}, ...kids) => {
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
@@ -214,157 +93,59 @@ const el = (tag, attrs = {}, ...kids) => {
   for (const k of kids) if (k != null) e.append(k);
   return e;
 };
-function googleUrl(q) { return "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(q); }
-function speakerClass(s) { return s.includes("魔理沙") ? "marisa" : s.includes("霊夢") ? "reimu" : ""; }
+const google = q => "https://www.google.com/search?q=" + encodeURIComponent(q) + "&tbm=isch";
+const speakerClass = s => s.includes("魔理沙") ? "marisa" : s.includes("霊夢") ? "reimu" : "";
 
-const states = [];
-function renderSegment(seg, i) {
-  const state = { seg, i, results: [], shown: PAGE_SIZE, loaded: false, failures: new Set(), query: null };
-  states.push(state);
-
-  const script = el("div", { class: "script" }, el("div", { class: "lineno" }, `${seg.start}〜${seg.end}行目`));
-  for (const l of seg.lines) {
-    script.append(el("p", {}, l.speaker ? el("span", { class: "sp " + speakerClass(l.speaker) }, l.speaker) : null, l.speaker ? "「" + l.text + "」" : l.text));
-  }
-
-  const chips = el("div", { class: "chips" });
-  seg.keywords.forEach((k, n) => {
-    chips.append(el("button", { type: "button", class: "chip", title: k.en !== k.ja ? "英語: " + k.en : "",
-      onclick: () => search(state, [k], chips.children[n]) }, k.ja));
-  });
-  const input = el("input", { type: "search", id: "q" + i, placeholder: "別の言葉で探す", "aria-label": "別の言葉で探す" });
-  const form = el("form", { class: "search", onsubmit: e => { e.preventDefault(); const v = input.value.trim(); if (v) search(state, [{ ja: v, en: v }], null); } },
-    input, el("button", { type: "submit" }, "検索"));
-  const links = el("div", { class: "links" }, el("span", {}, "Googleで探す:"));
-  for (const k of seg.keywords) {
-    links.append(el("a", { class: "google", href: googleUrl(k.ja), target: "_blank", rel: "noopener" }, k.ja));
-  }
-  state.status = el("div", { class: "status" }, "スクロールすると画像を探します");
-  const notes = el("div", { class: "notes" }, links, el("div", {}, "自動検索のキーワード(押すとその言葉だけで探し直します)"), chips, form, state.status);
-
-  state.images = el("div", { class: "images" }, el("div", { class: "placeholder" }, "待機中…"));
-  state.box = el("section", { class: "seg", id: "seg" + i }, script, notes, state.images);
-  return state.box;
-}
-
-function renderImages(state) {
-  const box = state.images;
-  box.replaceChildren();
-  if (!state.loaded) { box.append(el("div", { class: "placeholder" }, "画像を探しています…")); return; }
-  if (!state.results.length) {
-    const offline = state.failures.has("wikimedia") && state.failures.has("openverse");
-    box.append(el("div", { class: "placeholder warn" }, offline
-      ? "画像サイトに接続できませんでした。このファイルをChromeかEdgeで開いているか確認してください(Claudeのアプリの中のプレビューでは探せません)。真ん中の青いボタン(Googleで探す)からは探せます。"
-      : "自動では見つかりませんでした。真ん中の青いボタン(Googleで探す)を押すか、別の言葉で探してください。"));
-  }
-  state.results.slice(0, state.shown).forEach(r => {
-    const id = r.image;
-    const picked = !!picks[id];
-    const img = el("img", { src: r.image, alt: r.title || "", loading: "lazy", referrerpolicy: "no-referrer", title: "クリックで拡大 / 右クリック→画像をコピー" });
-    img.addEventListener("click", () => openLightbox(r));
-    img.addEventListener("error", () => { img.closest(".card").hidden = true; });
-    const card = el("figure", { class: "card" + (picked ? " picked" : "") }, img,
-      el("figcaption", {}, el("span", { class: "badge" }, r.license), " ", r.title ? r.title.slice(0, 60) : "",
-        r.author ? el("div", {}, "作者: " + r.author.slice(0, 40)) : null,
-        el("div", {}, r.source, " ・ ", el("a", { href: r.page, target: "_blank", rel: "noopener" }, "出典ページ"))),
-      el("button", { type: "button", class: "use", onclick: () => togglePick(state, r, card) }, picked ? "使う ✓" : "使う"));
-    box.append(card);
-  });
-  if (state.results.length > state.shown) {
-    box.append(el("button", { type: "button", class: "more", onclick: () => { state.shown += PAGE_SIZE; renderImages(state); } },
-      `ほかの候補を見る(残り${state.results.length - state.shown}枚)`));
-  }
-  state.box.classList.toggle("has-pick", state.results.some(r => picks[r.image]));
-}
-
-function togglePick(state, r, card) {
-  if (picks[r.image]) delete picks[r.image];
-  else picks[r.image] = { seg: state.seg.start, title: r.title, author: r.author, license: r.license, page: r.page };
-  savePicks();
-  renderImages(state);
-}
-
-async function search(state, keywords, activeChip) {
-  const token = {};
-  state.query = token;
-  state.loaded = false;
-  state.results = [];
-  state.shown = PAGE_SIZE;
-  state.failures = new Set();
-  state.box.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === activeChip));
-  state.status.className = "status";
-  state.status.textContent = "画像を探しています…";
-  renderImages(state);
-
-  const seen = new Set();
-  const add = list => { for (const r of list) if (r.image && !seen.has(r.image)) { seen.add(r.image); state.results.push(r); } };
-  const attempt = async (name, q, limit) => {
-    try { return await limited(() => SOURCES[name](q, limit)); } catch (e) { state.failures.add(name); return []; }
-  };
-  for (const k of keywords) {
-    if (state.query !== token) return;
-    const [wja, wen, ov] = await Promise.all([
-      attempt("wikimedia", k.ja, 6),
-      k.en !== k.ja ? attempt("wikimedia", k.en, 6) : Promise.resolve([]),
-      attempt("openverse", k.en, 6),
-    ]);
-    add(wja); add(wen); add(ov);
-    if (state.results.length < PAGE_SIZE) add(await attempt("met", k.en, 3));
-    if (state.query !== token) return;
-    state.loaded = true;
-    renderImages(state);
-    if (state.results.length >= PAGE_SIZE * 3) break;
-  }
-  if (state.query !== token) return;
-  state.loaded = true;
-  const failed = [...state.failures];
-  if (failed.length) {
-    state.status.className = "status warn";
-    state.status.textContent = "接続できなかった取得元: " + failed.join("、") + "(時間をおいて再読み込みすると直ることがあります)";
-  } else {
-    state.status.textContent = `候補 ${state.results.length}枚`;
-  }
-  renderImages(state);
-}
-
-// ---------------------------------------------------------------- 拡大表示・クレジット
-const lightbox = document.getElementById("lightbox");
-function openLightbox(r) {
-  lightbox.querySelector("img").src = r.image;
-  lightbox.querySelector("p").textContent = [r.title, r.license].filter(Boolean).join(" / ") + "(クリックで閉じる)";
-  lightbox.hidden = false;
-}
-lightbox.addEventListener("click", () => { lightbox.hidden = true; });
-document.addEventListener("keydown", e => { if (e.key === "Escape") { lightbox.hidden = true; document.getElementById("credits").hidden = true; } });
-document.getElementById("open-credits").addEventListener("click", () => { savePicks(); document.getElementById("credits").hidden = false; });
-document.getElementById("close-credits").addEventListener("click", () => { document.getElementById("credits").hidden = true; });
-document.getElementById("copy-credits").addEventListener("click", e => {
-  const area = document.getElementById("credits-text");
-  const done = () => { e.target.textContent = "コピーしました"; setTimeout(() => { e.target.textContent = "コピー"; }, 1500); };
-  const fallback = () => { area.select(); try { document.execCommand("copy"); done(); } catch (err) { /* 選択状態のまま手動でコピーしてもらう */ } };
-  try { navigator.clipboard.writeText(area.value).then(done, fallback); } catch (err) { fallback(); }
-});
-
-// ---------------------------------------------------------------- 組み立て
 const main = document.getElementById("main");
 let lastTopic = null;
-DATA.segments.forEach((seg, i) => {
+for (const seg of DATA.segments) {
   if (seg.topic !== lastTopic) { main.append(el("h2", { class: "topic" }, seg.topic)); lastTopic = seg.topic; }
-  main.append(renderSegment(seg, i));
-});
-document.getElementById("stats").textContent = `${new Set(DATA.segments.map(s => s.topic)).size}の話題 ・ ${DATA.segments.length}か所の画像`;
-savePicks();
-
-// 画面に近づいた区切りから順に探す
-const observer = new IntersectionObserver(entries => {
-  for (const entry of entries) {
-    if (!entry.isIntersecting) continue;
-    const state = states[Number(entry.target.id.slice(3))];
-    observer.unobserve(entry.target);
-    search(state, state.seg.keywords, null);
+  const script = el("div", { class: "script" }, el("div", { class: "lineno" }, `${seg.start}〜${seg.end}行目`));
+  for (const l of seg.lines) {
+    script.append(el("p", {}, l.speaker ? el("span", { class: "sp " + speakerClass(l.speaker) }, l.speaker) : null,
+      l.speaker ? "「" + l.text + "」" : l.text));
   }
-}, { rootMargin: "600px 0px" });
-states.forEach(s => observer.observe(s.box));
+  const images = el("div", { class: "images" });
+  for (const img of seg.images) {
+    const box = el("input", { type: "checkbox", "aria-label": `${img.no}番を済にする` });
+    box.checked = !!done[img.no];
+    const item = el("div", { class: "item" + (box.checked ? " done" : ""), id: "img" + img.no },
+      el("div", { class: "no" }, String(img.no)),
+      el("div", { class: "words" }, el("div", { class: "ja" }, img.ja), img.en !== img.ja ? el("div", { class: "en" }, img.en) : null),
+      el("label", { class: "check" }, box, "済"),
+      el("div", { class: "buttons" },
+        el("a", { href: google(img.ja), target: "_blank", rel: "noopener" }, "Google画像検索(日本語)"),
+        img.en !== img.ja ? el("a", { class: "en", href: google(img.en), target: "_blank", rel: "noopener" }, "Google画像検索(英語)") : null,
+        img.native ? el("a", { class: "en", href: google(img.native), target: "_blank", rel: "noopener" }, "Google画像検索(母語)") : null));
+    box.addEventListener("change", () => {
+      if (box.checked) done[img.no] = true; else delete done[img.no];
+      item.classList.toggle("done", box.checked);
+      save();
+    });
+    images.append(item);
+  }
+  main.append(el("section", { class: "seg" }, script, images));
+}
+
+document.getElementById("next").addEventListener("click", () => {
+  const next = DATA.segments.flatMap(s => s.images).find(img => !done[img.no]);
+  if (next) document.getElementById("img" + next.no).scrollIntoView({ block: "center", behavior: "smooth" });
+});
+const resetButton = document.getElementById("reset");
+resetButton.addEventListener("click", () => {
+  if (resetButton.dataset.confirm !== "1") {
+    resetButton.dataset.confirm = "1";
+    resetButton.textContent = "本当に外す？(もう一度押す)";
+    setTimeout(() => { resetButton.dataset.confirm = ""; resetButton.textContent = "チェックを全部外す"; }, 3000);
+    return;
+  }
+  done = {};
+  document.querySelectorAll(".item").forEach(i => { i.classList.remove("done"); i.querySelector("input").checked = false; });
+  resetButton.dataset.confirm = "";
+  resetButton.textContent = "チェックを全部外す";
+  save();
+});
+save();
 </script>
 </body>
 </html>
