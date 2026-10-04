@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__ 画像リスト</title>
+<style>
+/* 左に台本、右に台本順の画像番号と検索ボタン。話題ごとに見出しで区切る */
+:root {
+  --bg: #f4f3ef; --panel: #ffffff; --text: #24221e; --muted: #6d685f; --line: #e1ddd4;
+  --accent: #2f5d8a; --accent-2: #5b6f86; --marisa: #a87a00; --reimu: #b8382b; --done: #2e7d4f; --done-bg: #eef7f1;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1917; --panel: #23211e; --text: #ece8e0; --muted: #a39d92; --line: #3a3631;
+    --accent: #4f86bd; --accent-2: #6b7f96; --marisa: #e0b43a; --reimu: #ef7b6c; --done: #6cc28f; --done-bg: #1f2e25;
+  }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.6;
+  font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", system-ui, sans-serif; font-size: 14px; }
+header { position: sticky; top: 0; z-index: 10; background: var(--panel); border-bottom: 1px solid var(--line);
+  padding: 10px 20px; display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
+header h1 { font-size: 18px; margin: 0; }
+header .stats { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+header nav { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--panel); color: var(--text);
+  border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.notice { max-width: 1400px; margin: 12px auto 0; padding: 0 20px; color: var(--muted); font-size: 13px; }
+.notice b { color: var(--text); }
+main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
+.topic { font-size: 16px; margin: 26px 0 8px; padding-left: 10px; border-left: 4px solid var(--accent); text-wrap: balance; }
+.seg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+.lineno { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 4px; }
+.script p { margin: 0 0 3px; }
+.sp { font-weight: bold; }
+.sp.marisa { color: var(--marisa); }
+.sp.reimu { color: var(--reimu); }
+.images { display: grid; gap: 8px; align-content: start; }
+.item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px 10px; align-items: start;
+  border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.item.done { background: var(--done-bg); border-color: var(--done); }
+.no { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center;
+  font-weight: bold; font-size: 13px; font-variant-numeric: tabular-nums; }
+.item.done .no { background: var(--done); }
+.words .ja { font-weight: bold; font-size: 15px; word-break: break-word; }
+.words .en { color: var(--muted); font-size: 12px; word-break: break-word; }
+.buttons { grid-column: 2 / 4; display: flex; flex-wrap: wrap; gap: 6px; }
+.buttons a { display: inline-block; text-decoration: none; color: #fff; background: var(--accent); border-radius: 6px;
+  padding: 4px 12px; font-size: 13px; font-weight: bold; }
+.buttons a.en { background: var(--accent-2); }
+.buttons a:hover { filter: brightness(1.12); }
+.check { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; }
+@media (max-width: 860px) {
+  .seg { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>__TITLE__ 画像リスト</h1>
+  <span class="stats" id="stats"></span>
+  <nav>
+    <button type="button" id="next">次の未完了へ</button>
+    <button type="button" id="reset">チェックを全部外す</button>
+  </nav>
+</header>
+<p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が新しいタブで開きます。
+画像を右クリック →「画像をコピー」→ YMM4に貼り付け。貼り終わった番号は「済」にチェックを入れると、次にどこから始めればいいか分かります(チェックはこのブラウザに保存されます)。</p>
+<main id="main"></main>
+<script>
+const DATA = /*__DATA__*/null;
+const STORAGE_KEY = "image-list:" + DATA.title;
+
+let done = {};
+try { done = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { done = {}; }
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(done)); } catch (e) { /* 保存できなくても表示は続ける */ }
+  const total = DATA.segments.reduce((n, s) => n + s.images.length, 0);
+  const count = Object.keys(done).length;
+  document.getElementById("stats").textContent = `${DATA.segments.length}か所 ・ 画像${total}枚 ・ 済 ${count}/${total}`;
+}
+
+const el = (tag, attrs = {}, ...kids) => {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") e.className = v; else if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v);
+  }
+  for (const k of kids) if (k != null) e.append(k);
+  return e;
+};
+const google = q => "https://www.google.com/search?q=" + encodeURIComponent(q) + "&tbm=isch";
+const speakerClass = s => s.includes("魔理沙") ? "marisa" : s.includes("霊夢") ? "reimu" : "";
+
+const main = document.getElementById("main");
+let lastTopic = null;
+for (const seg of DATA.segments) {
+  if (seg.topic !== lastTopic) { main.append(el("h2", { class: "topic" }, seg.topic)); lastTopic = seg.topic; }
+  const script = el("div", { class: "script" }, el("div", { class: "lineno" }, `${seg.start}〜${seg.end}行目`));
+  for (const l of seg.lines) {
+    script.append(el("p", {}, l.speaker ? el("span", { class: "sp " + speakerClass(l.speaker) }, l.speaker) : null,
+      l.speaker ? "「" + l.text + "」" : l.text));
+  }
+  const images = el("div", { class: "images" });
+  for (const img of seg.images) {
+    const box = el("input", { type: "checkbox", "aria-label": `${img.no}番を済にする` });
+    box.checked = !!done[img.no];
+    const item = el("div", { class: "item" + (box.checked ? " done" : ""), id: "img" + img.no },
+      el("div", { class: "no" }, String(img.no)),
+      el("div", { class: "words" }, el("div", { class: "ja" }, img.ja), img.en !== img.ja ? el("div", { class: "en" }, img.en) : null),
+      el("label", { class: "check" }, box, "済"),
+      el("div", { class: "buttons" },
+        el("a", { href: google(img.ja), target: "_blank", rel: "noopener" }, "Google画像検索(日本語)"),
+        img.en !== img.ja ? el("a", { class: "en", href: google(img.en), target: "_blank", rel: "noopener" }, "Google画像検索(英語)") : null,
+        img.native ? el("a", { class: "en", href: google(img.native), target: "_blank", rel: "noopener" }, "Google画像検索(母語)") : null));
+    box.addEventListener("change", () => {
+      if (box.checked) done[img.no] = true; else delete done[img.no];
+      item.classList.toggle("done", box.checked);
+      save();
+    });
+    images.append(item);
+  }
+  main.append(el("section", { class: "seg" }, script, images));
+}
+
+document.getElementById("next").addEventListener("click", () => {
+  const next = DATA.segments.flatMap(s => s.images).find(img => !done[img.no]);
+  if (next) document.getElementById("img" + next.no).scrollIntoView({ block: "center", behavior: "smooth" });
+});
+const resetButton = document.getElementById("reset");
+resetButton.addEventListener("click", () => {
+  if (resetButton.dataset.confirm !== "1") {
+    resetButton.dataset.confirm = "1";
+    resetButton.textContent = "本当に外す？(もう一度押す)";
+    setTimeout(() => { resetButton.dataset.confirm = ""; resetButton.textContent = "チェックを全部外す"; }, 3000);
+    return;
+  }
+  done = {};
+  document.querySelectorAll(".item").forEach(i => { i.classList.remove("done"); i.querySelector("input").checked = false; });
+  resetButton.dataset.confirm = "";
+  resetButton.textContent = "チェックを全部外す";
+  save();
+});
+save();
+</script>
+</body>
+</html>
