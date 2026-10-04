@@ -1,0 +1,193 @@
+# 成田亨の解説台本(narita_toru.txt)の区切りと画像の検索ワード
+# 書き方は nishizaki_yoshinobu_scenes.txt を参照
+
+## 導入：ヒーローのお面とウルトラマン
+1: お祭り 屋台 お面 ウルトラマン=Japanese festival stall Ultraman mask, 昭和 お面屋 縁日=Showa era festival mask stall
+4: ウルトラマン 1966=Ultraman 1966, ウルトラマン カラータイマー=Ultraman color timer
+6: 円谷英二=Eiji Tsuburaya, 円谷英二 特撮 撮影現場=Eiji Tsuburaya special effects set
+10: 成田亨=Toru Narita, 成田亨 彫刻家 アトリエ=Toru Narita sculptor studio, 成田亨 ウルトラマン デザイン画=Toru Narita Ultraman design art
+
+## 導入：報われない生みの親
+13: ウルトラマン カラータイマー 点滅=Ultraman color timer blinking, 成田亨 真実と正義と美の化身=Toru Narita Shinjitsu to Seigi to Bi no Keshin
+16: 成田亨 円谷プロ 著作権=Toru Narita Tsuburaya Productions copyright, シン・ウルトラマン 2022=Shin Ultraman 2022, 成田亨 肖像=Toru Narita portrait
+
+## 神戸に生まれ、青森へ
+20: 神戸 昭和初期 港=Kobe port 1930s, 陸軍 輸送船 昭和=Japanese army transport ship 1930s, 青森市 昭和初期=Aomori city 1930s
+24: 囲炉裏 昭和 農家=irori hearth Japanese farmhouse Showa, 青森 民家 囲炉裏=Aomori traditional house irori
+28: 青森 小学校 昭和10年代=Aomori elementary school 1930s, 大庄村 尼崎 昭和=Osho village Amagasaki Showa, 尼崎市 昭和10年代=Amagasaki 1930s
+
+## 尼崎でのつらい日々
+32: 尼崎 昭和10年代 子供たち=Amagasaki children 1930s, 昭和10年代 小学校 教室=Japanese classroom 1930s
+36: 武庫川 土手 昭和=Mukogawa river bank Showa, 武庫川 河川敷=Mukogawa riverbed, 武庫川 雲 空=Mukogawa river sky clouds
+
+## 絵が救った少年
+42: 戦艦 昭和10年代 子供の絵=Japanese battleship 1930s, 成田亨 少年時代 絵=Toru Narita childhood drawing
+46: 昭和10年代 病院 手術=Japanese hospital 1930s, 成田亨 左手=Toru Narita left hand
+51: 竹やり訓練 戦時中=bamboo spear training wartime Japan, 野口英世=Hideyo Noguchi, 昭和10年代 小学校 先生=Japanese schoolteacher 1930s
+
+## 神戸空襲と青森への避難
+58: 神戸 1943 街並み=Kobe 1943 street, 神戸大空襲 1945=Kobe air raid 1945, B-29 爆撃機 日本上空=B-29 bomber over Japan 1945
+64: 神戸空襲 焼け跡 1945=Kobe ruins 1945, 青森 1945 疎開=Aomori 1945 evacuation
+
+## 青森で出会った芸術家たち
+66: 阿部合成=Gosei Abe painter, 阿部合成 作品=Gosei Abe painting, 小坂圭二 彫刻家=Keiji Kosaka sculptor
+69: 太宰治=Osamu Dazai, 太宰治 1946 青森=Osamu Dazai 1946 Aomori
+72: 旧制青森中学=Aomori old middle school, 印刷工 昭和20年代 活版印刷=letterpress printing worker 1940s Japan
+
+## 武蔵野美術学校で彫刻へ
+78: 武蔵野美術学校 1950年代=Musashino Art School 1950s, 武蔵野美術大学 歴史=Musashino Art University history
+80: 清水多嘉示=Takashi Shimizu sculptor, 清水多嘉示 彫刻 作品=Takashi Shimizu sculpture
+83: 彫金 作業 工具=metal chasing chokin tools, 成田亨 彫刻 学生時代=Toru Narita sculpture student
+
+## 『ゴジラ』でアルバイト
+88: ゴジラ 1954=Godzilla 1954, ゴジラ 1954 撮影風景=Godzilla 1954 behind the scenes
+92: ゴジラ 1954 ミニチュア セット=Godzilla 1954 miniature set, ゴジラ 1954 銀座 破壊 特撮=Godzilla 1954 Ginza destruction
+
+## 彫刻家としての出発
+96: ゴジラ 1954 特撮 スタッフ=Godzilla 1954 special effects crew, 成田亨 男 石膏 彫刻=Toru Narita Otoko plaster sculpture
+100: 新制作展 1950年代=Shinseisaku exhibition 1950s, 武蔵野美術学校 研究科=Musashino Art School graduate 1950s
+
+## 映画美術の世界へ
+104: 映画 撮影所 1950年代 セット=Japanese film studio set 1950s, 映画美術 セット 昭和30年代=film art direction set Japan 1950s
+109: 東映 撮影所 1950年代=Toei studio 1950s, 大映 撮影所 1950年代=Daiei studio 1950s, 松竹 日活 撮影所 昭和30年代=Shochiku Nikkatsu studio 1950s
+112: 空の大怪獣ラドン 1956=Rodan 1956, 地球防衛軍 1957=The Mysterians 1957, 喜びも悲しみも幾歳月 1957=Times of Joy and Sorrow 1957
+
+## 特撮美術監督と新作家賞
+114: 東映 特撮 1960=Toei special effects 1960, 成田亨 特撮美術=Toru Narita special effects art
+119: 成田亨 八咫 漆 彫刻=Toru Narita Yata lacquer sculpture, 漆器 重箱=Japanese lacquerware jubako
+122: 新制作展 新作家賞=Shinseisaku new artist award, 成田亨 1960年代=Toru Narita 1960s
+
+## 円谷英二との再会
+126: 円谷英二 1965=Eiji Tsuburaya 1965, 円谷英二 ゴジラ 1954 現場=Eiji Tsuburaya Godzilla 1954 set
+130: 円谷特技プロダクション 1960年代=Tsuburaya Productions 1960s, 円谷プロ 砧 社屋=Tsuburaya Productions Kinuta office
+
+## 『ウルトラQ』の怪獣たち
+133: ウルトラQ 1966=Ultra Q 1966, 成田亨 ウルトラQ デザイン画=Toru Narita Ultra Q design art
+135: カネゴン=Kanegon Ultra Q, 成田亨 カネゴン デザイン画=Toru Narita Kanegon design
+138: ガラモン=Garamon Ultra Q, ケムール人=Kemur Ultra Q, ピカソ キュビスム 肖像画=ピカソ=Picasso cubism portrait=Picasso cubisme portrait
+
+## 金城哲夫の注文
+141: 金城哲夫=Tetsuo Kinjo, 金城哲夫 ウルトラマン 脚本=Tetsuo Kinjo Ultraman script
+145: 成田亨 ウルトラマン 初期デザイン=Toru Narita Ultraman early design, 成田亨 ウルトラマン 検討稿=Toru Narita Ultraman draft
+
+## 引き算のデザインとアルカイックスマイル
+147: 成田亨 ウルトラマン 顔 デザイン=Toru Narita Ultraman face design, アルカイックスマイル ギリシャ 彫刻=archaic smile Greek kouros sculpture
+151: 弥勒菩薩 半跏思惟像 広隆寺=Miroku Bosatsu Koryuji, ウルトラマン 顔 アップ=Ultraman face closeup
+153: 宮本武蔵 肖像=Miyamoto Musashi portrait, 宮本武蔵 一乗寺下り松 決闘=Miyamoto Musashi Ichijoji duel
+
+## 銀と赤の体
+156: 宇宙ロケット 1960年代=space rocket 1960s, 火星 表面 写真=Mars surface photo, ウルトラマン 赤い模様 銀色=Ultraman red silver pattern
+
+## 粘土で生まれた顔
+161: 成田亨 ウルトラマン マスク 原型=Toru Narita Ultraman mask prototype, 佐々木明 造形 ウルトラマン=Akira Sasaki Ultraman mask sculptor
+164: 成田亨 アトリエ=Toru Narita atelier, ウルトラマン Aタイプ マスク=Ultraman A type mask
+
+## 古谷敏と目の穴
+168: 古谷敏=Bin Furuya, 古谷敏 ウルトラマン スーツアクター=Bin Furuya Ultraman suit actor
+170: ウルトラマン 撮影風景 1966=Ultraman filming 1966, ウルトラマン 着ぐるみ 1966=Ultraman suit 1966
+172: ウルトラマン 撮影会 1966 マスコミ=Ultraman press event 1966, 古谷敏 ウルトラマン 1966=Bin Furuya Ultraman 1966
+176: ウルトラマン マスク 目 のぞき穴=Ultraman mask eye holes, 古谷敏 成田亨=Bin Furuya Toru Narita
+
+## カラータイマーへの反発
+179: ウルトラマン カラータイマー=Ultraman color timer, ウルトラマン カラータイマー 赤 点滅=Ultraman color timer red
+183: 成田亨 ウルトラマン 絵画 カラータイマーなし=Toru Narita Ultraman painting without color timer, 成田亨 ウルトラマン 原画=Toru Narita Ultraman original art
+
+## 『ウルトラマン』放送開始と怪獣たち
+186: ウルトラマン 1966 放送=Ultraman 1966 TV series, バルタン星人=Baltan Ultraman, レッドキング=Red King Ultraman
+187: ゴモラ ジャミラ=Gomora Jamila Ultraman, ダダ ゼットン=Dada Zetton Ultraman, サンダ対ガイラ 1966=The War of the Gargantuas 1966
+
+## 怪獣デザインの3つのルール
+190: 成田亨 怪獣 デザイン画=Toru Narita kaiju design art, 成田亨 怪獣デザイン 原画 展示=Toru Narita monster design exhibition
+194: ウルトラマン 怪獣 対決 1966=Ultraman vs kaiju 1966, 成田亨 秩序 混沌=Toru Narita order chaos design
+
+## ケロイドを拒んだ理由
+199: 成田亨 怪獣 原画=Toru Narita kaiju original drawing, 成田亨 晩年 インタビュー=Toru Narita interview
+202: 成田亨 ウルトラマン 原画 美しい=Toru Narita Ultraman artwork, 成田亨 肖像 1960年代=Toru Narita 1960s portrait
+
+## バルタン星人とケムール人
+206: バルタン星人 1966=Baltan 1966, セミ人間 ウルトラQ=Cicada man Ultra Q, 成田亨 バルタン星人 デザイン画=Toru Narita Baltan design
+209: ケムール人 デザイン画 成田亨=Toru Narita Kemur design, 成田亨 宇宙人 デザイン画=Toru Narita alien design
+
+## 睡眠3時間の現場
+211: 高山良策=Ryosaku Takayama, 高山良策 着ぐるみ 制作=Ryosaku Takayama kaiju suit making
+214: ウルトラマン ミニチュアセット 1966=Ultraman miniature set 1966, 成田亨 特撮 現場=Toru Narita special effects set
+
+## 『ウルトラセブン』の世界観
+217: ウルトラセブン 1967=Ultraseven 1967, ジェットビートル=Jet VTOL Ultraman
+220: ウルトラホーク1号=Ultra Hawk 1, ウルトラ警備隊 制服=Ultra Garrison uniform, ウルトラセブン 作戦室=Ultraseven command room
+222: ダイマクション地図=Dymaxion map=Dymaxion map, バックミンスター・フラー=Buckminster Fuller=Buckminster Fuller
+
+## セブンのデザインの工夫
+224: ウルトラセブン ビームランプ=Ultraseven beam lamp, 成田亨 ウルトラセブン デザイン画=Toru Narita Ultraseven design
+226: ウルトラセブン プロテクター 肩=Ultraseven shoulder protector, 古谷敏 アマギ隊員=Bin Furuya Amagi Ultraseven, ウルトラセブン 上西弘次=Koji Uenishi Ultraseven suit actor
+
+## 円谷プロを去る
+231: マイティジャック 1968=Mighty Jack 1968, マイティ号 メカ=Mighty Jack ship
+233: 青森市 1968=Aomori city 1968, 成田亨 個展 青森=Toru Narita solo exhibition Aomori
+
+## フリーの道と新宿伊勢丹
+236: 成田亨 1970年代=Toru Narita 1970s, 新宿伊勢丹 1960年代=Isetan Shinjuku 1960s, 伊勢丹 ショーウィンドウ 昭和=Isetan show window Showa
+
+## 大阪万博と科学への疑い
+240: 大阪万博 1970=Expo 70 Osaka, 太陽の塔 1970=Tower of the Sun 1970, 太陽の塔 生命の樹=Tower of the Sun Tree of Life
+242: 大阪万博 1970 未来 展示=Expo 70 pavilion, 成田亨 翼を持った人類の化石=Toru Narita fossil of winged humanity
+246: つくば万博 1985=Expo 85 Tsukuba, つくば万博 パビリオン=Tsukuba Expo pavilion
+
+## 『突撃！ヒューマン!!』のステンレスマスク
+247: 突撃!ヒューマン!! 1972=Totsugeki Human 1972, ヒューマン マスク ステンレス=Human mask stainless 1972
+251: 成田亨 ヒューマン デザイン画=Toru Narita Human design art
+
+## 『新幹線大爆破』と『スター・ウォーズ』
+252: 新幹線大爆破 1975=The Bullet Train 1975, 新幹線大爆破 特撮 ミニチュア=The Bullet Train 1975 miniature
+255: 0系新幹線 1975=Shinkansen 0 series 1975, スター・ウォーズ 1977=Star Wars 1977, ジョージ・ルーカス 1977=George Lucas 1977=George Lucas 1977
+
+## 息子・浬と『カイリ画集』
+257: 円盤戦争バンキッド 1976=Banking Banzai Bankid 1976, 円盤戦争バンキッド 宇宙人=Bankid alien
+259: 成田浬=Kairi Narita, 成田亨 息子 浬=Toru Narita son Kairi
+262: ウルトラマン マスク 初代 展示=original Ultraman mask exhibit, 成田亨 家族=Toru Narita family
+
+## トンガ王国の海と空
+266: 太陽は沈まず 1980 ドラマ=Taiyo wa Shizumazu 1980 drama, トンガ王国 海=Kingdom of Tonga ocean, トンガ 1980=Tonga 1980
+268: 日焼け トンガ ビーチ=Tonga beach, 南太平洋 空 雲=South Pacific sky clouds
+270: 成田亨 南太平洋 絵画=Toru Narita South Pacific painting, 成田亨 南太平洋を描く 個展=Toru Narita South Pacific exhibition
+
+## 『真実と正義と美の化身』
+274: 成田亨 真実と正義と美の化身 1983=Toru Narita Shinjitsu to Seigi to Bi no Keshin 1983, 成田亨 画集=Toru Narita art book
+277: 成田亨 油絵 アトリエ=Toru Narita oil painting, 成田亨 1980年代=Toru Narita 1980s
+
+## 尼崎へ：武庫川に像を
+279: 尼崎市立西小学校=Amagasaki Nishi Elementary School, 尼崎 1988=Amagasaki 1988
+281: 武庫川 河川敷 尼崎=Mukogawa riverbed Amagasaki, 成田亨 ウルトラマン 像 尼崎=Toru Narita Ultraman statue Amagasaki
+
+## 大江山の鬼の像
+284: 大江町 京都 大江山=Oe Kyoto Mt Oe, 源頼光 大江山 鬼退治 絵巻=Minamoto no Raiko Oeyama demon
+288: 成田亨 大江山 鬼の像=Toru Narita Oeyama oni statue, 酒呑童子 像 大江山=Shuten Doji statue Oeyama
+290: 大江山 鬼 ブロンズ像 3体=Oeyama oni bronze statues, 茨木童子 尼崎=Ibaraki Doji Amagasaki
+
+## ウルトラマン神変と著作権
+294: 成田亨 ウルトラマン神変=Toru Narita Ultraman Shinpen, ウルトラマンG 1990=Ultraman Great 1990 Australia
+298: 円谷プロ 1990年代=Tsuburaya Productions 1990s, ウルトラマン 角 ヒゲ 平成=Ultraman horns Heisei
+302: 成田亨 画集 絶版=Toru Narita art book, 成田亨 裁判 円谷プロ=Toru Narita lawsuit Tsuburaya
+
+## 晩年に当たり始めた光
+306: 銀座 ギャラリー 1991=Ginza gallery 1991, 成田亨 特撮と怪獣 1996 本=Toru Narita Tokusatsu to Kaiju book 1996
+308: 水戸芸術館 日本ゼロ年 1999=Art Tower Mito Nihon Zero Nen 1999, 青森県立美術館 準備=Aomori Museum of Art planning, 成田亨 晩年=Toru Narita later years
+
+## 死と南太平洋の海
+311: 日野市 東京=Hino city Tokyo, 成田亨 2002 死去=Toru Narita death 2002
+315: 南太平洋 海=South Pacific ocean, トンガ 海 雲=Tonga sea clouds
+319: 輸送船 太平洋戦争=Japanese transport ship Pacific War, 南太平洋 夕日 海=South Pacific sunset sea
+
+## 青森県立美術館と回顧展
+322: 青森県立美術館=Aomori Museum of Art, 青森県立美術館 成田亨 展示室=Aomori Museum of Art Toru Narita gallery
+326: 眞実 ある芸術家の希望と絶望=Narita Toru Shinjitsu book 2003, 成田亨 美術 特撮 怪獣 2014=Toru Narita retrospective 2014
+327: 富山県立近代美術館 成田亨展=Toyama Museum Toru Narita exhibition, 福岡市美術館 成田亨展=Fukuoka Art Museum Toru Narita exhibition, 成田亨 回顧展 展示=Toru Narita retrospective exhibition
+
+## 『シン・ウルトラマン』で甦った姿
+332: シン・ウルトラマン デザイン 2019=Shin Ultraman design 2019, 真実と正義と美の化身 シン・ウルトラマン=Shin Ultraman Narita painting
+335: 庵野秀明=Hideaki Anno, 庵野秀明 シン・ウルトラマン=Hideaki Anno Shin Ultraman
+336: シン・ウルトラマン 2022 公開=Shin Ultraman 2022 premiere, シン・ウルトラマン カラータイマーなし=Shin Ultraman no color timer, シン・ウルトラマン 背中=Shin Ultraman back
+
+## 結び：口元の微笑み
+339: シン・ウルトラマン ポスター=Shin Ultraman poster, 成田浬 シン・ウルトラマン=Kairi Narita Shin Ultraman
+341: ウルトラマン 顔 アルカイックスマイル=Ultraman face archaic smile, 成田亨 ウルトラマン 肖像=Toru Narita with Ultraman
