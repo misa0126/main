@@ -150,7 +150,9 @@ def _render_notes(scene: dict) -> str:
     items = []
     selected = scene.get("selected_images", [])
     review = scene.get("needs_review_images", [])
-    if not selected and not review:
+    if scene.get("error"):
+        items.append(f'<li class="warn">このシーンはエラーで処理できませんでした: {_esc(scene["error"])}</li>')
+    elif not selected and not review:
         items.append('<li class="warn">合う画像が見つかりませんでした。キーワードを参考に手動で探してください。</li>')
     if review:
         items.append(

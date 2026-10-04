@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import requests
+from anthropic import AuthenticationError
 
 from .keyword_extractor import KeywordExtractor
 from .relevance import RelevanceChecker, Verdict
@@ -121,6 +122,47 @@ class _SceneCollector:
         return True
 
 
+def _collect_scene(config, scene_text, scene_dir, work_dir, extractor, sources, google, checker, session):
+    keywords = extractor.extract(scene_text)
+    (scene_dir / "keywords.txt").write_text("\n".join(str(k) for k in keywords), encoding="utf-8")
+
+    collector = _SceneCollector(config, scene_dir, scene_text, checker)
+    download_count = 0
+    for keyword in keywords:
+        for source in sources:
+            if collector.shortage <= 0:
+                break
+            for candidate in source.search(keyword, config.candidates_per_keyword):
+                if collector.shortage <= 0:
+                    break
+                download_count += 1
+                path = download_image(session, candidate.image_url, work_dir / f"{download_count:04d}")
+                if path is not None:
+                    collector.consider(path, keyword, candidate)
+
+    # ライセンス確認済みの取得元で足りない分だけ、Google検索の結果を「要確認」として補う
+    if google is not None and collector.shortage > 0:
+        for i, keyword in enumerate(keywords):
+            if collector.shortage <= 0:
+                break
+            for path, candidate in google.fetch(keyword, work_dir / f"google_{i}", config.candidates_per_keyword):
+                if collector.shortage <= 0:
+                    break
+                collector.consider(path, keyword, candidate)
+
+    scene_credits = [p.candidate.credit_line() for p in collector.selected]
+    if scene_credits:
+        (scene_dir / "credits.txt").write_text("\n".join(scene_credits) + "\n", encoding="utf-8")
+
+    entry = {
+        "keywords": [{"ja": k.ja, "en": k.en} for k in keywords],
+        "selected_images": [p.to_manifest(config.output_dir) for p in collector.selected],
+        "needs_review_images": [p.to_manifest(config.output_dir) for p in collector.review],
+        "rejected_by_relevance_check": collector.rejected,
+    }
+    return entry, scene_credits
+
+
 def run_pipeline(
     config: PipelineConfig,
     *,
@@ -130,6 +172,8 @@ def run_pipeline(
     checker: RelevanceChecker | None = None,
     session: requests.Session | None = None,
     log=print,
+    progress=None,
+    should_stop=None,
 ) -> dict:
     script_text = config.script_path.read_text(encoding="utf-8")
     scenes = split_script_into_scenes(script_text)
@@ -155,60 +199,38 @@ def run_pipeline(
 
     with tempfile.TemporaryDirectory(prefix="material_candidates_") as tmp:
         tmp_path = Path(tmp)
-        for scene in scenes:
+        for position, scene in enumerate(scenes):
+            if should_stop is not None and should_stop():
+                log("中止しました。ここまでの結果を保存します。")
+                break
+            if progress is not None:
+                progress(position, len(scenes))
             scene_dir = config.output_dir / f"scene_{scene.index:03d}"
             scene_dir.mkdir(parents=True, exist_ok=True)
             work_dir = tmp_path / f"scene_{scene.index:03d}"
             log(f"シーン {scene.index}/{len(scenes)} を処理中")
 
-            keywords = extractor.extract(scene.text)
-            (scene_dir / "keywords.txt").write_text("\n".join(str(k) for k in keywords), encoding="utf-8")
-
-            collector = _SceneCollector(config, scene_dir, scene.text, checker)
-            download_count = 0
-            for keyword in keywords:
-                for source in sources:
-                    if collector.shortage <= 0:
-                        break
-                    for candidate in source.search(keyword, config.candidates_per_keyword):
-                        if collector.shortage <= 0:
-                            break
-                        download_count += 1
-                        path = download_image(session, candidate.image_url, work_dir / f"{download_count:04d}")
-                        if path is not None:
-                            collector.consider(path, keyword, candidate)
-
-            # ライセンス確認済みの取得元で足りない分だけ、Google検索の結果を「要確認」として補う
-            if google is not None and collector.shortage > 0:
-                for i, keyword in enumerate(keywords):
-                    if collector.shortage <= 0:
-                        break
-                    for path, candidate in google.fetch(keyword, work_dir / f"google_{i}", config.candidates_per_keyword):
-                        if collector.shortage <= 0:
-                            break
-                        collector.consider(path, keyword, candidate)
-
-            scene_credits = [p.candidate.credit_line() for p in collector.selected]
-            if scene_credits:
-                (scene_dir / "credits.txt").write_text("\n".join(scene_credits) + "\n", encoding="utf-8")
-                credits.extend(scene_credits)
-
-            manifest["scenes"].append(
-                {
-                    "index": scene.index,
-                    "text": scene.text,
-                    "keywords": [{"ja": k.ja, "en": k.en} for k in keywords],
-                    "selected_images": [p.to_manifest(config.output_dir) for p in collector.selected],
-                    "needs_review_images": [p.to_manifest(config.output_dir) for p in collector.review],
-                    "rejected_by_relevance_check": collector.rejected,
-                }
-            )
+            try:
+                entry, scene_credits = _collect_scene(
+                    config, scene.text, scene_dir, work_dir, extractor, sources, google, checker, session
+                )
+            except AuthenticationError:
+                raise
+            except Exception as e:  # 1シーンの失敗で全体を止めず、記録して次へ進む
+                log(f"シーン {scene.index} でエラー: {e.__class__.__name__}: {e}")
+                entry = {"keywords": [], "selected_images": [], "needs_review_images": [],
+                         "rejected_by_relevance_check": [], "error": f"{e.__class__.__name__}: {e}"}
+                scene_credits = []
+            credits.extend(scene_credits)
+            manifest["scenes"].append({"index": scene.index, "text": scene.text, **entry})
 
     if credits:
         unique_credits = list(dict.fromkeys(credits))
         (config.output_dir / "CREDITS.txt").write_text(
             "【使用素材】\n" + "\n".join(unique_credits) + "\n", encoding="utf-8"
         )
+    if progress is not None:
+        progress(len(manifest["scenes"]), len(scenes))
     manifest_path = config.output_dir / "manifest.json"
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
     build_viewer(manifest, config.output_dir)

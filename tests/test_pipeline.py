@@ -131,5 +131,33 @@ class PipelineTest(unittest.TestCase):
         self.assertTrue((out / "scene_002" / "keywords.txt").exists())
 
 
+class FailingOnceExtractor(FakeExtractor):
+    def extract(self, scene_text):
+        if "壊れる" in scene_text:
+            raise RuntimeError("API timeout")
+        return super().extract(scene_text)
+
+
+class SceneErrorTest(PipelineTest):
+    def test_one_failing_scene_does_not_stop_the_run(self):
+        tmp = Path(tempfile.mkdtemp())
+        script_path = tmp / "script.txt"
+        script_path.write_text("魔理沙「壊れる」\n\n霊夢「大丈夫」", encoding="utf-8")
+        source = FakeSource("wikimedia", [cand("銀巴里 1", 1)])
+        config = PipelineConfig(script_path=script_path, output_dir=tmp / "out", images_per_scene=1, google_fallback=False)
+        manifest = run_pipeline(
+            config,
+            extractor=FailingOnceExtractor(),
+            sources=[source],
+            checker=FakeChecker(),
+            session=FakeSession(image_routes({})),
+            log=lambda *_: None,
+        )
+        first, second = manifest["scenes"]
+        self.assertIn("API timeout", first["error"])
+        self.assertEqual(len(second["selected_images"]), 1)
+        self.assertIn("エラーで処理できませんでした", (tmp / "out" / "index.html").read_text(encoding="utf-8"))
+
+
 if __name__ == "__main__":
     unittest.main()
