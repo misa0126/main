@@ -34,6 +34,12 @@ def build_arg_parser() -> argparse.ArgumentParser:
         help="足りない分をGoogle画像検索で補わない(補った画像は needs_review/ に入る)",
     )
     parser.add_argument(
+        "--keywords",
+        type=Path,
+        default=None,
+        help="キーワード表のパス。指定するとClaude APIでキーワードを作らない(APIキーなしでも動く)",
+    )
+    parser.add_argument(
         "--no-relevance-check",
         action="store_true",
         help="Claudeによる画像と台本の内容チェックを行わない",
@@ -44,8 +50,18 @@ def build_arg_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_arg_parser().parse_args(argv)
 
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("エラー: 環境変数 ANTHROPIC_API_KEY が設定されていません。", file=sys.stderr)
+    has_api_key = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    if not has_api_key and args.keywords is None:
+        print(
+            "エラー: 環境変数 ANTHROPIC_API_KEY が設定されていません。"
+            "APIキーなしで使う場合は --keywords でキーワード表を指定してください。",
+            file=sys.stderr,
+        )
+        return 1
+    if not has_api_key and not args.no_relevance_check:
+        print("APIキーがないため、Claudeによる内容チェックは行いません。")
+    if args.keywords is not None and not args.keywords.exists():
+        print(f"エラー: キーワード表が見つかりません: {args.keywords}", file=sys.stderr)
         return 1
 
     if not args.script.exists():
@@ -64,7 +80,8 @@ def main(argv: list[str] | None = None) -> int:
         keep_candidates=args.keep_candidates,
         sources=[name.strip() for name in args.sources.split(",") if name.strip()],
         google_fallback=not args.no_google,
-        check_relevance=not args.no_relevance_check,
+        check_relevance=has_api_key and not args.no_relevance_check,
+        keyword_table_path=args.keywords,
     )
 
     manifest = run_pipeline(config)

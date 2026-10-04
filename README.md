@@ -42,6 +42,20 @@
 4. 「台本」タブに台本を貼り付けて、タイトルを入れて「素材を集める」を押す
 5. 終わると「確認シート」タブに、左に台本・真ん中にメモ・右に候補画像が並ぶ
 
+### APIキーなしで使う場合
+
+Claude APIキーがなくても、**キーワード表**を用意すれば素材集めができます(画像の内容チェックはなし)。
+台本と一緒にキーワード表を作り(例: `scripts/miwa_akihiro_keywords.txt`)、アプリの「キーワード表」で選んでください。
+
+```
+# シーン番号: 日本語の検索語=英語の検索語, ...
+1: 美輪明宏=Akihiro Miwa, シャンソン歌手=chanson singer stage
+2: -          ← 画像を探さない(前のシーンの画像をそのまま使う)
+3: 長崎 丸山=Maruyama Nagasaki, 出島=Dejima Nagasaki
+```
+
+コマンドラインでは `python main.py scripts/miwa_akihiro.txt --keywords scripts/miwa_akihiro_keywords.txt` です。
+
 確認シートの画像は、そのままYMM4へドラッグするとファイルとして貼り付けられます。
 右クリックで「画像をコピー」「フォルダで表示」「出典ページを開く」、クリックで拡大表示もできます。
 結果は `ドキュメント/ゆっくり素材/<タイトル>_<日時>/` に保存され、「前回の結果を開く」でいつでも見直せます。
@@ -96,6 +110,7 @@ python main.py examples/sample_script.txt -o output
 | `--keep-candidates` | オフ | 選別前の候補画像もすべて保存する |
 | `--sources` | `wikimedia,openverse,met,pexels,pixabay` | ライセンス確認済みの取得元(左ほど優先) |
 | `--no-google` | オフ | 足りない分をGoogle画像検索で補わない |
+| `--keywords` | なし | キーワード表を使う(APIキーなしでも動く) |
 | `--no-relevance-check` | オフ | Claudeによる画像と台本の内容チェックを行わない |
 
 ## 確認シート(index.html)

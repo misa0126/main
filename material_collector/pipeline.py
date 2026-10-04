@@ -10,6 +10,7 @@ import requests
 from anthropic import AuthenticationError
 
 from .keyword_extractor import KeywordExtractor
+from .preset_keywords import PresetKeywordExtractor
 from .relevance import RelevanceChecker, Verdict
 from .script_parser import split_script_into_scenes
 from .selector import check_image
@@ -43,6 +44,8 @@ class PipelineConfig:
     sources: list[str] = field(default_factory=lambda: list(DEFAULT_SOURCES))
     google_fallback: bool = True
     check_relevance: bool = True
+    # 指定するとClaude APIでキーワードを作らず、このキーワード表を使う
+    keyword_table_path: Path | None = None
 
 
 @dataclass
@@ -124,6 +127,10 @@ class _SceneCollector:
 
 def _collect_scene(config, scene_text, scene_dir, work_dir, extractor, sources, google, checker, session):
     keywords = extractor.extract(scene_text)
+    if not keywords:
+        # キーワード表で「-」にしたシーンは画像を探さない
+        return {"keywords": [], "selected_images": [], "needs_review_images": [],
+                "rejected_by_relevance_check": [], "skipped": True}, []
     (scene_dir / "keywords.txt").write_text("\n".join(str(k) for k in keywords), encoding="utf-8")
 
     collector = _SceneCollector(config, scene_dir, scene_text, checker)
@@ -166,7 +173,7 @@ def _collect_scene(config, scene_text, scene_dir, work_dir, extractor, sources, 
 def run_pipeline(
     config: PipelineConfig,
     *,
-    extractor: KeywordExtractor | None = None,
+    extractor: KeywordExtractor | PresetKeywordExtractor | None = None,
     sources: list[ImageSource] | None = None,
     google: GoogleFallbackSource | None = None,
     checker: RelevanceChecker | None = None,
@@ -181,6 +188,12 @@ def run_pipeline(
         raise ValueError("台本からシーンを検出できませんでした。空行でシーンを区切ってください。")
 
     model_kwargs: dict = {"model": config.model} if config.model else {}
+    if extractor is None and config.keyword_table_path is not None:
+        extractor = PresetKeywordExtractor(
+            script_text, config.keyword_table_path.read_text(encoding="utf-8")
+        )
+        if extractor.missing:
+            log(f"キーワード表にないシーン: {', '.join(map(str, extractor.missing))}")
     if extractor is None:
         extractor = KeywordExtractor(keywords_per_scene=config.keywords_per_scene, **model_kwargs)
     if sources is None:

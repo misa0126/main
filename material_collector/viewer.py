@@ -59,6 +59,7 @@ main {{ max-width: 1500px; margin: 0 auto; padding: 12px 20px 60px; }}
 .badge.ok {{ background: var(--ok); }}
 .badge.warn {{ background: var(--warn); }}
 .card .meta a {{ color: var(--pick); }}
+.continued {{ color: var(--muted); font-size: 13px; padding: 12px; }}
 .empty {{ color: var(--warn); font-size: 13px; padding: 20px; border: 2px dashed var(--warn); border-radius: 8px; text-align: center; }}
 @media (max-width: 900px) {{
   .scene {{ grid-template-columns: 1fr; }}
@@ -150,7 +151,9 @@ def _render_notes(scene: dict) -> str:
     items = []
     selected = scene.get("selected_images", [])
     review = scene.get("needs_review_images", [])
-    if scene.get("error"):
+    if scene.get("skipped"):
+        items.append("<li>画像を探さないシーンです(前のシーンの画像を続けて使う想定)。</li>")
+    elif scene.get("error"):
         items.append(f'<li class="warn">このシーンはエラーで処理できませんでした: {_esc(scene["error"])}</li>')
     elif not selected and not review:
         items.append('<li class="warn">合う画像が見つかりませんでした。キーワードを参考に手動で探してください。</li>')
@@ -163,6 +166,8 @@ def _render_notes(scene: dict) -> str:
         if relevance.get("reason"):
             prefix = "" if relevance.get("checked", True) else "(未判定) "
             items.append(f"<li>画像{number}: {prefix}{_esc(relevance['reason'])}</li>")
+    if (selected or review) and all(not img.get("relevance") for img in selected + review):
+        items.append("<li>内容チェックなし。候補から使う画像を選んでください。</li>")
     rejected = scene.get("rejected_by_relevance_check", [])
     if rejected:
         items.append(f"<li>内容が合わず除外した候補: {len(rejected)}枚</li>")
@@ -186,15 +191,17 @@ def build_viewer(manifest: dict, output_dir: Path) -> Path:
         cards += [
             _render_card(img, scene["index"], n, True) for n, img in enumerate(review, start=len(selected) + 1)
         ]
-        if not cards:
+        if not cards and not scene.get("skipped"):
             missing += 1
-        images_html = (
-            f'<div class="images">{"".join(cards)}</div>'
-            if cards
-            else '<div class="empty">画像なし</div>'
-        )
+        if cards:
+            images_html = f'<div class="images">{"".join(cards)}</div>'
+        elif scene.get("skipped"):
+            images_html = '<div class="continued">前のシーンの画像のまま</div>'
+        else:
+            images_html = '<div class="empty">画像なし</div>'
+        is_missing = not cards and not scene.get("skipped")
         sections.append(
-            f'<section class="scene{" missing" if not cards else ""}" id="scene-{scene["index"]}">'
+            f'<section class="scene{" missing" if is_missing else ""}" id="scene-{scene["index"]}">'
             f'<div class="script"><div class="scene-no">シーン {scene["index"]}</div>{_render_script(scene.get("text", ""))}</div>'
             f'<div class="notes">{_render_notes(scene)}</div>'
             f"{images_html}</section>"

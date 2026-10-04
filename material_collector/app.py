@@ -81,7 +81,7 @@ class SettingsDialog(QDialog):
         self._fields: dict[str, QLineEdit] = {}
         form = QFormLayout()
         for key, label, required in [
-            ("ANTHROPIC_API_KEY", "Claude APIキー (必須)", True),
+            ("ANTHROPIC_API_KEY", "Claude APIキー (任意)", True),
             ("PEXELS_API_KEY", "Pexels APIキー (任意)", False),
             ("PIXABAY_API_KEY", "Pixabay APIキー (任意)", False),
         ]:
@@ -94,6 +94,8 @@ class SettingsDialog(QDialog):
         note = QLabel(
             "キーはこのパソコンの次のファイルに保存されます:\n"
             f"{SETTINGS_PATH}\n"
+            "Claude APIキーがあると、台本を貼るだけでキーワード作成と画像の内容チェックまで自動で行います。\n"
+            "キーがなくても、キーワード表を指定すれば素材集めはできます(内容チェックはなし)。\n"
             "Pexels / Pixabay のキーを入れると、風景や物の写真の取得元が増えます。"
         )
         note.setWordWrap(True)
@@ -179,8 +181,17 @@ class InputPage(QWidget):
         self.google_check = QCheckBox("足りない分をGoogle画像検索で補う(要確認として分けて表示)")
         self.google_check.setChecked(bool(settings.get("google_fallback", True)))
 
+        self.keywords_edit = QLineEdit()
+        self.keywords_edit.setPlaceholderText("APIキーなしで使う場合に指定(例: miwa_akihiro_keywords.txt)")
+        keywords_browse = QPushButton("参照...")
+        keywords_browse.clicked.connect(self._browse_keywords)
+        keywords_row = QHBoxLayout()
+        keywords_row.addWidget(self.keywords_edit, 1)
+        keywords_row.addWidget(keywords_browse)
+
         form = QFormLayout()
         form.addRow("動画のタイトル", self.title_edit)
+        form.addRow("キーワード表", keywords_row)
         form.addRow("保存先フォルダ", root_row)
         form.addRow("1シーンの候補画像", self.images_spin)
         form.addRow("", self.google_check)
@@ -216,6 +227,11 @@ class InputPage(QWidget):
         if folder:
             self.root_edit.setText(folder)
 
+    def _browse_keywords(self):
+        path, _ = QFileDialog.getOpenFileName(self, "キーワード表を選ぶ", "", "テキストファイル (*.txt);;すべてのファイル (*)")
+        if path:
+            self.keywords_edit.setText(path)
+
     def _open_existing(self):
         folder = QFileDialog.getExistingDirectory(self, "結果フォルダを選ぶ(manifest.jsonのあるフォルダ)", self.root_edit.text())
         if folder:
@@ -226,6 +242,12 @@ class InputPage(QWidget):
         if not split_script_into_scenes(text):
             QMessageBox.warning(self, "台本がありません", "台本を貼り付けてから押してください。")
             return
+        keywords_path = None
+        if self.keywords_edit.text().strip():
+            keywords_path = Path(self.keywords_edit.text().strip())
+            if not keywords_path.exists():
+                QMessageBox.warning(self, "キーワード表が見つかりません", f"{keywords_path} がありません。")
+                return
         title = self.title_edit.text().strip() or "台本"
         safe_title = "".join(c for c in title if c not in '\\/:*?"<>|').strip() or "台本"
         output_dir = Path(self.root_edit.text().strip() or DEFAULT_OUTPUT_ROOT) / (
@@ -247,6 +269,7 @@ class InputPage(QWidget):
                 output_dir=output_dir,
                 images_per_scene=self.images_spin.value(),
                 google_fallback=self.google_check.isChecked(),
+                keyword_table_path=keywords_path,
             )
         )
 
@@ -426,7 +449,9 @@ def _notes_html(scene: dict) -> str:
     items = []
     selected = scene.get("selected_images", [])
     review = scene.get("needs_review_images", [])
-    if scene.get("error"):
+    if scene.get("skipped"):
+        items.append("画像を探さないシーンです(前のシーンの画像を続けて使う想定)。")
+    elif scene.get("error"):
         items.append(f'<b style="color:{COLOR_WARN}">エラーで処理できませんでした: {html.escape(scene["error"])}</b>')
     elif not selected and not review:
         items.append(f'<b style="color:{COLOR_WARN}">合う画像が見つかりませんでした。手動で探してください。</b>')
@@ -436,6 +461,8 @@ def _notes_html(scene: dict) -> str:
         reason = (image.get("relevance") or {}).get("reason")
         if reason:
             items.append(f"画像{number}: {html.escape(reason)}")
+    if (selected or review) and all(not img.get("relevance") for img in selected + review):
+        items.append("内容チェックなし。候補から使う画像を選んでください。")
     rejected = scene.get("rejected_by_relevance_check", [])
     if rejected:
         items.append(f"内容が合わず除外: {len(rejected)}枚")
@@ -484,7 +511,7 @@ class ReviewPage(QWidget):
             review = scene.get("needs_review_images", [])
             total_selected += len(selected)
             total_review += len(review)
-            if not selected and not review:
+            if not selected and not review and not scene.get("skipped"):
                 missing += 1
 
             script = QLabel(
@@ -507,7 +534,11 @@ class ReviewPage(QWidget):
                 path = folder / info["file"]
                 if path.exists():
                     images_layout.addWidget(ImageCard(path, info, needs_review))
-            if images_layout.count() == 0:
+            if images_layout.count() == 0 and scene.get("skipped"):
+                continued = QLabel("前のシーンの画像のまま")
+                continued.setStyleSheet("color:#6b675f; padding: 12px;")
+                images_layout.addWidget(continued)
+            elif images_layout.count() == 0:
                 empty = QLabel("画像なし")
                 empty.setStyleSheet(f"color:{COLOR_WARN}; border: 2px dashed {COLOR_WARN}; padding: 24px;")
                 images_layout.addWidget(empty)
@@ -576,11 +607,17 @@ class MainWindow(QMainWindow):
     def _start(self, config: PipelineConfig):
         if self._thread is not None:
             return
-        if not self._settings.get("ANTHROPIC_API_KEY") and not self._edit_settings():
+        has_api_key = bool(self._settings.get("ANTHROPIC_API_KEY"))
+        if not has_api_key and config.keyword_table_path is None:
+            QMessageBox.information(
+                self,
+                "APIキーかキーワード表が必要です",
+                "Claude APIキーがない場合は、「キーワード表」にキーワード表のファイルを指定してください。\n"
+                "APIキーを使う場合は、メニューの「設定 → APIキーの設定」で入力してください。",
+            )
             return
-        if not self._settings.get("ANTHROPIC_API_KEY"):
-            QMessageBox.warning(self, "APIキーが必要です", "Claude APIキーを設定してください。")
-            return
+        # APIキーがなければ内容チェックはしない(キーワード表のキーワードで集めるだけ)
+        config.check_relevance = has_api_key
         for key in ("ANTHROPIC_API_KEY", "PEXELS_API_KEY", "PIXABAY_API_KEY"):
             if self._settings.get(key):
                 os.environ[key] = self._settings[key]
