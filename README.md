@@ -84,10 +84,17 @@ python main.py examples/sample_script.txt -o output
 | `--no-google` | オフ | 足りない分をGoogle画像検索で補わない |
 | `--no-relevance-check` | オフ | Claudeによる画像と台本の内容チェックを行わない |
 
+## 確認シート(index.html)
+
+実行が終わると出力先に `index.html` ができます。ブラウザで開くと、左に台本、真ん中にメモ(検索キーワード・
+Claudeの判定理由・注意点)、右にシーンごとの候補画像が並びます。候補画像はそのままYMM4のタイムラインへ
+ドラッグできます(Chrome / Edge推奨)。オレンジ枠は要確認の画像、「画像なし」のシーンは手動で探す必要があります。
+
 ## 出力構造
 
 ```
 output/
+  index.html             # 台本と候補画像を並べた確認シート
   manifest.json          # 全シーンの台本・キーワード・画像・出典・ライセンス・チェック結果の対応表
   CREDITS.txt            # 概要欄に貼れるクレジット一覧(ライセンス確認済みの画像のみ)
   scene_001/

@@ -12,6 +12,7 @@ from .keyword_extractor import KeywordExtractor
 from .relevance import RelevanceChecker, Verdict
 from .script_parser import split_script_into_scenes
 from .selector import check_image
+from .viewer import build_viewer
 from .sources import (
     DEFAULT_SOURCES,
     Candidate,
@@ -210,4 +211,5 @@ def run_pipeline(
         )
     manifest_path = config.output_dir / "manifest.json"
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    build_viewer(manifest, config.output_dir)
     return manifest

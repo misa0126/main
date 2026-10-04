@@ -72,6 +72,7 @@ def main(argv: list[str] | None = None) -> int:
     total_review = sum(len(s["needs_review_images"]) for s in manifest["scenes"])
     print(f"完了: {len(manifest['scenes'])}シーン、ライセンス確認済み {total_selected}枚、要確認 {total_review}枚")
     print(f"出力先: {config.output_dir.resolve()}")
+    print(f"確認シート: {(config.output_dir / 'index.html').resolve()} (ブラウザで開いてください)")
     return 0
 
 

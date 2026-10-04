@@ -98,6 +98,10 @@ class PipelineTest(unittest.TestCase):
         credits = (out / "CREDITS.txt").read_text(encoding="utf-8")
         self.assertIn("作者1", credits)
         self.assertIn("https://page/3", credits)
+        viewer = (out / "index.html").read_text(encoding="utf-8")
+        self.assertIn('src="scene_001/selected/001.jpg"', viewer)
+        self.assertIn('<span class="speaker marisa">魔理沙</span>', viewer)
+        self.assertIn("内容が合わず除外した候補: 1枚", viewer)
         saved = json.loads((out / "manifest.json").read_text(encoding="utf-8"))
         self.assertTrue(saved["scenes"][0]["selected_images"][0]["license_verified"])
 
@@ -111,6 +115,7 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(len(scene["needs_review_images"]), 2)
         self.assertFalse(scene["needs_review_images"][0]["license_verified"])
         self.assertTrue((out / "scene_001" / "needs_review" / "001.jpg").exists())
+        self.assertIn('class="card review"', (out / "index.html").read_text(encoding="utf-8"))
         # 要確認の画像はクレジット一覧に入れない
         self.assertNotIn("https://g/", (out / "CREDITS.txt").read_text(encoding="utf-8"))
 
