@@ -51,7 +51,9 @@ main { max-width: 1560px; margin: 0 auto; padding: 8px 20px 120px; }
 .search input { flex: 1; min-width: 0; font: inherit; font-size: 13px; padding: 2px 6px; border: 1px solid var(--line);
   border-radius: 6px; background: var(--panel); color: var(--text); }
 .links { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; }
-.links a { color: var(--accent); }
+.links { align-items: center; }
+.links a.google { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; border-radius: 6px; padding: 2px 10px; font-size: 13px; font-weight: bold; }
+.links a.google:hover { filter: brightness(1.1); }
 .status { font-size: 12px; }
 .status.warn { color: var(--warn); }
 .images { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-content: start; }
@@ -91,9 +93,9 @@ main { max-width: 1560px; margin: 0 auto; padding: 8px 20px 120px; }
     <button type="button" id="open-credits">使う画像のクレジット (<span id="pick-count">0</span>)</button>
   </nav>
 </header>
-<p class="notice"><b>使い方:</b> スクロールすると、その区切りの候補画像を自動で探します。使いたい画像を<b>右クリック →「画像をコピー」→ YMM4に貼り付け</b>。
-「使う」を押した画像は、右上の「クレジット」に出典がまとまります(CC BYなどは動画の概要欄に表記が必要です)。<br>
-候補はライセンス上、商用利用と改変ができる画像だけです。それでも、実在の人物の写真や、アニメ・ポスターが写った画像は肖像権や著作権の問題が残ることがあるので、使う前に確認してください。</p>
+<p class="notice"><b>使い方:</b> 各区切りの青いボタン(<b>Googleで探す</b>)を押すと、そのキーワードのGoogle画像検索が新しいタブで開きます。
+右側には、Wikimediaなどから自動で探した候補も並びます。使いたい画像を<b>右クリック →「画像をコピー」→ YMM4に貼り付け</b>。<br>
+<b>ChromeかEdgeで開いてください。</b>Claudeのアプリの中のプレビューでは、右側の自動検索は動きません。</p>
 <main id="main"></main>
 <div id="lightbox" hidden><div><img alt=""><p></p></div></div>
 <div id="credits" hidden>
@@ -105,13 +107,6 @@ const DATA = /*__DATA__*/null;
 const PAGE_SIZE = 3;
 const STORAGE_KEY = "material-sheet:" + DATA.title;
 
-// ---------------------------------------------------------------- ライセンス判定(Python版と同じ規則)
-const REJECT = [/\bnc\b/, /\bnd\b/, /non-?commercial/, /no-?deriv/, /fair use/, /all rights reserved/, /copyrighted/];
-const ACCEPT = [/public domain/, /\bpd\b/, /\bpdm\b/, /\bcc0\b/, /\bcc[ -]by\b/];
-function reusable(name) {
-  const n = (name || "").toLowerCase().replace(/_/g, " ");
-  return !!n && !REJECT.some(r => r.test(n)) && ACCEPT.some(r => r.test(n));
-}
 function stripHtml(s) {
   const d = document.createElement("div");
   d.innerHTML = s || "";
@@ -140,7 +135,6 @@ const SOURCES = {
       if (!/^image\/(jpeg|png|webp|tiff)$/.test(info.mime || "")) continue;
       const meta = info.extmetadata || {};
       const license = stripHtml((meta.LicenseShortName || {}).value);
-      if (!reusable(license)) continue;
       out.push({
         source: "Wikimedia Commons", image: info.thumburl || info.url, page: info.descriptionurl,
         title: stripHtml((meta.ObjectName || {}).value) || (page.title || "").replace(/^File:/, ""),
@@ -151,13 +145,13 @@ const SOURCES = {
     return out;
   },
   async openverse(q, limit) {
-    const p = new URLSearchParams({ q, license_type: "commercial,modification", page_size: String(Math.min(limit * 2, 20)) });
+    const p = new URLSearchParams({ q, page_size: String(Math.min(limit * 2, 20)) });
     const json = await getJson("https://api.openverse.org/v1/images/?" + p);
     const out = [];
     for (const item of json.results || []) {
       const code = (item.license || "").toLowerCase();
       const license = code === "cc0" ? "CC0" : code === "pdm" ? "Public Domain Mark" : ("CC " + code.toUpperCase() + " " + (item.license_version || "")).trim();
-      if (!reusable(license) || !item.url) continue;
+      if (!item.url) continue;
       out.push({
         source: "Openverse(" + (item.source || "") + ")", image: item.url, page: item.foreign_landing_url || item.url,
         title: item.title || "", author: item.creator || "", license, licenseUrl: item.license_url || "",
@@ -174,10 +168,10 @@ const SOURCES = {
       try {
         const obj = await getJson("https://collectionapi.metmuseum.org/public/collection/v1/objects/" + id);
         const image = obj.primaryImageSmall || obj.primaryImage;
-        if (!obj.isPublicDomain || !image) continue;
+        if (!image) continue;
         out.push({
           source: "メトロポリタン美術館", image, page: obj.objectURL || image, title: obj.title || "",
-          author: obj.artistDisplayName || "", license: "Public domain (CC0)", licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+          author: obj.artistDisplayName || "", license: obj.isPublicDomain ? "Public domain (CC0)" : "権利表記は出典ページで確認", licenseUrl: "",
         });
       } catch (e) { /* 1件の失敗は飛ばす */ }
     }
@@ -220,6 +214,7 @@ const el = (tag, attrs = {}, ...kids) => {
   for (const k of kids) if (k != null) e.append(k);
   return e;
 };
+function googleUrl(q) { return "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(q); }
 function speakerClass(s) { return s.includes("魔理沙") ? "marisa" : s.includes("霊夢") ? "reimu" : ""; }
 
 const states = [];
@@ -240,13 +235,12 @@ function renderSegment(seg, i) {
   const input = el("input", { type: "search", id: "q" + i, placeholder: "別の言葉で探す", "aria-label": "別の言葉で探す" });
   const form = el("form", { class: "search", onsubmit: e => { e.preventDefault(); const v = input.value.trim(); if (v) search(state, [{ ja: v, en: v }], null); } },
     input, el("button", { type: "submit" }, "検索"));
-  const first = seg.keywords[0] ? seg.keywords[0].ja : "";
-  const links = el("div", { class: "links" },
-    el("a", { href: "https://www.google.com/search?tbm=isch&tbs=sur:fmc&q=" + encodeURIComponent(first), target: "_blank", rel: "noopener" }, "Google画像(商用・改変可)で探す"),
-    el("a", { href: "https://commons.wikimedia.org/w/index.php?search=" + encodeURIComponent(first), target: "_blank", rel: "noopener" }, "Wikimediaで探す"));
+  const links = el("div", { class: "links" }, el("span", {}, "Googleで探す:"));
+  for (const k of seg.keywords) {
+    links.append(el("a", { class: "google", href: googleUrl(k.ja), target: "_blank", rel: "noopener" }, k.ja));
+  }
   state.status = el("div", { class: "status" }, "スクロールすると画像を探します");
-  state.links = links;
-  const notes = el("div", { class: "notes" }, el("div", {}, "検索キーワード(押すとその言葉だけで探し直します)"), chips, form, links, state.status);
+  const notes = el("div", { class: "notes" }, links, el("div", {}, "自動検索のキーワード(押すとその言葉だけで探し直します)"), chips, form, state.status);
 
   state.images = el("div", { class: "images" }, el("div", { class: "placeholder" }, "待機中…"));
   state.box = el("section", { class: "seg", id: "seg" + i }, script, notes, state.images);
@@ -258,7 +252,10 @@ function renderImages(state) {
   box.replaceChildren();
   if (!state.loaded) { box.append(el("div", { class: "placeholder" }, "画像を探しています…")); return; }
   if (!state.results.length) {
-    box.append(el("div", { class: "placeholder warn" }, "合う画像が見つかりませんでした。キーワードを押すか、別の言葉で探してください。"));
+    const offline = state.failures.has("wikimedia") && state.failures.has("openverse");
+    box.append(el("div", { class: "placeholder warn" }, offline
+      ? "画像サイトに接続できませんでした。このファイルをChromeかEdgeで開いているか確認してください(Claudeのアプリの中のプレビューでは探せません)。真ん中の青いボタン(Googleで探す)からは探せます。"
+      : "自動では見つかりませんでした。真ん中の青いボタン(Googleで探す)を押すか、別の言葉で探してください。"));
   }
   state.results.slice(0, state.shown).forEach(r => {
     const id = r.image;
@@ -295,9 +292,6 @@ async function search(state, keywords, activeChip) {
   state.shown = PAGE_SIZE;
   state.failures = new Set();
   state.box.querySelectorAll(".chip").forEach(c => c.classList.toggle("active", c === activeChip));
-  const q = keywords[0] ? keywords[0].ja : "";
-  state.links.children[0].href = "https://www.google.com/search?tbm=isch&tbs=sur:fmc&q=" + encodeURIComponent(q);
-  state.links.children[1].href = "https://commons.wikimedia.org/w/index.php?search=" + encodeURIComponent(keywords[0] ? keywords[0].en : q);
   state.status.className = "status";
   state.status.textContent = "画像を探しています…";
   renderImages(state);

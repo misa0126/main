@@ -43,7 +43,7 @@ python -m material_collector.html_sheet scripts/nishizaki_yoshinobu.txt scripts/
 ```
 
 - 区切り表は「## 話題の見出し」と「開始行: 日本語=English, ...」の並びです(例: `scripts/nishizaki_yoshinobu_scenes.txt`)
-- できたHTMLをChrome / Edgeで開くと、スクロールに合わせてWikimedia Commons・Openverse・メトロポリタン美術館から候補を探します
+- できたHTMLをChrome / Edgeで開くと、区切りごとにGoogle画像検索のボタンが並び、スクロールに合わせてWikimedia Commons・Openverse・メトロポリタン美術館からも候補を自動で探します(ライセンスでの絞り込みはしません)
 - 画像は右クリック →「画像をコピー」でYMM4に貼り付けます。「使う」を押した画像の出典はクレジット一覧にまとまります
 - APIキーもインストールも不要です
 
