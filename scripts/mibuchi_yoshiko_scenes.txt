@@ -1,0 +1,234 @@
+# 三淵嘉子の解説台本(mibuchi_yoshiko.txt)の区切りと画像の検索ワード
+# 書き方は nishizaki_yoshinobu_scenes.txt と同じ
+
+## 導入：裁判官と聞いて思い浮かべる人
+1: 裁判官 法服 法廷=Japanese judge robe courtroom, 最高裁判所 大法廷 裁判官=Supreme Court of Japan Grand Bench judges
+3: 女性裁判官 日本=Japanese female judge, 最高裁判所 庁舎=Supreme Court of Japan building
+6: 三淵嘉子=Yoshiko Mibuchi, 三淵嘉子 法服=Yoshiko Mibuchi judge robe
+
+## 「初」が並ぶ人物、三淵嘉子
+10: 三淵嘉子 肖像=Yoshiko Mibuchi portrait, 三淵嘉子 新潟家庭裁判所長=Yoshiko Mibuchi Niigata Family Court chief
+15: 虎に翼 伊藤沙莉=Tora ni Tsubasa Sairi Ito, 虎に翼 朝ドラ ポスター=Tora ni Tsubasa NHK drama poster
+18: 三淵嘉子 若い頃=young Yoshiko Mibuchi, 三淵嘉子 晩年=Yoshiko Mibuchi later years
+
+## シンガポールで生まれる
+23: シンガポール 1910年代=Singapore 1910s, シンガポール 植民地時代 ラッフルズ=colonial Singapore 1910s Raffles Place
+25: 武藤貞雄 三淵嘉子 父=Sadao Muto Yoshiko Mibuchi father, 台湾銀行 シンガポール支店=Bank of Taiwan Singapore branch
+29: 新嘉坡 漢字 表記=Singapore kanji 新嘉坡, 三淵嘉子 幼少期=Yoshiko Mibuchi childhood
+
+## 丸亀から渋谷へ
+33: ニューヨーク 1910年代=New York 1910s, 丸亀城 大正=Marugame Castle Taisho era
+36: 丸亀 大正時代 町並み=Marugame Kagawa Taisho era, 渋谷 1920年代=Shibuya 1920s
+39: 渋谷駅 大正=Shibuya Station Taisho era
+
+## 型破りな父の教え
+41: 武藤貞雄=Sadao Muto, 東京帝国大学 大正=Tokyo Imperial University Taisho era
+44: 三淵嘉子 父 武藤貞雄 家族写真=Yoshiko Mibuchi family photo Muto, 大正時代 花嫁=Taisho era Japanese bride
+47: 大正時代 女性 家庭=Taisho era Japanese housewife, 大正時代 職業婦人=Taisho era working women Japan
+52: 大正時代 女医=Taisho era female doctor Japan, 三淵嘉子 少女時代=Yoshiko Mibuchi girlhood
+
+## 女学校から法律の道へ
+55: 東京女子高等師範学校附属高等女学校=Tokyo Women's Higher Normal School girls high school, お茶の水女子大学附属高校=Ochanomizu University Senior High School
+58: 三淵嘉子 女学校時代=Yoshiko Mibuchi girls school days, 昭和初期 女学生=Japanese schoolgirls 1930s
+61: 武藤ノブ 三淵嘉子 母=Nobu Muto Yoshiko Mibuchi mother, 昭和初期 母と娘=Japanese mother daughter 1930s
+66: 三淵嘉子 両親=Yoshiko Mibuchi parents
+
+## 明治大学専門部女子部法科
+70: 明治大学 専門部女子部=Meiji University women's department 1930s, 明治大学 女子部 法科 学生=Meiji University women's law students 1930s
+74: 明治大学 駿河台 昭和初期=Meiji University Surugadai 1930s, 明治大学 女子部 第4期生=Meiji University women's department students
+76: 明治大学 記念館 1930年代=Meiji University memorial hall 1930s, 帝国大学 女子学生 昭和初期=female university students Japan 1930s
+80: 明治大学 法学部 昭和初期=Meiji University law faculty 1930s
+
+## 女性は弁護士になれなかった
+84: 旧弁護士法 明治=old Attorney Act Japan, 弁護士 戦前 日本=Japanese lawyer prewar
+88: 弁護士法 改正 1933=Attorney Act revision 1933 Japan, 帝国議会 1933=Imperial Diet 1933
+91: 明治大学 女子部 創設 1929=Meiji University women's department founded 1929
+
+## 男子学生と同じ教室で
+94: 明治大学 法学部 女子学生 1930年代=Meiji University female law students 1930s, 三淵嘉子 明治大学 学生時代=Yoshiko Mibuchi Meiji University student
+97: 明治大学 教室 昭和初期=Meiji University classroom 1930s, 戦前 大学 講義 女子学生=prewar Japanese university lecture female students
+104: 三淵嘉子 明治大学 卒業=Yoshiko Mibuchi Meiji University graduation, 明治大学 卒業式 1938=Meiji University graduation 1938
+
+## 高等試験司法科に合格
+111: 高等試験司法科=Higher Civil Service Examination judicial section Japan, 司法試験 合格発表 戦前=prewar bar exam results Japan
+115: 高等試験司法科 合格 女性 1938=first female bar exam passers Japan 1938, 新聞 1938 女性 合格=newspaper 1938 women pass bar exam
+118: 中田正子=Masako Nakata lawyer, 久米愛=Ai Kume lawyer, 三淵嘉子 中田正子 久米愛=Yoshiko Mibuchi Masako Nakata Ai Kume
+121: 紅三点 新聞 1938=Kosanten newspaper 1938, 女性弁護士 3人 新聞記事=three female lawyers newspaper Japan
+
+## 控えめなコメント
+123: 三淵嘉子 1938=Yoshiko Mibuchi 1938, 三淵嘉子 合格 インタビュー=Yoshiko Mibuchi bar exam interview
+129: 中田正子 久米愛 三淵嘉子 写真=Masako Nakata Ai Kume Yoshiko Mibuchi photo
+
+## 日本初の女性弁護士の誕生
+132: 弁護士試補 戦前=attorney trainee prewar Japan, 第二東京弁護士会=Daini Tokyo Bar Association
+135: 日本初の女性弁護士 1940=first female lawyers Japan 1940, 三淵嘉子 弁護士 1940=Yoshiko Mibuchi lawyer 1940
+137: 中田正子 弁護士=Masako Nakata lawyer, 久米愛 弁護士=Ai Kume lawyer
+141: 明治女子専門学校 助手 三淵嘉子=Yoshiko Mibuchi Meiji women's school assistant
+
+## 戦争で仕事がなくなる
+145: 太平洋戦争 開戦 1941=Pacific War outbreak 1941, 東京 1941 街頭=Tokyo street 1941
+148: 戦時中 裁判所 東京=wartime court Tokyo 1940s, 東京地方裁判所 戦前 庁舎=Tokyo District Court prewar building
+152: 戦時下 東京 弁護士事務所=wartime Tokyo law office 1940s
+
+## 和田芳夫との結婚
+155: 和田芳夫=Yoshio Wada Mibuchi husband, 三淵嘉子 和田芳夫 結婚=Yoshiko Mibuchi Yoshio Wada wedding
+157: 書生 明治 大正=Japanese shosei student Taisho, 明治大学 夜間部 戦前=Meiji University night school prewar
+163: 昭和16年 結婚式=Japanese wedding 1941, 三淵嘉子 和田芳夫=Yoshiko Mibuchi Yoshio Wada
+
+## 長男誕生と弟の戦死
+165: 三淵嘉子 和田芳武=Yoshiko Mibuchi Yoshitake Wada, 三淵嘉子 息子 赤ちゃん=Yoshiko Mibuchi son baby
+167: 富山丸 1944=Toyama Maru 1944, 富山丸 撃沈=Toyama Maru sinking, 武藤一郎 三淵嘉子 弟=Ichiro Muto Yoshiko Mibuchi brother
+172: 召集令状 赤紙=Japanese draft notice red paper, 出征 見送り 1944=Japanese soldier send-off 1944
+175: 明治女子専門学校 1944=Meiji women's college 1944, 戦時中 母親 子ども 東京=wartime Tokyo mother child
+
+## 空襲と疎開
+180: 東京大空襲 1945=Tokyo air raid 1945, 空襲 焼け跡 東京 1945=Tokyo ruins 1945
+182: 会津坂下町 昭和=Aizubange Fukushima Showa, 学童疎開 1945=evacuation Japan 1945
+186: 川崎 終戦 1945=Kawasaki 1945, 玉音放送 1945=Jewel Voice Broadcast 1945
+
+## 帰らなかった夫
+190: 上海 引き揚げ 1946=repatriation from Shanghai 1946, 引揚船 1946=repatriation ship 1946
+193: 長崎 1946=Nagasaki 1946, 長崎 引き揚げ 港=Nagasaki repatriation port
+195: 和田芳夫 写真=Yoshio Wada photo, 三淵嘉子 戦後=Yoshiko Mibuchi postwar
+
+## 残された家族
+198: 戦後 東京 母子=postwar Tokyo mother child 1946, 三淵嘉子 和田芳武 幼少=Yoshiko Mibuchi Yoshitake Wada childhood
+202: 戦後 闇市 1946=postwar black market Tokyo 1946, 配給 戦後 1946=food ration Japan 1946
+205: 武藤ノブ=Nobu Muto, 三淵嘉子 母 ノブ=Yoshiko Mibuchi mother Nobu
+
+## 裁判官を目指す決意
+210: 三淵嘉子 1947=Yoshiko Mibuchi 1947, 裁判官 法服 戦後=Japanese judge robe postwar
+214: 裁判所 戦後 裁判官 男性=postwar Japanese judges 1947, 東京地方裁判所 戦後=Tokyo District Court postwar
+217: 日本国憲法 公布 1946=Constitution of Japan promulgation 1946, 日本国憲法 第14条 原本=Constitution of Japan Article 14 original
+221: 日本国憲法 施行 1947 祝賀=Constitution of Japan enforcement 1947 celebration
+
+## 裁判官採用願を出す
+223: 司法省 庁舎 赤れんが=Ministry of Justice red brick building Japan, 石田和外=Kazuto Ishida, 三淵嘉子 裁判官採用願=Yoshiko Mibuchi judge application
+227: 法務省 旧本館=Ministry of Justice old main building Tokyo
+229: 坂野千里=Senri Sakano judge, 東京控訴院=Tokyo Court of Appeals prewar
+232: 最高裁判所 発足 1947=Supreme Court of Japan established 1947, 司法省 民事局 戦後=Ministry of Justice civil affairs 1947
+
+## 新しい民法づくり
+236: 民法改正 1947=Civil Code revision Japan 1947, 民法 家族法 改正 GHQ=Japanese family law reform GHQ
+239: 家制度 戸主 明治民法=ie system head of household Meiji Civil Code, 明治民法 条文=Meiji Civil Code
+243: 我妻栄 民法改正=Sakae Wagatsuma Civil Code reform, 改正民法 1947 公布=revised Civil Code 1947
+247: 三淵嘉子 司法省=Yoshiko Mibuchi Ministry of Justice, 武藤貞雄 写真=Sadao Muto photo
+251: 三淵嘉子 家族 戦後=Yoshiko Mibuchi family postwar
+
+## 家庭裁判所の誕生
+256: 最高裁判所 事務総局 1948=Supreme Court General Secretariat 1948, 最高裁判所 旧庁舎 霞が関=old Supreme Court building Kasumigaseki
+257: 家庭裁判所 発足 1949=family court established Japan 1949, 東京家庭裁判所 1949=Tokyo Family Court 1949
+259: 家庭裁判所 調停 昭和=family court mediation Showa, 少年審判 昭和20年代=juvenile hearing Japan 1950s
+261: 宇田川潤四郎=Junshiro Udagawa, 最高裁判所 家庭局 1949=Supreme Court Family Bureau 1949
+264: 宇田川潤四郎 三淵嘉子=Junshiro Udagawa Yoshiko Mibuchi
+
+## 判事補に任命される
+266: 三淵嘉子 判事補 1949=Yoshiko Mibuchi assistant judge 1949, 東京地方裁判所 1949=Tokyo District Court 1949
+269: 石渡満子=Mitsuko Ishiwatari, 日本初 女性判事補 1949=first female assistant judge Japan 1949
+274: 三淵嘉子 石渡満子=Yoshiko Mibuchi Mitsuko Ishiwatari
+
+## 尊敬した上司・近藤完爾
+276: 近藤完爾=Kanji Kondo judge, 東京地方裁判所 民事部 昭和20年代=Tokyo District Court civil division 1950s
+279: 三淵嘉子 法廷=Yoshiko Mibuchi courtroom, 近藤完爾 裁判官=Kanji Kondo judge
+
+## アメリカ視察と寂しかった息子
+284: 三淵嘉子 アメリカ視察 1950=Yoshiko Mibuchi US visit 1950, アメリカ 家庭裁判所 1950年代=American family court 1950s
+287: 和田芳武 小学生=Yoshitake Wada child, 武藤輝彦=Teruhiko Muto
+290: 三淵嘉子 渡米 1950 羽田=Yoshiko Mibuchi departure Haneda 1950
+
+## 日本初の女性判事
+292: 名古屋地方裁判所 昭和20年代=Nagoya District Court 1950s, 三淵嘉子 名古屋地裁 1952=Yoshiko Mibuchi Nagoya District Court 1952
+296: 石渡満子 判事=Mitsuko Ishiwatari judge, 三淵嘉子 判事=Yoshiko Mibuchi judge
+303: 名古屋地方裁判所 旧庁舎 名古屋市市政資料館=Nagoya City Archives former Nagoya court
+
+## 結果で認めさせる
+307: 三淵嘉子 1950年代=Yoshiko Mibuchi 1950s, 三淵嘉子 執務=Yoshiko Mibuchi at work
+311: 三淵嘉子 名古屋 判事時代=Yoshiko Mibuchi Nagoya judge era
+
+## 三淵乾太郎との再婚
+315: 東京地方裁判所 1956=Tokyo District Court 1956, 三淵乾太郎=Kentaro Mibuchi judge
+317: 三淵嘉子 三淵乾太郎=Yoshiko Mibuchi Kentaro Mibuchi, 三淵嘉子 再婚 1956=Yoshiko Mibuchi remarriage 1956
+321: 三淵忠彦=Tadahiko Mibuchi, 初代最高裁判所長官 三淵忠彦=first Chief Justice of Japan Tadahiko Mibuchi
+324: 最高裁判所 調査官 三淵乾太郎=Kentaro Mibuchi Supreme Court research officer
+
+## 3つ目の名字
+327: 三淵乾太郎 家族=Kentaro Mibuchi family, 三淵嘉子 家族写真=Yoshiko Mibuchi family photo
+331: 三淵嘉子 和田芳武=Yoshiko Mibuchi Yoshitake Wada
+
+## 小田原の別荘・甘柑荘
+335: 三淵嘉子 乾太郎 夫婦=Yoshiko and Kentaro Mibuchi couple
+338: 甘柑荘 小田原=Kankanso Odawara, 甘柑荘 三淵忠彦 別荘=Kankanso Tadahiko Mibuchi villa
+340: 甘柑荘 庭 ミカン=Kankanso garden mandarin, 小田原 ミカン畑=Odawara mandarin orchard
+344: 甘柑荘 一般公開 2024=Kankanso public opening 2024
+
+## 原爆裁判
+345: 原爆裁判 下田事件=Atomic bomb lawsuit Shimoda case, 東京地方裁判所 1960年代=Tokyo District Court 1960s
+348: 広島 原爆ドーム 1945=Hiroshima Atomic Bomb Dome 1945, 長崎 原爆 被害 1945=Nagasaki atomic bomb damage 1945, 被爆者 原告=atomic bomb survivors plaintiffs
+351: 古関敏正=Toshimasa Koseki judge, 高桑昭=Akira Takakuwa judge
+353: 原爆裁判 判決 1963=atomic bomb lawsuit verdict 1963, 下田判決 新聞 1963=Shimoda judgment newspaper 1963
+
+## 「国際法違反」と言い切った判決
+357: 原爆裁判 判決文=Shimoda case judgment text, 広島 原爆投下 キノコ雲=Hiroshima atomic bombing mushroom cloud
+360: ハーグ陸戦条約=Hague Convention 1907, 国際法 原爆 下田事件=international law atomic bomb Shimoda case
+364: 原爆裁判 原告 弁護団=atomic bomb lawsuit plaintiffs lawyers, 岡本尚一 弁護士=Shoichi Okamoto lawyer atomic bomb lawsuit
+367: 三淵嘉子 原爆裁判=Yoshiko Mibuchi atomic bomb trial, 虎に翼 原爆裁判=Tora ni Tsubasa atomic bomb trial
+
+## 東京家庭裁判所の少年部
+371: 東京家庭裁判所 1960年代=Tokyo Family Court 1960s, 三淵嘉子 東京家庭裁判所=Yoshiko Mibuchi Tokyo Family Court
+376: 東京家庭裁判所 少年部=Tokyo Family Court juvenile division, 非行少年 1960年代=juvenile delinquents Japan 1960s
+381: 家庭裁判所 少年審判廷=family court juvenile hearing room Japan
+
+## 5000人の少年少女と向き合う
+386: 三淵嘉子 少年審判=Yoshiko Mibuchi juvenile hearing, 少年 非行 昭和40年代=juvenile delinquency Japan 1960s
+390: 少年審判 家庭裁判所 調査官=juvenile hearing family court probation officer Japan, 少年院 昭和40年代=juvenile training school Japan 1960s
+394: 三淵嘉子 裁判長=Yoshiko Mibuchi presiding judge, 三淵嘉子 1960年代=Yoshiko Mibuchi 1960s
+
+## 初の女性家庭裁判所長
+397: 新潟家庭裁判所=Niigata Family Court, 三淵嘉子 新潟家庭裁判所長 1972=Yoshiko Mibuchi Niigata Family Court 1972, 新潟市 1972=Niigata city 1972
+401: 三淵嘉子 所長=Yoshiko Mibuchi court president, 新聞 初の女性裁判所長 1972=first female court president newspaper 1972
+404: 三淵嘉子 職員=Yoshiko Mibuchi with court staff, 新潟家庭裁判所 職員 昭和=Niigata Family Court staff Showa
+
+## 「うちのお母さん」
+411: 三淵嘉子 笑顔=Yoshiko Mibuchi smiling, 三淵嘉子 職員と=Yoshiko Mibuchi with staff
+415: 浦和家庭裁判所=Urawa Family Court, 横浜家庭裁判所=Yokohama Family Court, 三淵嘉子 横浜家庭裁判所長=Yoshiko Mibuchi Yokohama Family Court
+
+## 調停室を明るく
+418: 家庭裁判所 調停室=family court mediation room Japan, 家事調停 昭和=family mediation Showa Japan
+422: 三淵嘉子 横浜家裁 調停室=Yoshiko Mibuchi Yokohama mediation room, 横浜家庭裁判所 庁舎 昭和=Yokohama Family Court building Showa
+426: 三淵嘉子 講演=Yoshiko Mibuchi lecture, 三淵嘉子 晩年 所長=Yoshiko Mibuchi chief judge later years
+432: 三淵嘉子 講演会=Yoshiko Mibuchi speech, 三淵嘉子 少年問題 著書=Yoshiko Mibuchi juvenile issues book
+
+## 惜しまれた退官
+436: 三淵嘉子 退官 1979=Yoshiko Mibuchi retirement 1979, 横浜家庭裁判所 1979=Yokohama Family Court 1979
+439: 三淵嘉子 見送り 横浜家裁=Yoshiko Mibuchi farewell Yokohama, 家事調停委員 昭和=family mediation commissioners Showa
+445: 三淵嘉子 涙=Yoshiko Mibuchi tears, 三淵嘉子 退官 見送り=Yoshiko Mibuchi retirement send-off
+450: 三淵嘉子 乾太郎 オーストラリア旅行=Yoshiko and Kentaro Mibuchi Australia trip, シドニー オペラハウス 1979=Sydney Opera House 1979
+
+## 退官後も止まらない
+455: 日本婦人法律家協会=Japan Women's Bar Association, 三淵嘉子 日本婦人法律家協会 会長=Yoshiko Mibuchi Japan Women's Bar Association president
+458: 婦人問題企画推進会議=Women's issues planning council Japan 1979, 三淵嘉子 弁護士 1980=Yoshiko Mibuchi lawyer 1980
+461: 三淵嘉子 1980年代=Yoshiko Mibuchi 1980s
+
+## 病との闘い
+463: 国立医療センター 1983=National Medical Center Tokyo 1983, 国立国際医療研究センター 戸山=National Center for Global Health and Medicine Toyama
+466: 三淵嘉子 和田芳武 大人=Yoshiko Mibuchi Yoshitake Wada adult, 三淵嘉子 晩年 写真=Yoshiko Mibuchi late photo
+471: 三淵嘉子 エネ子=Yoshiko Mibuchi Eneko, 三淵嘉子 若い頃 元気=young Yoshiko Mibuchi energetic
+479: 三淵乾太郎 晩年=Kentaro Mibuchi later years, 三淵嘉子 車椅子=Yoshiko Mibuchi wheelchair
+
+## 「最高の女の人生」
+487: 女性法律家 1983 本=Josei Horitsuka 1983 book, 三淵嘉子 著書=Yoshiko Mibuchi book
+489: 三淵嘉子 名言 裁判官=Yoshiko Mibuchi quote judge, 三淵嘉子 法服 肖像=Yoshiko Mibuchi robe portrait
+
+## 最期のとき
+492: 三淵嘉子 1984=Yoshiko Mibuchi 1984, 三淵乾太郎 家族=Kentaro Mibuchi family
+496: 和田芳武=Yoshitake Wada, 三淵嘉子 最期=Yoshiko Mibuchi death 1984
+500: 三淵嘉子 晩年=Yoshiko Mibuchi later years
+502: 戦友 軍歌 楽譜=Senyu military song sheet music, 三淵嘉子 芳武 幼少 写真=Yoshiko Mibuchi with young son
+
+## 葬儀と勲章
+507: 青山葬儀所=Aoyama Funeral Hall, 三淵嘉子 葬儀 1984=Yoshiko Mibuchi funeral 1984
+509: 勲二等瑞宝章=Order of the Sacred Treasure 2nd class, 従三位 位記=Junior Third Rank certificate Japan
+512: 三淵乾太郎=Kentaro Mibuchi, 虎に翼 伊藤沙莉 法服=Tora ni Tsubasa Sairi Ito judge robe
+
+## 結び：受け継がれる道
+515: 三淵嘉子 笑顔 写真=Yoshiko Mibuchi smiling photo, 女性弁護士 日本 現代=Japanese female lawyers today, 三淵嘉子 記念 明治大学=Yoshiko Mibuchi Meiji University memorial
