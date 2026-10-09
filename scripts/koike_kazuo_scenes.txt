@@ -1,0 +1,209 @@
+# 小池一夫の解説台本(koike_kazuo.txt)の区切りと画像の検索ワード
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像1の日本語ワード=英語ワード, 画像2の日本語ワード=英語ワード, ...
+#   ・カンマで区切った1つが画像1枚。台本の順に①②③…と番号が付きます
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付きます
+#   ・「#」で始まる行はメモとして無視されます
+
+## 導入：ドラクエの生みの親の師匠
+1: ドラゴンクエスト 1986 ファミコン=Dragon Quest 1986 Famicom, ドラゴンクエスト スライム=Dragon Quest Slime
+4: 堀井雄二=Yuji Horii, 高橋留美子 うる星やつら=Rumiko Takahashi Urusei Yatsura, 原哲夫 北斗の拳=Tetsuo Hara Fist of the North Star
+7: 小池一夫=Kazuo Koike, 子連れ狼 劇画 小島剛夕=Lone Wolf and Cub manga Goseki Kojima, クエンティン・タランティーノ=Quentin Tarantino=Quentin Tarantino
+11: 小池一夫 ツイッター=Kazuo Koike Twitter, 小池一夫 晩年=Kazuo Koike later years
+16: 小池一夫 2019 死去=Kazuo Koike death 2019, 小池一夫 肖像=Kazuo Koike portrait
+
+## 秋田・大曲に生まれる
+18: 大曲 昭和10年代=Omagari Akita 1930s, 大仙市 大曲 風景=Daisen Omagari Akita
+19: 小池一夫 若い頃=young Kazuo Koike, 小池一夫 本名 俵谷譲=Kazuo Koike real name Tawaraya Yuzuru
+22: 昭和10年代 子供たち 秋田=Akita children 1940s, 秋田 蔵 旧家=Akita old storehouse kura
+24: 立川文庫=Tatsukawa Bunko, 立川文庫 猿飛佐助=Tatsukawa Bunko Sarutobi Sasuke, 講談 講談師 高座=kodan storyteller Japan
+27: 昭和20年代 小学校 教室=Japanese elementary school 1940s classroom, 紙芝居 昭和20年代 子供=kamishibai children 1940s Japan
+
+## 剣道と時代小説の修行
+31: 秋田高校 歴史=Akita High School history, 中央大学 駿河台 1950年代=Chuo University Surugadai 1950s
+32: 剣道 1950年代 大学=kendo university 1950s Japan
+33: 山手樹一郎=Kiichiro Yamate, 桃太郎侍 山手樹一郎=Momotaro Samurai Yamate Kiichiro
+35: 原稿用紙 万年筆 昭和=manuscript paper fountain pen Showa, 中央大学 卒業式 1959=Chuo University graduation 1959
+
+## 司法試験に3度落ちる
+40: 司法試験 昭和30年代=Japan bar exam 1960s, 六法全書 昭和=Roppo Zensho law book
+44: 雀荘 昭和30年代=mahjong parlor Japan 1960s, 農林省 庁舎 1960年代=Ministry of Agriculture and Forestry Japan 1960s
+45: 外航船 船員 1960年代=Japanese cargo ship sailor 1960s, ゴルフ場 昭和30年代=Japanese golf course 1960s
+48: 東京 1965 街並み=Tokyo 1965 street
+
+## 締め切り遅れの原稿で劇画界へ
+52: 週刊少年マガジン 1968=Weekly Shonen Magazine 1968, さいとう・たかを=Takao Saito, さいとうプロダクション=Saito Production
+54: ゴルゴ13 さいとう・たかを=Golgo 13 Takao Saito, さいとうプロ 1960年代 スタッフ=Saito Production staff 1960s
+58: 小池一夫 枯れ葉の紳士録=Kazuo Koike Kareha no Shinshiroku, 劇画 原稿 1960年代=gekiga manuscript 1960s
+61: 小池一夫 さいとうプロ時代=Kazuo Koike Saito Production era
+
+## さいとうプロでの修業
+65: 無用ノ介 さいとう・たかを=Muyonosuke Takao Saito, 影狩り さいとう・たかを=Kagegari Takao Saito
+67: ゴルゴ13 初期 1968=Golgo 13 early 1968 Big Comic, ゴルゴ13 バラと狼の倒錯=Golgo 13 Bara to Okami no Tosaku
+70: 無用ノ介 テレビドラマ 1969=Muyonosuke TV drama 1969, 無用ノ介 伊吹吾郎=Muyonosuke Goro Ibuki
+76: 映画 脚本 台本 昭和=Japanese film script Showa, さいとう・たかを 1970年代=Takao Saito 1970s
+
+## 独立と『子連れ狼』の誕生
+81: 小池一夫 1970年代=Kazuo Koike 1970s, 漫画アクション 1970=Manga Action 1970
+84: 子連れ狼 漫画アクション 連載=Lone Wolf and Cub Manga Action, 小島剛夕=Goseki Kojima
+85: 拝一刀 子連れ狼=Ogami Itto Lone Wolf and Cub, 介錯 江戸時代 切腹=kaishaku seppuku Edo period
+87: 拝一刀 大五郎 乳母車=Ogami Itto Daigoro baby cart, 子連れ狼 柳生烈堂=Lone Wolf and Cub Yagyu Retsudo
+90: 子連れ狼 乳母車 武器=Lone Wolf and Cub baby cart weapons, 小池一夫 小島剛夕=Kazuo Koike Goseki Kojima
+93: 御用牙 漫画=Goyokiba manga, 江戸 同心 十手=Edo doshin jitte
+95: モンキー・パンチ=Monkey Punch, モンキー・パンチ 書記官鳥=Monkey Punch Shokikancho
+
+## 月15本の連載とト書き原作
+98: 漫画雑誌 1970年代 青年誌=Japanese seinen manga magazines 1970s, 小池一夫 仕事場 1970年代=Kazuo Koike studio 1970s
+101: 小池一夫 原作 原稿=Kazuo Koike script manuscript, 映画 脚本 ト書き=screenplay stage directions Japanese
+104: 劇画 下書き ネーム=gekiga storyboard name, 小池一夫 劇画 原作 指示=Kazuo Koike gekiga script directions
+107: 梶原一騎=Ikki Kajiwara, 巨人の星 タイガーマスク=Star of the Giants Tiger Mask manga
+109: 梶原一騎 1970年代=Ikki Kajiwara 1970s, 青年漫画誌 1970年代 表紙=seinen manga magazine covers 1970s
+
+## スタジオ・シップとさいとうとの確執
+112: 梶原一騎 劇画=Ikki Kajiwara gekiga, スタジオ・シップ 小池一夫=Studio Ship Kazuo Koike
+114: 叶精作=Seisaku Kano, 神江里見=Satomi Kamie, 小山ゆう=Yu Koyama
+117: さいとう・たかを 1970年代=Takao Saito 1970s, 小学館 本社 1970年代=Shogakukan headquarters 1970s
+121: 漫画家 ゴルフコンペ=manga artists golf competition, 花縄 小池一夫=Hananawa Kazuo Koike, ビッグコミック 表紙=Big Comic cover
+
+## 唯一自由に描かせた相棒・上村一夫
+124: 上村一夫=Kazuo Kamimura, 上村一夫 同棲時代=Kazuo Kamimura Dosei Jidai
+126: 上村一夫 美人画=Kazuo Kamimura beauty art, 修羅雪姫 上村一夫=Lady Snowblood Kazuo Kamimura
+128: 修羅雪姫 漫画 鹿島雪=Lady Snowblood manga Yuki Kashima
+
+## 映画・ドラマ化で国民的作品に
+132: 若山富三郎 子連れ狼 1972=Tomisaburo Wakayama Lone Wolf and Cub 1972, 子連れ狼 子を貸し腕貸しつかまつる=Lone Wolf and Cub Sword of Vengeance 1972
+134: 京都市民映画祭=Kyoto Citizens Film Festival, 子連れ狼 映画 ポスター 1972=Lone Wolf and Cub film poster 1972
+135: 萬屋錦之介 子連れ狼 1973=Kinnosuke Yorozuya Lone Wolf and Cub 1973, 萬屋錦之介 大五郎 西川和孝=Kinnosuke Yorozuya Daigoro Kazutaka Nishikawa
+136: 修羅雪姫 1973 梶芽衣子=Lady Snowblood 1973 Meiko Kaji, 笑福亭仁鶴 1970年代=Shofukutei Nikaku 1970s, 笑福亭仁鶴 CM 子連れ狼=Shofukutei Nikaku commercial Kozure Okami
+
+## 作詞家・小池一夫
+139: 橋幸夫 子連れ狼 レコード=Yukio Hashi Kozure Okami record, 橋幸夫 1970年代=Yukio Hashi 1970s
+141: マジンガーZ 1972=Mazinger Z 1972, マジンガーZ Zのテーマ レコード=Mazinger Z no Theme record, 水木一郎 マジンガーZ=Ichiro Mizuki Mazinger Z
+144: グレートマジンガー 1974=Great Mazinger 1974, グレートマジンガー 主題歌 レコード=Great Mazinger theme song record
+
+## 「ン」へのこだわりと受賞
+149: 子連れ狼 セリフ カタカナ ン=Lone Wolf and Cub dialogue katakana n, 子連れ狼 単行本 双葉社=Lone Wolf and Cub tankobon Futabasha
+152: 少年画報社 劇画賞=Shonen Gahosha gekiga award, 小池一夫 1974=Kazuo Koike 1974
+
+## 『子連れ狼』完結と改名
+155: 子連れ狼 最終回 拝一刀 柳生烈堂=Lone Wolf and Cub final Ogami Itto Retsudo, 小池一雄 原作=Kazuo Koike original credit 1970s
+
+## 劇画村塾の開講
+159: 小池一夫劇画村塾=Koike Kazuo Gekiga Sonjuku, 小池一夫 劇画村塾 講義=Kazuo Koike Gekiga Sonjuku lecture
+161: 松下村塾=Shoka Sonjuku, 吉田松陰 肖像=Yoshida Shoin portrait
+165: 劇画村塾 塾生=Gekiga Sonjuku students, 小池一夫 キャラクター 講義=Kazuo Koike character lecture
+168: 拝一刀 大五郎 イラスト=Ogami Itto Daigoro illustration
+170: さくまあきら=Akira Sakuma, さくまあきら 桃太郎電鉄=Akira Sakuma Momotaro Dentetsu
+175: 板垣恵介=Keisuke Itagaki, 山口貴由=Takayuki Yamaguchi, 山本直樹 漫画家=Naoki Yamamoto manga artist
+176: 高橋留美子 1978=Rumiko Takahashi 1978, 原哲夫 1980年代=Tetsuo Hara 1980s, 堀井雄二 1980年代=Yuji Horii 1980s
+
+## 娯楽路線と少年誌ラブコメ
+179: 漫画雑誌 1980年代 表紙=Japanese manga magazines 1980s
+182: 弐十手物語 神江里見=Nijitte Monogatari Satomi Kamie, 電子戦隊デンジマン 1980=Denshi Sentai Denziman 1980
+183: 週刊少年サンデー 1982=Weekly Shonen Sunday 1982, ラブZ 小池一夫=Love Z Kazuo Koike
+
+## ゴルフ漫画と小説家デビュー
+186: シビゴルフ=Shibi Golf manga, 小池一夫 ゴルフ=Kazuo Koike golf
+188: 魔物語 小池一夫=Mamonogatari Kazuo Koike, 小学館漫画賞 1981=Shogakukan Manga Award 1981
+191: 週刊サンケイ 1984=Shukan Sankei 1984, 乾いて候 小池一夫=Kawaite Soro Kazuo Koike
+193: 弐十手物語 テレビドラマ 1984 名高達男=Nijitte Monogatari TV drama 1984 Tatsuo Nadaka
+
+## 麻雀・居合・茶道
+195: 阿佐田哲也=Tetsuya Asada, 阿佐田哲也 麻雀=Tetsuya Asada mahjong
+197: 居合道 演武=iaido demonstration, 小池一夫 居合道 本=Kazuo Koike iaido book
+198: 茶道 入門書 監修 小池一夫=Kazuo Koike tea ceremony book, 茶道 点前=tea ceremony temae
+
+## 香港の「百八竜」に呼び出される
+202: クライングフリーマン 池上遼一=Crying Freeman Ryoichi Ikegami, 池上遼一=Ryoichi Ikegami
+204: クライングフリーマン 百八竜=Crying Freeman 108 Dragons, 除夜の鐘=joya no kane New Year bell
+208: 香港 1980年代 夜景=Hong Kong 1980s night, 九龍 1980年代 街並み=Kowloon 1980s street
+211: 高輪プリンスホテル=Takanawa Prince Hotel, 白井勝也 小学館=Katsuya Shirai Shogakukan
+213: 高級腕時計 ロレックス 1980年代=Rolex watch 1980s, ビッグコミックスピリッツ 1980年代=Big Comic Spirits 1980s
+216: クライングフリーマン 火野村 日野=Crying Freeman Yo Hinomura Emu Hino
+
+## 上村一夫との別れ
+220: 上村一夫 晩年=Kazuo Kamimura later years, 上村一夫 修羅雪姫 原画=Kazuo Kamimura Lady Snowblood original art
+
+## 『子連れ狼』北米へ
+225: アルバトロス・ビュー ゴルフ雑誌=Albatross View golf magazine
+226: Lone Wolf and Cub First Comics 1987=Lone Wolf and Cub First Comics 1987, フランク・ミラー=Frank Miller=Frank Miller
+229: フランク・ミラー 子連れ狼 表紙=Frank Miller Lone Wolf and Cub cover, フランク・ミラー 1987=Frank Miller 1987=Frank Miller 1987
+231: 子連れ狼 その小さき手に 1993=Lone Wolf and Cub Sono Chiisaki Te ni 1993, 田村正和 子連れ狼=Masakazu Tamura Kozure Okami
+
+## 大阪芸大教授に
+235: 大阪芸術大学=Osaka University of Arts, 小池一夫 キャラクター原論=Kazuo Koike Character Genron
+237: 小池一夫 大阪芸術大学 教授=Kazuo Koike Osaka University of Arts professor, 大阪芸術大学 キャンパス 2000年代=Osaka University of Arts campus 2000s
+
+## アメリカでの受賞とハリウッド
+240: アイズナー賞=Eisner Award, アイズナー賞 2001 子連れ狼=Eisner Award 2001 Lone Wolf and Cub Dark Horse
+242: ハーヴェイ賞=Harvey Award, Lone Wolf and Cub Dark Horse=Lone Wolf and Cub Dark Horse Comics
+243: ロード・トゥ・パーディション 2002=Road to Perdition 2002, トム・ハンクス ロード・トゥ・パーディション=Tom Hanks Road to Perdition=Tom Hanks Road to Perdition
+245: キル・ビル ルーシー・リュー=Kill Bill O-Ren Ishii Lucy Liu=Kill Bill Lucy Liu, ジョン・ウー=John Woo=吳宇森
+
+## 北大路欣也版『子連れ狼』
+247: 北大路欣也 子連れ狼 2002=Kinya Kitaoji Kozure Okami 2002, 北大路欣也 2002=Kinya Kitaoji 2002
+249: 北大路欣也 拝一刀 乳母車=Kinya Kitaoji Ogami Itto baby cart, 小池一夫 北大路欣也=Kazuo Koike Kinya Kitaoji
+
+## 新宿の塾とウルヴァリン
+252: 新・子連れ狼 森秀樹=Shin Kozure Okami Hideki Mori, 小池一夫 2003=Kazuo Koike 2003
+253: X-Men Unlimited 50 小池一夫 ウルヴァリン=X-Men Unlimited 50 Kazuo Koike Wolverine, マーベル ウルヴァリン=Marvel Wolverine
+
+## アイズナー賞殿堂入り
+255: アイズナー賞 殿堂 2004=Eisner Award Hall of Fame 2004, サンディエゴ コミコン 2004=San Diego Comic-Con 2004
+258: 小池一夫 2004=Kazuo Koike 2004
+
+## 事業拡大と華やかな交友
+260: 星野仙一 2003 阪神=Senichi Hoshino Hanshin 2003, 勝ちたいんや 星野仙一 劇画=Kachitainya Hoshino manga
+261: 池口恵観=Ekan Ikeguchi, 星野仙一 池口恵観=Senichi Hoshino Ekan Ikeguchi
+262: 壱岐 海里村上=Iki Kairi Murakami hotel, 壱岐 リゾート 海=Iki island resort
+267: 小泉純一郎 2004=Junichiro Koizumi 2004, 知的財産戦略本部 首相官邸=Intellectual Property Strategy Headquarters Japan
+270: 長嶋茂雄 2000年代=Shigeo Nagashima 2000s, 長嶋茂雄 小池一夫=Shigeo Nagashima Kazuo Koike
+273: 大阪芸術大学 キャラクター造形学科=Osaka University of Arts Character Design department, 大仙市 風景=Daisen Akita scenery
+276: インクポット賞=Inkpot Award, 小池一夫 劇画村塾 2007=Kazuo Koike Gekiga Sonjuku 2007
+279: ジャパンエキスポ 2008 パリ=Japan Expo 2008 Paris, 小池一夫 ジャパンエキスポ=Kazuo Koike Japan Expo
+
+## 金銭トラブルの影
+281: 週刊誌 小池一夫 報道=Kazuo Koike tabloid report, 小池一夫 2008=Kazuo Koike 2008
+284: 東京地方裁判所=Tokyo District Court
+288: 堀井雄二 2009=Yuji Horii 2009, 堀井雄二 ドラゴンクエスト=Yuji Horii Dragon Quest
+291: 堀井雄二 インタビュー=Yuji Horii interview, 小池一夫 堀井雄二=Kazuo Koike Yuji Horii
+
+## 2009年、手放していくもの
+295: MANGARAK 劇画村塾=MANGARAK Gekiga Sonjuku, 小池一夫 2009=Kazuo Koike 2009
+298: 日本経済新聞=Nihon Keizai Shimbun, 親鸞 肖像=Shinran portrait
+
+## 70代でツイッターの人気者に
+300: 小池一夫 ツイッター アカウント=Kazuo Koike Twitter account, Twitter 2010=Twitter 2010
+303: 小池一夫 名言=Kazuo Koike quotes, 小池一夫 ツイート=Kazuo Koike tweet
+307: 小池一夫 小池工房=Kazuo Koike Koike Kobo, サンディエゴ コミコン 2013 小池一夫=San Diego Comic-Con 2013 Kazuo Koike
+310: 小池一夫 2014=Kazuo Koike 2014
+
+## 小池書院の破産と病
+312: 小池書院=Koike Shoin, 小池書院 子連れ狼 文庫=Koike Shoin Lone Wolf and Cub
+315: 破産 東京商工リサーチ 小池書院=Koike Shoin bankruptcy
+317: 小池一夫 晩年 写真=Kazuo Koike elderly photo, 小池一夫 杖=Kazuo Koike cane
+320: 悠々として急げ 小池一夫=Yuyu toshite Isoge Kazuo Koike, ふりまわされない 小池一夫=Furimawasarenai Kazuo Koike, だめなら逃げてみる 小池一夫=Dame nara Nigetemiru Kazuo Koike
+
+## 最後の連載『小池一夫のマンガ塾』
+323: 月刊チャンピオンRED=Monthly Champion Red, 小池一夫のマンガ塾=Koike Kazuo no Manga Juku
+325: 原稿用紙 紐綴じ=manuscript paper bound with string, 小池一夫 優しい 笑顔=Kazuo Koike smile
+
+## 内弟子をめぐる報道
+330: 週刊文春 2017=Shukan Bunshun 2017, 小池一夫 内弟子 報道=Kazuo Koike apprentice report
+334: 田中圭一=Keiichi Tanaka, 田中圭一 うつヌケ=Keiichi Tanaka Utsunuke
+
+## モンキー・パンチを見送って
+336: 小池一夫 2018=Kazuo Koike 2018
+338: モンキー・パンチ 2019=Monkey Punch 2019, ルパン三世 漫画アクション=Lupin III Manga Action
+340: 小池一夫 最後のツイート=Kazuo Koike last tweet, 漫画アクション 1970年代 表紙 ルパン三世 子連れ狼=Manga Action 1970s cover Lupin Lone Wolf
+343: 小池一夫 死去 2019 新聞=Kazuo Koike death 2019 newspaper, 小池一夫 遺影=Kazuo Koike memorial portrait
+
+## 死去とその後
+346: 小池一夫 訃報 ツイッター=Kazuo Koike death announcement Twitter, 北大路欣也 2019=Kinya Kitaoji 2019
+348: 名高達男=Tatsuo Nadaka, 田中圭一 2019=Keiichi Tanaka 2019
+350: 自分のせいだと思わない 小池一夫=Jibun no Sei da to Omowanai Kazuo Koike
+
+## まとめ：誰よりも濃いキャラクター
+352: 小池一夫 子連れ狼 原作者=Kazuo Koike Lone Wolf and Cub creator, 子連れ狼 拝一刀 大五郎=Lone Wolf and Cub Itto Daigoro, 小池一夫=Kazuo Koike
