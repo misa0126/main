@@ -1,0 +1,180 @@
+# 水島新司の解説台本(mizushima_shinji.txt)の区切りと画像の検索ワード
+# 書き方は scripts/nishizaki_yoshinobu_scenes.txt を参照
+
+## 導入：205巻の野球漫画
+1: 漫画 全巻 本棚=manga complete set bookshelf
+3: ドカベン 全巻=Dokaben complete volumes, ドカベン 単行本 1巻=Dokaben volume 1
+8: ドカベン 山田太郎=Dokaben Taro Yamada, あぶさん 単行本=Abu-san manga volumes, あぶさん ビッグコミックオリジナル=Abu-san Big Comic Original
+13: 水島新司=Shinji Mizushima, 水島新司 漫画家=Shinji Mizushima manga artist
+17: 水島新司 プロ野球選手=Shinji Mizushima professional baseball players, 新潟 昭和20年代 野球少年=Niigata boys baseball 1950s
+
+## 新潟の魚屋に生まれる
+24: 新潟市 昭和14年=Niigata city 1939, 新潟 魚屋 昭和=Niigata fish shop Showa era
+27: 新潟 昭和20年代 商店街=Niigata shopping street 1950s, 新潟 本町 市場 昭和=Niigata Honcho market Showa
+
+## 明訓高校へのあこがれ
+32: 新潟市立白新中学校=Hakushin Junior High School Niigata, 新潟明訓高校=Niigata Meikun High School
+35: 新潟明訓高校 野球部=Niigata Meikun High School baseball, 高校野球 ショート 昭和20年代=high school baseball shortstop 1950s
+
+## 中学生で働き手に
+41: 魚屋 昭和20年代 子供=fish shop child worker 1950s Japan, 新潟 魚屋 店先 昭和=Niigata fish shop storefront Showa
+47: 昭和20年代 中学校 教室=Japanese junior high classroom 1950s, 出刃包丁 魚をさばく=deba knife fish filleting
+55: 水島新司 出刃とバット=Shinji Mizushima Deba to Bat, 水島新司 インタビュー=Shinji Mizushima interview
+
+## 問屋での丁稚奉公と漫画家の夢
+67: 新潟 水産問屋 昭和=Niigata fish wholesaler Showa, 丁稚奉公 昭和=apprentice shop boy Showa Japan
+74: 昭和30年代 漫画を描く少年=boy drawing manga 1950s Japan, 新潟 昭和30年代 街並み=Niigata street 1950s
+79: 貸本屋 昭和30年代=kashihonya rental bookstore 1950s, さいとう・たかを 若い頃=Takao Saito young, さいとう・たかを 貸本 劇画=Takao Saito kashihon gekiga
+
+## 日の丸文庫のコンクールでデビュー
+89: 日の丸文庫=Hinomaru Bunko publisher Osaka, 影 日の丸文庫 貸本=Kage anthology Hinomaru Bunko, 水島新司 深夜の客=Shinji Mizushima Shinya no Kyaku
+96: 佐藤まさあき=Masaaki Sato manga artist, 佐藤まさあき 劇画=Masaaki Sato gekiga
+106: 山田秀三 日の丸文庫=Hidezo Yamada Hinomaru Bunko, 大阪 1958 街並み=Osaka 1958 street
+
+## 一年勝負で大阪へ
+111: 新潟駅 昭和30年代=Niigata Station 1950s, 大阪駅 1958=Osaka Station 1958
+119: 日の丸文庫 社屋=Hinomaru Bunko office, 劇画工房 1959=Gekiga Kobo 1959
+127: 水島新司 貸本 漫画=Shinji Mizushima kashihon manga, 水島新司 若い頃=Shinji Mizushima young
+
+## 大阪時代のコメディ漫画
+132: 水島新司 オッス=Shinji Mizushima Ossu manga, 水島新司 貸本 コメディ=Shinji Mizushima kashihon comedy
+134: 大村崑 番頭はんと丁稚どん=Kon Omura Banto-han to Detchi-don, てなもんや三度笠 藤田まこと=Tenamonya Sandogasa Makoto Fujita, 大村崑 1960年代=Kon Omura 1960s
+
+## 東京進出と野球を描かない10年
+141: 東京 1964 街並み=Tokyo 1964 street, 週刊少年キング 1960年代=Weekly Shonen King 1960s
+148: サイクルサッカー=cycle ball cycling football, 水島新司 週刊少年キング 初期作品=Shinji Mizushima early works Shonen King
+155: 水島新司 野球 原画=Shinji Mizushima baseball original art, 水島新司 仕事場=Shinji Mizushima studio
+163: 水島新司 1960年代=Shinji Mizushima 1960s, 昭和40年代 漫画家 仕事場=manga artist studio 1960s Japan
+
+## 初の野球漫画『エースの条件』
+175: エースの条件 水島新司=Ace no Joken Shinji Mizushima, 花登筺=Kobako Hanato, 花登筺 脚本家=Kobako Hanato screenwriter
+
+## 『男どアホウ甲子園』のヒット
+183: 男どアホウ甲子園=Otoko Doaho Koshien, 週刊少年サンデー 1970=Weekly Shonen Sunday 1970
+186: 男どアホウ甲子園 藤村甲子園=Otoko Doaho Koshien Fujimura Koshien, 銭っ子 水島新司=Zenikko Shinji Mizushima
+
+## 佐々木守と甲子園の勘違い
+192: 佐々木守 脚本家=Mamoru Sasaki screenwriter, 柔道一直線 ドラマ=Judo Icchokusen TV drama
+197: 大阪城 昭和45年=Osaka Castle 1970, 甲子園球場 1970年代=Koshien Stadium 1970s
+203: 甲子園球場 西宮 航空写真=Koshien Stadium Nishinomiya aerial, 佐々木守=Mamoru Sasaki
+210: 佐々木守 ウルトラマン 脚本=Mamoru Sasaki Ultraman writer, 男どアホウ甲子園 単行本=Otoko Doaho Koshien volume
+216: 水島新司 1970年代=Shinji Mizushima 1970s, 男どアホウ甲子園 名場面=Otoko Doaho Koshien scene
+
+## 小学館漫画賞と『出刃とバット』
+223: 小学館漫画賞 第19回=19th Shogakukan Manga Award, 水島新司 小学館漫画賞 1974=Shinji Mizushima Shogakukan Manga Award 1974
+227: 出刃とバット 水島新司=Deba to Bat Shinji Mizushima, 出刃包丁=deba bocho knife
+
+## 『ドカベン』は柔道から始まった
+236: 週刊少年チャンピオン 1972 ドカベン=Weekly Shonen Champion 1972 Dokaben, ドカベン 柔道編=Dokaben judo arc, ドカベン 山田太郎 柔道=Dokaben Taro Yamada judo
+243: ドカベン 明訓 野球部=Dokaben Meikun baseball team, ドカベン 岩鬼正美=Dokaben Masami Iwaki, ドカベン 殿馬一人 里中智=Dokaben Tonoma Satonaka
+250: ドカベン 単行本 秋田書店=Dokaben Akita Shoten volumes, ドカベン 明訓 甲子園=Dokaben Meikun Koshien
+
+## 明訓と白新に込めた思い
+255: ドカベン 明訓高校=Dokaben Meikun High School, 新潟明訓高校 校舎=Niigata Meikun High School building
+258: ドカベン 不知火守=Dokaben Mamoru Shiranui, 新潟市立白新中学校 校舎=Hakushin Junior High School Niigata building
+
+## 『野球狂の詩』と水原勇気
+265: 野球狂の詩 月刊少年マガジン=Yakyukyo no Uta Monthly Shonen Magazine, 野球狂の詩 水原勇気=Yakyukyo no Uta Yuki Mizuhara
+270: 小金井 音楽喫茶 白鳥=Koganei music cafe Hakucho, 東京 小金井 昭和40年代=Koganei Tokyo 1970s
+274: 野村克也 南海 兼任監督=Katsuya Nomura Nankai player-manager, 野村克也 1973=Katsuya Nomura 1973, 講談社出版文化賞=Kodansha Publishing Culture Award
+
+## 『あぶさん』と野村克也
+283: あぶさん 第1話 1973=Abu-san 1973 first chapter, ビッグコミックオリジナル 1973=Big Comic Original 1973, あぶさん 景浦安武=Abu-san Yasutake Kageura
+287: 野村克也 水島新司=Katsuya Nomura Shinji Mizushima, 大阪球場 南海ホークス 1970年代=Osaka Stadium Nankai Hawks 1970s
+290: 阪神タイガース 1973=Hanshin Tigers 1973, 南海ホークス 1973 優勝=Nankai Hawks 1973 pennant, 野村克也 南海ホークス=Katsuya Nomura Nankai Hawks
+
+## 代打専門の酒豪バッター
+295: あぶさん 代打 景浦=Abu-san pinch hitter Kageura, あぶさん 酒 景浦安武=Abu-san Kageura drinking
+
+## 江川卓との交流
+302: 江川卓 作新学院=Suguru Egawa Sakushin Gakuin, 江川卓 甲子園 1973=Suguru Egawa Koshien 1973
+304: 江川卓 水島新司=Suguru Egawa Shinji Mizushima, 江川事件 1978 空白の一日=Egawa incident 1978
+310: 作新学院 1973 野球部=Sakushin Gakuin baseball 1973, 水島新司 下戸=Shinji Mizushima
+
+## 本物のドカベン・香川伸行
+315: 香川伸行 浪商=Nobuyuki Kagawa Namisho, 香川伸行 ドカベン=Nobuyuki Kagawa Dokaben, 浪商 甲子園 1979 牛島 香川=Namisho Koshien 1979 Ushijima Kagawa
+318: 香川伸行 サイン ドカベン=Nobuyuki Kagawa autograph Dokaben, 香川伸行 南海ホークス=Nobuyuki Kagawa Nankai Hawks
+
+## アニメ・映画化と黄金期
+324: ドカベン アニメ 1976=Dokaben anime 1976, 映画 野球狂の詩 1977=Yakyukyo no Uta 1977 film, 映画 野球狂の詩 木之内みどり=Yakyukyo no Uta film Midori Kinouchi
+330: 一球さん 水島新司=Ikkyu-san Shinji Mizushima, 球道くん 水島新司=Kyudo-kun Shinji Mizushima
+333: あぶさん 小学館漫画賞 1977=Abu-san Shogakukan Manga Award, 一球入魂 雑誌 水島新司=Ikkyu Nyukon magazine Shinji Mizushima
+336: 水島新司 1970年代 長者番付=Shinji Mizushima 1970s, ドカベン 最終回 1981=Dokaben final chapter 1981
+
+## 『光の小次郎』と『大甲子園』
+344: 光の小次郎 水島新司=Hikari no Kojiro Shinji Mizushima, 週刊少年マガジン 1981=Weekly Shonen Magazine 1981
+350: 大甲子園 水島新司=Dai Koshien Shinji Mizushima, 大甲子園 単行本=Dai Koshien volume
+
+## 現実離れへの批判
+358: 落合博満 ロッテ 1982=Hiromitsu Ochiai Lotte 1982, 落合博満 三冠王 1982=Hiromitsu Ochiai Triple Crown 1982, あぶさん 景浦 ホームラン=Abu-san Kageura home run
+
+## フライデー襲撃事件
+366: フライデー 1986 創刊=Friday magazine 1986, フライデー襲撃事件 1986=Friday attack incident 1986, ビートたけし 1986=Beat Takeshi 1986
+
+## 草野球とアシスタント採用
+373: 水島新司 草野球=Shinji Mizushima amateur baseball, 水島新司 あぶさん 草野球チーム=Shinji Mizushima Abusan team, 水島新司 ユニフォーム=Shinji Mizushima uniform
+379: 本宮ひろ志 若い頃=Hiroshi Motomiya young, 本宮ひろ志=Hiroshi Motomiya
+
+## 新潟での始球式
+383: 新潟 白山球場 1986=Niigata Hakusan Stadium 1986, 水島新司 始球式=Shinji Mizushima ceremonial first pitch
+387: 石毛宏典 西武 1986=Hironori Ishige Seibu 1986, 南海ホークス 1986=Nankai Hawks 1986
+
+## ダイエー中内㓛との会食
+393: 中内功 ダイエー ホークス 1988=Isao Nakauchi Daiei Hawks 1988, 福岡ダイエーホークス 1989=Fukuoka Daiei Hawks 1989, 中内功=Isao Nakauchi
+
+## 松井秀喜の5打席連続敬遠
+399: 松井秀喜 5打席連続敬遠 1992=Hideki Matsui five intentional walks 1992, 松井秀喜 星稜=Hideki Matsui Seiryo
+401: 松井秀喜 敬遠 一塁へ=Hideki Matsui walk to first base, ドカベン 山田太郎 敬遠=Dokaben Taro Yamada intentional walk
+
+## 『ドカベン プロ野球編』
+409: 清原和博 西武 1995=Kazuhiro Kiyohara Seibu 1995, 清原和博 水島新司=Kazuhiro Kiyohara Shinji Mizushima, ドカベン プロ野球編=Dokaben Pro Baseball arc
+415: 渡辺久信 西武=Hisanobu Watanabe Seibu, ドカベン プロ野球編 岩鬼 ホームラン=Dokaben Iwaki home run, 渡辺久信 1996=Hisanobu Watanabe 1996
+
+## 作者を振り回す岩鬼
+423: 水島新司 ネーム=Shinji Mizushima storyboard, ドカベン 岩鬼 葉っぱ=Dokaben Iwaki leaf
+
+## 講談社との和解とクロスオーバー
+431: 野球狂の詩 平成編=Yakyukyo no Uta Heisei, 新・野球狂の詩=Shin Yakyukyo no Uta, ドカベン スーパースターズ編=Dokaben Superstars arc
+437: ドカベン スーパースターズ編 野球狂の詩 日本シリーズ=Dokaben Superstars Yakyukyo no Uta Japan Series
+
+## 石ノ森萬画館とドカベン通り
+441: 石ノ森萬画館=Ishinomori Manga Museum, 水島新司 石ノ森萬画館 館長=Shinji Mizushima Ishinomori Manga Museum director
+443: 水島新司まんがストリート=Mizushima Shinji Manga Street Niigata, 新潟 古町 ドカベン 銅像=Niigata Furumachi Dokaben statue, 新潟スタジアム ビッグスワン 2002=Niigata Big Swan 2002 World Cup
+447: 水島新司まんがストリート 銅像 7体=Mizushima Shinji Manga Street statues, 岩鬼 銅像 葉っぱ=Iwaki statue leaf Niigata
+
+## 60代の始球式
+452: 水島新司 始球式 2003=Shinji Mizushima first pitch 2003, 柴原洋 ダイエー=Hiroshi Shibahara Daiei Hawks
+
+## 紫綬褒章と漫画家50周年
+457: 水島新司 紫綬褒章 2005=Shinji Mizushima Medal with Purple Ribbon 2005, 日本漫画家協会賞 文部科学大臣賞=Japan Cartoonists Association Award
+462: 高橋留美子=Rumiko Takahashi, あだち充=Mitsuru Adachi, 王貞治 長嶋茂雄=Sadaharu Oh Shigeo Nagashima
+464: 福岡ドンタクズ=Fukuoka Dontakus, 水島新司 背番号90=Shinji Mizushima number 90
+
+## こだわりの強さ
+468: 水島新司 メジャーリーグ 批判=Shinji Mizushima MLB criticism, あだち充 タッチ=Mitsuru Adachi Touch
+474: 福岡ドーム ホークス=Fukuoka Dome Hawks, 水島新司 晩年=Shinji Mizushima later years
+
+## 景浦安武の引退セレモニー
+477: あぶさん 引退セレモニー 2009=Abu-san retirement ceremony 2009, 景浦安武 引退 ヤフードーム=Kageura retirement Yahoo Dome, 水島新司 ヤフードーム 2009=Shinji Mizushima Yahoo Dome 2009
+484: あぶさん 最終回 2014=Abu-san final chapter 2014, あぶさん 全107巻=Abu-san 107 volumes
+
+## 『ドリームトーナメント編』と最後の作品
+489: ドカベン ドリームトーナメント編=Dokaben Dream Tournament arc, 水島新司 2012=Shinji Mizushima 2012
+494: 水島新司 旭日小綬章 2014=Shinji Mizushima Order of the Rising Sun 2014, ドカベン 完結 2018=Dokaben finale 2018, あぶさん 読み切り 2018=Abu-san one-shot 2018
+
+## 描けなかった弱小チームの物語
+500: 地方大会 高校野球 弱小=high school baseball local tournament, 高校野球 練習 グラウンド=high school baseball practice ground
+
+## 引退と殿堂辞退
+509: 野球殿堂博物館=Japanese Baseball Hall of Fame, 野球殿堂 候補 水島新司=Shinji Mizushima Hall of Fame candidate
+512: 水島新司 引退 2020=Shinji Mizushima retirement 2020, 水島新司 引退 コメント=Shinji Mizushima retirement statement
+
+## 死去
+520: 水島新司 死去 2022=Shinji Mizushima death 2022, 水島新司 訃報=Shinji Mizushima obituary
+
+## 野球界からの追悼
+526: 王貞治 ホークス=Sadaharu Oh Hawks, 王貞治 水島新司=Sadaharu Oh Shinji Mizushima
+529: 松坂大輔 ドカベン=Daisuke Matsuzaka Dokaben, 今井雄太郎 阪急=Yutaro Imai Hankyu, 水島新司 追悼=Shinji Mizushima tribute
+
+## 結び
+537: 水島新司まんがストリート 新潟=Mizushima Shinji Manga Street Niigata, 水島新司 笑顔=Shinji Mizushima smiling
