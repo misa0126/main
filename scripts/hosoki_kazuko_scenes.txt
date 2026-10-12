@@ -1,0 +1,212 @@
+# 細木数子の解説台本(hosoki_kazuko.txt)の区切りと画像の検索ワード
+# 書き方は nishizaki_yoshinobu_scenes.txt を参照
+
+## 導入：朝の星占いと「地獄に落ちるわよ」
+1: 細木数子 地獄に落ちるわよ=Kazuko Hosoki TV
+8: 細木数子 視聴率の女王=Kazuko Hosoki fortune teller
+
+## 1億部とギネス、表と裏の顔
+13: 六星占術 本=Rokusei Senjutsu book Kazuko Hosoki
+16: 細木数子 若い頃=young Kazuko Hosoki
+
+## 渋谷に生まれる・父の生い立ち
+23: 渋谷 昭和初期=Shibuya 1930s
+25: 高知城=Kochi Castle
+
+## 壮士として生きた父と母との出会い
+31: 壮士 明治=soshi political activists Meiji Japan
+
+## 大野伴睦と夜のカフェ
+39: 大野伴睦=Banboku Ono
+43: 昭和 カフェー 女給=Showa cafe jokyu 1930s
+
+## 父の死と終戦
+48: 東京大空襲 1945=Tokyo air raid 1945
+54: 細木数子 若い頃 写真=Kazuko Hosoki young photo
+
+## 17歳で東京駅のスタンド喫茶「ポニー」
+60: 東京駅 1955年=Tokyo Station 1955
+69: 宝塚音楽学校=Takarazuka Music School
+
+## 宝塚を辞退し商売の道へ
+74: 宝塚歌劇団 1950年代=Takarazuka Revue 1950s
+
+## 新橋のクラブ「潤」
+82: 新橋 ガード下 昭和=Shimbashi under the tracks Showa
+
+## 20歳で銀座のママに
+87: 銀座 1958年=Ginza 1958
+91: 銀座 クラブ 昭和30年代=Ginza club 1960s
+
+## 静岡の眼鏡店へ嫁ぐ
+96: 細木数子 1960年代=Kazuko Hosoki 1960s
+101: 静岡 昭和30年代=Shizuoka 1960s
+
+## 銀座に戻る
+110: 銀座 夜景 1960年代=Ginza night 1960s
+
+## 10億円の借金と借金取り
+115: 細木数子 銀座 ママ=Kazuko Hosoki Ginza mama
+120: 細木数子 女の履歴書=Kazuko Hosoki autobiography
+
+## 溝口敦が描いた裏社会とのつながり
+131: 溝口敦=Atsushi Mizoguchi journalist
+137: 安藤組 安藤昇=Noboru Ando Ando-gumi
+
+## 島倉千代子との出会い
+143: 島倉千代子=Chiyoko Shimakura
+146: 赤坂 ディスコ 1970年代=Akasaka disco 1970s
+
+## 島倉の借金と後見人
+153: 島倉千代子 1970年代=Chiyoko Shimakura 1970s
+
+## 「お千代」「おネェ」の蜜月とグアム騒動
+163: 細木数子 島倉千代子=Kazuko Hosoki Chiyoko Shimakura
+166: グアム 1970年代=Guam 1970s
+
+## 二人の決裂
+172: 島倉千代子 細木数子 決別=Chiyoko Shimakura Kazuko Hosoki
+
+## 姪・かおりの誕生
+183: 細木かおり=Kaori Hosoki
+190: 細木かおり 幼少期=Kaori Hosoki childhood
+
+## 六星占術の誕生
+198: 易経=I Ching
+206: 六星占術 1982=Rokusei Senjutsu Hosoki 1982
+
+## 六星占術の仕組みと大殺界
+210: 六星占術 土星人 金星人 火星人=Rokusei Senjutsu six stars
+215: 大殺界=Daisakkai Rokusei Senjutsu
+
+## 盗作疑惑
+219: 細木数子 六星占術 本 初期=Kazuko Hosoki early book
+
+## 陽明学者・安岡正篤
+227: 安岡正篤=Masahiro Yasuoka
+232: 玉音放送=Gyokuon-hoso Emperor surrender broadcast
+234: 平成 元号 発表=Heisei era announcement 1989
+
+## 40歳差の結婚と婚姻届
+237: 安岡正篤 晩年=Masahiro Yasuoka elderly
+241: 細木数子 1980年代=Kazuko Hosoki 1980s
+
+## 安岡の死と婚姻無効
+246: 安岡正篤 1983=Masahiro Yasuoka 1983
+
+## 「師匠」という主張と大殺界の皮肉
+255: 細木数子 安岡正篤=Kazuko Hosoki Masahiro Yasuoka
+
+## 1985年の六星占術ブーム
+264: 運命を読む六星占術入門=Unmei wo Yomu Rokusei Senjutsu Nyumon
+268: 阪神タイガース 1985 日本一=Hanshin Tigers 1985 Japan Series
+
+## 春風亭小朝と泰葉の離婚予言
+274: 春風亭小朝 泰葉=Shunputei Koasa Yasuha
+
+## 株価大暴落の予言
+280: 日経平均 1989 最高値=Nikkei 1989 peak
+
+## 大震災の予言と表舞台からの退場
+286: 阪神・淡路大震災=Great Hanshin earthquake 1995
+291: 料理の鉄人=Iron Chef Japan
+
+## 墓石をめぐる霊感商法裁判
+295: 細木数子 墓 裁判=Kazuko Hosoki grave lawsuit
+300: 墓石=Japanese gravestone
+
+## かおりへのお見合い攻勢
+308: 細木かおり 結婚=Kaori Hosoki family
+
+## サッチー騒動と特番の高視聴率
+315: 野村沙知代 浅香光代=Sachiyo Nomura Mitsuyo Asaka
+317: 細木数子 特番 2003=Kazuko Hosoki TV special 2003
+321: 細木数子 京都 豪邸=Kazuko Hosoki Kyoto mansion
+
+## レギュラー番組と「視聴率の女王」
+325: ズバリ言うわよ=Zubari Iu wa yo
+328: くりぃむしちゅー 細木数子=Cream Stew Kazuko Hosoki
+
+## 芸能人への改名のすすめ
+334: モンキッキー 改名 会見=Monkikki name change
+338: アニマル梯団=Animal Teidan
+
+## 改名を断った次長課長
+341: 次長課長=Jicho Kacho comedy duo
+
+## 当たった予言
+347: 北島康介 アテネ 金メダル=Kosuke Kitajima Athens 2004 gold
+352: 横峯さくら 2005=Sakura Yokomine 2005
+
+## 外れた予言
+355: ドン小西=Don Konishi
+358: 劇団ひとり=Gekidan Hitori
+
+## 島倉千代子との24年ぶりの再会
+363: 島倉千代子 50周年=Chiyoko Shimakura 50th anniversary
+367: 島倉千代子 着物=Chiyoko Shimakura kimono
+
+## 毒舌の裏の優しさ
+376: モンキッキー 細木数子=Monkikki Kazuko Hosoki
+383: 細木数子 笑顔=Kazuko Hosoki smile
+
+## ドラマ『トップキャスター』騒動
+389: トップキャスター ドラマ 天海祐希=Top Caster drama 2006
+
+## 週刊現代の連載「魔女の履歴書」
+399: 週刊現代 細木数子=Shukan Gendai Kazuko Hosoki
+402: 細木数子 魔女の履歴書=Hosoki Kazuko Majo no Rirekisho Mizoguchi
+
+## 6億円の名誉毀損訴訟
+409: 細木数子 講談社 提訴=Kazuko Hosoki lawsuit Kodansha
+416: 溝口敦 細木数子=Atsushi Mizoguchi Kazuko Hosoki
+
+## 神社の参拝作法騒動
+421: 神社 参拝 二礼二拍手一礼=shrine worship bow clap
+426: 神社本庁=Association of Shinto Shrines
+
+## テレビのレギュラーからの降板
+430: 細木数子 2008 降板=Kazuko Hosoki 2008
+435: 細木数子 引退 テレビ=Kazuko Hosoki retire TV
+
+## 裁判の取り下げ
+441: 溝口敦 細木数子 和解=Atsushi Mizoguchi Hosoki settlement
+
+## かおりへの後継の頼みと拒否
+447: 細木かおり 細木数子=Kaori Hosoki Kazuko Hosoki
+
+## 有田哲平と5年ぶりの共演、マネージャーとして
+458: 有田哲平 細木数子=Teppei Arita Kazuko Hosoki
+460: 細木かおり マネージャー=Kaori Hosoki manager
+
+## 鑑定室での覚悟
+465: 細木数子 鑑定=Kazuko Hosoki fortune reading
+
+## 養子縁組と「家族こそが最大の財産」
+473: 細木数子 細木かおり 親子=Kazuko Hosoki Kaori Hosoki mother daughter
+
+## 復活と引退、六星占術の継承
+482: 細木数子 2017 ディナーショー=Kazuko Hosoki 2017 comeback
+484: 細木かおり 六星占術=Kaori Hosoki Rokusei Senjutsu
+
+## 晩年の暮らし
+492: 細木数子 晩年=Kazuko Hosoki late years
+
+## 急な発熱と最後の言葉
+503: 細木数子 死去=Kazuko Hosoki death 2021
+
+## 家族に見守られた最期
+516: 細木かおり 細木数子 家族=Kaori Hosoki family Kazuko
+
+## 訃報とお別れの会
+524: 細木かおり インスタグラム 訃報=Kaori Hosoki Instagram
+526: 梅窓院=Baisoin Temple Aoyama
+528: 朝青龍=Asashoryu
+530: 島倉千代子 晩年=Chiyoko Shimakura later years
+
+## Netflix『地獄に堕ちるわよ』
+534: 六星占術 細木かおり 2026=Rokusei Senjutsu Kaori Hosoki 2026
+535: 地獄に堕ちるわよ Netflix 戸田恵梨香=Jigoku ni Ochiru wa yo Netflix Erika Toda
+
+## まとめ
+543: 細木数子=Kazuko Hosoki
