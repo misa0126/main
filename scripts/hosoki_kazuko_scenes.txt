@@ -1,0 +1,191 @@
+# 細木数子の解説台本(hosoki_kazuko.txt)の区切りと画像の検索ワード
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像1の日本語ワード=英語ワード, 画像2の日本語ワード=英語ワード, ...
+#   ・カンマで区切った1つが画像1枚。台本の順に①②③…と番号が付きます
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付きます
+#   ・「#」で始まる行はメモとして無視されます
+
+## 導入：大殺界と「地獄に落ちるわよ」
+1: 朝の情報番組 星占い コーナー=Japanese morning TV horoscope segment
+4: 細木数子 大殺界 本=Kazuko Hosoki daisakkai book, 六星占術 大殺界=Rokusei Senjutsu daisakkai
+6: 細木数子 地獄に落ちるわよ=Kazuko Hosoki jigoku ni ochiru wa yo, 細木数子 テレビ 2005=Kazuko Hosoki TV 2005
+11: 細木数子 視聴率の女王=Kazuko Hosoki ratings queen, 細木数子 六星占術 本 ギネス=Kazuko Hosoki Guinness record fortune books
+13: 地獄に堕ちるわよ Netflix 戸田恵梨香=Jigoku ni Ochiru wa yo Netflix Erika Toda, Netflix ランキング 1位 地獄に堕ちるわよ=Netflix Japan top 10 Hosoki drama
+15: 細木数子 若い頃=Kazuko Hosoki young, 細木数子 晩年=Kazuko Hosoki later years
+19: 細木数子=Kazuko Hosoki
+
+## 渋谷に生まれる
+20: 渋谷 1938 昭和13年=Shibuya 1938, 細木数子 幼少期=Kazuko Hosoki childhood
+23: 大野伴睦=Banboku Ono, 大野伴睦 昭和=Banboku Ono Showa politician
+25: 渋谷 カフェー 昭和初期=Shibuya cafe 1930s, 太平洋戦争 開戦 1941 東京=Tokyo 1941 Pacific War outbreak
+
+## 父の死と戦争
+29: 東京 1945 空襲 渋谷=Shibuya air raid 1945, 終戦 1945 東京 子供=Tokyo children 1945
+33: 焼け跡 渋谷 1945=Shibuya ruins 1945, 戦後 東京 母子家庭 昭和20年代=postwar Tokyo mother and children 1940s
+
+## 百軒店の娘茶屋で育つ
+36: 渋谷 百軒店 昭和20年代=Shibuya Hyakkendana 1950s, 道玄坂 昭和20年代=Dogenzaka Shibuya 1950s
+39: 渋谷 百軒店 飲食街 昭和=Hyakkendana Shibuya Showa, 渋谷 昭和20年代 街並み=Shibuya street 1950s
+41: 細木数子 少女時代=Kazuko Hosoki girlhood, 渋谷 昭和30年 繁華街=Shibuya downtown 1955
+
+## ミス渋谷と宝塚
+46: 細木数子 ミス渋谷=Kazuko Hosoki Miss Shibuya, 細木数子 10代 写真=Kazuko Hosoki teenage photo
+49: 細木数子 若い頃 美人=Kazuko Hosoki young beauty
+53: 宝塚音楽学校 昭和30年代=Takarazuka Music School 1950s, 宝塚歌劇団 1950年代 舞台=Takarazuka Revue 1950s stage
+
+## 17歳で東京駅高架下に「ポニー」
+57: 東京駅 高架下 昭和30年=Tokyo Station under the tracks 1955, 東京駅 1955=Tokyo Station 1955
+60: スタンドコーヒー 昭和30年代=Japanese coffee stand 1950s, 東京駅 通勤客 1950年代=Tokyo Station commuters 1950s
+65: 成徳女子高校 十条=Seitoku girls high school Jujo, 細木数子 17歳=Kazuko Hosoki age 17
+
+## 新橋のクラブ「潤」と店の転がし
+70: 新橋 ガード下 昭和30年代=Shimbashi under the railway 1950s, 新橋 1956 夜=Shimbashi night 1956
+75: 昭和30年代 クラブ ホステス=Japanese hostess club 1950s
+
+## 20歳で銀座のママに
+79: 銀座 1958 夜=Ginza 1958 night, 銀座 ネオン 昭和33年=Ginza neon 1958
+84: 銀座 クラブ ママ 昭和30年代=Ginza club mama 1950s, 細木数子 銀座 ママ時代=Kazuko Hosoki Ginza club owner
+89: 細木数子 20代=Kazuko Hosoki 20s, 銀座 昭和30年代 街並み=Ginza street 1950s
+
+## 静岡の眼鏡店の跡取りと結婚・3か月で離婚
+92: 細木数子 結婚 1963=Kazuko Hosoki marriage 1963, 静岡 1963 街並み=Shizuoka city 1963
+96: 細木数子 若い頃 着物=Kazuko Hosoki young kimono, 昭和40年代 結婚式 日本=Japanese wedding 1960s
+101: 細木数子 銀座 1960年代=Kazuko Hosoki Ginza 1960s
+
+## 10億円の借金と借金取り
+105: 銀座 夜 1960年代=Ginza night 1960s, 細木数子 借金 10億円=Kazuko Hosoki debt
+111: 昭和40年代 借金取り ヤクザ=Japanese yakuza debt collectors 1960s
+114: 細木数子 1970年代=Kazuko Hosoki 1970s, 細木数子 女の履歴書=Kazuko Hosoki Onna no Rirekisho
+119: 細木数子 クラブ 経営 1970年代=Kazuko Hosoki club manager 1970s, 銀座 1970年代 夜=Ginza night 1970s
+
+## 島倉千代子の借金と後見人
+126: 島倉千代子 1977=Chiyoko Shimakura 1977, 島倉千代子 若い頃=Chiyoko Shimakura young
+128: 島倉千代子 借金 1977=Chiyoko Shimakura debt 1977, 島倉千代子 連帯保証人=Chiyoko Shimakura guarantor
+131: 島倉千代子 1970年代 ステージ=Chiyoko Shimakura 1970s stage
+133: 赤坂 ディスコ 1970年代=Akasaka disco 1970s, 細木数子 島倉千代子 後見人=Kazuko Hosoki Chiyoko Shimakura
+138: 島倉千代子 記者会見 1977=Chiyoko Shimakura press conference 1977, 細木数子 島倉千代子 会見=Kazuko Hosoki Chiyoko Shimakura press conference
+142: 細木数子 ミュージック・オフィス=Kazuko Hosoki Music Office, 細木数子 1977=Kazuko Hosoki 1977
+
+## 「お千代」と「おネェ」
+144: 島倉千代子 細木数子=Chiyoko Shimakura Kazuko Hosoki, 島倉千代子 地方公演 1978=Chiyoko Shimakura concert 1978
+147: 島倉千代子 水着=Chiyoko Shimakura swimsuit, 島倉千代子 週刊誌 1978=Chiyoko Shimakura weekly magazine 1978
+150: キャバレー 昭和50年代 歌手=Japanese cabaret singer 1970s, 島倉千代子 キャバレー=Chiyoko Shimakura cabaret
+
+## 島倉との決裂
+155: 島倉千代子 1980=Chiyoko Shimakura 1980, 細木数子 1980年代=Kazuko Hosoki 1980s
+159: 細木数子 自伝=Kazuko Hosoki autobiography, 溝口敦 細木数子 魔女の履歴書=Atsushi Mizoguchi Hosoki witch
+
+## 六星占術の誕生
+163: 細木数子 1980年代 若い頃=Kazuko Hosoki early 1980s
+167: 易経 古書=I Ching ancient book, 易学 八卦=I Ching trigrams
+170: 六星占術 土星人 金星人=Rokusei Senjutsu Saturn Venus types, 六星占術 運命星 6つ=Rokusei Senjutsu six stars
+172: 六星占術 大殺界 図=Rokusei Senjutsu daisakkai cycle chart
+176: 細木数子 六星占術 1982 初版=Kazuko Hosoki Rokusei Senjutsu 1982 first edition, 細木数子 44歳=Kazuko Hosoki 1982
+
+## 神煕玲と盗用疑惑
+180: 神煕玲 占術=Jin Kirei fortune teller, 細木数子 六星占術 原点=Kazuko Hosoki Rokusei Senjutsu origin
+184: 細木数子 1980年代 鑑定=Kazuko Hosoki fortune reading 1980s
+
+## 安岡正篤との結婚騒動
+186: 安岡正篤=Masahiro Yasuoka, 安岡正篤 晩年=Masahiro Yasuoka later years
+188: 安岡正篤 陽明学=Masahiro Yasuoka Yomeigaku, 王陽明=Wang Yangming=王陽明, 安岡正篤 歴代首相 吉田茂 佐藤栄作=Masahiro Yasuoka prime ministers
+191: 細木数子 安岡正篤=Kazuko Hosoki Masahiro Yasuoka, 銀座 1980年代 クラブ=Ginza club 1980s
+194: 細木数子 45歳 1983=Kazuko Hosoki 1983, 安岡正篤 85歳=Masahiro Yasuoka age 85
+198: 安岡正篤 細木数子 婚姻届=Masahiro Yasuoka Kazuko Hosoki marriage registration, 安岡正篤 1983 死去=Masahiro Yasuoka death 1983
+203: 細木数子 週刊誌 安岡正篤=Kazuko Hosoki weekly magazine Yasuoka
+207: 細木数子 大殺界 批判=Kazuko Hosoki daisakkai criticism, 六星占術 大殺界 カレンダー=Rokusei Senjutsu daisakkai calendar
+
+## ベストセラー作家へ
+212: 運命を読む六星占術入門 細木数子=Kazuko Hosoki Rokusei Senjutsu Nyumon 1985, 細木数子 1985=Kazuko Hosoki 1985
+216: 女の履歴書 細木数子=Kazuko Hosoki Onna no Rirekisho book
+
+## テレビを控えた1990年代
+219: 細木数子 1990年代=Kazuko Hosoki 1990s
+223: 細木数子 1990年代 着物=Kazuko Hosoki 1990s kimono
+226: 料理の鉄人 細木数子=Iron Chef Kazuko Hosoki, 料理の鉄人 フジテレビ 1990年代=Iron Chef Fuji TV 1990s
+230: 細木数子 六星占術 1996 本=Kazuko Hosoki Rokusei Senjutsu 1996 books, 細木数子 本 書店 平積み=Kazuko Hosoki books bookstore display
+
+## 墓の裁判とミッチー・サッチー騒動
+235: 細木数子 墓 裁判 1993=Kazuko Hosoki grave lawsuit 1993, 墓石 霊園 1990年代=Japanese cemetery gravestones 1990s
+240: 細木数子 先祖供養 墓=Kazuko Hosoki ancestor worship grave
+244: 浅香光代 野村沙知代 1999=Mitsuyo Asaka Sachiyo Nomura 1999, 野村沙知代=Sachiyo Nomura, 細木数子 野村沙知代=Kazuko Hosoki Sachiyo Nomura
+
+## 「視聴率の女王」へ
+248: 細木数子 特番 2003=Kazuko Hosoki TV special 2003, 細木数子 人生相談 テレビ=Kazuko Hosoki life advice TV
+253: 細木数子 視聴率=Kazuko Hosoki TV ratings, 細木数子 65歳 2003=Kazuko Hosoki 2003
+257: 細木数子 毒舌 テレビ=Kazuko Hosoki blunt TV
+
+## 『ズバリ言うわよ!』と『幸せって何だっけ』
+260: ズバリ言うわよ 細木数子 TBS=Zubari Iu wa yo TBS Hosoki, 幸せって何だっけ カズカズの宝話 フジテレビ=Shiawase tte Nandakke Fuji TV Hosoki, くりぃむしちゅー ネプチューン 細木数子=Cream Stew Neptune Kazuko Hosoki
+263: ズバリ言うわよ 説教=Zubari Iu wa yo lecture, 細木数子 説教 芸能人=Kazuko Hosoki scolding celebrities
+267: 細木数子 地獄に落ちるわよ 番組=Kazuko Hosoki jigoku ni ochiru wa yo show, 細木数子 改名=Kazuko Hosoki name change
+
+## おさるが「モンキッキー」に改名
+270: アニマル梯団 おさる コアラ=Animal Teidan Osaru Koala, モンキッキー 改名 会見=Monkikkie name change press conference
+276: おさる モンキッキー 細木数子=Osaru Monkikkie Kazuko Hosoki, おさる 現在=Osaru comedian
+278: おさる 細木数子 素顔=Osaru Kazuko Hosoki, 細木数子 笑顔=Kazuko Hosoki smiling
+
+## 島倉千代子と24年ぶりの再会
+284: 細木数子 2004=Kazuko Hosoki 2004, 赤坂 高級中華料理店 個室=Akasaka Chinese restaurant private room
+287: 細木数子 毛皮 コート=Kazuko Hosoki fur coat, 祝儀袋 300万円=Japanese gift money envelope
+289: 島倉千代子 歌手生活50周年=Chiyoko Shimakura 50th anniversary, 島倉千代子 2004=Chiyoko Shimakura 2004
+293: 島倉千代子 細木数子 再会=Chiyoko Shimakura Kazuko Hosoki reunion, 島倉千代子 着物=Chiyoko Shimakura kimono
+
+## 朝青龍のタニマチ
+297: 朝青龍=Asashoryu=Долгорсүрэнгийн Дагвадорж, 朝青龍 細木数子=Asashoryu Kazuko Hosoki=Дагвадорж Хосоки
+300: タニマチ 大相撲 後援会=sumo patron tanimachi, 朝青龍 優勝 会見 細木数子=Asashoryu championship press conference Hosoki=Дагвадорж аварга
+
+## 『トップキャスター』と『魔女の履歴書』
+304: トップキャスター フジテレビ 2006 天海祐希=Top Caster Fuji TV 2006 Yuki Amami, 細木数子 2006=Kazuko Hosoki 2006
+308: 溝口敦=Atsushi Mizoguchi journalist, 週刊現代 2006 細木数子=Shukan Gendai 2006 Hosoki, 魔女の履歴書 細木数子=Majo no Rirekisho Hosoki Mizoguchi
+313: 溝口敦 暴力団 取材=Atsushi Mizoguchi yakuza reporting, 細木かおり=Kaori Hosoki
+
+## 講談社との6億円裁判
+319: 講談社 本社 音羽=Kodansha headquarters Otowa, 細木数子 講談社 訴訟 2006=Kazuko Hosoki Kodansha lawsuit 2006
+323: 溝口敦 細木数子 裁判=Atsushi Mizoguchi Hosoki trial, 細木数子の真実 魔女の履歴書 単行本=Hosoki Kazuko Majo no Rirekisho book 2006
+327: 女の履歴書 細木数子 自叙伝=Kazuko Hosoki Onna no Rirekisho autobiography, 溝口敦 2006=Atsushi Mizoguchi 2006
+
+## 神社本庁からの苦情
+333: 神社 参拝 作法 二礼二拍手一礼=shrine worship etiquette Japan, 神社本庁=Association of Shinto Shrines Jinja Honcho
+
+## テレビからの撤退
+336: ズバリ言うわよ 最終回 2008=Zubari Iu wa yo final episode 2008, 細木数子 降板 2008=Kazuko Hosoki leaves TV 2008
+339: 細木数子 充電期間 会見=Kazuko Hosoki hiatus 2008, 細木数子 講談社 訴訟 取り下げ=Kazuko Hosoki drops Kodansha lawsuit
+
+## モンゴル大統領の晩さん会
+344: ウランバートル 2008=Ulaanbaatar 2008=Улаанбаатар 2008, 大相撲 モンゴル巡業 2008=sumo Mongolia tour 2008=Сумо Монгол 2008, エンフバヤル 大統領 2008=Nambaryn Enkhbayar 2008=Намбарын Энхбаяр
+348: 細木数子 モンゴル=Kazuko Hosoki Mongolia, 朝青龍 モンゴル 2008=Asashoryu Mongolia 2008=Дагвадорж 2008
+
+## ギネス認定と有田哲平との共演
+349: 細木数子 ギネス 2012=Kazuko Hosoki Guinness 2012, 六星占術 本 2012=Rokusei Senjutsu book 2012
+352: 細木数子 有田哲平 2013=Kazuko Hosoki Teppei Arita 2013, 有田哲平=Teppei Arita
+
+## 78歳の「細木数子TV」とディナーショー
+355: 細木数子TV 2017=Hosoki Kazuko TV 2017, 細木数子 ディナーショー 2017=Kazuko Hosoki dinner show 2017
+358: 細木数子 78歳=Kazuko Hosoki 2017
+360: 神楽坂 細木数子 自宅=Kazuko Hosoki Kagurazaka home, 細木数子 毛皮 サングラス トイプードル=Kazuko Hosoki fur sunglasses poodle
+
+## 娘・かおり
+365: 細木数子 細木かおり=Kazuko Hosoki Kaori Hosoki, 細木かおり 若い頃=Kaori Hosoki young
+370: 細木数子 晩年 家族=Kazuko Hosoki family later years
+374: 細木かおり マネージャー=Kaori Hosoki manager, 細木かおり 六星占術 後継者=Kaori Hosoki successor Rokusei Senjutsu
+378: 六星占術 2019 細木かおり 本=Kaori Hosoki Rokusei Senjutsu 2019 book, 細木かおり テレビ 2019=Kaori Hosoki TV debut 2019
+
+## 2021年、83歳の最期
+381: 六星占術 40周年 2020=Rokusei Senjutsu 40th anniversary, 細木数子 2021=Kazuko Hosoki 2021
+383: 鰻重=unaju eel rice, 細木数子 死去 2021=Kazuko Hosoki death 2021
+387: 細木数子 訃報 ニュース=Kazuko Hosoki obituary news
+389: 細木かおり 母 細木数子=Kaori Hosoki mother Kazuko Hosoki, 細木かおり 2021=Kaori Hosoki 2021
+
+## お別れの会と朝青龍の言葉
+394: 細木かおり インスタグラム 2021=Kaori Hosoki Instagram 2021, 梅窓院 南青山=Baisoin temple Minami Aoyama, 細木数子 お別れの会=Kazuko Hosoki farewell ceremony
+397: 朝青龍 2021=Asashoryu 2021=Дагвадорж 2021
+
+## 死後：受け継がれる六星占術とNetflixドラマ
+398: 六星占術 細木かおり 2026=Kaori Hosoki Rokusei Senjutsu 2026, 細木かおり 現在=Kaori Hosoki now
+400: 戸田恵梨香 細木数子 Netflix=Erika Toda Kazuko Hosoki Netflix, 地獄に堕ちるわよ Netflix ポスター=Jigoku ni Ochiru wa yo Netflix poster
+
+## まとめ
+402: 細木数子 若い頃 銀座=Kazuko Hosoki young Ginza, 細木数子 ズバリ言うわよ=Kazuko Hosoki Zubari Iu wa yo, 細木数子 晩年 笑顔=Kazuko Hosoki later years smiling
