@@ -1,0 +1,207 @@
+# 土門拳の解説台本(domon_ken.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付く
+#   ・「#」で始まる行はメモとして無視される
+
+## 導入：雪の室生寺を待ち続けた写真家
+1: 室生寺 雪=Muroji temple snow
+3: 土門拳 車椅子=Ken Domon wheelchair
+9: 土門拳=Ken Domon
+11: 土門拳 古寺巡礼 写真集=Ken Domon Koji Junrei photobook
+13: 土門拳 若い頃=young Ken Domon
+
+## 酒田に生まれる
+22: 酒田 明治時代=Sakata Yamagata Meiji era
+25: 土門拳 子供の頃=Ken Domon childhood
+30: 横浜 大正時代=Yokohama Taisho era
+
+## 横浜二中と絵の才能
+33: 横浜第二中学校 翠嵐高校=Yokohama Suiran High School
+40: 安井曾太郎=Sotaro Yasui
+44: 縄文土器 石器=Jomon pottery stone tools
+
+## 職を転々として画家の夢を捨てる
+51: 逓信省=Ministry of Communications Japan
+54: 常盤津=Tokiwazu
+56: いらすとや 画家=irasutoya painter
+63: 農民運動 昭和初期=Japanese peasant movement 1930s
+
+## 宮内写真館の住み込み弟子
+69: 上野 池之端 昭和初期=Ikenohata Ueno 1930s
+75: 写真館 昭和初期=Japanese photo studio 1930s
+80: ドイツ 報道写真 1930年代 グラフ誌=German photojournalism 1930s Berliner Illustrirte Zeitung
+
+## 初入選と日本工房
+86: アサヒカメラ 1935=Asahi Camera 1935
+90: 名取洋之助=Yonosuke Natori
+96: 日本工房 NIPPON 雑誌=NIPPON magazine Nippon Kobo
+99: 名取洋之助 日本工房=Yonosuke Natori Nippon Kobo
+
+## 『ライフ』への挑戦
+105: LIFE誌 1938=LIFE magazine 1938
+115: 宇垣一成=Kazushige Ugaki
+118: 木村伊兵衛=Ihei Kimura
+120: LIFE 1938 宇垣一成 土門拳=LIFE 1938 Ugaki Ken Domon
+
+## 名取との決裂
+125: 名取洋之助 1930年代=Yonosuke Natori 1930s
+130: 土門拳 1930年代=Ken Domon 1930s
+139: 土門拳 伊豆 1936=Ken Domon Izu 1936
+
+## 国際文化振興会と結婚
+147: 国際文化振興会=Kokusai Bunka Shinkokai
+
+## 室生寺との出会い
+154: 室生寺 五重塔=Muroji five-story pagoda
+158: 広隆寺 弥勒菩薩=Koryuji Miroku Bosatsu
+163: 柳宗悦 沖縄 1940=Soetsu Yanagi Okinawa 1940
+
+## 文楽に取り憑かれる
+166: 土門拳 文楽=Ken Domon Bunraku
+170: 吉田文五郎 人形遣い=Yoshida Bungoro puppeteer
+172: 四ツ橋 文楽座=Yotsubashi Bunrakuza Osaka
+174: 土門拳 1940年代=Ken Domon 1940s
+177: 徴兵検査 昭和=conscription examination Japan Showa
+
+## 梅原龍三郎と高村光太郎
+180: 梅原龍三郎=Ryuzaburo Umehara
+187: 土門拳 梅原龍三郎 肖像=Ryuzaburo Umehara portrait by Ken Domon
+191: 土門拳 肖像写真 戦前=Ken Domon portrait prewar
+193: 高村光太郎=Kotaro Takamura
+199: 日本評論 雑誌 1943=Nihon Hyoron magazine 1943
+
+## 床下に埋めた乾板
+205: ガラス乾板=glass plate negative
+211: 四ツ橋 空襲=Yotsubashi Osaka air raid 1945
+215: 土門拳 文楽 乾板=Ken Domon Bunraku glass plate
+
+## 戦後の室生寺
+219: 戦後 室生寺=Muroji temple postwar 1946
+
+## 『カメラ』誌とリアリズム写真
+226: カメラ 雑誌 アルス 1950=Camera magazine Ars 1950
+233: 土門拳 スナップ 1950年代=Ken Domon snapshot 1950s
+238: 土門拳 リアリズム写真=Ken Domon realism photography
+242: いらすとや 手紙 書く=irasutoya writing letter
+245: 東松照明=Shomei Tomatsu
+
+## ライバル木村伊兵衛
+248: 木村伊兵衛 土門拳=Ihei Kimura Ken Domon
+251: 木村伊兵衛 ライカ=Ihei Kimura Leica
+253: 土門拳 撮影中=Ken Domon shooting
+
+## 三兄弟
+259: 勅使河原蒼風 亀倉雄策 土門拳=Sofu Teshigahara Yusaku Kamekura Ken Domon
+
+## 襖の名前と『風貌』
+264: 土門拳 仕事場=Ken Domon studio
+270: 土門拳 風貌 写真集=Ken Domon Fubo photobook
+272: 土門拳 川端康成=Yasunari Kawabata by Ken Domon
+274: 銭湯 昭和20年代=sento public bath Japan 1950s
+
+## 江東のこどもと『室生寺』
+279: 土門拳 江東のこども=Ken Domon Koto children
+281: 土門拳 室生寺 写真集 1954=Ken Domon Muroji photobook 1954
+283: 土門拳 1950年代=Ken Domon 1950s
+
+## 広島へ
+291: 週刊新潮 1957=Shukan Shincho 1957
+294: 原爆ドーム 1957=Atomic Bomb Dome 1957
+300: 土門拳 広島 1957=Ken Domon Hiroshima 1957
+302: 広島原爆病院=Hiroshima Atomic Bomb Hospital
+
+## 写真集『ヒロシマ』
+309: 土門拳 ヒロシマ 写真集=Ken Domon Hiroshima photobook
+314: 土門拳 ヒロシマ 手術=Ken Domon Hiroshima skin graft surgery
+319: 土門拳 1958=Ken Domon 1958
+323: いらすとや 給料袋=irasutoya pay envelope
+
+## 筑豊の炭鉱へ
+329: 筑豊 炭鉱 1959=Chikuho coal mine 1959
+333: 筑豊 炭鉱 閉山=Chikuho coal mine closure
+337: 土門拳 筑豊=Ken Domon Chikuho
+
+## 100円の写真集『筑豊のこどもたち』
+341: 筑豊のこどもたち 写真集=Children of Chikuho photobook Ken Domon
+348: 筑豊のこどもたち るみえちゃん=Rumie chan Chikuho Ken Domon
+350: 弁当を持ってこない子 土門拳=Ken Domon child without lunch box
+353: 筑豊のこどもたち 映画 1960=Chikuho no Kodomotachi film 1960
+354: るみえちゃんはお父さんが死んだ=Rumie chan wa Otosan ga Shinda Ken Domon
+
+## 過労と脳出血
+361: 土門拳 1960=Ken Domon 1960
+364: 東京警察病院=Tokyo Police Hospital
+370: 東ベルリン 1960=East Berlin 1960=Ost-Berlin 1960
+
+## カラーの『古寺巡礼』へ
+378: 土門拳 古寺巡礼 撮影=Ken Domon Koji Junrei shooting
+386: 土門拳 1960年代=Ken Domon 1960s
+390: 土門拳 仏像 手=Ken Domon Buddha statue hands
+395: 土門拳 仏像 口元=Ken Domon Buddha statue lips close-up
+399: 古寺巡礼 第一集 1963=Koji Junrei volume 1 1963
+401: 土門拳 1963=Ken Domon 1963
+
+## 撮影の鬼
+407: 土門拳 撮影風景=Ken Domon at work
+409: 高田好胤=Koin Takada
+410: 神護寺=Jingoji temple Kyoto
+412: 薬師寺 東塔 夕暮れ=Yakushiji East Pagoda dusk
+
+## 1967年の三つの仕事
+420: 小椋久太郎 こけし=Kyutaro Ogura kokeshi
+426: 東大寺 二月堂 お水取り=Todaiji Nigatsudo Omizutori
+429: 羽田闘争 1967=Haneda incident 1967
+
+## 再び倒れて右半身まひ
+432: 土門拳 憎悪と失意の日日=Ken Domon Hiroshima 1968
+435: 萩 城下町=Hagi Yamaguchi castle town
+437: 九州大学病院=Kyushu University Hospital
+
+## 左手の絵筆と車椅子
+441: 土門拳 水彩画=Ken Domon watercolor
+444: 土門拳 書=Ken Domon calligraphy
+445: 鹿教湯温泉=Kakeyu Onsen Nagano
+447: 土門拳 車椅子 撮影=Ken Domon wheelchair shooting
+
+## 車椅子で山の上の寺へ
+452: 土門拳 車椅子 古寺巡礼=Ken Domon wheelchair temple
+456: 古寺巡礼 第四集=Koji Junrei volume 4
+457: ニューヨーク近代美術館=Museum of Modern Art New York
+459: 土門拳 文楽 写真集 1972=Ken Domon Bunraku photobook 1972
+462: 土門拳 1970年代=Ken Domon 1970s
+467: 古寺巡礼 第五集=Koji Junrei volume 5
+
+## 撮り残した雪の室生寺
+471: 室生寺 金堂=Muroji Kondo hall
+475: 土門拳 風景 写真集 1976=Ken Domon Fukei photobook 1976
+477: 三人三様 勅使河原蒼風 亀倉雄策 土門拳=Sanninsanyo Teshigahara Kamekura Domon
+479: 土門拳自選作品集=Ken Domon selected works
+
+## ついに雪の室生寺を撮る
+483: 土門拳 雪の室生寺=Ken Domon Muroji in snow
+488: 室生寺 雪 五重塔=Muroji pagoda in snow
+
+## 最後の撮影と昏睡
+494: 越前海岸=Echizen coast Fukui
+498: 虎ノ門病院=Toranomon Hospital
+
+## 仲間たちがつくった記念館
+503: 土門拳記念館=Ken Domon Museum of Photography
+507: 谷口吉生=Yoshio Taniguchi
+508: 土門拳記念館 イサム・ノグチ=Isamu Noguchi Ken Domon Museum
+510: 土門拳記念館 庭 勅使河原宏=Ken Domon Museum garden Hiroshi Teshigahara
+511: 土門拳記念館 拳湖=Ken Domon Museum Kenko pond
+514: 土門拳記念館 開館 1983=Ken Domon Museum opening 1983
+
+## 土門拳賞と最期
+519: 土門拳賞=Ken Domon Award
+524: 土門拳 晩年=Ken Domon last years
+528: 八柱霊園 土門拳 墓=Ken Domon grave Yahashira cemetery
+
+## 結び：写真は肉眼を越える
+531: 土門拳写真美術館=Ken Domon Museum of Photography Sakata
+533: 土門拳 カメラ=Ken Domon with camera
