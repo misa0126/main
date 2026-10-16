@@ -1,0 +1,51 @@
+# 土門拳の解説台本(domon_ken.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・「#」で始まる行はメモとして無視される
+
+## 導入：雪の室生寺を待つ車椅子の写真家
+1: 室生寺 雪景色=Muroji temple snow
+3: 土門拳 車椅子 撮影=Ken Domon wheelchair photographing
+
+## 「写真の鬼」土門拳
+9: 土門拳=Ken Domon
+11: 古寺巡礼 土門拳 写真集=Ken Domon Koji Junrei photobook
+12: 土門拳 撮影中=Ken Domon taking photo
+
+## 誰よりも遅い出発点
+15: 土門拳 若い頃=young Ken Domon
+
+## 酒田に生まれ、祖父母に育てられる
+22: 酒田 明治 大正 港町=Sakata Yamagata old photo Taisho
+25: 土門拳 幼少期=Ken Domon childhood
+
+## 東京、そして横浜へ
+30: 横浜 大正時代=Yokohama Taisho era
+
+## 横浜二中と授業料免除
+33: 横浜第二中学校 旧制=Yokohama Second Middle School old
+36: 翠嵐高校=Kanagawa Prefectural Yokohama Suiran High School
+
+## バラの油絵で入選
+40: 土門拳 油絵=Ken Domon oil painting
+42: 安井曾太郎=Sotaro Yasui
+
+## 考古学に夢中になる
+44: 縄文土器=Jomon pottery
+47: 石器 土器 発掘=stone tools pottery excavation Japan
+
+## 定まらない道
+51: 逓信省=Ministry of Communications Japan building
+54: 常盤津 三味線=Tokiwazu shamisen
+56: いらすとや 書生=irasutoya shosei student
+57: いらすとや 画家 悩む=irasutoya painter worried
+
+## 農民運動と検挙
+63: 農民運動 昭和初期=Japanese peasant movement 1930s
+
+## 母の勧めで写真館へ
+69: 宮内幸太郎 写真館=Kotaro Miyauchi photo studio
+72: 上野 池之端 昭和初期=Ueno Ikenohata early Showa
