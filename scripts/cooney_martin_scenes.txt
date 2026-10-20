@@ -1,0 +1,189 @@
+# マーティン・クーニーの解説台本(cooney_martin.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付く
+#   ・「#」で始まる行はメモとして無視される
+
+## 導入：保育器と帽子箱の赤ちゃん
+1: 保育器 未熟児=premature baby incubator NICU
+4: 20世紀初頭 産科病棟=early 1900s maternity ward hospital
+9: クーニー 帽子箱 赤ちゃん=Couney hatbox premature baby
+17: マーティン・クーニー=Martin Couney=Martin Couney Brutkasten
+22: コニーアイランド 保育器 展示=Coney Island baby incubator exhibit
+25: マーティン・クーニー 肖像=Martin Couney portrait=Martin Couney Porträt
+
+## 生まれと名前
+28: クロトシン=Krotoschin Krotoszyn=Krotoszyn
+32: プロイセン王国 地図=Kingdom of Prussia map=Königreich Preußen Karte
+34: マーティン・クーニー 若い頃=young Martin Couney=Martin Couney jung
+37: ブレスラウ 19世紀=Breslau 19th century=Breslau 19. Jahrhundert
+41: いらすとや 見栄を張る人=irasutoya show off
+
+## 渡米：乗客名簿は「商人」
+45: ベルリン大学 19世紀=University of Berlin 19th century=Universität Berlin 19. Jahrhundert
+47: ハンブルク港 1880年代=Port of Hamburg 1880s=Hamburger Hafen 1880er
+50: 乗客名簿 1888 ハンブルク=1888 Hamburg passenger list=Hamburger Passagierlisten 1888
+52: いらすとや 商人=irasutoya merchant
+
+## 博覧会とリオン
+58: パリ万博 1889=Exposition Universelle 1889=Exposition universelle de 1889
+62: アレクサンドル・リオン 保育器=Alexandre Lion incubator=Alexandre Lion couveuse
+68: ベルリン産業博覧会 1896=Berlin Industrial Exposition 1896=Berliner Gewerbeausstellung 1896
+72: ピエール・ブーダン=Pierre Budin=Pierre Budin obstétricien
+74: ベルリン 1896 保育器 展示=Berlin 1896 Kinderbrutanstalt incubator=Kinderbrutanstalt Berlin 1896
+
+## ロンドン・アールズコート
+78: アールズコート ヴィクトリア朝博覧会 1897=Earls Court Victorian Era Exhibition 1897
+83: 英仏海峡 蒸気船 1890年代=English Channel steamer 1890s
+87: ルイーズ・レヒト=Louise Recht=Louise Recht infirmière
+92: ランセット 1897=The Lancet 1897
+96: ランセット 保育器 記事=Lancet baby incubator article 1898
+
+## オマハの大コケ
+101: トランスミシシッピ博覧会 1898 オマハ=Trans-Mississippi Exposition 1898 Omaha
+104: トランスミシシッピ博覧会 ミッドウェイ=Trans-Mississippi Exposition midway camel
+107: いらすとや ビール=irasutoya beer
+111: 乳母 1890年代=wet nurse 1890s photo
+118: オマハ 裁判所 1890年代=Douglas County Courthouse Omaha 1890s
+
+## バッファロー汎米博覧会
+121: ナイアガラの滝 1901=Niagara Falls 1901
+124: パリ万博 1900=Exposition Universelle 1900 Paris=Exposition universelle de 1900
+126: 汎米博覧会 1901=Pan-American Exposition 1901 Buffalo
+129: 汎米博覧会 ミッドウェイ=Pan-American Exposition Midway 1901
+131: 汎米博覧会 保育器=Pan-American Exposition baby incubator building 1901
+136: いらすとや 行列=irasutoya long line crowd
+141: 保育器 雑誌記事 1901=Scientific American baby incubator 1901
+144: バッファロー小児病院=Buffalo Children's Hospital 1900s
+150: アーサー・ブリズベン=Arthur Brisbane
+157: 汎米博覧会 保育器 赤ちゃん=Pan-American Exposition incubator babies photo
+
+## アナベルとの出会い
+160: アナベル・メイ・セグナー=Annabelle May Segner Couney
+164: クーニー 看護師 保育器=Couney nurses incubator babies
+172: マーティン・クーニー アナベル 夫妻=Martin and Annabelle Couney
+
+## コニーアイランドへ
+179: コニーアイランド 1900年代=Coney Island 1900s
+184: ルナパーク コニーアイランド 1903=Luna Park Coney Island 1903
+186: ドリームランド コニーアイランド=Dreamland Coney Island 1904
+189: 世界中が赤ちゃんを愛している 看板=All the World Loves a Baby sign Coney Island incubator
+193: ケーリー・グラント 若い頃=young Cary Grant
+197: いらすとや 計算=irasutoya calculation
+
+## 親からはお金を取らない
+203: コニーアイランド 保育器 赤ちゃん 1900年代=Coney Island incubator babies 1900s
+
+## 遊園地の中の本物の病院
+211: クーニー 保育器 病棟 内部=Couney incubator ward interior
+214: リオン式 保育器=Lion incubator 1900=couveuse Lion
+216: いらすとや ブランデー=irasutoya brandy
+222: クーニー 乳母 コニーアイランド=Couney wet nurses Coney Island
+225: コニーアイランド ホットドッグ 昔=Coney Island hot dog stand early 1900s
+229: ブルックリン・デイリー・イーグル=Brooklyn Daily Eagle 1900s
+233: ルイーズ・レヒト 赤ちゃん=Louise Recht baby incubator=Louise Recht bébé
+238: コニーアイランド 保育器 見物客=Coney Island incubator spectators
+
+## 会社と名前
+245: インファント・インキュベーター社 クーニー=Infant Incubator Company Couney
+248: アトランティックシティ ボードウォーク 1900年代=Atlantic City boardwalk 1900s
+250: マーティン・クーニー 1900年代=Martin Couney 1900s
+252: リオン 保育器 図=Lion incubator diagram=couveuse Lion schéma
+
+## 娘ヒルデガルド
+256: ヒルデガルド・クーニー=Hildegarde Couney
+259: ヒルデガルド・クーニー 保育器=Hildegarde Couney incubator baby
+268: 1910年 国勢調査 アメリカ=1910 US census form
+
+## ドリームランドの大火事
+274: ドリームランド 火事 1911=Dreamland fire 1911 Coney Island
+277: ドリームランド 火事 保育器 救出=Dreamland fire 1911 incubator babies rescued
+279: ニューヨーク児童虐待防止協会=New York Society for the Prevention of Cruelty to Children
+
+## 優生思想という逆風
+287: 優生学 アメリカ 1910年代=American eugenics 1910s
+290: 優生学 ポスター=eugenics poster 1920s
+295: 映画 黒いコウノトリ ハイゼルデン=The Black Stork 1917 film Haiselden
+300: 優良児コンテスト=Better Baby Contest 1910s
+304: セントルイス万博 1904=1904 World's Fair St. Louis
+305: セントルイス万博 保育器=1904 St. Louis World's Fair incubator exhibit
+
+## ルシール・ホーン
+311: パナマ太平洋博覧会 1915=Panama-Pacific International Exposition 1915
+314: ルシール・ホーン=Lucille Horn
+318: 1920年代 ブルックリン 病院=Brooklyn hospital 1920s
+322: 1920年代 ニューヨーク タクシー=New York taxi 1920s
+328: ルシール・ホーン 若い頃=Lucille Horn young
+334: クーニー 保育器 卒業生=Couney incubator graduates
+
+## ジュリアス・ヘス
+338: ジュリアス・ヘス=Julius Hess pediatrician
+341: ヘス 未熟児 教科書 1922=Premature and Congenitally Diseased Infants Hess 1922
+345: クーニー 新聞記事 未熟児=Couney newspaper article premature baby
+354: 1930年 国勢調査=1930 US census
+
+## シカゴ万博
+361: シカゴ万博 1933=Century of Progress 1933 Chicago
+364: シカゴ万博 保育器 建物=Century of Progress Living Babies in Incubators building
+370: シカゴ万博 保育器 看護師=Century of Progress incubator nurses babies
+375: マーティン・クーニー 1930年代=Martin Couney 1930s
+380: シカゴ万博 人混み=Century of Progress crowds 1933
+383: サリー・ランド=Sally Rand
+385: サリー・ランド 逮捕=Sally Rand arrested 1933
+
+## 里帰りの会
+390: クーニー 保育器 同窓会 1934=Couney incubator babies reunion 1934 Chicago
+395: シカゴ万博 保育器 赤ちゃん 母親=Century of Progress incubator babies mothers
+
+## 五つ子とハースト
+403: ディオンヌ家の五つ子=Dionne quintuplets
+406: ウィリアム・ランドルフ・ハースト=William Randolph Hearst
+409: マーティン・クーニー 赤ちゃん=Martin Couney holding baby
+
+## 医師会トップとの友情
+416: モリス・フィッシュベイン=Morris Fishbein
+420: アメリカ医師会 1930年代=American Medical Association 1930s
+
+## 妻アナベルの死
+427: アナベル・クーニー=Annabelle Couney nurse
+
+## ニューヨーク万博
+436: ニューヨーク万博 1939=1939 New York World's Fair
+437: ニューヨーク万博 保育器 建物=1939 World's Fair Infant Incubator building
+442: いらすとや 赤字=irasutoya deficit
+447: アーノルド・ゲゼル=Arnold Gesell
+454: ジュリアス・ヘス 1930年代=Julius Hess 1930s
+
+## キャシー・マイヤー
+463: キャシー・マイヤー クーニー=Kathy Meyer Couney incubator baby
+466: クーニー 保育器 救急車=Couney incubator ambulance
+474: キャシー・マイヤー 2000年代=Kathy Meyer incubator baby grown up
+
+## 客足が遠のく
+478: ニューヨーク万博 1940=1940 New York World's Fair crowds
+481: いらすとや 値切る=irasutoya haggling
+489: ベス・アレン クーニー=Beth Allen Couney incubator baby
+490: ルナパーク 1940年代=Luna Park Coney Island 1940s
+
+## 役目を終えて
+496: 未熟児 病棟 1940年代=premature infant nursery hospital 1940s
+499: マーティン・クーニー 晩年=Martin Couney later years
+
+## 最期
+507: シーゲート ブルックリン=Sea Gate Brooklyn
+510: クーニー 訃報 ニューヨーク・タイムズ 1950=Couney obituary New York Times 1950
+511: マーティン・クーニー 保育器 赤ちゃん=Martin Couney incubator babies
+514: サイプレス・ヒルズ・アビー=Cypress Hills Abbey
+
+## 再評価
+518: ウィリアム・シルバーマン 小児科医=William Silverman neonatologist
+525: クレア・プレンティス=Claire Prentice
+533: ローレンス・ガートナー=Lawrence Gartner pediatrician
+537: ルシール・ホーン 晩年=Lucille Horn later years
+541: 未熟児を陳列した男=The Strange Case of Dr. Couney book
+
+## まとめ
+545: マーティン・クーニー=Martin Couney=Martin Couney Brutkasten
