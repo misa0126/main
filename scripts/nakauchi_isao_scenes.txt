@@ -1,0 +1,137 @@
+# 中内㓛の解説台本(nakauchi_isao.txt)の区切りと画像
+# 書き方は nishizaki_yoshinobu_scenes.txt と同じ
+
+## 導入：「楽しいことは何もなかった」
+1: 中内㓛 会見=Isao Nakauchi press conference
+4: ダイエー 昭和 店舗=Daiei store Showa era, 三越 日本橋本店 昭和=Mitsukoshi Nihonbashi Showa
+11: 中内㓛 若い頃=young Isao Nakauchi
+18: 中内㓛=Isao Nakauchi
+
+## 大阪で生まれ、神戸の薬屋で育つ
+22: 大阪 此花区 伝法 戦前=Denpo Konohana Osaka prewar
+30: サカエ薬局 神戸 中内=Sakae pharmacy Kobe Nakauchi
+38: 中内㓛 少年時代=Isao Nakauchi childhood
+
+## 俳句好きのおとなしい学生
+44: 神戸高等商業学校=Kobe Higher Commercial School
+52: 神戸商業大学 戦前=Kobe University of Commerce prewar
+58: ゲーテ=Goethe=Johann Wolfgang von Goethe
+62: 日本綿花 本社=Nippon Menka headquarters
+
+## 召集、満州の重砲兵へ
+67: 満州 重砲兵 日本軍=Manchuria Japanese heavy artillery
+74: 中内㓛 兵士=Isao Nakauchi soldier
+80: 旧日本陸軍 内務班=Imperial Japanese Army barracks
+
+## フィリピン・ルソン島の地獄
+85: リンガエン湾=Lingayen Gulf
+90: リンガエン湾 上陸 1945=Lingayen Gulf landing 1945
+96: 山下奉文=Tomoyuki Yamashita
+101: すき焼き 鍋=sukiyaki pot
+108: 野戦病院 フィリピン 日本軍=Japanese field hospital Philippines
+115: ルソン島 日本兵 1945=Japanese soldiers Luzon 1945
+
+## アメリカ兵のアイスクリーム
+123: アメリカ兵 アイスクリーム 第二次世界大戦=US soldiers ice cream WWII
+130: アイスクリーム 製造機 米軍 戦時=US military ice cream machine WWII
+
+## 捕虜、そして復員
+137: マニラ 捕虜収容所 日本兵=Japanese POW camp Manila 1945
+142: 復員 日本兵 1945=demobilized Japanese soldiers 1945
+
+## 焼け跡の闇市から
+148: 三宮 闇市=Sannomiya black market Kobe
+154: 中内㓛 若い頃 戦後=young Isao Nakauchi postwar
+165: 三宮 高架下 昭和=Sannomiya under elevated railway Showa
+171: 中内㓛 1950年代=Isao Nakauchi 1950s
+
+## 「主婦の店」の看板をもらう
+184: 主婦の店 丸和フードセンター 小倉=Maruwa Food Center Kokura
+192: いらすとや 分かれ道=irasutoya crossroads
+
+## 千林にダイエー1号店
+199: 主婦の店ダイエー 千林 1号店=Daiei Senbayashi first store 1957
+206: 千林商店街 昭和=Senbayashi shopping street Showa
+
+## チェーン化と牛肉
+219: ダイエー 三宮店 1959=Daiei Sannomiya store 1959
+230: 上田照雄=Teruo Ueda
+238: ダイエー プライベートブランド=Daiei private brand
+
+## アメリカで見た確信
+245: ケネディ大統領 1962=John F. Kennedy 1962
+250: 中内㓛 1960年代=Isao Nakauchi 1960s
+
+## 松下電器との30年戦争
+256: 松下幸之助=Konosuke Matsushita
+263: ナショナル 家電 1960年代=National electric appliances 1960s
+269: ダイエー 松下 30年戦争=Daiei Matsushita 30 years war
+277: 花王 洗剤 1960年代=Kao detergent 1960s
+288: 中内力=Chikara Nakauchi
+295: ダイエー ブブ カラーテレビ=Daiei BUBU color TV
+
+## 牛肉39円と日本一
+308: ダイエー 牛肉 安売り=Daiei beef discount
+313: ダイエー 沖縄 牧場=Daiei Okinawa ranch
+322: 大阪証券取引所 昭和=Osaka Securities Exchange Showa
+
+## オイルショックとローソン
+332: オイルショック トイレットペーパー=1973 oil crisis toilet paper Japan
+343: ダイエーローソン 1号店=Daiei Lawson first store 1975
+
+## 真々庵での「王道」問答と1兆円
+351: 真々庵=Shinshin-an Kyoto Matsushita
+357: 中内㓛 1980年=Isao Nakauchi 1980
+
+## 家族と社員
+367: 中内潤=Jun Nakauchi
+375: 中内㓛 売り場=Isao Nakauchi store floor
+
+## 髙島屋、赤字、V革
+388: 髙島屋 大阪店 1980年代=Takashimaya Osaka 1980s
+393: 河島博=Hiroshi Kawashima Yamaha
+
+## 教育審議会と流通科学大学
+404: 臨時教育審議会 中曽根=Ad Hoc Council on Education Nakasone
+413: 流通科学大学=University of Marketing and Distribution Sciences
+
+## 南海ホークスを買う
+421: 南海ホークス ダイエー 1988=Nankai Hawks Daiei 1988
+428: 福岡ドーム 建設=Fukuoka Dome construction
+435: あぶさん 水島新司=Abu-san Shinji Mizushima
+444: 福岡ダイエーホークス 中内㓛=Fukuoka Daiei Hawks Isao Nakauchi
+
+## 新神戸オリエンタルシティと財界
+448: 新神戸オリエンタルシティ=Shin-Kobe Oriental City
+455: 経団連 中内㓛=Keidanren Isao Nakauchi
+462: 江副浩正=Hiromasa Ezoe
+467: 忠実屋=Chujitsuya
+
+## 阪神・淡路大震災
+474: 阪神・淡路大震災=Great Hanshin earthquake 1995
+484: ダイエー 震災 営業 1995=Daiei store earthquake 1995
+492: 中内㓛 1995年=Isao Nakauchi 1995
+501: 阪神大震災 ダイエー 三宮 倒壊=Daiei Sannomiya earthquake collapse
+
+## 失速と退任
+507: ダイエー 1990年代 店舗=Daiei store 1990s
+515: 中内㓛 晩年=Isao Nakauchi later years
+521: 鳥羽董=Tadasu Toba Daiei
+527: ダイエー 株主総会 2001=Daiei shareholders meeting 2001
+
+## 80歳の学生と運転免許
+539: 慶應義塾大学 三田=Keio University Mita
+543: いらすとや 運転免許 高齢者=irasutoya elderly driver license
+
+## すべてを手放す
+551: 産業再生機構 ダイエー=Industrial Revitalization Corporation Daiei
+559: 流通科学大学 中内㓛=Isao Nakauchi UMDS
+
+## 最期と見送り
+567: 正蓮寺 此花区=Shorenji temple Konohana Osaka
+571: 福岡ドーム 中内 黙とう 2005=Fukuoka Dome Nakauchi tribute 2005
+577: 中内㓛 お別れの会 ニューオータニ=Isao Nakauchi farewell ceremony 2005
+
+## 結び
+586: イオン ダイエー=AEON Daiei
+594: 中内㓛=Isao Nakauchi
