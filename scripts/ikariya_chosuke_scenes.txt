@@ -1,0 +1,252 @@
+# いかりや長介の解説台本(ikariya_chosuke.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付く
+#   ・「#」で始まる行はメモとして無視される
+
+## 導入：通夜の「全員集合」
+1: いかりや長介 通夜 ファン 2004=Chosuke Ikariya wake fans 2004
+8: 8時だョ!全員集合 オープニング=Hachiji da yo Zenin Shugo opening
+11: いかりや長介 全員集合 コント=Chosuke Ikariya Zenin Shugo comedy sketch
+16: いかりや長介 出棺 2004=Chosuke Ikariya funeral 2004
+20: 和久平八郎 踊る大捜査線=Heihachiro Waku Bayside Shakedown
+24: いかりや長介=Chosuke Ikariya
+
+## 墨田区に生まれる
+25: いかりや長介 幼少期=Chosuke Ikariya childhood
+28: 昭和初期 ラジオ放送=1930s Japan radio broadcast
+
+## 母と弟の死
+32: 結核 療養所 昭和初期=tuberculosis sanatorium Japan 1930s
+
+## 父と浅草の寄席
+37: 築地市場 昭和初期=Tsukiji fish market 1930s
+43: 浅草 寄席 昭和初期=Asakusa yose theater 1930s
+
+## 疎開と終戦
+50: 学童疎開 1944=school evacuation Japan 1944
+
+## アボット&コステロとモテたい少年
+54: アボット&コステロ=Abbott and Costello
+59: いらすとや ギター モテる=irasutoya guitar popular
+
+## 三島製紙のハワイアンバンド
+64: 三島製紙 工場=Mishima Paper mill Fuji
+68: スチールギター ハワイアンバンド 1950年代=steel guitar Hawaiian band 1950s Japan
+
+## 繁子との婚約
+70: いかりや長介 若い頃=young Chosuke Ikariya
+
+## 上京
+76: 新宿二丁目 1950年代=Shinjuku Nichome 1950s
+
+## マウンテン・プレイボーイズと米軍キャンプ
+80: ジミー時田とマウンテン・プレイボーイズ=Jimmie Tokita and his Mountain Playboys
+82: 寺内タケシ 若い頃=young Takeshi Terauchi
+84: 米軍キャンプ 演奏 1950年代=US military base club band Japan 1950s
+
+## 「バンス院長兵衛」
+88: いらすとや 借金=irasutoya debt
+92: 幡随院長兵衛 浮世絵=Banzuiin Chobei ukiyo-e
+94: 立川談志 若い頃=young Danshi Tatekawa
+
+## 大晦日の事故
+97: いらすとや 交通事故=irasutoya car accident
+
+## ザ・ドリフターズに加入
+103: 桜井輝夫とザ・ドリフターズ=Teruo Sakurai and The Drifters
+109: 加藤茶 若い頃=young Cha Kato
+110: いかりや長介 1960年代=Chosuke Ikariya 1960s
+
+## リーダー就任と大量脱退
+114: ザ・ドリフターズ 1964=The Drifters Japan 1964
+117: 小野ヤスシ=Yasushi Ono
+
+## 新生ドリフの5人
+120: 高木ブー 荒井注 若い頃=young Boo Takagi Chu Arai
+125: ザ・ドリフターズ 5人 1960年代=The Drifters five members 1960s
+
+## ハナ肇と芸名
+129: ハナ肇 クレイジーキャッツ=Hajime Hana Crazy Cats
+134: 仲本工事 高木ブー 若い頃=young Koji Nakamoto Boo Takagi
+
+## ビートルズの前座
+142: ビートルズ 日本武道館 1966=The Beatles Budokan 1966
+147: ドリフターズ ビートルズ 前座=The Drifters Beatles opening act 1966
+
+## 志村けんの弟子入り
+151: 志村けん 若い頃=young Ken Shimura
+157: 志村けん 付き人時代=Ken Shimura apprentice Drifters
+
+## 『8時だョ!全員集合』の始まり
+161: 8時だョ!全員集合 1969=Hachiji da yo Zenin Shugo 1969
+166: コント55号の世界は笑う=Konto 55 go no Sekai wa Warau
+
+## 本物志向のセット
+171: 8時だョ!全員集合 セット 崩壊=Zenin Shugo stage set collapse
+175: 居作昌果=Yoshiaki Isaku TBS producer
+
+## 地獄の木曜会議
+177: いかりや長介 1970年代=Chosuke Ikariya 1970s
+183: 高田文夫 若い頃=young Fumio Takada
+186: 加藤茶 1970年代=Cha Kato 1970s
+
+## 1対4のコントと「全員集合」の由来
+193: いかりや長介 加藤茶 コント=Chosuke Ikariya Cha Kato sketch
+198: ジャズ喫茶 ドリフターズ 1960年代=jazz kissa The Drifters 1960s
+
+## 最高視聴率50.5%
+203: 8時だョ!全員集合 公開生放送 客席=Zenin Shugo live broadcast audience
+
+## キャンディーズと長い沈黙
+208: キャンディーズ 全員集合=Candies Zenin Shugo
+211: 伊藤蘭 1973=Ran Ito 1973
+
+## アフリカへの旅
+218: いかりや長介 アフリカ=Chosuke Ikariya Africa
+222: ケニア サバンナ=Kenya savanna
+
+## 荒井注の脱退と志村けんの加入
+230: 荒井注=Chu Arai
+234: 高木ブー 1970年代=Boo Takagi 1970s
+238: 志村けん ドリフ加入 1974=Ken Shimura joins Drifters 1974
+
+## 東村山音頭
+240: 志村けん 1970年代=Ken Shimura 1970s
+242: 東村山音頭 志村けん=Higashimurayama Ondo Ken Shimura
+
+## 役を振るリーダー
+245: 加藤茶 志村けん コント=Cha Kato Ken Shimura sketch
+250: すわ親治=Chikaharu Suwa
+251: ブルース・リー=Bruce Lee=李小龍
+
+## PTAの批判とスイカのギロチン
+256: 8時だョ!全員集合 PTA 低俗番組=Zenin Shugo PTA criticism
+260: 全員集合 スイカ ギロチン=Zenin Shugo watermelon guillotine
+262: 大相撲 塩まき=sumo salt throwing
+
+## 厳しい父親
+267: いかりや浩一=Koichi Ikariya
+272: いらすとや 父親 怒る=irasutoya angry father
+276: いかりや長介 息子=Chosuke Ikariya son
+
+## 離婚と再婚
+282: いかりや長介 1978=Chosuke Ikariya 1978
+
+## イザワオフィスとギャラ
+290: イザワオフィス=Izawa Office
+
+## 『オレたちひょうきん族』
+297: オレたちひょうきん族=Oretachi Hyokinzoku
+
+## 全員集合の終わり
+305: いかりや長介 1980年代=Chosuke Ikariya 1980s
+311: 8時だョ!全員集合 最終回 1985=Zenin Shugo final episode 1985
+
+## 役者への道
+315: いかりや長介 俳優 転身=Chosuke Ikariya actor
+
+## 『独眼竜政宗』の苦い船出
+322: 独眼竜政宗 鬼庭左月斎 いかりや長介=Dokuganryu Masamune Ikariya Oniniwa Sagetsusai
+326: いかりや長介 だめだこりゃ 本=Chosuke Ikariya Dame da Korya book
+
+## 神山繁との出会い
+331: 神山繁=Shigeru Kamiyama
+
+## 録画で見直す努力
+336: いかりや長介 ドラマ 1980年代=Chosuke Ikariya drama 1980s
+341: いかりや長介 1990年代=Chosuke Ikariya 1990s
+
+## 恵津子の死
+348: いかりや長介 1989=Chosuke Ikariya 1989
+
+## 『鬼平犯科帳』と黒澤明『夢』
+353: 鬼平犯科帳 馬蕗の利平治 いかりや長介=Onihei Hankacho Ikariya Chosuke
+356: 黒澤明=Akira Kurosawa
+360: 夢 黒澤明 鬼 いかりや長介=Akira Kurosawa Dreams weeping demon Ikariya
+
+## 波平と『取調室』
+364: サザエさん ドラマ いかりや長介 波平=Sazae-san drama Ikariya Namihei
+365: 取調室 いかりや長介=Torishirabeshitsu Chosuke Ikariya
+371: 佐賀県警=Saga Prefectural Police
+373: ハリネズミ アフリカ=African pygmy hedgehog
+
+## 『踊る大捜査線』の和久さん
+378: 踊る大捜査線 1997=Bayside Shakedown 1997
+380: 和久平八郎=Heihachiro Waku
+384: 織田裕二 いかりや長介=Yuji Oda Chosuke Ikariya
+389: 青島俊作 和久平八郎=Shunsaku Aoshima Heihachiro Waku
+
+## 柳葉敏郎への気遣い
+394: 室井慎次 柳葉敏郎=Shinji Muroi Toshiro Yanagiba
+399: 柳葉敏郎 いかりや長介=Toshiro Yanagiba Chosuke Ikariya
+
+## ユースケ・サンタマリアへの助け舟
+402: ユースケ・サンタマリア 1990年代=Yusuke Santamaria 1990s
+
+## 映画の大ヒットと日本アカデミー賞
+409: 踊る大捜査線 THE MOVIE 1998=Bayside Shakedown The Movie 1998
+413: 日本アカデミー賞 いかりや長介 1999=Japan Academy Prize Chosuke Ikariya 1999
+
+## ドリフ大爆笑で再び5人
+420: ドリフ大爆笑=Drif Daibakusho
+
+## 志村けんとの関係
+424: いかりや長介 志村けん=Chosuke Ikariya Ken Shimura
+
+## 荒井注の死と「じゃあいずれ」
+433: 荒井注 葬儀 2000=Chu Arai funeral 2000
+
+## 70歳目前の主演シリーズ
+439: 橋田賞=Hashida Award
+442: 弁護士・猪狩文助=Bengoshi Ikari Bunsuke
+445: すわ親治 いかりや長介=Chikaharu Suwa Chosuke Ikariya
+
+## 織田裕二への手紙
+451: 織田裕二 2002=Yuji Oda 2002
+
+## 『踊る2』と病気
+458: 踊る大捜査線 THE MOVIE2 レインボーブリッジを封鎖せよ=Bayside Shakedown 2 Rainbow Bridge
+461: いかりや長介 2003=Chosuke Ikariya 2003
+465: いかりや長介 入院 2003=Chosuke Ikariya hospitalized 2003
+467: 踊る大捜査線2 舞台挨拶 いかりや長介=Bayside Shakedown 2 premiere Ikariya 2003
+
+## 173億円の大ヒットとすわとの約束
+473: 踊る大捜査線 THE MOVIE2 興行収入=Bayside Shakedown 2 box office record
+476: すわ親治 ライブ=Chikaharu Suwa live
+484: いらすとや 電話=irasutoya phone call
+
+## 最後のテレビドラマ
+489: SMAP×SMAP いかりや長介=SMAPxSMAP Chosuke Ikariya
+491: あなたの隣に誰かいる=Anata no Tonari ni Dareka Iru
+496: いらすとや 医者 家族=irasutoya doctor family
+
+## ドリフ5人の最後の収録
+500: ドリフ大爆笑 収録 2003=Drif Daibakusho recording 2003
+504: ドリフ大爆笑 オープニング=Drif Daibakusho opening
+507: いかりや長介 晩年=Chosuke Ikariya last years
+514: ドリフ大爆笑 エンディング いかりや長介=Drif Daibakusho ending Ikariya
+
+## 死去
+521: 東京慈恵会医科大学附属病院=Jikei University Hospital Tokyo
+523: いかりや長介 死去=Chosuke Ikariya death 2004
+525: 高木ブー 2004=Boo Takagi 2004
+528: 仲本工事 2004=Koji Nakamoto 2004
+
+## 青山葬儀所での告別式
+531: 青山葬儀所 いかりや長介=Aoyama funeral hall Chosuke Ikariya
+533: いかりや長介 ビール CM ベース=Chosuke Ikariya beer commercial bass
+534: 加藤茶 弔辞 いかりや長介=Cha Kato eulogy Ikariya 2004
+541: いかりや長介 出棺 霊柩車=Chosuke Ikariya hearse 2004
+
+## 亡くなった後も
+545: 喜劇人大賞 いかりや長介=Kigekijin Taisho Ikariya
+547: 8時だョ!全員集合 追悼番組 2004=Zenin Shugo memorial program 2004
+550: 長さん小路 富士市吉原=Chosan Koji Yoshiwara Fuji
+552: 踊る大捜査線 THE MOVIE3=Bayside Shakedown The Movie 3
+
+## 結び
+558: いかりや長介 ベース=Chosuke Ikariya bass
