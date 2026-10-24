@@ -1,0 +1,184 @@
+# 児玉清の解説台本(kodama_kiyoshi.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付く
+#   ・「#」で始まる行はメモとして無視される
+# 画像の選び方(優先順):
+#   1. 本人が写っている、その時代の写真
+#   2. 話に出てくる、その物・場所・出来事そのものの写真
+#   3. 直接の写真がない場面は、その時期の本人の写真
+#   4. それもなければ、いらすとや(1本20枚まで)
+
+## 導入：アタックチャンスの司会者
+1: 児玉清 アタックチャンス=Kiyoshi Kodama Attack Chance
+5: 児玉清 アタック25 司会=Kiyoshi Kodama Attack 25 host
+11: 児玉清 若い頃=young Kiyoshi Kodama
+16: 児玉清 東宝 大部屋=Kiyoshi Kodama Toho early career
+18: 児玉清 書斎 本=Kiyoshi Kodama study books
+
+## 誕生と数え年
+22: 児玉清=Kiyoshi Kodama
+24: 滝野川区 戦前=Takinogawa Tokyo prewar
+28: いらすとや 赤ちゃん 正月=irasutoya baby new year
+
+## 疎開と本
+33: 学童疎開 群馬=school evacuation Gunma 1944
+35: 四万温泉 戦前=Shima Onsen old photo
+37: いらすとや 読書 子供 ひとり=irasutoya child reading alone
+
+## 学習院大学とツヴァイク
+42: 学習院大学 昭和30年代=Gakushuin University 1950s
+44: シュテファン・ツヴァイク=Stefan Zweig=Stefan Zweig
+
+## 演劇部と篠沢秀夫
+47: いらすとや 大道具=irasutoya stage set
+50: 篠沢秀夫=Hideo Shinozawa
+52: ブリタニキュス ラシーヌ=Britannicus Racine=Britannicus Racine
+
+## 母の死と就職難
+59: 学習院大学 卒業式 昭和=Gakushuin graduation ceremony Showa
+63: いらすとや 就職活動 落ち込む=irasutoya job hunting depressed
+
+## 東宝ニューフェイス
+69: 東宝ニューフェイス=Toho New Face audition
+75: 東宝撮影所 昭和=Toho Studios Showa
+79: 東宝ニューフェイス 審査=Toho New Face screening
+86: 篠沢秀夫 クイズダービー=Hideo Shinozawa Quiz Derby
+
+## 大部屋俳優と雑魚の屈辱
+90: 隠し砦の三悪人=The Hidden Fortress 1958
+92: 東宝撮影所 エキストラ 昭和30年代=Toho Studios extras 1950s
+94: 鉄腕投手 稲尾物語=Tetsuwan Toshu Inao Monogatari 1959
+96: 昭和30年代 喫茶店 福岡=Fukuoka coffee shop 1950s
+
+## 黒澤明に鍛えられる
+99: 児玉清 東宝 1960年代=Kiyoshi Kodama Toho 1960s
+102: 悪い奴ほどよく眠る=The Bad Sleep Well 1960
+104: 黒澤明 撮影現場=Akira Kurosawa on set
+109: 黒澤明=Akira Kurosawa
+
+## 司葉子の相手役に
+114: 別れて生きるときも 司葉子=Wakarete ikiru toki mo Yoko Tsukasa
+
+## 結婚と婿入り
+118: 北川町子 女優=Machiko Kitagawa actress
+124: 賀原夏子=Natsuko Kahara
+130: 児玉清 若い頃 本=young Kiyoshi Kodama books
+
+## フリー転身と『ありがとう』
+135: 児玉清 1960年代=Kiyoshi Kodama 1960s
+142: ありがとう ドラマ 水前寺清子=Arigato TBS drama Kiyoko Suizenji
+145: 石坂浩二 若い頃=young Koji Ishizaka
+
+## 受賞とクイズ司会のはじまり
+148: 児玉清 1970年代=Kiyoshi Kodama 1970s
+151: クイズ・イエス・ノー 児玉清=Quiz Yes No Kiyoshi Kodama
+
+## アタック25の誕生とルール
+153: パネルクイズ アタック25 1975=Panel Quiz Attack 25 1975
+158: アタック25 パネル=Attack 25 panel board
+
+## アタックチャンスと名セリフ
+163: 児玉清 アタックチャンス ポーズ=Kiyoshi Kodama Attack Chance pose
+167: 児玉清 アタック25 1980年代=Kiyoshi Kodama Attack 25 1980s
+173: アタック25 スタジオ 昭和=Attack 25 studio Showa
+
+## 白い巨塔と急性腹膜炎
+178: 白い巨塔 1978 田宮二郎=The Great White Tower 1978 Jiro Tamiya
+181: いらすとや 腹痛 入院=irasutoya stomachache hospital
+186: 板東英二=Eiji Bando
+
+## 番組作りへのこだわり
+190: 児玉清 アタック25 収録=Kiyoshi Kodama Attack 25 recording
+197: 児玉清 電話=Kiyoshi Kodama telephone
+202: アタック25 解答者席=Attack 25 contestants
+
+## 児玉飴と出場者への気配り
+206: いらすとや 飴 配る=irasutoya giving candy
+209: 児玉清 サイン 色紙=Kiyoshi Kodama autograph
+
+## ドラマの変化
+214: 児玉清 ドラマ 1980年代=Kiyoshi Kodama drama 1980s
+
+## 週刊ブックレビュー
+219: 週刊ブックレビュー 児玉清=Shukan Book Review Kiyoshi Kodama
+225: 児玉清 洋書=Kiyoshi Kodama foreign books
+230: 林真理子=Mariko Hayashi
+
+## 床が傾く1万冊の蔵書
+234: 児玉清 蔵書=Kiyoshi Kodama book collection
+240: 児玉清 本 インタビュー=Kiyoshi Kodama books interview
+
+## 切り絵とカレンダー
+242: 児玉清 切り絵=Kiyoshi Kodama paper cutting art
+247: 児玉清 切り絵 カレンダー=Kiyoshi Kodama kirie calendar
+
+## 書評家デビュー
+249: 寝ても覚めても本の虫 児玉清=Netemo Sametemo Hon no Mushi Kiyoshi Kodama
+
+## 娘の説得とHERO
+253: HERO 2001 フジテレビ=HERO 2001 Fuji TV drama
+257: 児玉清 娘 奈央子=Kiyoshi Kodama daughter Naoko
+262: HERO 鍋島利光 児玉清=HERO Toshimitsu Nabeshima Kiyoshi Kodama
+264: HERO 木村拓哉 2001=HERO Takuya Kimura 2001
+
+## 奈央子の死
+268: 北川奈央子=Naoko Kitagawa
+273: 児玉清 2002=Kiyoshi Kodama 2002
+
+## ラジオと人生相談
+282: ニッポン放送 社屋=Nippon Broadcasting System building
+285: ラジオ・チャリティー・ミュージックソン=Radio Charity Musicthon
+286: テレフォン人生相談 児玉清=Telephone Jinsei Soudan Kiyoshi Kodama
+
+## 二度目の全盛期
+292: トップキャスター 児玉清=Top Caster Kiyoshi Kodama
+293: 鹿男あをによし 児玉清=Shikaotoko Aoniyoshi Kiyoshi Kodama
+294: コード・ブルー 児玉清=Code Blue Kiyoshi Kodama
+
+## 著書と『負けるのは美しく』
+297: たったひとつの贈りもの 児玉清=Tatta Hitotsu no Okurimono Kiyoshi Kodama
+299: 負けるのは美しく 児玉清=Makeru no wa Utsukushiku Kiyoshi Kodama
+302: アタック25 高校生大会=Attack 25 high school tournament
+
+## 博多華丸のモノマネ
+308: 博多華丸 児玉清 モノマネ=Hakata Hanamaru Kiyoshi Kodama impression
+310: 博多華丸 アタック25 出演=Hakata Hanamaru Attack 25
+313: 児玉清 2007=Kiyoshi Kodama 2007
+
+## 谷原章介の背中を押す
+320: 谷原章介 トップキャスター=Shosuke Tanihara Top Caster
+322: 王様のブランチ 谷原章介=Osama no Brunch Shosuke Tanihara
+
+## 龍馬伝
+327: 児玉清 晩年=Kiyoshi Kodama later years
+329: 龍馬伝 坂本八平 児玉清=Ryomaden Hachihei Sakamoto Kiyoshi Kodama
+332: 福山雅治 龍馬伝=Masaharu Fukuyama Ryomaden
+
+## 喜寿と発病
+335: 児玉清 2010=Kiyoshi Kodama 2010
+340: 児玉清 最後=Kiyoshi Kodama last appearance
+345: 児玉清 アタック25 最後の収録=Kiyoshi Kodama Attack 25 final recording
+347: 児玉清 古本屋 BS=Kiyoshi Kodama secondhand bookstore NHK BS
+
+## 闘病と浦川泰幸
+350: 浦川泰幸 アタック25=Yasuyuki Urakawa Attack 25
+353: 児玉清 切り絵 作品=Kiyoshi Kodama kirie works
+
+## 死去
+359: 聖路加国際病院=St. Luke's International Hospital Tokyo
+361: 児玉清 死去 2011=Kiyoshi Kodama death 2011
+
+## その後と遺したもの
+364: 護国寺 児玉清 葬儀=Gokokuji Kiyoshi Kodama funeral
+365: 児玉清 追悼 アタック25=Kiyoshi Kodama memorial Attack 25
+367: すべては今日から 児玉清=Subete wa Kyo kara Kiyoshi Kodama
+368: HERO 2014 鍋島 写真=HERO 2014 Nabeshima photo
+371: 谷原章介 アタック25 司会=Shosuke Tanihara Attack 25 host
+372: アタック25 Next=Attack 25 Next BS
+
+## まとめ
+374: 児玉清 アタック25=Kiyoshi Kodama Attack 25
