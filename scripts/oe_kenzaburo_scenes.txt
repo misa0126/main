@@ -1,0 +1,175 @@
+# 大江健三郎の解説台本(oe_kenzaburo.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付く
+#   ・「#」で始まる行はメモとして無視される
+
+## 導入：お菓子と「最後の小説」
+1: いらすとや お菓子 食べる=irasutoya eating snacks
+5: 燃えあがる緑の木 大江健三郎=Moeagaru Midori no Ki Kenzaburo Oe
+9: 大江健三郎 ノーベル文学賞 1994=Kenzaburo Oe Nobel Prize 1994
+12: 文化勲章=Order of Culture Japan
+19: 大江健三郎 大江光=Kenzaburo Oe and Hikari Oe
+25: 大江健三郎=Kenzaburo Oe
+
+## 森の谷間の村に生まれる
+26: 内子町 大瀬=Ose Uchiko Ehime
+31: いらすとや おばあさん 昔話=irasutoya grandmother storytelling
+
+## 戦争と父の死
+37: 国民学校 戦時中=Japanese national school wartime 1941
+41: 大江健三郎 少年時代=young Kenzaburo Oe childhood
+45: ハックルベリー・フィンの冒険 初版=Adventures of Huckleberry Finn first edition, ニルスのふしぎな旅=The Wonderful Adventures of Nils=Nils Holgerssons underbara resa genom Sverige
+
+## 敗戦と民主主義、松山へ
+51: あたらしい憲法のはなし 教科書=Atarashii Kenpo no Hanashi textbook 1947
+56: 松山東高校=Matsuyama Higashi High School
+61: 伊丹十三 若い頃=young Juzo Itami
+63: 渡辺一夫=Kazuo Watanabe French literature scholar
+
+## 上京と東大入学
+67: 東京大学 安田講堂 1950年代=University of Tokyo Yasuda Auditorium 1950s
+73: 大江健三郎 東大生=Kenzaburo Oe student University of Tokyo
+77: 渡辺一夫 大江健三郎=Kazuo Watanabe Kenzaburo Oe
+
+## 五月祭から文壇デビュー
+85: 東大 五月祭 1957=University of Tokyo May Festival 1957
+89: 平野謙=Ken Hirano literary critic
+94: 死者の奢り 文學界=Shisha no Ogori Bungakukai 1957
+98: 大江健三郎 1957=Kenzaburo Oe 1957
+
+## 芥川賞と東大卒業
+106: 芽むしり仔撃ち 初版=Nip the Buds Shoot the Kids first edition
+108: 大江健三郎 芥川賞 飼育=Kenzaburo Oe Akutagawa Prize 1958
+112: サルトル=Jean-Paul Sartre=Jean-Paul Sartre portrait
+
+## 成城、結婚、そして政治へ
+118: 成城 世田谷 昭和=Seijo Setagaya Showa
+120: 武満徹 若い頃=young Toru Takemitsu
+124: 伊丹十三 大江健三郎=Juzo Itami Kenzaburo Oe
+130: 若い日本の会 石原慎太郎 江藤淳=Wakai Nihon no Kai Ishihara Eto
+133: 60年安保 国会デモ=1960 Anpo protests Diet
+136: 毛沢東 1960年=Mao Zedong 1960=毛泽东 1960年
+
+## 『セヴンティーン』と三島由紀夫
+139: 浅沼稲次郎 刺殺事件=Inejiro Asanuma assassination 1960
+144: セヴンティーン 大江健三郎 文學界=Seventeen Kenzaburo Oe Bungakukai 1961
+147: 三島由紀夫=Yukio Mishima
+157: サルトル 1961=Jean-Paul Sartre 1961=Jean-Paul Sartre 1961
+
+## 長男・光の誕生
+161: 大江健三郎 大江光 幼少期=Kenzaburo Oe Hikari Oe child
+167: いらすとや カラス=irasutoya crow
+
+## 広島へ
+172: 原水爆禁止世界大会 1963 広島=World Conference against A and H Bombs 1963 Hiroshima
+178: 重藤文夫 広島赤十字原爆病院=Fumio Shigeto Hiroshima Atomic Bomb Hospital
+
+## 『個人的な体験』と『ヒロシマ・ノート』
+187: 個人的な体験 初版=A Personal Matter Kenzaburo Oe first edition
+196: ヒロシマ・ノート 岩波新書=Hiroshima Notes Iwanami Shinsho
+204: 大江健三郎 光 父子=Kenzaburo Oe with son Hikari
+
+## ハーヴァードと沖縄
+208: キッシンジャー 1960年代=Henry Kissinger 1960s Harvard
+214: 新川明=Akira Arakawa Okinawa journalist
+
+## 『万延元年のフットボール』
+221: 万延元年のフットボール 初版=The Silent Cry Man'en Gannen no Futtoboru first edition
+229: 大江健三郎 1967=Kenzaburo Oe 1967
+
+## 「クイナです」
+234: 野鳥の声 レコード 昭和=Japanese wild bird songs record Showa
+239: クイナ 鳥=water rail bird Japan
+
+## 沖縄ノートと三島の死
+249: 沖縄ノート 岩波新書=Okinawa Notes Iwanami Shinsho
+255: 三島事件 1970 市ヶ谷=Mishima incident 1970 Ichigaya
+258: 洪水はわが魂に及び=Kozui wa Waga Tamashii ni Oyobi Kenzaburo Oe
+
+## ハンガーストライキと恩師の死
+265: 大江健三郎 数寄屋橋 ハンガーストライキ 1975=Kenzaburo Oe hunger strike Sukiyabashi 1975
+269: 金芝河=Kim Chi-ha poet=김지하
+270: 渡辺一夫 晩年=Kazuo Watanabe scholar later years
+
+## メキシコと『同時代ゲーム』
+274: エル・コレヒオ・デ・メヒコ=El Colegio de Mexico=El Colegio de México
+278: ガルシア=マルケス=Gabriel Garcia Marquez=Gabriel García Márquez
+280: 同時代ゲーム 初版=Dojidai Gemu Kenzaburo Oe first edition
+286: M/Tと森のフシギの物語=M/T to Mori no Fushigi no Monogatari Kenzaburo Oe
+
+## 武満徹との響き合い
+291: 武満徹 大江健三郎=Toru Takemitsu Kenzaburo Oe
+297: 雨の木を聴く女たち=Rein Tsuri wo Kiku Onnatachi Kenzaburo Oe
+301: 新しい人よ眼ざめよ=Rouse Up O Young Men of the New Age Kenzaburo Oe
+302: ウィリアム・ブレイク=William Blake portrait
+
+## 本の虫の素顔
+308: 山口昌男=Masao Yamaguchi anthropologist
+316: 大江健三郎 丸眼鏡=Kenzaburo Oe round glasses
+322: 大江健三郎 1980年代=Kenzaburo Oe 1980s
+327: 懐かしい年への手紙=Natsukashii Toshi e no Tegami Kenzaburo Oe
+329: 人生の親戚=An Echo of Heaven Kenzaburo Oe
+
+## 「最後の小説」宣言
+332: 燃えあがる緑の木 三部作=Moeagaru Midori no Ki trilogy Kenzaburo Oe
+
+## ノーベル文学賞
+341: 大江健三郎 ノーベル賞 受賞決定 1994=Kenzaburo Oe Nobel Prize announcement October 1994
+348: 大江健三郎 大江光 1994=Kenzaburo Oe Hikari Oe 1994
+352: 大江健三郎 自宅 記者 1994=Kenzaburo Oe home reporters 1994
+356: 安部公房=Kobo Abe, 井伏鱒二=Masuji Ibuse
+363: スウェーデン・アカデミー=Swedish Academy=Svenska Akademien
+
+## 文化勲章を断る
+367: 文化勲章 親授式=Order of Culture ceremony Japan
+374: 大江健三郎 文化勲章 辞退=Kenzaburo Oe declines Order of Culture 1994
+
+## 『あいまいな日本の私』
+380: 大江健三郎 ノーベル賞 授賞式 ストックホルム=Kenzaburo Oe Nobel ceremony Stockholm 1994
+382: 川端康成 美しい日本の私=Yasunari Kawabata Nobel lecture 1968
+385: 大江健三郎 ノーベル賞 記念講演=Kenzaburo Oe Nobel lecture 1994
+390: スピノザ=Baruch Spinoza=Baruch Spinoza portrait
+
+## 断筆宣言のあと
+395: ムルロア 核実験 1995=Mururoa nuclear test 1995=essai nucléaire Mururoa 1995
+397: 静かな生活 伊丹十三 映画=A Quiet Life Juzo Itami film 1995
+
+## 友を失う
+403: 武満徹 晩年=Toru Takemitsu 1990s
+412: 伊丹十三 晩年=Juzo Itami 1990s
+
+## 「後期の仕事」へ
+418: 宙返り 大江健三郎=Somersault Kenzaburo Oe novel
+424: 取り替え子 チェンジリング 大江健三郎=The Changeling Kenzaburo Oe novel
+433: レジオンドヌール勲章=Legion of Honour medal=Légion d'honneur
+
+## 九条の会
+437: 九条の会 発足 2004=Article 9 Association 2004 Kenzaburo Oe
+
+## 沖縄ノート裁判
+444: 沖縄ノート 裁判 大江健三郎=Okinawa Notes trial Kenzaburo Oe
+447: 座間味島=Zamami Island Okinawa
+452: 大江健三郎 大阪地裁 証言 2007=Kenzaburo Oe Osaka District Court testimony 2007
+454: 沖縄ノート 訴訟 判決 2008=Okinawa Notes lawsuit ruling 2008
+
+## 晩年の作品
+460: 大江健三郎賞=Kenzaburo Oe Prize
+463: 水死 大江健三郎=Death by Water Kenzaburo Oe novel
+471: 福島第一原発 事故 2011=Fukushima Daiichi nuclear accident 2011
+472: 大江健三郎 さようなら原発 集会=Kenzaburo Oe Sayonara Genpatsu rally
+477: 晩年様式集 大江健三郎=In Late Style Kenzaburo Oe
+
+## 最晩年と死
+483: 大江健三郎 沖縄 2015 講演=Kenzaburo Oe Okinawa 2015 speech
+486: 大江健三郎全小説 講談社=Oe Kenzaburo Zen Shosetsu Kodansha
+490: 大江健三郎 原稿 東京大学=Kenzaburo Oe manuscripts University of Tokyo
+491: 大江健三郎 晩年=Kenzaburo Oe later years
+
+## エンディング
+495: 大江健三郎文庫 東京大学=Kenzaburo Oe Library University of Tokyo
+498: 筒井康隆=Yasutaka Tsutsui
+500: 大江健三郎 若い頃=young Kenzaburo Oe
