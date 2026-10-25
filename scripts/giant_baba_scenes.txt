@@ -1,0 +1,278 @@
+# ジャイアント馬場の解説台本(giant_baba.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付く
+#   ・「#」で始まる行はメモとして無視される
+# 画像の選び方(優先順):
+#   1. 本人が写っている、その時代の写真
+#   2. 話に出てくる、その物・場所・出来事そのものの写真
+#   3. 直接の写真がない場面は、その時期の本人の写真
+#   4. それもなければ、いらすとや(1本20枚まで)
+
+## 導入：日本人と世界のベルト
+1: NWA世界ヘビー級 ベルト=NWA World Heavyweight Championship belt
+4: ジャイアント馬場=Giant Baba
+
+## 導入：16文キックの水増し
+7: 16文キック ジャイアント馬場=Giant Baba sixteen mon kick
+10: ジャイアント馬場 靴=Giant Baba shoes
+
+## 導入：元は巨人のピッチャー
+13: 馬場正平 巨人 投手=Shohei Baba Yomiuri Giants pitcher
+
+## 新潟・三条の八百屋に生まれる
+19: 新潟県 三条市 昭和=Sanjo Niigata Showa era
+21: ガダルカナル島の戦い=Battle of Guadalcanal
+23: ジャイアント馬場 子供の頃=Giant Baba childhood
+
+## 小さかった子が急に伸びる
+25: ジャイアント馬場 少年時代=Giant Baba boyhood
+
+## 少年野球と巨人ファン
+30: ジャイアント馬場 少年野球=Giant Baba youth baseball
+32: 青田昇=Noboru Aota
+
+## 三条実業高校とスパイクの壁
+35: 三条実業高校 馬場正平=Sanjo Jitsugyo High School Shohei Baba
+37: ジャイアント馬場 特注 スパイク=Giant Baba custom baseball spikes
+40: いらすとや 美術部 絵を描く=irasutoya art club painting
+
+## 高校のエースと夏の敗退
+41: 馬場正平 高校 野球部=Shohei Baba high school baseball
+44: 新潟大会 高校野球 昭和=Niigata high school baseball tournament Showa
+
+## 巨人入団
+47: 馬場正平 巨人 入団=Shohei Baba joins Yomiuri Giants 1954
+52: 森祇晶 国松彰=Masaaki Mori Akira Kunimatsu
+
+## 二軍の最優秀投手と読書家
+53: 馬場正平 巨人 二軍=Shohei Baba Giants minor league
+55: いらすとや 読書 男性=irasutoya man reading book
+
+## 脳腫瘍と大手術
+57: 東大病院 昭和=University of Tokyo Hospital Showa
+61: 馬場正平 包帯 キャンプ=Shohei Baba bandage camp
+
+## 一軍デビュー
+65: 馬場正平 一軍 登板=Shohei Baba Giants first team
+66: 甲子園球場 1957年=Koshien Stadium 1957
+67: 吉田義男 阪神=Yoshio Yoshida Hanshin Tigers
+
+## 初先発と杉下茂の200勝
+69: 後楽園球場 昭和30年代=Korakuen Stadium 1950s
+70: 杉下茂 200勝=Shigeru Sugishita 200 wins
+
+## 王貞治の証言と突然のクビ
+73: 王貞治 1959年=Sadaharu Oh 1959
+77: 水原茂 監督=Shigeru Mizuhara manager
+78: 藤本英雄=Hideo Fujimoto pitcher
+80: 馬場正平 巨人 背番号59=Shohei Baba Giants number 59
+
+## 明石での出会い
+81: 馬場元子 若い頃=young Motoko Baba
+
+## 大洋のテストと風呂場の大けが
+83: 大洋ホエールズ 明石キャンプ=Taiyo Whales Akashi camp
+85: いらすとや お風呂 転ぶ=irasutoya slip in bath
+
+## 野球の道を断たれる
+88: 馬場正平 若い頃=young Shohei Baba
+90: ボクシングジム 昭和=boxing gym Showa era
+
+## 力道山を訪ねる
+92: 力道山=Rikidozan
+96: 力道山 ブラジル遠征=Rikidozan Brazil tour
+97: ヒンズースクワット=Hindu squat
+
+## 破格の月給
+101: 力道山 馬場正平 入門=Rikidozan Shohei Baba
+102: いらすとや 給料袋=irasutoya pay envelope
+
+## 猪木と同日デビュー
+105: アントニオ猪木 若い頃=young Antonio Inoki
+107: 台東区体育館=Taito Ward Gymnasium
+108: 馬場 猪木 デビュー 1960年=Baba Inoki debut 1960
+
+## 力道山の寵愛としごき
+110: 力道山 馬場 猪木=Rikidozan Baba Inoki
+114: 力道山 ジャイアント馬場=Rikidozan Giant Baba
+116: 青函連絡船=Seikan ferry
+
+## アメリカ修行と「ババ・ザ・ジャイアント」
+119: ジャイアント馬場 アメリカ修行=Giant Baba in America 1961
+120: ビンス・マクマホン・シニア=Vincent J. McMahon
+121: Baba the Giant ポスター=Baba the Giant wrestling poster
+
+## 16文キックの誕生
+123: 16文キック=Giant Baba big boot
+125: いらすとや 靴 サイズ=irasutoya shoe size
+
+## ロジャースへの挑戦と「上を向いて歩こう」
+129: バディ・ロジャース=Buddy Rogers wrestler
+130: ジュークボックス 1960年代=jukebox 1960s
+131: 坂本九 上を向いて歩こう=Kyu Sakamoto Sukiyaki
+
+## 凱旋帰国
+134: 力道山 ジャイアント馬場 凱旋帰国 1963年=Rikidozan Giant Baba 1963
+
+## 力道山の死
+137: 力道山 刺傷事件=Rikidozan stabbing 1963
+140: 力道山 葬儀=Rikidozan funeral
+
+## 1億円の誘惑を断る
+141: グレート東郷=The Great Togo
+145: ジャイアント馬場 1963年=Giant Baba 1963
+
+## 三大世界王座への連続挑戦
+149: ジャイアント馬場 ルー・テーズ=Giant Baba Lou Thesz
+151: ブルーノ・サンマルチノ=Bruno Sammartino=Bruno Sammartino, フレッド・ブラッシー=Freddie Blassie
+
+## 日本プロレスのエースへ
+155: 日本プロレス 日本テレビ 中継=Japan Pro Wrestling Nippon TV broadcast
+157: ジャイアント馬場 ディック・ザ・ブルーザー=Giant Baba Dick the Bruiser
+158: 脳天唐竹割り=Giant Baba chop
+
+## 唐竹割りの誕生
+160: いらすとや 頭をぶつける=irasutoya bump head
+
+## BI砲と結婚
+164: BI砲 馬場 猪木=BI Cannon Baba Inoki tag team
+166: ジャイアント馬場 1970年=Giant Baba 1970
+167: ジャイアント馬場 元子 結婚=Giant Baba Motoko wedding Hawaii
+
+## 結婚の非公表とBI砲の決裂
+170: ジャイアント馬場 馬場元子=Giant Baba Motoko Baba
+173: アントニオ猪木 1971年=Antonio Inoki 1971
+
+## テレビ局の板挟みと独立
+175: 日本テレビ 麹町 昭和=Nippon TV Kojimachi Showa
+177: NET テレビ ワールドプロレスリング=NET TV World Pro Wrestling
+180: 三菱電機 プロレス 中継=Mitsubishi Electric pro wrestling sponsor
+183: ジャイアント馬場 独立 1972年=Giant Baba 1972 independence
+
+## 全日本プロレス旗揚げ
+186: 全日本プロレス中継=All Japan Pro Wrestling TV broadcast
+188: 日大講堂=Nihon University Auditorium Ryogoku
+189: 全日本プロレス 旗揚げ 1972年=All Japan Pro Wrestling 1972
+
+## ジャンボ鶴田の入団
+191: ジャンボ鶴田 若い頃=young Jumbo Tsuruta
+
+## 外国人選手を大切にした経営
+194: ドリー・ファンク・シニア=Dory Funk Sr.
+196: ジャイアント馬場 サンマルチノ=Giant Baba Bruno Sammartino
+197: いらすとや 飛行機 ファーストクラス=irasutoya first class airplane
+199: ジャイアント馬場 NWA 総会=Giant Baba NWA convention
+
+## 初代PWF王者
+201: PWFヘビー級 ベルト=PWF Heavyweight Championship belt
+
+## 日本人初のNWA世界王者
+204: ジャイアント馬場 ジャック・ブリスコ=Giant Baba Jack Brisco
+206: ジャイアント馬場 NWA世界王者 1974年=Giant Baba NWA World Champion 1974
+207: ザ・デストロイヤー=The Destroyer wrestler
+
+## わずか1週間の王座
+209: ジャック・ブリスコ=Jack Brisco
+
+## 2度目・3度目の戴冠
+212: ジャイアント馬場 ハーリー・レイス=Giant Baba Harley Race
+214: ランニング・ネックブリーカー・ドロップ=Giant Baba running neckbreaker drop
+216: ジャイアント馬場 1980年=Giant Baba 1980
+
+## 一夜限りのBI砲復活
+218: プロレス夢のオールスター戦 1979年=Puroresu Yume no All Star Sen 1979
+220: アブドーラ・ザ・ブッチャー タイガー・ジェット・シン=Abdullah the Butcher Tiger Jeet Singh
+
+## 実現しなかった一騎打ちと3000試合
+222: ジャイアント馬場 アントニオ猪木=Giant Baba Antonio Inoki
+226: ザ・シーク=The Sheik wrestler
+
+## スタン・ハンセンの引き抜き
+229: スタン・ハンセン 蔵前国技館 乱入=Stan Hansen Kuramae Kokugikan 1981
+231: スタン・ハンセン=Stan Hansen
+
+## ハンセンとの死闘
+233: ジャイアント馬場 スタン・ハンセン 1982年=Giant Baba Stan Hansen 1982
+236: ジャイアント馬場 ハンセン 東京体育館=Giant Baba Hansen Tokyo Gymnasium
+
+## 連続出場の終わりと第一線からの引退
+239: ブルーザー・ブロディ=Bruiser Brody
+241: ジャイアント馬場 1984年=Giant Baba 1984
+242: ジャイアント馬場 スタン・ハンセン PWF=Giant Baba Stan Hansen PWF 1985
+
+## ファミリー軍団
+244: ファミリー軍団 ラッシャー木村=Family Gundan Rusher Kimura Giant Baba
+246: ジャイアント馬場 5000試合=Giant Baba 5000 matches
+
+## 弟子への厳しさ
+248: 大仁田厚 若い頃=young Atsushi Onita
+251: いらすとや ジャージ=irasutoya tracksuit
+
+## 小橋建太とハル薗田
+254: 小橋建太 若い頃=young Kenta Kobashi
+256: ハル薗田=Haru Sonoda
+258: 南アフリカ航空295便=South African Airways Flight 295
+259: ジャイアント馬場 涙=Giant Baba tears
+
+## 天龍の離脱と大巨人コンビ
+261: 天龍源一郎 SWS=Genichiro Tenryu SWS
+263: ジャイアント馬場 アンドレ・ザ・ジャイアント=Giant Baba Andre the Giant
+
+## お茶の間の人気者
+265: SHOW by ショーバイ ジャイアント馬場=Show by Shobai Giant Baba
+267: 逸見政孝=Masataka Itsumi
+268: ジャイアント馬場 クイズ番組=Giant Baba quiz show
+
+## 葉巻と震災支援
+270: ジャイアント馬場 葉巻=Giant Baba cigar
+272: 阪神淡路大震災 明石=Great Hanshin earthquake Akashi
+273: ジャイアント馬場 震災 支援=Giant Baba earthquake relief
+
+## 還暦の勝利
+276: ジャイアント馬場 還暦=Giant Baba 60th birthday
+277: 後楽園ホール=Korakuen Hall, 三沢光晴=Mitsuharu Misawa
+278: 渕正信=Masanobu Fuchi
+
+## 60歳の言葉と原点
+280: ジャイアント馬場 1998年=Giant Baba 1998
+282: 巨人 多摩川グラウンド=Giants Tamagawa ground
+
+## 徹子の部屋
+284: 徹子の部屋 ジャイアント馬場=Tetsuko no Heya Giant Baba
+286: 黒柳徹子 スクワット=Tetsuko Kuroyanagi squat
+
+## 松本での異変
+288: 松本市総合体育館=Matsumoto City Gymnasium
+290: 和田京平=Kyohei Wada referee
+
+## 最後の試合
+294: ジャイアント馬場 最後の試合=Giant Baba last match
+295: 日本武道館=Nippon Budokan
+296: ラッシャー木村 百田光雄=Rusher Kimura Mitsuo Momota
+
+## 入院と最後の会話
+299: ジャイアント馬場 晩年=Giant Baba later years
+302: 川田利明=Toshiaki Kawada
+
+## 死去
+305: 東京医科大学病院=Tokyo Medical University Hospital
+309: ジャイアント馬場 死去 新聞=Giant Baba death newspaper 1999
+
+## お別れの会と引退記念試合
+311: ジャイアント馬場 お別れの会=Giant Baba farewell ceremony Budokan
+313: ジャイアント馬場 引退記念 東京ドーム=Giant Baba memorial Tokyo Dome 1999
+314: ブルーノ・サンマルチノ 1999年=Bruno Sammartino 1999=Bruno Sammartino
+315: ザ・デストロイヤー 東京ドーム=The Destroyer Tokyo Dome 1999
+
+## 明石の墓の約束
+317: 馬場元子=Motoko Baba
+319: 本松寺 明石=Honshoji temple Akashi
+322: ジャイアント馬場 墓=Giant Baba grave
+
+## 結び
+326: ジャイアント馬場 キャデラック 三条市=Giant Baba Cadillac Sanjo
+327: ジャイアント馬場 笑顔=Giant Baba smile
