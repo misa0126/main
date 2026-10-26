@@ -1,0 +1,177 @@
+# ロバート・ジョンソンの解説台本(robert_johnson.txt)の区切りと画像
+# 書き方は nishizaki_yoshinobu_scenes.txt と同じ(開始行は空行を除いた行番号)
+
+## 導入：十字路の悪魔
+1: 十字路 悪魔 ブルース 伝説=crossroads devil blues legend
+13: ロバート・ジョンソン=Robert Johnson blues
+16: ロバート・ジョンソン SP盤 レコード=Robert Johnson Vocalion 78 record
+20: エリック・クラプトン=Eric Clapton
+21: ロックの殿堂 1986 式典=Rock and Roll Hall of Fame 1986 induction
+26: ロバート・ジョンソン ポートレート=Robert Johnson Hooks Brothers portrait
+
+## ヘイズルハーストに生まれる
+28: ヘイズルハースト ミシシッピ=Hazlehurst Mississippi
+30: ジュリア・メジャー・ドッズ=Julia Major Dodds
+34: ノア・ジョンソン ロバート・ジョンソン 父=Noah Johnson Robert Johnson father
+38: ジム・クロウ 南部 1910年代=Jim Crow South 1910s
+
+## メンフィスでの少年時代
+44: メンフィス 1910年代=Memphis Tennessee 1910s
+50: メンフィス 黒人 学校 1910年代=Memphis African American school 1910s
+52: ビール・ストリート 1910年代=Beale Street Memphis 1910s
+
+## ロビンソンビルの農園へ
+55: 小作農 ミシシッピ 1920年代=sharecroppers Mississippi 1920s
+61: ロビンソンビル ミシシッピ 農園=Robinsonville Mississippi plantation
+62: いらすとや 名札=irasutoya name tag
+
+## ハーモニカと「ジョンソン」の名字
+67: いらすとや ハーモニカ=irasutoya harmonica
+69: いらすとや 親子 告白=irasutoya parent child confession
+
+## 最初の結婚と妻の死
+78: ロバート・ジョンソン 結婚証明書 1929=Robert Johnson marriage license 1929
+84: いらすとや 農家 夫婦=irasutoya farmer couple
+89: いらすとや お葬式=irasutoya funeral
+94: 黒人 教会 ミシシッピ 1920年代=African American church Mississippi 1920s
+
+## サン・ハウスとの出会い
+105: サン・ハウス=Son House
+107: サン・ハウス ギター=Son House guitar
+110: ウィリー・ブラウン ブルース=Willie Brown blues guitarist
+116: サン・ハウス 1960年代=Son House 1960s
+122: いらすとや 旅立ち=irasutoya departure
+
+## 故郷で師匠ジマーマンに弟子入り
+125: ヘイズルハースト 1930年代=Hazlehurst Mississippi 1930s
+131: アイク・ジマーマン=Ike Zimmerman guitarist
+135: フィンガーピッキング ブルース ギター=fingerpicking blues guitar
+138: スライドギター ボトルネック=bottleneck slide guitar
+
+## 真夜中の墓地で修業
+142: ボーリガード 墓地 アイク・ジマーマン=Beauregard cemetery Ike Zimmerman
+147: いらすとや 夜の墓地=irasutoya cemetery night
+
+## 2度目の結婚と息子クロード
+151: カレッタ・クラフト ロバート・ジョンソン=Calletta Craft Robert Johnson
+154: クロード・ジョンソン ロバート・ジョンソン 息子=Claud Johnson son of Robert Johnson
+158: いらすとや 家族 反対=irasutoya family oppose
+164: クラークスデール 1930年代=Clarksdale Mississippi 1930s
+168: いらすとや ギター 旅=irasutoya guitar travel
+
+## 別人になって帰ってくる
+171: ロバート・ジョンソン ギター 写真=Robert Johnson with guitar photo
+179: サン・ハウス ウィリー・ブラウン=Son House Willie Brown
+183: ロバート・ジョンソン 十字路 伝説=Robert Johnson crossroads legend
+
+## デルタを渡り歩く
+189: ヘレナ アーカンソー 1930年代=Helena Arkansas 1930s
+193: ミシシッピ・デルタ 綿花畑 1930年代=Mississippi Delta cotton fields 1930s
+196: 路上 ブルース 演奏 ミシシッピ 1930年代=street blues musician Mississippi 1930s
+199: ジューク・ジョイント 1930年代=juke joint Mississippi 1930s
+
+## 仲間シャインズと気ままな旅
+202: ジョニー・シャインズ=Johnny Shines
+205: いらすとや 立ち去る=irasutoya walk away
+211: いらすとや 変装=irasutoya disguise
+
+## 町ごとの女性たち
+218: エステラ・コールマン=Estella Coleman Robert Johnson
+222: ロバート・ロックウッド・ジュニア=Robert Lockwood Jr.
+
+## 何でも弾ける腕利きの流し
+225: ロバート・ジョンソン 写真 フォトブース=Robert Johnson photo booth self-portrait
+231: いらすとや 流し ギター=irasutoya street guitarist
+
+## スカウトのスピアとプロデューサーのロー
+239: H・C・スピア=H. C. Speir
+242: スピア 店 ジャクソン ミシシッピ=Speir music store Jackson Mississippi
+244: ドン・ロー プロデューサー=Don Law producer
+
+## ガンター・ホテル414号室
+252: ガンター・ホテル サンアントニオ=Gunter Hotel San Antonio
+254: ガンター・ホテル 414号室=Gunter Hotel room 414 Robert Johnson
+258: スウィート・ホーム・シカゴ ロバート・ジョンソン レコード=Sweet Home Chicago Robert Johnson Vocalion
+263: いらすとや 壁に向かう=irasutoya facing wall
+266: ドン・ロー=Don Law Columbia Records
+
+## 『テラプレイン・ブルース』とハモンドの絶賛
+271: テラプレイン・ブルース レコード=Terraplane Blues Vocalion 78
+277: ジョン・ハモンド=John Hammond producer
+279: ニュー・マッセズ 1937 雑誌=New Masses magazine 1937
+
+## ダラスでの2回目の録音
+283: ダラス パーク・アベニュー 508=508 Park Avenue Dallas
+287: ヘルハウンド・オン・マイ・トレイル レコード=Hellhound on My Trail Vocalion 78
+
+## 3分に収める曲作りとギターの技
+293: SP盤 78回転 レコード=78 rpm shellac record
+302: ロバート・ジョンソン ギブソン L-1=Robert Johnson Gibson L-1
+306: キース・リチャーズ 1960年代=Keith Richards 1960s
+
+## グリーンウッドの酒場へ
+311: ハニーボーイ・エドワーズ=Honeyboy Edwards
+313: グリーンウッド ミシシッピ 1930年代=Greenwood Mississippi 1930s
+315: スリー・フォークス ジューク・ジョイント=Three Forks juke joint Greenwood
+
+## 毒入りのウイスキー
+319: いらすとや ナンパ=irasutoya flirting
+321: ウイスキー 瓶 1930年代=1930s whiskey bottle
+323: マック・マコーミック 研究者=Mack McCormick blues researcher
+
+## はたき落とされた瓶と27歳の死
+328: ハニーボーイ・エドワーズ 若い頃=young Honeyboy Edwards
+336: いらすとや 怒る 男性=irasutoya angry man
+339: スター・オブ・ザ・ウェスト 農園 キト=Star of the West plantation Quito Mississippi
+
+## 死亡証明書と謎の死因
+344: ロバート・ジョンソン 死亡証明書=Robert Johnson death certificate
+350: 梅毒 ポスター 1930年代=syphilis poster 1930s
+356: いらすとや 医者=irasutoya doctor
+362: 松の木 棺 1930年代=pine box coffin 1930s
+365: ロバート・ジョンソン 墓石 碑文=Robert Johnson headstone epitaph
+
+## 3つの墓
+369: ロバート・ジョンソン 墓 3つ=Robert Johnson three graves
+370: マウント・ザイオン 教会 ロバート・ジョンソン 記念碑=Mount Zion Missionary Baptist Church Robert Johnson memorial
+372: リトル・ザイオン 教会 墓地=Little Zion Missionary Baptist Church Greenwood
+376: スティーブ・ラヴェア=Stephen LaVere
+
+## カーネギー・ホールに届いたレコード
+380: いらすとや 新聞=irasutoya newspaper
+384: カーネギー・ホール 1938=Carnegie Hall 1938
+385: フロム・スピリチュアルズ・トゥ・スウィング 1938=From Spirituals to Swing 1938 concert
+389: ジョン・ハモンド 1930年代=John Hammond 1930s
+393: ビッグ・ビル・ブルーンジー=Big Bill Broonzy
+
+## 1961年の再発見とイギリスの若者たち
+397: キング・オブ・ザ・デルタ・ブルース・シンガーズ アルバム=King of the Delta Blues Singers album 1961
+402: ローリング・ストーンズ 1963=Rolling Stones 1963
+407: クリーム クロスロード=Cream Crossroads live
+408: ミー・アンド・ミスター・ジョンソン クラプトン=Me and Mr. Johnson Eric Clapton album
+409: ボブ・ディラン 1960年代=Bob Dylan 1960s
+
+## 伝説の正体はトミー・ジョンソン
+412: トミー・ジョンソン ブルース=Tommy Johnson blues singer
+421: クラークスデール クロスロード 61号線 49号線=Clarksdale crossroads Highway 61 49
+
+## 死後に増える勲章
+427: ゲイル・ディーン・ウォードロウ=Gayle Dean Wardlow
+429: ロバート・ジョンソン コンプリート・レコーディングス 1990=Robert Johnson The Complete Recordings 1990
+430: ロバート・ジョンソン 記念切手 1994=Robert Johnson stamp 1994
+431: ローリング・ストーン 偉大なギタリスト 2003=Rolling Stone 100 greatest guitarists 2003
+
+## 息子クロードが受け継いだ遺産
+435: クロード・ジョンソン=Claud Johnson Robert Johnson son
+438: ミシシッピ州最高裁判所=Mississippi Supreme Court
+442: いらすとや お金=irasutoya money
+447: クロード・ジョンソン 晩年=Claud Johnson Crystal Springs
+
+## 3枚目の写真と笑顔
+448: ロバート・ジョンソン 写真 3枚=Robert Johnson authenticated photos
+450: アニエ・アンダーソン Brother Robert 本=Brother Robert Annye Anderson book
+453: ロバート・ジョンソン 笑顔 写真=Robert Johnson smiling photo Brother Robert
+
+## まとめ：悪魔はいなかった
+457: ロバート・ジョンソン ギター ポートレート=Robert Johnson portrait with guitar
+461: ロバート・ジョンソン レコード=Robert Johnson records
