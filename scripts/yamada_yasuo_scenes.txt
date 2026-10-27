@@ -1,0 +1,183 @@
+# 山田康雄の解説台本(yamada_yasuo.txt)の区切りと画像
+# 書き方は nishizaki_yoshinobu_scenes.txt と同じ
+
+## 導入：「ふ〜じこちゃ〜ん」は台本になかった
+1: ルパン三世 峰不二子 アニメ=Lupin III Fujiko Mine anime
+4: ルパン三世 1971 アニメ=Lupin III 1971 anime
+8: 山田康雄 ルパン 収録=Yasuo Yamada Lupin recording
+12: 山田康雄=Yasuo Yamada
+13: クリント・イーストウッド 1960年代=Clint Eastwood 1960s
+17: 山田康雄 笑顔=Yasuo Yamada smiling
+19: 山田康雄 アフレコ=Yasuo Yamada dubbing
+
+## 大森区南雪谷に生まれる
+25: 雪谷 戦前=Yukigaya Ota Tokyo prewar
+30: 日本銀行 本店 戦前=Bank of Japan head office prewar
+33: 山田康雄 子供時代=Yasuo Yamada childhood
+
+## 疎開先でB-29に襲われる
+36: 畑毛温泉=Hatake Onsen Shizuoka, 学童集団疎開=school evacuation Japan 1944
+41: B-29 機銃掃射=B-29 strafing Japan
+
+## 都立一中・日比谷高校と映画館通い
+48: 都立日比谷高校 昭和=Hibiya High School Showa
+51: 山田康雄 若い頃=young Yasuo Yamada
+54: 虹を掴む男 ポスター=The Secret Life of Walter Mitty 1947 poster
+57: ダニー・ケイ=Danny Kaye
+
+## 東大受験と早稲田入学
+62: 東京大学 安田講堂 昭和=University of Tokyo Yasuda Auditorium Showa
+65: 東京六大学野球 昭和20年代=Tokyo Big6 baseball 1950s
+69: いらすとや 不合格=irasutoya fail exam
+72: 早稲田大学 大隈講堂 1950年代=Waseda University Okuma Auditorium 1950s
+73: 早稲田大学 自由舞台=Waseda Jiyu Butai theater
+
+## 劇団民藝の「サボリーマン」
+76: 劇団民藝 1950年代=Gekidan Mingei 1950s
+81: いらすとや 稽古 さぼる=irasutoya skipping practice
+85: いらすとや 草野球=irasutoya amateur baseball
+87: 鶴田浩二 若い頃=young Koji Tsuruta
+90: 国体 軟式野球 昭和=National Sports Festival softball baseball Showa
+
+## テアトル・エコー入団
+93: 山田康雄 1950年代=Yasuo Yamada 1950s
+95: 熊倉一雄=Kazuo Kumakura
+96: テアトル・エコー 劇団=Theatre Echo Tokyo
+
+## 『ヒッチコック劇場』降板
+100: ヒッチコック劇場=Alfred Hitchcock Presents
+104: 吹き替え 収録 昭和30年代=Japanese dubbing studio 1950s
+110: 山田康雄 テアトル・エコー 若い頃=young Yasuo Yamada Theatre Echo
+
+## 『ローハイド』でデビュー
+116: ローハイド テレビドラマ=Rawhide TV series
+119: ローハイド ロディ イーストウッド=Rawhide Rowdy Yates Clint Eastwood
+124: 山田康雄 1960年代=Yasuo Yamada 1960s
+126: ローハイド 日本 人気=Rawhide Japan popularity
+130: ローハイド 来日 1962=Rawhide cast Japan visit 1962
+132: クリント・イーストウッド 山田康雄=Clint Eastwood Yasuo Yamada
+
+## 「合わない」と言い続けたイーストウッド
+135: クリント・イーストウッド 若い頃=young Clint Eastwood, クリント・イーストウッド 1970年代=Clint Eastwood 1970s
+140: ルーキー 1990 映画=The Rookie 1990 film Eastwood
+145: ダーティハリー=Dirty Harry 1971
+
+## いちばん好きだったベルモンド
+149: ジャン＝ポール・ベルモンド=Jean-Paul Belmondo=Jean-Paul Belmondo acteur
+152: リオの男 ベルモンド=That Man from Rio Belmondo=L'Homme de Rio Belmondo
+
+## 結婚と再放送ギャラの闘い
+156: 山田康雄 1960年代 結婚=Yasuo Yamada 1960s
+158: いらすとや お金がない=irasutoya no money
+163: 声優 待遇改善 デモ 1970年代=Japanese voice actors strike 1970s
+168: 神谷明=Akira Kamiya
+
+## 井上ひさし作品の看板俳優
+174: 井上ひさし 1970年代=Hisashi Inoue 1970s
+177: 11ぴきのねこ テアトル・エコー=Juippiki no Neko Theatre Echo 1971, 山田康雄 1970年代=Yasuo Yamada 1970s
+
+## 漫画『ルパン三世』との出会い
+180: 日本人のへそ 舞台=Nihonjin no Heso stage
+183: 漫画アクション ルパン三世 1967=Manga Action Lupin III 1967
+186: モンキー・パンチ ルパン三世 原作 漫画=Monkey Punch Lupin III manga
+
+## おおすみ正秋にスカウトされる
+190: おおすみ正秋=Masaaki Osumi
+197: ルパン三世 第1シリーズ=Lupin III Part 1 1971
+
+## SF嫌いとテッカマン
+204: 山田康雄 1970年代 ルパン=Yasuo Yamada 1970s Lupin
+208: 宇宙の騎士テッカマン アンドロー梅田=Tekkaman Andro Umeda
+
+## 第2シリーズとアドリブ
+214: ルパン三世 第2シリーズ 1977=Lupin III Part 2 1977
+219: 銭形警部=Inspector Zenigata
+223: 大和屋竺=Atsushi Yamatoya
+228: ルパン三世 第2シリーズ ルパン=Lupin III Part 2 Lupin
+
+## 納谷悟朗との約束と最後の舞台
+234: 納谷悟朗=Goro Naya
+237: ルパンVS複製人間=Lupin III The Mystery of Mamo
+238: 山田康雄 舞台=Yasuo Yamada stage
+
+## 『カリオストロの城』で宮崎駿とぶつかる
+244: ルパン三世 カリオストロの城=Lupin III The Castle of Cagliostro
+246: 宮崎駿 1979=Hayao Miyazaki 1979
+249: 山田康雄 アフレコ ルパン=Yasuo Yamada Lupin dubbing
+255: 山田康雄 1970年代=Yasuo Yamada 1970s
+
+## 試写を見て頭を下げる
+261: カリオストロの城 名場面=The Castle of Cagliostro scene
+268: ルパン三世 第2シリーズ 赤ジャケット=Lupin III Part 2 red jacket
+273: カリオストロの城 クラリス 城=The Castle of Cagliostro Clarisse castle
+
+## アフレコ中止事件と現場の空気
+280: 山田康雄 納谷悟朗=Yasuo Yamada Goro Naya
+289: 松井菜桜子=Naoko Matsui
+292: 増山江威子=Eiko Masuyama
+295: ルパン三世 バビロンの黄金伝説=Lupin III Legend of the Gold of Babylon, 河合奈保子 1985=Naoko Kawai 1985
+302: 山田康雄 1980年代=Yasuo Yamada 1980s
+
+## 『お笑いスター誕生!!』の司会
+306: お笑いスター誕生 山田康雄 中尾ミエ=Owarai Star Tanjo Yasuo Yamada Mie Nakao
+311: 山田康雄 司会=Yasuo Yamada TV host
+315: おぼん・こぼん 若い頃=young Obon Kobon
+317: ダウンタウン 浜田雅功 若い頃=young Masatoshi Hamada Downtown
+320: 8時だョ!全員集合 ドリフターズ=Hachiji da yo Zenin Shugo The Drifters
+322: 小林清志=Kiyoshi Kobayashi
+
+## 「声優になりたいならやめなさい」
+325: いらすとや 声優=irasutoya voice actor
+331: 山田康雄=Yasuo Yamada
+336: 山田康雄 演技=Yasuo Yamada acting
+338: いらすとや スーパーの店員=irasutoya supermarket clerk
+
+## 芸術祭受賞に激怒
+341: テアトル・エコー サンシャイン・ボーイズ=Theatre Echo The Sunshine Boys
+344: いらすとや 激怒=irasutoya angry man
+346: 熊倉一雄 晩年=Kazuo Kumakura
+
+## アニメはルパンだけ
+349: 山田康雄 ルパン三世=Yasuo Yamada Lupin III
+355: ルパン三世 PARTIII=Lupin III Part 3
+359: 山田康雄 晩年=Yasuo Yamada later years
+361: 栗田貫一 若い頃=young Kanichi Kurita
+
+## 衰えていく体
+367: 山田康雄 1990年代=Yasuo Yamada 1990s
+369: ルパン暗殺指令=Lupin III From Siberia with Love
+372: いらすとや 椅子に座る=irasutoya sitting on chair
+379: 大野雄二=Yuji Ohno
+385: 山田康雄 アルバム=Yasuo Yamada album
+391: ルパン三世 燃えよ斬鉄剣=Lupin III Dragon of Doom
+393: いらすとや 段差=irasutoya step trip
+398: ルパン三世 くたばれ!ノストラダムス=Lupin III Farewell to Nostradamus
+400: エッソ ルパン三世 CM=Esso Lupin III commercial
+
+## 倒れて、旅立つ
+405: 東京都立荏原病院=Tokyo Metropolitan Ebara Hospital
+412: モンキー・パンチ=Monkey Punch
+415: 栗田貫一 1995=Kanichi Kurita 1995
+419: いらすとや 病院 看病=irasutoya hospital family
+422: 地下鉄サリン事件=Tokyo subway sarin attack 1995
+428: 山田康雄 葬儀=Yasuo Yamada funeral
+432: 納谷悟朗 銭形警部=Goro Naya Zenigata
+437: 多磨霊園=Tama Cemetery
+
+## 栗田貫一の代役
+440: 栗田貫一 ルパン 1995=Kanichi Kurita Lupin 1995
+445: 大谷翔平 投球=Shohei Ohtani pitching
+449: 小林清志 納谷悟朗=Kiyoshi Kobayashi Goro Naya
+451: くたばれ!ノストラダムス 永遠のルパン三世=Farewell to Nostradamus ending Yasuo Yamada
+453: テアトル・エコー 恵比寿 劇場=Theatre Echo Ebisu theater
+455: 栗田貫一 ルパン=Kanichi Kurita Lupin
+458: 山田浩康=Hiroyasu Yamada
+
+## 受け継がれる声
+463: 大野雄二 ルパン三世=Yuji Ohno Lupin III
+467: 多田野曜平=Yohei Tadano
+474: モンキー・パンチ ルパン 原画=Monkey Punch Lupin drawing
+477: 古川登志夫=Toshio Furukawa
+482: カリオストロの城=The Castle of Cagliostro
+484: 栗田貫一 ルパン 30年=Kanichi Kurita Lupin 30 years
+488: 山田康雄 ルパン 笑顔=Yasuo Yamada Lupin smile
