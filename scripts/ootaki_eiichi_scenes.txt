@@ -1,0 +1,176 @@
+# 大瀧詠一の解説台本(ootaki_eiichi.txt)の区切りと画像
+# 書き方は nishizaki_yoshinobu_scenes.txt と同じ
+
+## 導入：CMで流れるあの曲
+1: 君は天然色 CM=Kimi wa Tennenshoku commercial
+5: 君は天然色 シングル レコード=Kimi wa Tennenshoku single record
+9: 大瀧詠一 1981年=Eiichi Ohtaki 1981
+10: A LONG VACATION ジャケット=A Long Vacation Eiichi Ohtaki cover
+
+## 大ヒットのあと表舞台から消える
+15: 大瀧詠一 1980年代=Eiichi Ohtaki 1980s
+20: 大瀧詠一=Eiichi Ohtaki
+
+## 岩手を転々とした子ども時代
+23: 江刺 昭和=Esashi Iwate Showa
+26: 釜石 昭和20年代=Kamaishi 1950s
+30: 大瀧詠一 少年時代=Eiichi Ohtaki childhood
+33: トニー・ベネット 霧のサンフランシスコ=Tony Bennett I Left My Heart in San Francisco
+37: いらすとや 歌う 学生=irasutoya student singing
+
+## 上京と細野晴臣との出会い
+42: 上野駅 1960年代=Ueno Station 1960s
+45: 中田喜直=Yoshinao Nakada
+46: 細野晴臣 若い頃=young Haruomi Hosono
+49: 細野晴臣 1960年代=Haruomi Hosono 1960s
+54: 大瀧詠一 細野晴臣 若い頃=young Eiichi Ohtaki Haruomi Hosono
+62: 布谷文夫=Fumio Nunoya
+
+## はっぴいえんど結成
+67: はっぴいえんど メンバー 1969=Happy End band members 1969
+71: はっぴいえんど ゆでめん=Happy End 1970 album
+75: はっぴいえんど 風街ろまん=Happy End Kazemachi Roman
+
+## 一升瓶の若者
+80: 岡林信康=Nobuyasu Okabayashi
+85: 六本木 自由劇場=Jiyu Gekijo Roppongi
+93: 伊藤銀次 若い頃=young Ginji Ito
+
+## ソロ活動とバンド解散
+97: 恋の汽車ポッポ 大瀧詠一=Koi no Kisha Poppo Eiichi Ohtaki
+99: 大瀧詠一 ファーストアルバム 1972=Eiichi Ohtaki 1972 first album
+104: はっぴいえんど 1972=Happy End 1972
+107: はっぴいえんど HAPPY END アルバム=Happy End album 1973
+
+## ごまのはえと南海ホークス
+112: ごまのはえ バンド=Gomanohae band Ginji Ito
+119: 南海ホークス 1972=Nankai Hawks 1972
+
+## 福生へ、ひとりきりの再出発
+124: 福生 米軍ハウス 1970年代=Fussa US military housing 1970s
+
+## 三ツ矢サイダーのCMソング
+130: 大森昭男 CM音楽=Akio Omori CM music producer
+133: 三ツ矢サイダー 1973 CM=Mitsuya Cider 1973 commercial
+138: いらすとや 作曲家=irasutoya composer
+
+## ココナツ・バンクと山下達郎
+143: ココナツ・バンク 伊藤銀次=Coconut Bank Ginji Ito
+145: いらすとや ちゃんちゃんこ 自転車=irasutoya chanchanko bicycle
+149: ココナツ・バンク 1973=Coconut Bank 1973
+152: 山下達郎 若い頃=young Tatsuro Yamashita
+154: シュガー・ベイブ=Sugar Babe band
+
+## はっぴいえんど最後のコンサート
+161: はっぴいえんど CITY 1973 ラストコンサート=Happy End last concert 1973
+165: 大瀧詠一 1973=Eiichi Ohtaki 1973
+169: 大瀧詠一 1970年代=Eiichi Ohtaki 1970s
+
+## ナイアガラ・レーベル誕生
+175: ナイアガラ・レコード ロゴ=Niagara Records logo
+181: ナイアガラの滝=Niagara Falls
+184: 福生45スタジオ=Fussa 45 Studio
+189: 多羅尾伴内 片岡千恵蔵=Tarao Bannai Chiezo Kataoka
+
+## エレック・レコードと災難
+193: エレック・レコード=Elec Records
+197: シュガー・ベイブ SONGS=Sugar Babe Songs album
+199: ナイアガラ・ムーン=Niagara Moon Eiichi Ohtaki
+203: シュガー・ベイブ 1975=Sugar Babe 1975
+206: いらすとや 倒産=irasutoya bankruptcy
+
+## コロムビアとの過酷な契約
+209: 日本コロムビア 1970年代=Nippon Columbia 1970s
+214: NIAGARA TRIANGLE Vol.1=Niagara Triangle Vol.1
+216: 吉田美奈子 夢で逢えたら=Minako Yoshida Yume de Aetara
+217: ゴー！ゴー！ナイアガラ ラジオ=Go Go Niagara radio
+220: ナイアガラ音頭 布谷文夫=Niagara Ondo Fumio Nunoya
+226: LET'S ONDO AGAIN=Let's Ondo Again Eiichi Ohtaki
+
+## レーベル休止と最後の勝負
+231: 大瀧詠一 1978=Eiichi Ohtaki 1978
+239: 大瀧詠一 1979=Eiichi Ohtaki 1979
+
+## 絵本「A LONG VACATION」
+244: 永井博=Hiroshi Nagai illustrator
+247: リッキー・ネルソン=Ricky Nelson
+249: A LONG VACATION 絵本 永井博=A Long Vacation picture book Hiroshi Nagai
+
+## 封印を解き、松本隆に詞を託す
+252: 大瀧詠一 1980年=Eiichi Ohtaki 1980
+261: 松本隆 若い頃=young Takashi Matsumoto lyricist
+
+## 松本隆の悲しみと発売延期
+266: 大瀧詠一 1980 レコーディング=Eiichi Ohtaki 1980 recording
+269: 松本隆 1980年代=Takashi Matsumoto 1980s
+274: 松本隆 大瀧詠一=Takashi Matsumoto Eiichi Ohtaki
+278: 大瀧詠一 ロンバケ 制作=Eiichi Ohtaki A Long Vacation making
+280: さらばシベリア鉄道=Saraba Siberia Tetsudo
+
+## 「君は天然色」に込めた思い
+284: 君は天然色 歌詞=Kimi wa Tennenshoku lyrics
+288: 松本隆 君は天然色=Takashi Matsumoto Kimi wa Tennenshoku
+
+## 『A LONG VACATION』発売と大逆転
+297: A LONG VACATION レコード 1981=A Long Vacation LP 1981
+300: スピーチ・バルーン 大瀧詠一=Speech Balloon Eiichi Ohtaki
+302: オリコン チャート 1981=Oricon chart 1981
+
+## 歌手より、レーベルの立て直し
+309: 大瀧詠一 1981=Eiichi Ohtaki 1981
+312: 日本レコード大賞 1981=Japan Record Award 1981
+
+## 作曲家として大ブレイク
+318: 松田聖子 風立ちぬ=Seiko Matsuda Kaze Tachinu
+321: 森進一 冬のリヴィエラ=Shinichi Mori Fuyu no Riviera
+322: 薬師丸ひろ子 探偵物語=Hiroko Yakushimaru Tantei Monogatari, ラッツ&スター Tシャツに口紅=Rats & Star T-shirt ni Kuchibeni
+323: 小林旭 熱き心に=Akira Kobayashi Atsuki Kokoro ni
+326: 金沢明子 イエロー・サブマリン音頭=Akiko Kanazawa Yellow Submarine Ondo
+
+## NIAGARA TRIANGLE Vol.2 と世界初のCD
+331: NIAGARA TRIANGLE Vol.2 佐野元春 杉真理=Niagara Triangle Vol.2 Motoharu Sano Masamichi Sugi
+334: 世界初 CD 1982=first CD 1982 Japan
+
+## 生涯一度のスタジアムライブ
+340: 西武球場 1983 大瀧詠一=Eiichi Ohtaki Seibu Stadium 1983 concert
+
+## ソロ封印への決意
+344: 大瀧詠一 1983=Eiichi Ohtaki 1983
+348: 大瀧詠一 福生=Eiichi Ohtaki Fussa
+352: EACH TIME 大瀧詠一=Each Time Eiichi Ohtaki album
+359: フィヨルドの少女=Fjord no Shojo Eiichi Ohtaki
+
+## 年に一度の『新春放談』
+364: 新春放談 山下達郎 大瀧詠一=Shinshun Hodan Tatsuro Yamashita Eiichi Ohtaki
+370: 立川駅 1970年代=Tachikawa Station 1970s
+376: 山下達郎 サンデー・ソングブック=Tatsuro Yamashita Sunday Songbook
+
+## 萩原健太の三日三晩インタビュー
+383: 萩原健太=Kenta Hagiwara
+386: いらすとや カセットテープ=irasutoya cassette tape
+
+## 12年ぶりの新曲「幸せな結末」
+394: 幸せな結末 大瀧詠一=Shiawase na Ketsumatsu Eiichi Ohtaki
+395: ラブジェネレーション 木村拓哉 松たか子=Love Generation drama 1997
+
+## 渡り鳥のように
+400: A LONG VACATION 20th Anniversary Edition=A Long Vacation 20th Anniversary Edition
+404: 男はつらいよ 寅さん=Otoko wa Tsurai yo Tora-san
+408: 恋するふたり 大瀧詠一=Koisuru Futari Eiichi Ohtaki
+
+## 突然の別れ
+410: 大瀧詠一 死去 2013=Eiichi Ohtaki death 2013 news
+417: 大瀧詠一 晩年=Eiichi Ohtaki later years
+422: Best Always 大瀧詠一=Best Always Eiichi Ohtaki
+
+## 死後も届く「新作」
+426: DEBUT AGAIN 大瀧詠一=Debut Again Eiichi Ohtaki
+429: NIAGARA CONCERT '83=Niagara Concert 83 Eiichi Ohtaki
+430: Happy Ending 大瀧詠一 2020=Happy Ending Eiichi Ohtaki 2020
+432: ナイアガラ サブスク 解禁=Niagara streaming 2021 Eiichi Ohtaki
+434: 萩原健太 大瀧詠一 本 2026=Kenta Hagiwara Eiichi Ohtaki book 2026
+
+## 結び：永遠に鳴り続ける音楽
+437: はっぴいえんど 大瀧詠一 細野晴臣=Happy End Eiichi Ohtaki Haruomi Hosono
+441: 松本隆 大瀧詠一 はっぴいえんど=Takashi Matsumoto Eiichi Ohtaki
+445: A LONG VACATION=A Long Vacation Eiichi Ohtaki
