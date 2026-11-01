@@ -1,0 +1,223 @@
+# 松下幸之助の解説台本(matsushita_konosuke.txt)の区切りと画像
+# 書き方は nishizaki_yoshinobu_scenes.txt と同じ
+
+## 導入：霊夢の三重苦
+1: いらすとや 空っぽの財布=irasutoya empty wallet
+6: 松下幸之助 若い頃=young Konosuke Matsushita
+15: 松下幸之助 経営の神様=Konosuke Matsushita god of management
+18: 松下幸之助 晩年=Konosuke Matsushita later years
+21: 松下幸之助 1960年代=Konosuke Matsushita 1960s
+
+## 和歌山の地主の家に生まれる
+26: 松下幸之助 生誕の地 和歌山=Konosuke Matsushita birthplace Wakayama
+30: 松下幸之助 生誕地 松の木 記念碑=Konosuke Matsushita birthplace pine tree monument
+
+## 父の米相場の失敗
+34: 堂島米会所 明治=Dojima rice exchange Meiji
+40: 下駄屋 明治=geta shop Meiji era
+
+## 兄姉の死と父の大阪行き
+45: 松下幸之助 幼少期=Konosuke Matsushita childhood
+48: 大阪盲唖院=Osaka school for the blind and deaf Meiji
+
+## 9歳で大阪へ奉公に
+53: 紀ノ川駅 明治=Kinokawa Station Meiji
+55: 松下幸之助 母 とく枝=Konosuke Matsushita mother Tokue
+57: 火鉢店 明治 大阪=hibachi shop Meiji Osaka
+58: 松下幸之助 父 政楠=Konosuke Matsushita father Masakusu
+
+## 五代自転車商会
+64: 五代自転車商会=Godai bicycle shop Osaka
+67: 五代五兵衛=Gohei Godai
+
+## タバコのまとめ買いと商売の芽
+72: 明治 タバコ 敷島=Meiji era cigarettes Shikishima
+78: 松下幸之助 丁稚時代=Konosuke Matsushita apprentice
+81: 鳥井信治郎=Shinjiro Torii
+
+## 電気の時代へ
+88: 大阪市電 明治=Osaka streetcar Meiji
+93: 大阪電灯=Osaka Electric Light Company
+98: 初代通天閣=first Tsutenkaku 1912
+101: 松下幸之助 大阪電灯時代=Konosuke Matsushita Osaka Electric Light
+
+## 夜学と結婚
+104: 関西商工学校=Kansai Shoko school Osaka
+110: 松下むめの=Mumeno Matsushita
+
+## 松下式ソケットと独立
+112: 松下式ソケット=Matsushita socket 1917
+120: 松下幸之助 20代=Konosuke Matsushita in his twenties
+
+## 猪飼野でのソケットづくり
+124: 松下幸之助 猪飼野 借家=Konosuke Matsushita Ikaino house
+127: 井植歳男=Toshio Iue
+129: いらすとや 売れない=irasutoya unsold goods
+
+## 扇風機の部品で救われる
+133: 扇風機 碍盤 松下=Matsushita electric fan insulator plate
+
+## 松下電気器具製作所の創業
+138: 松下電気器具製作所 大開町=Matsushita Electric Housewares Manufacturing Works 1918
+141: 松下幸之助 むめの 井植歳男=Konosuke Mumeno Matsushita Toshio Iue
+
+## アタッチメントプラグと二股ソケット
+144: アタッチメントプラグ 松下=Matsushita attachment plug
+147: 二股ソケット 松下=Matsushita twin socket
+153: 松下電器 M矢 マーク=Matsushita M arrow mark
+154: 歩一会 松下=Hoichikai Matsushita
+
+## 本店工場と自転車ランプ
+158: 松下電器 大開町 本店 1922=Matsushita Ohiraki factory 1922
+161: 砲弾型ランプ 松下=Matsushita bullet-shaped bicycle lamp
+
+## 区会議員に当選
+168: 松下幸之助 1920年代=Konosuke Matsushita 1920s
+
+## アイロンとナショナルの誕生
+172: スーパーアイロン 松下 1927=Matsushita Super Iron 1927
+174: ナショナルランプ 角型=National square lamp 1927
+177: ナショナル 新聞広告 昭和初期=National newspaper advertisement 1927
+
+## 10年で100倍
+180: 松下電器 昭和初期 従業員=Matsushita Electric employees early Showa
+
+## 綱領と信条、世界恐慌
+184: 松下電器 綱領 信条=Matsushita Electric basic management objective creed
+189: 昭和恐慌=Showa Depression Japan
+
+## ひとりもクビにしない
+193: 松下幸之助 1930年代=Konosuke Matsushita 1930s
+
+## 命知元年
+202: 松下電器 創業記念式 1932=Matsushita founding anniversary ceremony 1932
+
+## 水道哲学
+211: 水道哲学 松下幸之助=Matsushita water philosophy
+
+## ラジオ特許の無償公開
+217: 松下 ラジオ 1930年代=Matsushita radio 1930s
+
+## 事業部制
+227: 事業部制 松下電器 1933=Matsushita divisional system 1933
+
+## 門真へ移転
+236: 松下電器 門真 本店 1933=Matsushita Kadoma headquarters 1933
+
+## 株式会社化と松下病院
+243: 松下電器産業 1935=Matsushita Electric Industrial 1935
+245: 松下病院 1940=Matsushita Hospital 1940
+
+## 戦時中の船と飛行機
+247: 松下造船 木造船=Matsushita Shipbuilding wooden ship
+250: 明星 練習爆撃機=Yokosuka D3Y Myojo
+257: 松下幸之助 1940年代=Konosuke Matsushita 1940s
+
+## GHQの7つの制限
+263: GHQ 第一生命館=GHQ Dai-ichi Seimei Building
+270: 財閥解体=zaibatsu dissolution
+
+## 公職追放と反論
+275: 松下幸之助 公職追放=Konosuke Matsushita purge
+278: 松下幸之助 戦後=Konosuke Matsushita postwar
+
+## 労働組合の嘆願運動
+281: 松下電器 労働組合 結成 1946=Matsushita labor union 1946
+286: 松下幸之助 追放解除 嘆願=Matsushita purge petition
+
+## 井植歳男の独立と三洋電機
+290: 井植歳男 三洋電機=Toshio Iue Sanyo Electric
+299: 三洋電機 創業=Sanyo Electric founding
+
+## PHP研究所
+302: PHP研究所 1946=PHP Institute 1946
+306: 闇市 戦後=black market postwar Japan
+308: 月刊誌 PHP 創刊号=PHP magazine first issue 1947
+
+## 税金滞納王
+313: 松下電器 税金滞納王=Matsushita tax delinquency 1949
+
+## 制限の解除と再出発
+320: 松下幸之助 1950年=Konosuke Matsushita 1950
+326: 松下幸之助 渡米 1951=Konosuke Matsushita America 1951
+
+## フィリップス・ビクターと長者番付
+332: フィリップス 松下 提携 1952=Philips Matsushita 1952
+334: 日本ビクター 1954=Victor Company of Japan 1954
+336: 長者番付 松下幸之助=Konosuke Matsushita top taxpayer 1955
+
+## 5か年計画
+341: 松下電器 5カ年計画 1956=Matsushita five year plan 1956
+
+## ナショナルショップ
+346: ナショナルショップ=National shop Matsushita
+349: ナショナル 看板 電器店 昭和=National sign electric shop Showa
+
+## 雷門の大提灯
+356: 雷門 大提灯 松下幸之助=Kaminarimon lantern Konosuke Matsushita
+
+## 会長就任とタイム誌
+361: 松下正治=Masaharu Matsushita
+363: 真々庵=Shinshin-an Kyoto
+366: タイム誌 松下幸之助 1962=TIME magazine Konosuke Matsushita 1962
+368: ミコヤン=Anastas Mikoyan=Анастас Микоян
+
+## 熱海会談
+372: 熱海会談 1964=Atami conference Matsushita 1964
+381: 熱海会談 松下幸之助=Konosuke Matsushita Atami conference
+387: 共存共栄 色紙 松下幸之助=Konosuke Matsushita coexistence calligraphy
+
+## 営業本部長代行とダイエー
+393: 松下幸之助 1964年=Konosuke Matsushita 1964
+395: ダイエー 1960年代=Daiei supermarket 1960s
+397: 松下 大型コンピュータ 撤退=Matsushita mainframe computer withdrawal
+
+## 週休2日制とダム経営
+402: 週休2日制 松下電器 1965=Matsushita five day work week 1965
+408: 松下幸之助 講演 ダム経営=Konosuke Matsushita dam management lecture
+
+## 天からの3つの恵み
+410: 松下幸之助 70歳=Konosuke Matsushita age 70
+413: 松下幸之助 笑顔=Konosuke Matsushita smiling
+
+## 業務用炊飯器のおかわり
+419: ナショナル 業務用炊飯器=National commercial rice cooker
+
+## 道をひらく
+426: 道をひらく 松下幸之助=Michi wo Hiraku Konosuke Matsushita
+
+## 大阪万博の松下館
+431: 大阪万博 松下館=Expo 70 Matsushita Pavilion
+432: 松下館 行列 帽子=Expo 70 Matsushita Pavilion queue hat
+
+## タイムカプセルと相談役
+436: タイムカプセル EXPO'70 大阪城=Expo 70 time capsule Osaka Castle
+438: 松下幸之助 相談役 1973=Konosuke Matsushita 1973
+
+## 中内功との対話と鄧小平
+440: 中内功=Isao Nakauchi
+444: 鄧小平 松下幸之助 1978=Deng Xiaoping Konosuke Matsushita 1978=邓小平 松下幸之助
+
+## 松下政経塾
+450: 松下政経塾=Matsushita Institute of Government and Management
+456: 松下政経塾 第1期生 入塾式=Matsushita Institute first class 1980
+461: 松下幸之助 塾長=Konosuke Matsushita institute president
+
+## 勲章と給料袋
+464: 松下政経塾 卒塾生=Matsushita Institute alumni
+465: 勲一等旭日桐花大綬章=Grand Cordon of the Order of the Rising Sun with Paulownia Flowers
+467: 松下幸之助 1980年代=Konosuke Matsushita 1980s
+
+## 最期
+471: 松下記念病院=Matsushita Memorial Hospital Moriguchi
+
+## 葬儀と松下幸之助社
+477: 北御堂 松下幸之助 葬儀=Konosuke Matsushita funeral Kitamido 1989
+479: 松下幸之助 社葬 1989=Konosuke Matsushita company funeral 1989
+483: 松下正治 1989=Masaharu Matsushita 1989
+485: 松下幸之助社 椿大神社=Matsushita Konosuke shrine Tsubaki Grand Shrine
+
+## まとめ
+488: 松下幸之助 丁稚 銅像=Konosuke Matsushita apprentice statue
+490: パナソニックミュージアム 松下幸之助歴史館=Konosuke Matsushita Museum Panasonic
+494: いらすとや 助け合い=irasutoya helping each other
