@@ -1,0 +1,265 @@
+# 大山康晴の解説台本(oyama_yasuharu.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・「#」で始まる行はメモとして無視される
+
+## 導入：手術明けの大勝負
+1: いらすとや 手術 入院=irasutoya surgery hospital
+7: 大山康晴 晩年 対局=Yasuharu Oyama late years game
+11: 大山康晴 がんも投了 新聞=Oyama Yasuharu cancer resign newspaper
+
+## 導入：タイトル80期と、負けの人生
+14: 大山康晴 十五世名人=Yasuharu Oyama 15th Meijin
+19: 大山康晴 対局 昭和=Yasuharu Oyama shogi Showa
+23: 大山康晴=Yasuharu Oyama
+
+## 岡山・西阿知に生まれる
+26: 倉敷市 西阿知 昭和=Nishiachi Kurashiki Showa
+31: 花筵 備中=hanamushiro Okayama woven mat
+
+## 腸チフスと将棋、母の駒袋
+33: 大山康晴 子供の頃=Yasuharu Oyama childhood
+41: 大山康晴 駒袋 記念館=Oyama Yasuharu koma bag memorial museum
+
+## 平井長之丞のもとで修業
+42: 木村義雄 名人=Yoshio Kimura Meijin
+44: 将棋大観 木村義雄=Shogi Taikan Kimura Yoshio
+
+## 将棋禁止と「日本一になりなさい」
+47: 大山康晴 少年時代=young Yasuharu Oyama boy
+53: 大山康晴 日本一 色紙=Oyama Yasuharu shikishi calligraphy
+
+## 12歳、大阪へ旅立つ
+56: 西阿知駅 昔=Nishiachi Station old
+
+## 木見金治郎に入門
+62: 木見金治郎=Kinjiro Kimi shogi
+66: 大山康晴 内弟子 少年=Yasuharu Oyama apprentice young
+
+## 兄弟子・升田幸三の洗礼
+70: 升田幸三 若い頃=young Kozo Masuda
+75: 升田幸三 大山康晴 若い頃=Kozo Masuda Yasuharu Oyama young
+
+## 正反対の兄弟弟子
+78: 大山康晴 升田幸三 修業時代=Oyama Masuda apprentice days
+83: 升田幸三 煙草=Kozo Masuda smoking
+
+## 攻めと受けが入れ替わる
+87: 大山康晴 升田幸三 対局=Yasuharu Oyama Kozo Masuda game
+92: 大山康晴 受け 将棋=Yasuharu Oyama defensive shogi
+
+## 中将棋に夢中
+94: 中将棋=Chu shogi board
+98: 中将棋 駒=Chu shogi pieces
+
+## プロ棋士・大山の誕生
+101: 大山康晴 四段 若い頃=Yasuharu Oyama 4-dan young
+105: 大阪毎日新聞 昭和=Osaka Mainichi Shimbun Showa
+108: 大山康晴 六段=Yasuharu Oyama 6-dan
+
+## 召集令状と七段への執念
+112: 召集令状 赤紙=Japanese draft notice akagami
+116: 大山康晴 20代=Yasuharu Oyama 20s
+
+## ミシン係と沖縄戦
+123: 陸軍 被服 ミシン 戦時中=army sewing machine wartime Japan
+126: 沖縄戦=Battle of Okinawa
+133: 大山康晴 戦後=Yasuharu Oyama postwar
+
+## 順位戦の始まり
+136: 順位戦 将棋 昭和=Junisen shogi league Showa
+139: 升田幸三 A級=Kozo Masuda A-class
+
+## 結婚と横溝正史
+146: 大山康晴 昌子 夫人=Yasuharu Oyama wife Masako
+149: 横溝正史 疎開 岡山 真備=Seishi Yokomizo evacuation Okayama
+151: 横溝正史=Seishi Yokomizo
+
+## 高野山の決戦
+156: 高野山 冬=Mount Koya winter
+159: 高野山の決戦 升田 大山=Koyasan decisive game Masuda Oyama
+166: 升田幸三=Kozo Masuda
+
+## 初の名人挑戦
+171: 塚田正夫 名人=Masao Tsukada Meijin
+174: 千日手 将棋盤=sennichite shogi board
+177: 木村義雄 大山康晴 名人戦=Kimura Oyama Meijin match 1950
+
+## 九段戦と名人獲得
+180: 大山康晴 九段戦=Yasuharu Oyama Kudan-sen
+183: 大山康晴 木村義雄 1952 名人戦=Oyama Kimura Meijin 1952
+187: 木村義雄 引退=Yoshio Kimura retirement
+
+## 名人の箱根越え
+189: 箱根 昭和=Hakone Showa
+192: 大山康晴 名人 1952=Yasuharu Oyama Meijin 1952
+
+## 故郷の歓迎と不安
+196: 大山名人 岡山 歓迎=Oyama Meijin Okayama welcome
+198: 大山康晴 名人 若い頃=young Meijin Yasuharu Oyama
+
+## 新聞社の看板棋士同士
+202: 毎日新聞 朝日新聞 昭和=Mainichi Asahi Shimbun Showa
+206: 升田幸三 大山康晴=Kozo Masuda Yasuharu Oyama
+
+## 升田の挑戦を返り討ち
+210: 名人戦 升田幸三 大山康晴 1953=Meijin match Masuda Oyama 1953
+216: 大山康晴 名人戦 対局=Yasuharu Oyama Meijin match
+
+## 十五世名人の資格
+218: 大山康晴 十五世名人 1956=Oyama Yasuharu 15th Meijin 1956
+222: 大山康晴 父=Yasuharu Oyama father
+
+## 王将戦の香落ち
+228: 王将戦 升田幸三 大山康晴=Osho match Masuda Oyama
+232: 香落ち 将棋=kyo-ochi shogi handicap lance
+237: 升田幸三 香落ち 名人=Masuda Kozo kyo-ochi Meijin
+
+## 升田三冠、大山無冠に
+241: 升田幸三 三冠王=Kozo Masuda three crowns 1957
+243: 大山康晴 1957=Yasuharu Oyama 1957
+
+## 一升瓶を抱えて横溝家へ
+247: 横溝正史 成城 自宅=Seishi Yokomizo home Seijo
+249: 一升瓶 日本酒=isshobin sake bottle
+
+## 生活を変え「忍」の一字
+257: 大山康晴 忍 色紙=Oyama Yasuharu Nin shikishi
+261: 大山康晴 揮毫=Yasuharu Oyama calligraphy
+
+## 振り飛車への転換
+264: 大山康晴 対局 1958=Yasuharu Oyama 1958
+266: 振り飛車 四間飛車 盤面=furibisha shogi board
+273: 大山康晴 振り飛車=Yasuharu Oyama furibisha
+
+## 全冠独占への復活
+274: 大山康晴 名人 復位 1959=Yasuharu Oyama regains Meijin 1959
+
+## 加藤一二三を退ける
+279: 加藤一二三 若い頃=young Hifumi Kato
+284: 加藤一二三 大山康晴 名人戦 1960=Hifumi Kato Yasuharu Oyama 1960
+
+## 五冠王
+287: 大山康晴 五冠王=Yasuharu Oyama five crowns
+290: 大山康晴 1960年代=Yasuharu Oyama 1960s
+
+## 圧倒的な記録と「助からないと思っても」
+292: 大山康晴 タイトル戦 1960年代=Oyama title match 1960s
+296: 羽生善治=Yoshiharu Habu
+297: 米長邦雄=Kunio Yonenaga
+300: 大山康晴 助からないと思っても助かっている 色紙=Oyama shikishi tasukaranai
+
+## 盤外戦術：食事と麻雀
+304: 大山康晴 升田幸三 食事=Oyama Masuda meal title match
+308: 大山康晴 麻雀=Yasuharu Oyama mahjong
+312: 田丸昇=Noboru Tamaru shogi
+
+## 倉敷市名誉市民
+316: 倉敷市役所=Kurashiki City Hall
+
+## 中原誠の台頭と名人失冠
+319: 中原誠 若い頃=young Makoto Nakahara
+323: 中原誠 大山康晴 名人戦 1972=Nakahara Oyama Meijin match 1972
+324: 中原誠 名人就任式=Makoto Nakahara Meijin ceremony
+
+## 16年ぶりの無冠
+331: 中原誠 王将 1973=Makoto Nakahara Osho 1973
+336: 大山康晴 永世王将=Yasuharu Oyama Eisei Osho
+340: シャンチー 中国象棋=Xiangqi Chinese chess=象棋
+
+## 十段奪還と名人戦
+344: 大山康晴 十段=Yasuharu Oyama Judan
+345: 大山康晴 中原誠 1974 名人戦=Oyama Nakahara 1974 Meijin match
+
+## 升田と手を組む
+349: 将棋会館 建設=Shogi Kaikan construction
+352: 大山康晴 升田幸三 晩年=Oyama Masuda later years
+355: 明治神宮 初詣=Meiji Jingu hatsumode
+
+## 優勝100回
+358: 大山康晴 米長邦雄 棋聖戦=Oyama Yonenaga Kisei match
+359: 大山康晴 祝賀会=Yasuharu Oyama celebration party
+
+## 十五世名人襲位と連盟会長
+363: 大山康晴 1976=Yasuharu Oyama 1976
+366: 大山康晴 日本将棋連盟 会長=Yasuharu Oyama JSA president
+
+## 将棋会館の建設
+372: 東京 将棋会館 千駄ヶ谷=Shogi Kaikan Sendagaya Tokyo
+374: 関西将棋会館=Kansai Shogi Kaikan Osaka
+
+## せっかちな合理主義者
+376: いらすとや 追い越す 歩く=irasutoya overtaking walking
+378: いらすとや 料理 コース=irasutoya course meal
+380: 大山康晴 和服 晩年=Yasuharu Oyama kimono
+
+## 1000勝とおいらせ町
+382: 大山康晴 1000勝=Yasuharu Oyama 1000 wins
+385: おいらせ町 百石町=Oirase town Momoishi Aomori
+
+## 最年長記録の連続
+387: 大山康晴 王将 1979=Yasuharu Oyama Osho 1979
+389: 紫綬褒章=Medal with Purple Ribbon Japan
+391: 大山康晴 王将戦 1982=Yasuharu Oyama Osho 1982
+
+## 60歳でNHK杯優勝
+394: NHK杯 将棋 大山康晴=NHK Cup shogi Oyama
+397: 大山康晴 60歳=Yasuharu Oyama age 60
+
+## がんと名人挑戦
+399: いらすとや がん 手術=irasutoya cancer surgery
+402: 大山康晴 中原誠 1986 名人戦=Oyama Nakahara 1986 Meijin match
+
+## 菊池寛賞と会長退任
+407: 菊池寛賞=Kikuchi Kan Prize
+409: 二上達也=Tatsuya Futakami
+412: 将棋会館 役員室=Shogi Kaikan boardroom
+
+## 66歳のタイトル挑戦
+417: 大山康晴 晩年=Yasuharu Oyama later years
+419: 羽生善治 19歳 竜王=Yoshiharu Habu Ryuo 1989
+422: 南芳一=Yoshikazu Minami shogi Kio
+
+## 1400勝と文化功労者
+426: 大山康晴 文化功労者=Yasuharu Oyama Person of Cultural Merit
+
+## 升田幸三の死
+429: 升田幸三 晩年=Kozo Masuda later years
+433: 升田幸三 葬儀 1991=Kozo Masuda funeral 1991
+438: 升田幸三 新手一生=Kozo Masuda Shinte Issho
+
+## 二度目のがん
+444: いらすとや 病院 診察=irasutoya hospital doctor
+448: 大山康晴 1991 A級=Yasuharu Oyama 1991 A-class
+
+## 竜王撃破とプレーオフ
+452: 谷川浩司 竜王=Koji Tanigawa Ryuo
+455: 高橋道雄=Michio Takahashi shogi
+
+## 絶局
+458: 大山康晴 コート 1992=Yasuharu Oyama coat 1992
+462: 大山康晴 高橋道雄 プレーオフ=Oyama Takahashi playoff 1992
+
+## 最後の勝利と公式戦
+467: 将棋日本シリーズ=Shogi Japan Series JT Cup
+469: 大山康晴 最後の対局=Yasuharu Oyama last game
+471: 日光 名人戦 1992=Nikko Meijin match 1992
+
+## 最期
+473: 大山康晴 1992=Yasuharu Oyama 1992
+477: 大山康晴 死去 新聞=Yasuharu Oyama death newspaper 1992
+481: 大山康晴 葬儀=Yasuharu Oyama funeral
+
+## 二人の妻
+483: 大山康晴 升田幸三 写真=Yasuharu Oyama Kozo Masuda photo
+
+## 大山名人記念館と遺したもの
+490: 大山名人記念館 倉敷=Oyama Meijin Memorial Museum Kurashiki
+491: 大山名人記念館 駒袋=Oyama Memorial Museum koma bag
+492: 倉敷藤花戦=Kurashiki Toka-sen women shogi
+493: おいらせ町 大山将棋記念館=Oyama Shogi Memorial Oirase
+494: 大山康晴 A級 晩年=Yasuharu Oyama A-class late
+498: 大山康晴 笑顔=Yasuharu Oyama smile
