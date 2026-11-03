@@ -53,6 +53,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
 .buttons a { display: inline-block; text-decoration: none; color: #fff; background: var(--accent); border-radius: 6px;
   padding: 4px 12px; font-size: 13px; font-weight: bold; }
 .buttons a.en { background: var(--accent-2); }
+.buttons a.alt { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 3px 11px; }
 .buttons a:hover { filter: brightness(1.12); }
 .check { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; }
 @media (max-width: 860px) {
@@ -69,7 +70,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
     <button type="button" id="reset">チェックを全部外す</button>
   </nav>
 </header>
-<p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が新しいタブで開きます。
+<p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が新しいタブで開きます。Googleで見つからないときは、枠だけのボタンで同じ日本語ワードをYahoo!・Bingで探せます。
 画像を右クリック →「画像をコピー」→ YMM4に貼り付け。貼り終わった番号は「済」にチェックを入れると、次にどこから始めればいいか分かります(チェックはこのブラウザに保存されます)。</p>
 <main id="main"></main>
 <script>
@@ -94,6 +95,8 @@ const el = (tag, attrs = {}, ...kids) => {
   return e;
 };
 const google = q => "https://www.google.com/search?q=" + encodeURIComponent(q) + "&tbm=isch";
+const yahoo = q => "https://search.yahoo.co.jp/image/search?p=" + encodeURIComponent(q);
+const bing = q => "https://www.bing.com/images/search?q=" + encodeURIComponent(q);
 const speakerClass = s => s.includes("魔理沙") ? "marisa" : s.includes("霊夢") ? "reimu" : "";
 
 const main = document.getElementById("main");
@@ -116,7 +119,9 @@ for (const seg of DATA.segments) {
       el("div", { class: "buttons" },
         el("a", { href: google(img.ja), target: "_blank", rel: "noopener" }, "Google画像検索(日本語)"),
         img.en !== img.ja ? el("a", { class: "en", href: google(img.en), target: "_blank", rel: "noopener" }, "Google画像検索(英語)") : null,
-        img.native ? el("a", { class: "en", href: google(img.native), target: "_blank", rel: "noopener" }, "Google画像検索(母語)") : null));
+        img.native ? el("a", { class: "en", href: google(img.native), target: "_blank", rel: "noopener" }, "Google画像検索(母語)") : null,
+        el("a", { class: "alt", href: yahoo(img.ja), target: "_blank", rel: "noopener" }, "Yahoo!"),
+        el("a", { class: "alt", href: bing(img.ja), target: "_blank", rel: "noopener" }, "Bing")));
     box.addEventListener("change", () => {
       if (box.checked) done[img.no] = true; else delete done[img.no];
       item.classList.toggle("done", box.checked);
