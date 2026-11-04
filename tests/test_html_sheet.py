@@ -51,6 +51,18 @@ class SceneTableTest(unittest.TestCase):
             "西崎義展",
         )
 
+    def test_oyama_table_matches_script(self):
+        build_sheet(
+            Path("scripts/oyama_yasuharu.txt").read_text(encoding="utf-8"),
+            Path("scripts/oyama_yasuharu_scenes.txt").read_text(encoding="utf-8"),
+            "大山康晴",
+        )
+
+    def test_has_yahoo_and_bing_buttons(self):
+        html = build_sheet(SCRIPT, "## a\n1: x\n", "テスト")
+        self.assertIn("https://search.yahoo.co.jp/image/search?p=", html)
+        self.assertIn("https://www.bing.com/images/search?q=", html)
+
 
 if __name__ == "__main__":
     unittest.main()
