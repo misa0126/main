@@ -1,0 +1,201 @@
+# バーバラ・カートランドの解説台本(barbara_cartland.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・英語圏の人物なので「日本語=英語」の2つで書く(母語=英語)
+# 画像の選び方(優先順):
+#   1. 本人が写っている、その時代の写真
+#   2. 話に出てくる、その物・場所・出来事そのものの写真
+#   3. 直接の写真がない場面は、その時期の本人の写真
+#   4. それもなければ、いらすとや(1本20枚まで)
+
+## 導入：ピンクが好きすぎた女性
+1: いらすとや ピンク 服=irasutoya pink clothes
+6: バーバラ・カートランド ピンクのドレス=Barbara Cartland pink dress
+9: バーバラ・カートランド 小説 表紙=Barbara Cartland novels covers
+12: バーバラ・カートランド ダイアナ妃=Barbara Cartland Princess Diana
+15: バーバラ・カートランド 段ボール 棺=Barbara Cartland cardboard coffin
+
+## バーミンガムに生まれる
+19: バーバラ・カートランド 幼少期=Barbara Cartland as a child
+21: エッジバストン 1900年代=Edgbaston Birmingham 1900s
+22: バートラム・カートランド=Bertram Cartland
+
+## 祖父の死と引っ越し
+25: いらすとや 引っ越し=irasutoya moving house
+30: いらすとや 話を盛る=irasutoya exaggerating story
+35: エドワード朝 狩り 自転車=Edwardian hunt bicycle
+
+## 母ポリーと弟たち
+38: ポリー・カートランド=Polly Cartland Barbara Cartland mother
+43: ロナルド・カートランド=Ronald Cartland
+
+## 父の戦死
+47: 第一次世界大戦 イギリス兵 1918=British soldiers 1918 Western Front
+51: 1918年 喪服 女性=1918 mourning dress
+
+## ロンドンへ、日曜学校の語り
+55: ロンドン 1919年=London 1919
+59: ナイツブリッジ 1920年代=Knightsbridge 1920s
+63: 1920年代 ロンドン 社交ダンス パーティー=1920s London society ball
+
+## ハートネルのドレスと最初の稼ぎ
+66: ノーマン・ハートネル 若い頃=young Norman Hartnell
+70: バーバラ・カートランド 若い頃=young Barbara Cartland 1920s
+74: デイリー・エクスプレス 1920年代=Daily Express 1920s
+
+## デビュー作『ジグソー』
+78: バーバラ・カートランド ジグソー 1923=Barbara Cartland Jig-Saw 1923
+82: メイフェア 1920年代=Mayfair London 1920s
+
+## ブライト・ヤング・ピープル
+85: ブライト・ヤング・ピープル=Bright Young Things 1920s party
+87: エリノア・グリン=Elinor Glyn
+88: バーバラ・カートランド ブラッド・マネー=Barbara Cartland Blood Money play
+
+## 50回のプロポーズ
+91: バーバラ・カートランド 1920年代=Barbara Cartland 1920s portrait
+
+## 最初の結婚
+97: アレクサンダー・マッコーコデール=Alexander McCorquodale
+99: バーバラ・カートランド 結婚式 1927=Barbara Cartland wedding 1927
+
+## 長女レイン
+105: バーバラ・カートランド 娘 レイン=Barbara Cartland daughter Raine
+
+## グライダー郵便
+108: バーバラ・カートランド グライダー=Barbara Cartland glider
+110: 1930年代 グライダー 曳航=1930s glider towed by aircraft
+
+## ブルックランズの女性レース
+113: ブルックランズ サーキット 1930年代=Brooklands race track 1930s
+114: ウォリス・シンプソン 1930年代=Wallis Simpson 1930s
+
+## 離婚裁判
+117: いらすとや 離婚=irasutoya divorce
+120: ヒュー・マッコーコデール=Hugh McCorquodale
+
+## 弟ロナルドの選挙
+122: ロナルド・カートランド 議員=Ronald Cartland MP
+126: ナチス ドイツ 1930年代 ユダヤ人迫害=Nazi Germany 1930s Jewish persecution
+
+## ヒューとの再婚
+130: バーバラ・カートランド ヒュー・マッコーコデール 結婚=Barbara Cartland Hugh McCorquodale wedding 1936
+136: バーバラ・カートランド 子供たち=Barbara Cartland with her children
+
+## 第二次世界大戦と2人の弟
+140: ロナルド・カートランド 軍服=Ronald Cartland uniform
+143: ダンケルク撤退=Dunkirk evacuation 1940
+147: ロナルド・カートランド=Ronald Cartland
+152: アンソニー・カートランド=Anthony Cartland
+
+## カナダ避難と帰国
+155: いらすとや 船 避難=irasutoya ship evacuation
+158: バーバラ・カートランド 1940年代=Barbara Cartland 1940s
+
+## 軍の福祉担当とドレスの貸し出し
+160: バーバラ・カートランド 戦時中=Barbara Cartland wartime
+162: 第二次世界大戦 女性兵士 結婚式=WW2 servicewoman wedding dress
+166: イギリス空軍 基地 1940年代=RAF station 1940s
+167: 聖ヨハネ救急隊=St John Ambulance Brigade 1940s
+
+## 戦時中の執筆
+169: ロナルド・カートランド 伝記 バーバラ=Ronald Cartland biography Barbara Cartland
+170: ウィンストン・チャーチル=Winston Churchill
+171: バーバラ・カートランド Sleeping Swords=Barbara Cartland Sleeping Swords novel
+172: BBC 1940年代 ラジオ=BBC radio 1940s
+
+## ビタミン健康法と戦後の家
+174: ビタミン剤 1940年代=vitamins 1940s
+178: グレート・バーフォード=Great Barford Bedfordshire
+
+## カムフィールド・プレイス
+181: カムフィールド・プレイス=Camfield Place
+182: ビアトリクス・ポター=Beatrix Potter
+183: ピーターラビット 絵本=Peter Rabbit book
+
+## ヘイヤーとの盗作騒動
+184: ジョージェット・ヘイヤー=Georgette Heyer
+187: A Hazard of Hearts バーバラ・カートランド=A Hazard of Hearts Barbara Cartland
+
+## 作風の変化
+192: バーバラ・カートランド 小説 表紙 リージェンシー=Barbara Cartland regency romance cover
+197: バーバラ・カートランド 結婚 手引き書=Barbara Cartland marriage guide book
+
+## 勲章と州議会議員
+199: バッキンガム宮殿=Buckingham Palace
+201: バーバラ・カートランド 1950年代=Barbara Cartland 1950s
+203: ハートフォードシャー州議会=Hertfordshire County Council
+206: イギリス 助産師 1950年代=British midwife 1950s
+
+## ジプシーのキャンプ地
+209: ロマ キャラバン イギリス=Romani caravan England 1960s
+211: イギリス ジプシー 子供 1960年代=British gypsy children 1960s
+214: バーバラヴィル=Barbaraville gypsy camp Barbara Cartland
+
+## テレビと100冊目
+217: This Is Your Life バーバラ・カートランド=This Is Your Life Barbara Cartland
+219: バーバラ・カートランド 1960年代=Barbara Cartland 1960s
+
+## 夫ヒューの死
+221: パッシェンデールの戦い=Battle of Passchendaele
+223: バーバラ・カートランド 未亡人=Barbara Cartland 1963
+
+## 口述筆記の驚異的ペース
+226: バーバラ・カートランド 口述筆記=Barbara Cartland dictating
+230: バーバラ・カートランド 秘書=Barbara Cartland secretary dictating novel
+
+## 全国健康協会とハチミツ
+234: バーバラ・カートランド 全国健康協会=Barbara Cartland National Association for Health
+239: バーバラ・カートランド The Magic of Honey=Barbara Cartland The Magic of Honey
+243: バーバラ・カートランド ビタミン=Barbara Cartland vitamins
+
+## メッテルニヒ伝と自伝
+245: メッテルニヒ=Klemens von Metternich
+247: バーバラ・カートランド We Danced All Night=Barbara Cartland We Danced All Night
+
+## 1年23作のギネス記録
+250: バーバラ・カートランド 1970年代=Barbara Cartland 1970s
+253: ギネス世界記録 バーバラ・カートランド=Guinness World Records Barbara Cartland
+
+## 母ポリーの死
+258: バーバラ・カートランド 母 ポリー=Barbara Cartland mother Polly
+
+## 歌手デビュー
+262: バーバラ・カートランド アルバム ロイヤル・フィルハーモニー=Barbara Cartland Album of Love Songs Royal Philharmonic
+
+## マウントバッテン卿の暗殺
+266: マウントバッテン卿=Lord Mountbatten
+268: Love at the Helm バーバラ・カートランド=Love at the Helm Barbara Cartland
+271: チャールズ皇太子 1980年=Prince Charles 1980
+
+## ダイアナとの縁
+275: レイン・スペンサー スペンサー伯爵=Raine Spencer Earl Spencer
+277: ダイアナ 少女時代=young Lady Diana Spencer
+280: チャールズ ダイアナ 結婚式 1981=Charles and Diana wedding 1981
+284: バーバラ・カートランド ダイアナ=Barbara Cartland Diana
+
+## 晩年の勲章と記録
+287: バーバラ・カートランド 1980年代=Barbara Cartland 1980s
+289: バーバラ・カートランド 死亡記事 ピンク=Barbara Cartland obituary pink ribbon
+293: バーバラ・カートランド デイム 勲章=Dame Barbara Cartland 1991
+297: バーバラ・カートランド 90代=Barbara Cartland 1990s
+300: バーバラ・カートランド インタビュー BBC=Barbara Cartland BBC interview
+
+## ダイアナの死
+302: ダイアナ妃 献花 1997=Diana flowers Kensington Palace 1997
+
+## 最期と段ボールの棺
+305: バーバラ・カートランド 晩年=Barbara Cartland 1999
+308: カムフィールド・プレイス 屋敷=Camfield Place Hatfield
+311: バーバラ・カートランド 葬儀=Barbara Cartland funeral 2000
+313: バーバラ・カートランド 墓 オーク=Barbara Cartland grave oak tree Camfield
+314: いらすとや 借金=irasutoya debt
+
+## 死後の160作と今
+317: バーバラ・カートランド ピンク・コレクション=Barbara Cartland Pink Collection ebook
+318: イアン・マッコーコデール=Ian McCorquodale
+321: シェヘラザード=Scheherazade
+322: バーバラ・カートランド=Barbara Cartland
