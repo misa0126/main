@@ -1,0 +1,231 @@
+# ちばてつやの解説台本(chiba_tetsuya.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・「#」で始まる行はメモとして無視される
+# 画像の選び方(優先順):
+#   1. 本人が写っている、その時代の写真
+#   2. 話に出てくる、その物・場所・出来事そのものの写真
+#   3. 直接の写真がない場面は、その時期の本人の写真
+#   4. それもなければ、いらすとや(1本20枚まで)
+
+## 導入：漫画キャラのお葬式
+1: 力石徹 告別式 講談社=Rikiishi Toru funeral Kodansha 1970
+5: 寺山修司=Shuji Terayama
+9: 力石徹=Toru Rikiishi Ashita no Joe
+12: あしたのジョー=Ashita no Joe manga
+14: ちばてつや=Tetsuya Chiba
+16: 満州 引き揚げ 写真=Manchuria repatriation Japanese 1946
+19: ちばてつや 晩年=Tetsuya Chiba later years
+
+## 誕生と満州・奉天へ
+24: 聖路加国際病院 戦前=St. Luke's International Hospital Tokyo prewar
+26: 奉天 満州国 街並み=Mukden Manchukuo street
+31: 満州国 地図=Manchukuo map
+34: 奉天 冬=Mukden winter 1940s
+
+## 紙の切れ端に絵を描く冬
+37: 主婦の友社 戦前=Shufunotomo prewar
+41: ちばてつや 子供の頃=Tetsuya Chiba childhood
+
+## 敗戦と屋根裏の日々
+46: 玉音放送 1945=Jewel Voice Broadcast 1945
+50: 奉天 1945 ソ連軍=Mukden 1945 Soviet army
+55: ちばてつや 徐集川=Tetsuya Chiba Xu Jichuan
+58: ちばてつや 屋根裏 満州 漫画=Tetsuya Chiba attic Manchuria manga
+
+## 地獄の引き揚げ
+66: 満州 引き揚げ 日本人=Japanese repatriation from Manchuria
+74: 葫芦島 引き揚げ=Huludao repatriation
+79: 満州 引き揚げ 難民=Japanese refugees Manchuria 1946
+87: 葫芦島 引揚船=Huludao repatriation ship 1946
+
+## 白いおにぎり
+91: 香淳皇后=Empress Kojun
+94: いらすとや おにぎり=irasutoya onigiri
+
+## 下町での暮らしと杉浦茂
+96: 飯岡町 旭市=Iioka Asahi Chiba
+97: 墨田区 昭和20年代=Sumida Tokyo late 1940s
+99: 杉浦茂 アラビアンナイト=Shigeru Sugiura Arabian Nights manga
+104: いらすとや 漫画 禁止=irasutoya manga forbidden
+107: 木内堯央=Gyoo Kiuchi
+
+## 一家を支える長男の失敗続き
+115: ちばてつや 若い頃=young Tetsuya Chiba
+119: いらすとや 配達 間違い=irasutoya wrong delivery
+
+## 貸本でテストのつもりがデビュー
+125: 児童漫画家募集 新聞広告 ちばてつや=children's manga artist wanted newspaper ad
+128: 貸本屋 昭和=kashihon rental bookstore Showa
+131: 日昭書店 石橋国松=Nissho Shoten Kunimatsu Ishibashi
+137: 復活の日 ちばてつや 貸本=Fukkatsu no Hi Tetsuya Chiba kashihon
+141: ちばてつや デビュー作=Tetsuya Chiba debut work
+
+## 少女漫画からのスタート
+144: 手塚治虫 1950年代=Osamu Tezuka 1950s
+148: 舞踏会の少女 ちばてつや=Butokai no Shojo Tetsuya Chiba
+152: ママのバイオリン=Mama no Violin Tetsuya Chiba
+154: いらすとや 兄弟げんか=irasutoya brothers fighting
+
+## トキワ荘の仲間と松本零士
+160: トキワ荘 漫画家=Tokiwa-so manga artists
+162: 赤塚不二夫 石ノ森章太郎 若い頃=young Fujio Akatsuka Shotaro Ishinomori
+164: 松本零士 ちばてつや=Leiji Matsumoto Tetsuya Chiba
+165: いらすとや ラーメン=irasutoya ramen
+
+## ユカをよぶ海
+170: ユカをよぶ海=Yuka wo Yobu Umi Tetsuya Chiba
+173: ちばてつや 少女漫画=Tetsuya Chiba shojo manga
+
+## 赤い虫の幻
+178: いらすとや 悪夢=irasutoya nightmare
+
+## 野球漫画とキャッチボール
+184: ちかいの魔球=Chikai no Makyu
+188: 週刊少年マガジン 創刊号=Weekly Shonen Magazine first issue 1959
+192: いらすとや キャッチボール=irasutoya catch ball
+197: いらすとや 湯気 汗=irasutoya steam sweat
+
+## 漫画家の草野球チーム
+203: 漫画家 草野球 手塚治虫=manga artists baseball team Osamu Tezuka
+
+## 紫電改のタカ
+207: 講談社児童まんが賞=Kodansha Children's Manga Award
+208: 紫電改のタカ=Shiden Kai no Taka
+211: 紫電改 戦闘機=Shiden-Kai fighter aircraft
+213: 紫電改のタカ 滝城太郎=Shiden Kai no Taka Jotaro Taki
+
+## ハリスの旋風と石田国松
+216: ハリスの旋風=Harris no Kaze
+217: ハリスの旋風 アニメ=Harris no Kaze anime 1966
+218: 石田国松=Kunimatsu Ishida Harris no Kaze
+222: ハリスの旋風 国松=Harris no Kaze Kunimatsu
+225: みそっかす ちばてつや=Misokkasu Tetsuya Chiba
+227: ちばてつや 1960年代=Tetsuya Chiba 1960s
+
+## 梶原一騎との出会い
+232: ちばてつや ボクシング=Tetsuya Chiba boxing
+235: 宮原照夫=Teruo Miyahara Shonen Magazine editor
+237: 梶原一騎=Ikki Kajiwara
+239: 巨人の星=Star of the Giants manga
+241: 梶原一騎 ちばてつや=Ikki Kajiwara Tetsuya Chiba
+
+## 矢吹丈と徐さん
+245: 矢吹丈=Joe Yabuki
+247: 紫電改のタカ 表紙=Shiden Kai no Taka cover
+249: ちばてつや 満州 徐さん=Tetsuya Chiba Manchuria Xu
+
+## 山谷ドヤ街の取材
+254: 山谷 ドヤ街 昭和=Sanya doya-gai Showa
+256: 山谷 簡易宿泊所 昭和=Sanya cheap lodging house 1960s
+261: いらすとや 手=irasutoya hands
+264: あしたのジョー 第1話=Ashita no Joe chapter 1
+266: 泪橋 交差点=Namidabashi intersection Sanya
+268: 週刊少年マガジン 1968 あしたのジョー=Weekly Shonen Magazine 1968 Ashita no Joe
+
+## 原作無視と料理のたとえ
+272: 梶原一騎 1960年代=Ikki Kajiwara 1960s
+276: いらすとや 料理人=irasutoya chef
+280: あしたのジョー 単行本=Ashita no Joe tankobon
+
+## 力石徹の死
+283: 力石徹 矢吹丈 対決=Rikiishi vs Joe Yabuki
+286: 力石徹 減量=Rikiishi weight loss
+288: 力石徹 死=Rikiishi death Ashita no Joe
+293: 力石徹 葬儀 1970=Rikiishi funeral 1970
+295: 立つんだジョー 丹下段平=Stand up Joe Danpei Tange
+297: ちばてつや 1970年代=Tetsuya Chiba 1970s
+
+## 金竜飛と泥水の記憶
+304: 金竜飛 あしたのジョー=Kim Yong-bi Ashita no Joe
+308: ちばてつや 引き揚げ 絵=Tetsuya Chiba repatriation drawing
+
+## 真っ白に燃え尽きたラスト
+312: ホセ・メンドーサ=Jose Mendoza Ashita no Joe
+313: 丹下段平=Danpei Tange
+318: いらすとや 電話 けんか=irasutoya phone argument
+323: 真っ白に燃え尽きた ジョー ラストシーン=Ashita no Joe final scene burned out white
+327: あしたのジョー 最終回=Ashita no Joe last chapter
+329: 梶原一騎 著書=Ikki Kajiwara book
+
+## 鉄兵と松太郎
+333: おれは鉄兵=Ore wa Teppei
+335: のたり松太郎=Notari Matsutaro
+336: ビッグコミック 1973=Big Comic 1973
+340: ちばてつや 仕事場=Tetsuya Chiba studio
+343: おれは鉄兵 講談社出版文化賞=Ore wa Teppei Kodansha award
+344: 小学館漫画賞 のたり松太郎=Shogakukan Manga Award Notari Matsutaro
+347: 鳥嶋和彦=Kazuhiko Torishima
+349: ちばてつや賞=Chiba Tetsuya Award
+352: あした天気になあれ=Ashita Tenki ni Nare manga
+
+## 弟・ちばあきお
+354: ちばあきお=Akio Chiba
+358: キャプテン ちばあきお=Captain Akio Chiba manga
+359: プレイボール ちばあきお=Play Ball Akio Chiba
+360: ちばてつや ちばあきお 兄弟=Tetsuya Chiba Akio Chiba brothers
+366: ちばあきお 若い頃=young Akio Chiba
+368: いらすとや 虹=irasutoya rainbow
+
+## 心臓と目の病、妻の決断
+373: 少年よラケットを抱け=Shonen yo Racket wo Dake
+376: いらすとや 網膜剥離=irasutoya retinal detachment
+379: ちばてつや 妻 幸子=Tetsuya Chiba wife Sachiko
+383: ちばてつや 1990年代=Tetsuya Chiba 1990s
+387: のたり松太郎 最終巻=Notari Matsutaro final volume
+
+## 漫画界を支える側へ
+391: 日本漫画家協会 ちばてつや 理事長=Japan Cartoonists Association Tetsuya Chiba
+394: ちばてつや 紫綬褒章=Tetsuya Chiba Medal with Purple Ribbon
+395: ちばてつや 文化功労者=Tetsuya Chiba Person of Cultural Merit 2014
+
+## 文星芸術大学の先生
+399: 文星芸術大学=Bunsei University of Art
+400: ちばてつや 学長 文星芸術大学=Tetsuya Chiba president Bunsei University
+402: ちばてつや 学生 指導=Tetsuya Chiba teaching students
+405: いらすとや 電車 スケッチ=irasutoya sketching on train
+
+## ひねもすのたり日記と反戦
+410: ひねもすのたり日記=Hinemosu Notari Nikki
+412: ひねもすのたり日記 満州=Hinemosu Notari Nikki Manchuria
+415: ちばてつや 戦争 講演=Tetsuya Chiba war lecture
+418: まんしゅう母子地蔵 浅草寺=Manshu Boshi Jizo Sensoji
+420: ちばてつや ぐずてつ日記 NO WAR=Tetsuya Chiba blog NO WAR
+422: ちばてつや 表現の自由=Tetsuya Chiba freedom of expression
+
+## 練馬区名誉区民と入院
+426: ちばてつや 練馬区 名誉区民=Tetsuya Chiba Nerima honorary citizen
+427: ちばてつや 2021=Tetsuya Chiba 2021
+428: いらすとや 日向ぼっこ 病院=irasutoya sunbathing hospital
+434: ちばてつや 日本芸術院 会員=Tetsuya Chiba Japan Art Academy member
+
+## 85歳の手術と文化勲章
+439: ちばてつや 2024=Tetsuya Chiba 2024
+442: ひねもすのたり日記 2024=Hinemosu Notari Nikki 2024
+445: ちばてつや 文化勲章=Tetsuya Chiba Order of Culture 2024
+449: ちばてつや 文化勲章 会見=Tetsuya Chiba Order of Culture press conference
+450: 手塚治虫=Osamu Tezuka
+
+## 園遊会と79年越しのお礼
+455: 春の園遊会 2025 ちばてつや=Spring Garden Party 2025 Tetsuya Chiba
+456: ちばてつや 園遊会 皇后=Tetsuya Chiba garden party Empress Masako
+458: 愛子さま 園遊会 2025=Princess Aiko garden party 2025
+
+## 86歳のテニスと被災地支援
+461: ちばてつや テニス=Tetsuya Chiba tennis
+463: 熊本 地震 2026=Kumamoto earthquake 2026
+464: 仮設住宅=temporary housing Japan disaster
+
+## 最期
+467: ちばてつや 最近=Tetsuya Chiba recent
+471: ちばてつや 訃報=Tetsuya Chiba death news
+474: 練馬区役所 献花台 ちばてつや=Nerima ward office flowers Tetsuya Chiba
+475: ちばてつや 夫妻=Tetsuya Chiba and wife
+
+## 1日を一生として
+478: ちばてつや 笑顔=Tetsuya Chiba smile
+481: 真っ白に燃え尽きた=Ashita no Joe burned out white
+483: ちばてつや 漫画 描く=Tetsuya Chiba drawing manga
