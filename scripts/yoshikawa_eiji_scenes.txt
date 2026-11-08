@@ -1,0 +1,242 @@
+# 吉川英治の解説台本(yoshikawa_eiji.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・「#」で始まる行はメモとして無視される
+# 画像の選び方(優先順):
+#   1. 本人が写っている、その時代の写真
+#   2. 話に出てくる、その物・場所・出来事そのものの写真
+#   3. 直接の写真がない場面は、その時期の本人の写真
+#   4. それもなければ、いらすとや(1本20枚まで)
+# 本人の写真は「若い頃」「昭和初期」「晩年」など見つかりやすいワードに絞り、使い回し前提。
+
+## 導入：『宮本武蔵』と『三国志』の作者
+1: 吉川英治 宮本武蔵 本=Eiji Yoshikawa Musashi book
+3: 吉川英治=Eiji Yoshikawa
+4: 曹操 肖像=Cao Cao portrait=曹操 画像
+
+## 導入：11歳で働きに出た少年
+6: 吉川英治 少年時代=Eiji Yoshikawa childhood
+10: 横浜船渠 明治=Yokohama Dock Meiji
+11: 吉川英治 キング 剣難女難=Eiji Yoshikawa King magazine Kennan Jonan
+
+## 導入：国民作家へ
+15: 吉川英治 文化勲章=Eiji Yoshikawa Order of Culture
+
+## 横浜に生まれる
+20: 吉川英治 生誕の地 横浜=Eiji Yoshikawa birthplace Yokohama
+23: 小田原城=Odawara Castle
+
+## 事業に失敗する父
+26: 明治 横浜港=Yokohama port Meiji era
+
+## 『少年』に作文が入選
+31: 雑誌 少年 時事新報社=Shonen magazine Jiji Shimpo Meiji
+
+## 家が傾く
+34: いらすとや 裁判 負ける=irasutoya lose lawsuit
+
+## 11歳で奉公に出る
+40: 明治 印章店 小僧=Meiji seal shop apprentice
+
+## 新聞に川柳を送る
+44: 明治 新聞 投稿欄=Meiji newspaper readers column
+48: 吉川英治 川柳 短冊=Eiji Yoshikawa senryu tanzaku
+
+## 横浜のドックで船具工に
+50: 横浜船渠 ドック 明治=Yokohama Dock Meiji drydock
+
+## 船底へ落ちて大ケガ
+54: いらすとや 転落 ケガ=irasutoya fall injury
+
+## 東京へ出て工員に
+58: 明治 東京 町工場=Meiji Tokyo factory
+
+## 浅草の下町暮らし
+62: 浅草 明治 凌雲閣=Asakusa Meiji Ryounkaku
+65: 蒔絵=makie lacquer
+
+## 川柳にのめり込む
+69: 井上剣花坊=Inoue Kenkabo
+73: 吉川英治 我以外皆我師 色紙=Eiji Yoshikawa ware igai mina waga shi calligraphy
+
+## 「あの壁を僕らで破るのだ」
+76: 川上三太郎=Kawakami Santaro
+
+## 三越の懸賞でダブル一等
+82: 三越 大正=Mitsukoshi Taisho era
+84: 講談倶楽部 大正=Kodan Club magazine Taisho
+
+## 賞を取っても貧乏
+87: いらすとや 貧乏=irasutoya poverty
+
+## 大連へ渡る
+90: 大連 大正=Dalian Taisho era=大连 大正时期
+92: いらすとや お見舞い 病気 母=irasutoya sick mother
+
+## 講談社の懸賞小説に3本入選
+95: 講談社 大正 懸賞小説=Kodansha prize novel Taisho
+
+## 東京毎夕新聞社へ入社
+99: 東京毎夕新聞=Tokyo Maiyu Shimbun
+100: 親鸞 肖像=Shinran portrait
+
+## 関東大震災
+104: 関東大震災 写真=Great Kanto earthquake 1923
+
+## 赤沢やすと結婚
+111: 吉川英治 妻 やす=Eiji Yoshikawa wife Yasu
+115: 芸妓 大正=geiko Taisho era
+
+## 『キング』創刊と『剣難女難』
+122: 雑誌 キング 創刊号=King magazine first issue 1925
+126: 剣難女難 吉川英治=Kennan Jonan Eiji Yoshikawa
+
+## ペンネームは印刷ミス
+128: 吉川英治 サイン=Eiji Yoshikawa signature
+
+## 『神州天馬侠』で子どもの読者も
+133: 少年倶楽部 神州天馬侠=Shonen Club Shinshu Tenmakyo
+
+## 『鳴門秘帖』の大ブレイク
+138: 鳴門秘帖 大阪毎日新聞=Naruto Hicho Osaka Mainichi
+141: 鳴門秘帖 映画 1926=Naruto Hicho film
+
+## 印税と家庭のすれ違い
+144: 吉川英治 昭和初期=Eiji Yoshikawa early Showa
+
+## 万年筆1本と下駄で家出
+153: いらすとや 家出=irasutoya running away from home
+156: 昭和初期 温泉地=hot spring town early Showa
+
+## 『かんかん虫は唄ふ』と作風の広がり
+159: かんかん虫は唄ふ=Kankan mushi wa utau Eiji Yoshikawa
+167: 服部之総=Shiso Hattori
+
+## 『宮本武蔵』の連載開始
+170: 宮本武蔵 肖像=Miyamoto Musashi portrait
+171: 宮本武蔵 朝日新聞 連載=Miyamoto Musashi Asahi Shimbun serial
+174: 宮本武蔵 吉川英治 挿絵 石井鶴三=Musashi illustration Ishii Tsuruzo
+
+## 武蔵に重ねた自分
+176: 吉川英治 執筆=Eiji Yoshikawa writing
+
+## 大衆即大智識
+182: 吉川英治 色紙=Eiji Yoshikawa shikishi
+
+## 日中戦争と離婚
+188: 日中戦争 1937=Second Sino-Japanese War 1937
+189: 吉川英治 従軍=Eiji Yoshikawa war correspondent
+
+## 文子と再婚
+192: 吉川英治 文子=Eiji Yoshikawa wife Fumiko
+
+## ペン部隊
+196: ペン部隊 1938=Pen Butai 1938 writers
+
+## 『太閤記』『三国志』を次々と
+201: 新書太閤記 吉川英治=Shinsho Taikoki Eiji Yoshikawa
+204: 吉川英治 三国志=Eiji Yoshikawa Sanguozhi
+206: 三国志 劉備 関羽 張飛=Liu Bei Guan Yu Zhang Fei=刘备 关羽 张飞
+
+## 菊池寛と馬主に
+211: 菊池寛=Kan Kikuchi
+
+## 戦争との関わり
+215: 大東亜文学者大会=Greater East Asia Writers Congress
+218: 日本文学報国会=Japan Literature Patriotic Association
+
+## 青梅・吉野村へ疎開
+225: 吉川英治記念館 主屋=Eiji Yoshikawa Memorial Museum main house
+229: 養蚕農家 屋敷=sericulture farmhouse Japan
+
+## 東京大空襲と園子
+232: 東京大空襲=Tokyo air raid 1945
+
+## 敗戦で筆を折る
+236: 玉音放送=Gyokuon-hoso surrender broadcast
+237: 吉川英治 終戦 吉野村=Eiji Yoshikawa after war Yoshino
+
+## 菊池寛に引っぱり出されて再開
+246: 菊池寛 晩年=Kan Kikuchi later years
+248: 人間山水図巻 吉川英治=Ningen Sansui Zukan Eiji Yoshikawa
+251: 高山右近 吉川英治=Takayama Ukon Eiji Yoshikawa
+
+## 『宮本武蔵』の出版権騒動
+254: 六興出版 宮本武蔵=Rokko Shuppan Miyamoto Musashi
+
+## 作家の所得番付1位
+259: 昭和24年 長者番付 作家=1949 Japan top income writers
+263: 吉川英治 吉野村 公民館=Eiji Yoshikawa Yoshino community hall
+
+## 『新・平家物語』
+266: 新・平家物語 週刊朝日=Shin Heike Monogatari Weekly Asahi
+268: 平家物語 壇ノ浦=Heike Monogatari Dan-no-ura
+274: 菊池寛賞 第1回 吉川英治=Kikuchi Kan Prize Eiji Yoshikawa
+
+## 北品川へ引っ越し
+277: 吉川英治 北品川=Eiji Yoshikawa Kitashinagawa
+
+## 黒蜜パンと船橋屋
+281: 黒蜜 パン=bread with kuromitsu
+283: 船橋屋 亀戸 くず餅=Funabashiya Kameido kuzumochi
+287: 船橋屋 看板 吉川英治=Funabashiya signboard Eiji Yoshikawa
+
+## 『忘れ残りの記』とケゴンの皐月賞
+292: 忘れ残りの記 吉川英治=Wasure Nokori no Ki Eiji Yoshikawa
+295: ケゴン 皐月賞=Kegon Satsuki Sho
+
+## 辻政信との関わり
+298: 辻政信=Masanobu Tsuji
+
+## 日本ダービーの悲劇
+303: 日本ダービー 1956=Japanese Derby 1956
+304: エンメイ 日本ダービー 落馬=Enmei Tokyo Yushun 1956 accident
+306: 阿部正太郎 騎手=jockey Shotaro Abe
+
+## 軽井沢とゴルフ
+313: 吉川英治 ゴルフ=Eiji Yoshikawa golf
+314: 吉川英治 軽井沢 別荘=Eiji Yoshikawa Karuizawa villa
+
+## 『新・平家物語』完結
+318: 新・平家物語 吉川英治 全集=Shin Heike Monogatari complete
+
+## 『私本太平記』と『新・水滸伝』
+320: 私本太平記 毎日新聞=Shihon Taiheiki Mainichi Shimbun
+322: 新・水滸伝 吉川英治=Shin Suikoden Eiji Yoshikawa
+323: 水滸伝 梁山泊=Water Margin Liangshan=水浒传 梁山泊
+
+## 足利尊氏を描き直す
+326: 足利尊氏 肖像=Ashikaga Takauji portrait
+
+## 文化勲章
+333: 吉川英治 文化勲章 1960=Eiji Yoshikawa Order of Culture 1960
+
+## 芸術院の壁
+338: 日本芸術院=Japan Art Academy
+
+## 病に倒れる
+345: いらすとや 入院=irasutoya hospitalized
+
+## 吉川英治賞をつくる
+349: 毎日芸術賞 私本太平記=Mainichi Art Award Shihon Taiheiki
+353: 吉川英治賞=Yoshikawa Eiji Prize
+
+## 死去
+356: 国立がんセンター 築地 1962=National Cancer Center Tsukiji 1962
+359: 勲一等瑞宝章=Order of the Sacred Treasure first class
+361: 多磨霊園 吉川英治 墓=Eiji Yoshikawa grave Tama Cemetery
+
+## 今も続く吉川英治賞
+364: 吉川英治文学賞 贈呈式=Yoshikawa Eiji Prize for Literature ceremony
+
+## 吉川英治記念館
+370: 吉川英治記念館=Yoshikawa Eiji Memorial Museum
+373: 吉川英治記念館 再開 2020=Yoshikawa Eiji Memorial Museum reopening 2020
+377: 吉川英治記念館 登録有形文化財=Yoshikawa Eiji Museum registered cultural property
+
+## 朝の来ない夜はない
+380: 吉川英治 朝の来ない夜はない 色紙=Eiji Yoshikawa asa no konai yoru wa nai
+387: 船橋屋 黒蜜=Funabashiya kuromitsu
