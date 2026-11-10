@@ -56,6 +56,15 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
 .buttons a.alt { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 3px 11px; }
 .buttons a:hover { filter: brightness(1.12); }
 .check { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.paste { grid-column: 1 / 4; display: flex; align-items: center; gap: 10px; min-height: 44px; border: 2px dashed var(--line);
+  border-radius: 8px; padding: 6px 10px; color: var(--muted); font-size: 12px; cursor: pointer; background: transparent; text-align: left; width: 100%; }
+.paste img { max-height: 90px; max-width: 160px; border-radius: 4px; display: block; }
+.item.selected { outline: 3px solid var(--accent); outline-offset: 1px; }
+.item.selected .paste { border-color: var(--accent); color: var(--text); }
+.paste .clear { margin-left: auto; }
+header nav button.primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: bold; }
+.toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--text); color: var(--bg);
+  padding: 8px 16px; border-radius: 8px; font-size: 13px; z-index: 20; }
 @media (max-width: 860px) {
   .seg { grid-template-columns: 1fr; }
 }
@@ -66,12 +75,15 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
   <h1>__TITLE__ 画像リスト</h1>
   <span class="stats" id="stats"></span>
   <nav>
+    <button type="button" id="zip" class="primary">貼った画像をまとめて保存(ZIP)</button>
     <button type="button" id="next">次の未完了へ</button>
     <button type="button" id="reset">チェックを全部外す</button>
   </nav>
 </header>
 <p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が新しいタブで開きます。Googleで見つからないときは、枠だけのボタンで同じ日本語ワードをYahoo!・Bingで探せます。
-画像を右クリック →「画像をコピー」→ YMM4に貼り付け。貼り終わった番号は「済」にチェックを入れると、次にどこから始めればいいか分かります(チェックはこのブラウザに保存されます)。</p>
+画像を右クリック →「画像をコピー」→ このページに戻って <b>Ctrl+V</b>。青い枠で選ばれている番号に画像が入り、次の番号に進みます(番号の枠をクリックすると選び直せます。画像ファイルを枠にドラッグしても入ります)。
+全部貼ったら「貼った画像をまとめて保存(ZIP)」を押すと、「001_〇〇.png」のように番号付きの名前で1つのZIPに保存されます。そのZIPを YMM4 の画像並べツールに使えます。</p>
+<div class="toast" id="toast" hidden></div>
 <main id="main"></main>
 <script>
 const DATA = /*__DATA__*/null;
@@ -121,7 +133,15 @@ for (const seg of DATA.segments) {
         img.en !== img.ja ? el("a", { class: "en", href: google(img.en), target: "_blank", rel: "noopener" }, "Google画像検索(英語)") : null,
         img.native ? el("a", { class: "en", href: google(img.native), target: "_blank", rel: "noopener" }, "Google画像検索(母語)") : null,
         el("a", { class: "alt", href: yahoo(img.ja), target: "_blank", rel: "noopener" }, "Yahoo!"),
-        el("a", { class: "alt", href: bing(img.ja), target: "_blank", rel: "noopener" }, "Bing")));
+        el("a", { class: "alt", href: bing(img.ja), target: "_blank", rel: "noopener" }, "Bing")),
+      el("button", { type: "button", class: "paste", id: "paste" + img.no }, "ここを選んで Ctrl+V で画像を貼る"));
+    item.addEventListener("click", e => { if (!e.target.closest(".clear")) select(img.no); });
+    item.addEventListener("dragover", e => e.preventDefault());
+    item.addEventListener("drop", e => {
+      e.preventDefault();
+      const file = [...(e.dataTransfer?.files || [])].find(f => f.type.startsWith("image/"));
+      if (file) setImage(img.no, file); else toast("画像ファイルではありませんでした。右クリック→「画像をコピー」→ Ctrl+V を使ってください。");
+    });
     box.addEventListener("change", () => {
       if (box.checked) done[img.no] = true; else delete done[img.no];
       item.classList.toggle("done", box.checked);
@@ -131,6 +151,145 @@ for (const seg of DATA.segments) {
   }
   main.append(el("section", { class: "seg" }, script, images));
 }
+
+// ---- 貼り付けた画像(このブラウザのIndexedDBに保存) ----
+const ALL = DATA.segments.flatMap(s => s.images);
+const pasted = new Map();   // 番号 → Blob
+let selected = null;
+let db = null;
+const DB_KEY = (no) => DATA.title + ":" + no;
+function openDb() {
+  return new Promise(resolve => {
+    try {
+      const req = indexedDB.open("image-list-pastes", 1);
+      req.onupgradeneeded = () => req.result.createObjectStore("images");
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => resolve(null);
+    } catch (e) { resolve(null); }
+  });
+}
+function dbPut(no, blob) {
+  if (!db) return;
+  try { const tx = db.transaction("images", "readwrite"); const st = tx.objectStore("images"); blob ? st.put(blob, DB_KEY(no)) : st.delete(DB_KEY(no)); } catch (e) {}
+}
+function dbGet(no) {
+  return new Promise(resolve => {
+    if (!db) return resolve(null);
+    try { const r = db.transaction("images").objectStore("images").get(DB_KEY(no)); r.onsuccess = () => resolve(r.result || null); r.onerror = () => resolve(null); }
+    catch (e) { resolve(null); }
+  });
+}
+let toastTimer = null;
+function toast(text) {
+  const t = document.getElementById("toast");
+  t.textContent = text; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2500);
+}
+function select(no, scroll = false) {
+  if (selected != null) document.getElementById("img" + selected)?.classList.remove("selected");
+  selected = no;
+  const item = document.getElementById("img" + no);
+  if (!item) return;
+  item.classList.add("selected");
+  if (scroll) item.scrollIntoView({ block: "center", behavior: "smooth" });
+}
+function renderPaste(no) {
+  const zone = document.getElementById("paste" + no);
+  zone.replaceChildren();
+  const blob = pasted.get(no);
+  if (!blob) { zone.append("ここを選んで Ctrl+V で画像を貼る"); return; }
+  const url = URL.createObjectURL(blob);
+  const image = el("img", { src: url, alt: no + "番の画像" });
+  image.onload = () => URL.revokeObjectURL(url);
+  const clear = el("button", { type: "button", class: "clear" }, "外す");
+  clear.addEventListener("click", e => { e.stopPropagation(); setImage(no, null); });
+  zone.append(image, "貼り付け済み(もう一度 Ctrl+V で差し替え)", clear);
+}
+function markDone(no, value) {
+  const item = document.getElementById("img" + no);
+  if (value) done[no] = true; else delete done[no];
+  item.classList.toggle("done", value);
+  item.querySelector("input").checked = value;
+  save();
+}
+function setImage(no, blob) {
+  if (blob) pasted.set(no, blob); else pasted.delete(no);
+  dbPut(no, blob);
+  renderPaste(no);
+  markDone(no, !!blob);
+  if (blob) {
+    toast(no + "番に貼りました");
+    const next = ALL.find(i => i.no > no && !pasted.has(i.no)) || ALL.find(i => !pasted.has(i.no));
+    if (next) select(next.no, true);
+  }
+}
+document.addEventListener("paste", e => {
+  const file = [...(e.clipboardData?.items || [])].filter(i => i.type.startsWith("image/")).map(i => i.getAsFile())[0];
+  if (!file) { toast("画像がコピーされていません。画像を右クリック →「画像をコピー」してください。"); return; }
+  if (selected == null) { const first = ALL.find(i => !pasted.has(i.no)) || ALL[0]; select(first.no); }
+  e.preventDefault();
+  setImage(selected, file);
+});
+
+// ---- ZIP(無圧縮)を作る ----
+const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(bytes) { let c = 0xFFFFFFFF; for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function makeZip(files) {
+  const enc = new TextEncoder(), parts = [], central = [];
+  let offset = 0;
+  for (const f of files) {
+    const name = enc.encode(f.name), crc = crc32(f.data), size = f.data.length;
+    const local = new DataView(new ArrayBuffer(30));
+    local.setUint32(0, 0x04034b50, true); local.setUint16(4, 20, true); local.setUint16(6, 0x0800, true);
+    local.setUint32(14, crc, true); local.setUint32(18, size, true); local.setUint32(22, size, true); local.setUint16(26, name.length, true);
+    parts.push(local, name, f.data);
+    const c = new DataView(new ArrayBuffer(46));
+    c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true);
+    c.setUint32(16, crc, true); c.setUint32(20, size, true); c.setUint32(24, size, true); c.setUint16(28, name.length, true);
+    c.setUint32(42, offset, true);
+    central.push(c, name);
+    offset += 30 + name.length + size;
+  }
+  const centralSize = central.reduce((n, p) => n + p.byteLength, 0);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+  end.setUint32(12, centralSize, true); end.setUint32(16, offset, true);
+  return new Blob([...parts, ...central, end], { type: "application/zip" });
+}
+const EXT = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/gif": "gif", "image/bmp": "bmp", "image/avif": "avif" };
+const safeName = s => s.replace(/[\\/:*?"<>|]/g, "_").slice(0, 40);
+document.getElementById("zip").addEventListener("click", async () => {
+  const items = ALL.filter(i => pasted.has(i.no));
+  if (!items.length) { toast("まだ画像が貼られていません。"); return; }
+  const files = [];
+  for (const i of items) {
+    const blob = pasted.get(i.no);
+    files.push({ name: `${String(i.no).padStart(3, "0")}_${safeName(i.ja)}.${EXT[blob.type] || "png"}`, data: new Uint8Array(await blob.arrayBuffer()) });
+  }
+  const zip = makeZip(files), zipName = `${safeName(DATA.title)}_画像.zip`;
+  if (window.showSaveFilePicker) {
+    // パソコンに保存したHTMLから開くと、普通のダウンロードではファイル名が付かないので「名前を付けて保存」を使う
+    try {
+      const handle = await showSaveFilePicker({ suggestedName: zipName, types: [{ description: "ZIP", accept: { "application/zip": [".zip"] } }] });
+      const writable = await handle.createWritable(); await writable.write(zip); await writable.close();
+    } catch (e) {
+      if (e.name === "AbortError") return;
+      throw e;
+    }
+  } else {
+    const a = el("a", { href: URL.createObjectURL(zip), download: zipName });
+    document.body.append(a); a.click(); a.remove();
+  }
+  const missing = ALL.length - items.length;
+  toast(`${items.length}枚をZIPに保存しました` + (missing ? `(まだ貼っていない番号が${missing}個あります)` : ""));
+});
+
+(async () => {
+  db = await openDb();
+  for (const i of ALL) { const blob = await dbGet(i.no); if (blob) { pasted.set(i.no, blob); renderPaste(i.no); } }
+  const first = ALL.find(i => !pasted.has(i.no));
+  if (first) select(first.no);
+})();
 
 document.getElementById("next").addEventListener("click", () => {
   const next = DATA.segments.flatMap(s => s.images).find(img => !done[img.no]);

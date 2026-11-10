@@ -2,8 +2,9 @@
 
 流れ:
     1. YMM4で「ツール → 台本読み込み」から台本を読み込み、声が入った状態でプロジェクトを保存する
-    2. 画像を「001_〇〇.jpg」「002_〇〇.png」…のように、画像リストの番号を頭に付けて1つのフォルダに保存する
-    3. このツールで、保存したプロジェクト・区切り表・台本・画像フォルダを指定する
+    2. 画像リスト(HTML)に画像を貼り、「まとめて保存(ZIP)」で番号付きのZIPにする
+       (または「001_〇〇.jpg」のように番号を頭に付けた画像を1つのフォルダに保存する)
+    3. このツールで、保存したプロジェクト・台本・区切り表・画像のZIP(かフォルダ)を指定する
        → 「(元の名前)_画像入り.ymmp」ができる(元のプロジェクトは書き換えない)
 
 使い方:
@@ -18,6 +19,7 @@ import copy
 import difflib
 import json
 import re
+import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -145,6 +147,19 @@ def index_images(folder: Path) -> tuple[dict[int, Path], list[str]]:
             continue
         found[no] = path
     return found, warnings
+
+
+def unpack_zip(path: Path) -> Path:
+    """画像リストの「まとめて保存」で作ったZIPを、ZIPと同じ場所の同名フォルダに展開する。"""
+    folder = path.with_suffix("") if path.suffix else path.with_name(path.name + "_画像")
+    folder.mkdir(exist_ok=True)
+    with zipfile.ZipFile(path) as archive:
+        for info in archive.infolist():
+            name = Path(info.filename).name  # フォルダ構造や「..」は無視して、ファイル名だけ使う
+            if info.is_dir() or not name:
+                continue
+            (folder / name).write_bytes(archive.read(info))
+    return folder
 
 
 def image_size(path: Path) -> tuple[int, int] | None:
@@ -327,7 +342,7 @@ def ask_missing(args: argparse.Namespace) -> None:
         guess = args.table.with_name(args.table.name.replace("_scenes.txt", ".txt"))
         args.script = guess if guess.exists() else ask_path("台本(.txt)をこの画面にドラッグしてEnter: ")
     if args.images is None:
-        args.images = ask_path("画像を保存したフォルダをこの画面にドラッグしてEnter: ")
+        args.images = ask_path("画像リストで保存したZIP(または画像のフォルダ)をこの画面にドラッグしてEnter: ")
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -335,7 +350,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("project", type=Path, help="台本を読み込んで保存した .ymmp")
     parser.add_argument("script", type=Path, nargs="?", help="台本(.txt)")
     parser.add_argument("table", type=Path, nargs="?", help="区切り表(_scenes.txt)")
-    parser.add_argument("images", type=Path, nargs="?", help="「001_〇〇.jpg」のように番号を付けた画像のフォルダ")
+    parser.add_argument("images", type=Path, nargs="?", help="画像リストで保存したZIP、または「001_〇〇.jpg」のように番号を付けた画像のフォルダ")
     parser.add_argument("--ask", action="store_true", help="足りないものを画面で聞く(.batから使う)")
     parser.add_argument("-o", "--output", type=Path, help="省略すると「元の名前_画像入り.ymmp」")
     parser.add_argument("--layer", type=int, help="画像を置くレイヤー(省略すると一番上の空いたレイヤー)")
@@ -349,8 +364,11 @@ def main(argv: list[str] | None = None) -> int:
         ask_missing(args)
     elif None in (args.script, args.table, args.images):
         parser.error("台本・区切り表・画像フォルダを指定してください。")
+    if args.images.is_file() and zipfile.is_zipfile(args.images):
+        args.images = unpack_zip(args.images)
+        print(f"ZIPを展開しました: {args.images}")
     if not args.images.is_dir():
-        parser.error(f"画像フォルダが見つかりません: {args.images}")
+        parser.error(f"画像のZIPかフォルダが見つかりません: {args.images}")
     project, placements, notes = add_images(
         load_project(args.project),
         args.script.read_text(encoding="utf-8-sig"),

@@ -113,6 +113,22 @@ class AddImagesTest(unittest.TestCase):
         self.assertEqual(len(self.images(data)), 3)
         self.assertEqual(len(self.images(json.loads(source.read_text(encoding="utf-8-sig")))), 0)
 
+    def test_cli_accepts_zip_from_image_list(self):
+        import zipfile
+
+        source = self.folder / "テスト.ymmp"
+        source.write_text(json.dumps(project(VOICES), ensure_ascii=False), encoding="utf-8-sig")
+        (self.folder / "s.txt").write_text(SCRIPT, encoding="utf-8")
+        (self.folder / "t.txt").write_text(TABLE, encoding="utf-8")
+        archive = self.folder / "download"  # Chromeで名前が付かずに保存された場合
+        with zipfile.ZipFile(archive, "w") as z:
+            z.writestr("001_甲子園.png", b"")
+            z.writestr("../002_長崎.png", b"")
+        main([str(source), str(self.folder / "s.txt"), str(self.folder / "t.txt"), str(archive)])
+        self.assertTrue((self.folder / "download_画像" / "002_長崎.png").exists())
+        data = json.loads((self.folder / "テスト_画像入り.ymmp").read_text(encoding="utf-8-sig"))
+        self.assertEqual(len(self.images(data)), 2)
+
 
 if __name__ == "__main__":
     unittest.main()
