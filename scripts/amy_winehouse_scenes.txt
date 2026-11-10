@@ -1,0 +1,228 @@
+# エイミー・ワインハウスの解説台本(amy_winehouse.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・英語圏の人物なので母語(英語)は省略。セルビアの場面だけセルビア語を付けた
+# 画像の選び方(優先順):
+#   1. 本人が写っている、その時代の写真
+#   2. 話に出てくる、その物・場所・出来事そのものの写真
+#   3. 直接の写真がない場面は、その時期の本人の写真
+#   4. それもなければ、いらすとや(1本20枚まで)
+
+## 導入：夜中3時のグラミー賞
+1: いらすとや 夜中 眠る=irasutoya sleeping at night
+4: エイミー・ワインハウス グラミー賞 2008=Amy Winehouse Grammy 2008 performance
+8: エイミー・ワインハウス ロンドン 中継 グラミー=Amy Winehouse Riverside Studios Grammy live satellite
+12: トニー・ベネット グラミー 2008 プレゼンター=Tony Bennett Grammy 2008 announces Amy Winehouse
+17: エイミー・ワインハウス 2003 インタビュー=Amy Winehouse 2003 interview
+20: エイミー・ワインハウス パパラッチ=Amy Winehouse paparazzi
+25: エイミー・ワインハウス=Amy Winehouse
+
+## ロンドン北部の音楽一家に生まれる
+26: エイミー・ワインハウス 子供の頃=Amy Winehouse childhood photo
+29: ミッチ・ワインハウス=Mitch Winehouse
+30: ジャニス・ワインハウス=Janis Winehouse
+32: シンシア・ワインハウス=Cynthia Winehouse grandmother Amy
+34: ロニー・スコット サックス=Ronnie Scott saxophone
+
+## ジャズが子守唄だった少女
+37: フランク・シナトラ=Frank Sinatra
+39: エイミー・ワインハウス 少女時代=young Amy Winehouse school
+43: エイミー・ワインハウス 幼少期 家族=Amy Winehouse child family
+47: エイミー・ワインハウス Daddy's Girl タトゥー=Amy Winehouse Daddy's Girl tattoo
+
+## 演劇学校とラップの2人組
+50: エイミー・ワインハウス 子供 演劇学校=Amy Winehouse Susi Earnshaw Theatre School
+52: ジュリエット・アシュビー エイミー=Juliette Ashby Amy Winehouse
+56: シルヴィア・ヤング演劇学校=Sylvia Young Theatre School
+58: エイミー・ワインハウス 10代=teenage Amy Winehouse
+
+## ギターと若者のジャズ楽団
+60: エイミー・ワインハウス ギター 若い頃=young Amy Winehouse guitar
+63: ナショナル・ユース・ジャズ・オーケストラ=National Youth Jazz Orchestra
+
+## デモテープから事務所契約へ
+66: タイラー・ジェイムス エイミー=Tyler James Amy Winehouse
+70: エイミー・ワインハウス デモテープ時代=Amy Winehouse early demo 2002
+73: サイモン・フラー=Simon Fuller
+75: エイミー・ワインハウス 2002 クラブ ライブ=Amy Winehouse 2002 live jazz club
+
+## 名前の分からない歌声を追え
+78: ダーカス・ビース=Darcus Beese
+81: エイミー・ワインハウス 2003 若い頃=Amy Winehouse 2003 young
+85: ニック・ガットフィールド=Nick Gatfield
+88: エイミー・ワインハウス 2003 ライブ=Amy Winehouse 2003 live
+
+## デビューアルバム『フランク』
+91: エイミー・ワインハウス フランク アルバム=Amy Winehouse Frank album cover
+92: サラーム・レミ=Salaam Remi
+95: エイミー・ワインハウス ブリット・アワード 2004=Amy Winehouse Brit Awards 2004
+98: エイミー・ワインハウス アイヴァー・ノヴェロ賞 2004=Amy Winehouse Ivor Novello 2004
+100: エイミー・ワインハウス 2004 インタビュー=Amy Winehouse 2004 interview
+
+## 「私みたいな子は100万人いる」
+104: エイミー・ワインハウス 2004=Amy Winehouse 2004
+108: いらすとや カラオケ=irasutoya karaoke
+
+## 最初の崩れと持ち直し
+110: エイミー・ワインハウス 2005=Amy Winehouse 2005
+114: エイミー・ワインハウス 2006 曲作り=Amy Winehouse 2006 songwriting
+
+## 嵐の私生活とおばあちゃんの死
+118: ブレイク・フィールダー＝シヴィル=Blake Fielder-Civil
+121: アレックス・クレア=Alex Clare
+123: タブロイド紙 イギリス=British tabloid newspapers
+125: エイミー・ワインハウス シンシア=Amy Winehouse grandmother Cynthia
+130: エイミー・ワインハウス シンシア タトゥー=Amy Winehouse Cynthia pin-up tattoo
+
+## マーク・ロンソンとの出会い
+134: エイミー・ワインハウス 2006=Amy Winehouse 2006
+136: マーク・ロンソン=Mark Ronson
+138: マーク・ロンソン エイミー・ワインハウス=Mark Ronson Amy Winehouse
+
+## 60年代ソウルとダップ・キングス
+141: エイミー・ワインハウス スタジオ 2006=Amy Winehouse studio 2006
+143: ダップ・キングス=The Dap-Kings
+146: ロンドン タクシー ブラックキャブ=London black cab taxi
+150: エイミー・ワインハウス ビーハイブ=Amy Winehouse beehive hair
+151: ロネッツ=The Ronettes
+153: エイミー・ワインハウス アイライン=Amy Winehouse eyeliner makeup
+155: エイミー・ワインハウス マーク・ロンソン サラーム・レミ=Amy Winehouse Salaam Remi Mark Ronson studio
+
+## 『バック・トゥ・ブラック』と『Rehab』
+158: バック・トゥ・ブラック アルバム=Amy Winehouse Back to Black album cover
+159: エイミー・ワインハウス Rehab MV=Amy Winehouse Rehab music video
+163: エイミー・ワインハウス 2007 ライブ=Amy Winehouse 2007 live
+170: エイミー・ワインハウス ブリット・アワード 2007=Amy Winehouse Brit Awards 2007
+
+## マイアミでの電撃結婚
+173: エイミー・ワインハウス ブレイク 結婚=Amy Winehouse Blake Fielder-Civil 2007
+175: ブレイク・フィールダー＝シヴィル 2007=Blake Fielder-Civil 2007
+
+## アメリカでも大ブレイク
+179: エイミー・ワインハウス MTVムービー・アワード 2007=Amy Winehouse MTV Movie Awards 2007
+182: ブルース・ウィリス 2007=Bruce Willis 2007
+
+## 転落の始まり
+187: エイミー・ワインハウス ブレイク 2007 夏=Amy Winehouse Blake 2007 August
+191: ミッチ・ワインハウス 2007=Mitch Winehouse 2007
+194: エイミー・ワインハウス 2007 病院=Amy Winehouse hospital 2007
+
+## マーキュリー賞での弾き語り
+198: エイミー・ワインハウス マーキュリー賞 2007=Amy Winehouse Mercury Prize 2007 Love Is a Losing Game
+204: エイミー・ワインハウス ノルウェー 逮捕 ベルゲン=Amy Winehouse Bergen Norway arrest 2007
+208: エイミー・ワインハウス バーミンガム 2007=Amy Winehouse Birmingham NIA 2007
+210: エイミー・ワインハウス 2007 11月=Amy Winehouse November 2007
+
+## グラミー6部門ノミネート
+213: グラミー賞 トロフィー=Grammy Award trophy
+219: エイミー・ワインハウス 2008 1月=Amy Winehouse January 2008
+222: ミッチ・ワインハウス エイミー 2008=Mitch Winehouse Amy 2008
+
+## グラミー5冠の夜
+226: エイミー・ワインハウス グラミー 2008 受賞=Amy Winehouse Grammy 2008 win reaction
+231: エイミー・ワインハウス グラミー 5冠=Amy Winehouse five Grammys
+235: カムデン・マーケット 火事 2008=Camden Market fire 2008
+239: カムデン・ロック マーケット=Camden Lock Market
+240: ギネス世界記録 2009 本=Guinness World Records 2009 book
+243: エイミー・ワインハウス 2008 タブロイド=Amy Winehouse 2008 tabloid
+
+## ものまね本家と最悪のファッション賞
+247: ロニー・スペクター=Ronnie Spector
+248: ロニー・スペクター エイミー・ワインハウス=Ronnie Spector Amy Winehouse
+252: NMEアワード 2008=NME Awards 2008
+
+## 2008年：受賞と入院
+255: エイミー・ワインハウス アイヴァー・ノヴェロ賞 2008=Amy Winehouse Ivor Novello 2008
+259: エイミー・ワインハウス 2008 6月=Amy Winehouse June 2008
+263: エイミー・ワインハウス マンデラ 90歳 コンサート=Amy Winehouse Nelson Mandela 90th birthday concert Hyde Park
+264: エイミー・ワインハウス グラストンベリー 2008=Amy Winehouse Glastonbury 2008
+
+## 夫の服役と薬物からの決別
+268: ブレイク・フィールダー＝シヴィル 2008=Blake Fielder-Civil 2008
+271: エイミー・ワインハウス 2008 後半=Amy Winehouse late 2008
+275: ジャニス・ワインハウス エイミー=Janis Winehouse Amy
+
+## ライオネス・レコードと名付け子
+279: ライオネス・レコード=Lioness Records Amy Winehouse
+281: ディオンヌ・ブロムフィールド=Dionne Bromfield
+283: エイミー・ワインハウス ディオンヌ・ブロムフィールド=Amy Winehouse Dionne Bromfield
+
+## セントルシアでの日々
+286: エイミー・ワインハウス セントルシア=Amy Winehouse St Lucia 2009
+288: いらすとや 手術=irasutoya surgery
+290: エイミー・ワインハウス 2009 セントルシア ビーチ=Amy Winehouse St Lucia beach 2009
+294: エイミー・ワインハウス セントルシア・ジャズ・フェスティバル=Amy Winehouse St Lucia Jazz Festival 2009
+
+## 離婚とパパラッチ禁止令
+296: エイミー・ワインハウス ブレイク 離婚=Amy Winehouse Blake divorce 2009
+303: エイミー・ワインハウス パパラッチ 自宅=Amy Winehouse paparazzi home
+306: エイミー・ワインハウス 2009=Amy Winehouse 2009
+
+## 2010年：明るい兆し
+309: レグ・トラヴィス エイミー・ワインハウス=Reg Traviss Amy Winehouse
+312: エイミー・ワインハウス フレッド・ペリー=Amy Winehouse Fred Perry collection
+313: クインシー・ジョーンズ Q Soul Bossa Nostra=Quincy Jones Q Soul Bossa Nostra
+315: エイミー・ワインハウス 2010=Amy Winehouse 2010
+
+## 断ち切れないお酒
+319: エイミー・ワインハウス 2010 後半=Amy Winehouse late 2010
+324: エイミー・ワインハウス ブラジル 2011=Amy Winehouse Brazil 2011 concert
+328: エイミー・ワインハウス ドバイ 2011=Amy Winehouse Dubai 2011
+
+## トニー・ベネットとの夢のデュエット
+331: トニー・ベネット エイミー・ワインハウス=Tony Bennett Amy Winehouse
+333: アビイ・ロード・スタジオ=Abbey Road Studios
+336: エイミー・ワインハウス Body and Soul 録音=Amy Winehouse Tony Bennett Body and Soul recording
+
+## ベオグラードの悪夢
+341: エイミー・ワインハウス 2011=Amy Winehouse 2011
+345: エイミー・ワインハウス ベオグラード=Amy Winehouse Belgrade 2011=Ејми Вајнхаус Београд
+347: エイミー・ワインハウス ベオグラード ライブ=Amy Winehouse Belgrade concert Kalemegdan=Ејми Вајнхаус концерт Калемегдан
+352: エイミー・ワインハウス ツアー中止 2011=Amy Winehouse tour cancelled 2011
+
+## 最後のステージ
+356: ラウンドハウス カムデン=Roundhouse Camden
+357: エイミー・ワインハウス ラウンドハウス ディオンヌ=Amy Winehouse Roundhouse Dionne Bromfield July 2011
+
+## 2011年7月23日
+361: エイミー・ワインハウス 最後の写真=Amy Winehouse last photo July 2011
+366: エイミー・ワインハウス カムデン 自宅 献花=Amy Winehouse Camden Square home flowers
+370: エイミー・ワインハウス 2011年7月=Amy Winehouse July 2011
+374: エイミー・ワインハウス 検死 法廷=Amy Winehouse inquest St Pancras Coroner's Court
+376: エイミー・ワインハウス 追悼=Amy Winehouse tribute
+
+## 葬儀とおばあちゃんの隣へ
+379: エイミー・ワインハウス 葬儀=Amy Winehouse funeral Edgwarebury
+380: ミッチ・ワインハウス 葬儀=Mitch Winehouse funeral eulogy
+382: キャロル・キング つづれおり=Carole King Tapestry So Far Away
+384: マーク・ロンソン 2011=Mark Ronson 2011
+386: エイミー・ワインハウス シンシア 墓=Amy Winehouse grave Edgwarebury Lane Cemetery
+
+## 死後の反響
+389: エイミー・ワインハウス 追悼 ファン=Amy Winehouse fans tribute Camden 2011
+392: レディー・ガガ 2011=Lady Gaga 2011
+394: トニー・ベネット=Tony Bennett
+
+## 財団と死後の作品
+397: エイミー・ワインハウス財団=Amy Winehouse Foundation
+400: Body and Soul トニー・ベネット エイミー シングル=Body and Soul Tony Bennett Amy Winehouse single
+402: ライオネス アルバム エイミー=Amy Winehouse Lioness Hidden Treasures album
+404: トニー・ベネット グラミー 2012=Tony Bennett Grammy 2012 Body and Soul
+
+## 兄の思いとカムデンの銅像
+406: アレックス・ワインハウス=Alex Winehouse
+409: エイミー・ワインハウス 銅像 カムデン=Amy Winehouse statue Camden Stables Market
+
+## 伝説として残った歌声
+414: 映画 AMY エイミー=Amy 2015 documentary poster
+415: AMY アカデミー賞 ドキュメンタリー=Amy documentary Oscar 2016 Asif Kapadia
+416: ボブ・ディラン=Bob Dylan
+418: Back to Black エイミーのすべて 映画=Back to Black 2024 film poster
+420: アメリカ議会図書館=Library of Congress
+
+## 結び：残ったのは歌声
+424: エイミー・ワインハウス ステージ=Amy Winehouse on stage
+427: いらすとや プリン=irasutoya pudding
