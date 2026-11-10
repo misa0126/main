@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 
 from .script_parser import split_script_into_scenes
-from .sources import Keyword
+from .keyword import Keyword
 
 LINE_PATTERN = re.compile(r"^\s*(\d+)\s*[:：]\s*(.*)$")
 

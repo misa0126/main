@@ -8,6 +8,8 @@ from typing import Protocol
 
 import requests
 
+from ..keyword import Keyword  # noqa: F401  (ここから読み込む既存コード向け)
+
 USER_AGENT = "YukkuriMaterialCollector/0.2 (https://github.com/misa0126/main; personal use)"
 MAX_DOWNLOAD_BYTES = 20 * 1024 * 1024
 CONTENT_TYPE_EXTENSIONS = {
@@ -18,15 +20,6 @@ CONTENT_TYPE_EXTENSIONS = {
 }
 
 
-@dataclass
-class Keyword:
-    """検索キーワード。日本語の取得元と英語の取得元で使い分ける。"""
-
-    ja: str
-    en: str
-
-    def __str__(self) -> str:
-        return self.ja if self.ja == self.en else f"{self.ja} / {self.en}"
 
 
 @dataclass
