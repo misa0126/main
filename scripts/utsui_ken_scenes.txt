@@ -1,0 +1,284 @@
+# 宇津井健の解説台本(utsui_ken.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付く
+#   ・「#」で始まる行はメモとして無視される
+# 画像の選び方(優先順):
+#   1. 本人が写っている、その時代の写真
+#   2. 話に出てくる、その物・場所・出来事そのものの写真
+#   3. 直接の写真がない場面は、その時期の本人の写真
+#   4. それもなければ、いらすとや(1本20枚まで)
+
+## 導入：白タイツのヒーロー
+1: スーパージャイアンツ 宇津井健=Super Giant Ken Utsui
+
+## 導入：のちの国民のお父さん
+6: 赤い疑惑 宇津井健 山口百恵=Akai Giwaku Ken Utsui Momoe Yamaguchi
+
+## 導入：きっかけは馬
+10: 宇津井健 乗馬=Ken Utsui horse riding
+
+## 導入：呼吸器をつけて撮影現場へ
+17: 渡る世間は鬼ばかり 宇津井健=Wataru Seken wa Oni Bakari Ken Utsui
+21: 宇津井健=Ken Utsui
+
+## 深川に生まれる・幼なじみの勝新太郎
+22: 深川 昭和初期=Fukagawa Tokyo early Showa
+23: 勝新太郎 若い頃=young Shintaro Katsu
+
+## 4歳で父を亡くす
+26: いらすとや お葬式=irasutoya funeral
+
+## 千葉へ疎開、『人生劇場』に夢中
+33: 千葉県立千葉高校 旧制千葉中学=Chiba Prefectural Chiba High School old
+34: 尾崎士郎 人生劇場=Shiro Ozaki Jinsei Gekijo novel
+
+## 早稲田へ、そして馬術部へ
+37: 早稲田大学 1950年代=Waseda University 1950s
+38: 早稲田大学 馬術部=Waseda University equestrian club
+
+## 学習院の馬場で馬の世話
+42: 学習院 馬場=Gakushuin riding ground Mejiro
+
+## 1年でレギュラー、文学部より馬術部
+49: 宇津井健 若い頃=young Ken Utsui
+
+## 俳優座養成所の4期生に
+52: 俳優座 養成所=Haiyuza training school
+
+## 仲代達矢ら豪華な同期
+58: 仲代達矢 若い頃=young Tatsuya Nakadai
+
+## 裸馬に乗れて『思春の泉』で主演デビュー
+62: 思春の泉 1953 映画=Shishun no Izumi 1953 film
+66: 宇津井健 デビュー 1953=Ken Utsui debut 1953
+
+## 新東宝と契約、早稲田は中退
+70: 新東宝 撮影所=Shintoho studio
+75: 森繁久彌 若い頃=young Hisaya Morishige
+
+## 新東宝の刺激的な題名
+79: 肉体女優殺し 五人の犯罪者 ポスター=Nikutai Joyu Goroshi poster
+81: 人喰海女 ポスター=Hitokui Ama poster Shintoho
+
+## 中身は真面目な「正義の人」
+84: 宇津井健 新東宝=Ken Utsui Shintoho
+
+## 正義の人という役柄の完成
+91: 宇津井健 1950年代=Ken Utsui 1950s
+
+## スーパージャイアンツ登場
+96: スーパージャイアンツ ポスター=Super Giants poster 1957
+100: スーパーマン ジョージ・リーヴス=George Reeves Superman 1950s
+102: 鋼鉄の巨人 スーパージャイアンツ 1957=Starman Super Giant 1957
+
+## 衣装のお手本がない時代
+107: 月光仮面 1958=Gekko Kamen 1958
+109: スーパージャイアンツ 衣装=Super Giants costume
+
+## 関根勤と小堺一機のラジオ
+112: 関根勤 小堺一機 コサキン=Tsutomu Sekine Kazuki Kosakai Kosakin
+
+## 照れずに演じ切る凛々しさ
+116: スーパージャイアンツ 宇宙怪人出現=Super Giants Uchu Kaijin Shutsugen
+
+## 生放送ドラマ『人生劇場』
+122: 人生劇場 1960 ドラマ 宇津井健=Jinsei Gekijo 1960 TV drama Ken Utsui
+128: 尾崎士郎=Shiro Ozaki
+
+## 新東宝の倒産
+131: 新東宝 倒産 1961=Shintoho bankruptcy 1961
+
+## 大映と契約
+135: 大映 撮影所=Daiei studio
+
+## 大映で脇役に、『検事』降板
+138: 宇津井健 大映=Ken Utsui Daiei
+
+## 友里恵さんと結婚、仲人は尾崎士郎
+144: 宇津井健 友里恵 結婚=Ken Utsui wedding Yurie
+148: 尾崎士郎 晩年=Shiro Ozaki later years
+
+## 『巨人 大隈重信』で母校の創立者に
+153: 巨人 大隈重信 映画 1963=Kyojin Okuma Shigenobu 1963 film
+156: 大隈重信=Shigenobu Okuma
+
+## 成績がバレないかひやひや
+157: いらすとや 成績表=irasutoya report card
+
+## 大隈講堂の試写会で総立ちの拍手
+162: 大隈講堂=Okuma Auditorium Waseda
+168: 巨人 大隈重信 宇津井健=Kyojin Okuma Shigenobu Ken Utsui
+
+## 『ザ・ガードマン』始まる
+172: ザ・ガードマン=The Guardman TBS
+
+## 警備会社だから自由に動ける
+177: ザ・ガードマン 出演者=The Guardman cast
+
+## 増村保造と大ヒット
+184: 増村保造=Yasuzo Masumura
+189: ザ・ガードマン 宇津井健 高倉キャップ=The Guardman Ken Utsui
+
+## モデルはセコム
+192: 日本警備保障 セコム 1960年代=SECOM Nihon Keibi Hosho 1960s
+
+## 倉石功の縁結び
+195: 倉石功=Isao Kuraishi
+
+## 大映の倒産、大映テレビへ
+204: 大映 倒産 1971=Daiei bankruptcy 1971
+208: 大映テレビ=Daiei Television
+
+## 大映テレビの大黒柱
+211: 宇津井健 1970年代=Ken Utsui 1970s
+
+## 『シークレット部隊』と三浦友和の芸名
+216: シークレット部隊 1972 ドラマ=Secret Butai 1972 drama
+218: 三浦友和 若い頃=young Tomokazu Miura
+221: 野添和子 プロデューサー=Kazuko Nozoe producer
+
+## 『顔で笑って』で山口百恵と共演
+226: 顔で笑って 山口百恵 宇津井健=Kao de Waratte Momoe Yamaguchi Ken Utsui
+228: パパは恋人 レコード 宇津井健 山口百恵=Papa wa Koibito record
+
+## 橋田壽賀子作品の常連に
+232: 橋田壽賀子=Sugako Hashida
+
+## 『赤い』シリーズ
+235: 赤いシリーズ TBS=Akai series TBS
+238: 赤い疑惑 山口百恵=Akai Giwaku Momoe Yamaguchi
+
+## 理想の父親像
+243: 赤い疑惑 宇津井健=Akai Giwaku Ken Utsui
+
+## 宇津井抜きでは成り立たない
+249: 赤いシリーズ DVD BOX=Akai series DVD box
+
+## ウツイズム
+254: 赤い運命 宇津井健=Akai Unmei Ken Utsui
+255: 竹内義和=Yoshikazu Takeuchi writer
+
+## 笑いながら泣かされる芸
+258: 宇津井健 熱演=Ken Utsui acting
+
+## 『新幹線大爆破』
+263: 新幹線大爆破 ポスター=The Bullet Train 1975 poster
+266: 0系新幹線=Shinkansen 0 series
+268: 高倉健 新幹線大爆破=Ken Takakura The Bullet Train 1975
+270: 新幹線大爆破 宇津井健=Ken Utsui The Bullet Train 1975
+
+## 『スピード』への影響と2025年のリメイク
+275: スピード 映画 1994=Speed 1994 film
+277: 新幹線大爆破 2025 Netflix=Bullet Train Explosion 2025 Netflix
+
+## 1日60本のたばこ
+279: 宇津井健 1980年代=Ken Utsui 1980s
+282: いらすとや 禁煙=irasutoya quit smoking
+
+## 米をやめて大根おろし
+285: 大根おろし=grated daikon
+
+## 『さすらい刑事旅情編』と『武田信玄』
+288: さすらい刑事旅情編=Sasurai Keiji Ryojohen
+289: 武田信玄 大河ドラマ 1988=Takeda Shingen 1988 NHK taiga drama
+
+## 馬を輸入し自ら調教
+293: 宇津井健 愛馬=Ken Utsui horse
+
+## 60歳で酒もやめる
+299: いらすとや 酔っ払い=irasutoya drunk
+
+## 勝新太郎の死
+303: 勝新太郎 晩年=Shintaro Katsu later years
+304: 勝新太郎 葬儀 1997=Shintaro Katsu funeral 1997
+
+## 妻のために馬を手放す
+308: 宇津井健 妻 友里恵=Ken Utsui wife Yurie
+
+## 『ごくせん』のおじいちゃん
+313: ごくせん 宇津井健=Gokusen Ken Utsui
+
+## 通販と鉄アレイ
+317: いらすとや 通販番組=irasutoya TV shopping
+
+## ジーンズ、ヒップホップ、小柳ゆき
+322: 宇津井健 ジーンズ=Ken Utsui jeans
+324: 小柳ゆき=Yuki Koyanagi
+
+## いつまでも発展途上
+327: 宇津井健 2000年代=Ken Utsui 2000s
+
+## 74歳でクリスチャンに
+331: いらすとや 洗礼=irasutoya baptism
+
+## 妻・友里恵さんの死
+336: 宇津井健 妻 死去 2006=Ken Utsui wife death 2006
+
+## 『渡る世間は鬼ばかり』の岡倉大吉に
+339: 渡る世間は鬼ばかり 岡倉大吉 宇津井健=Wataru Seken wa Oni Bakari Okakura Daikichi
+343: 藤岡琢也=Takuya Fujioka
+
+## 石井ふく子の頼み
+349: 石井ふく子=Fukuko Ishii
+
+## 妻が亡くなった日も撮影へ
+353: 渡る世間は鬼ばかり 2006 宇津井健=Wataru Seken wa Oni Bakari 2006 Ken Utsui
+
+## 橋田賞とハワイでの挙式
+360: 橋田賞 宇津井健=Hashida Award Ken Utsui
+361: 宇津井健 文恵=Ken Utsui Fumie
+
+## 77歳「まだ出し切っていない」
+365: 宇津井健 2008=Ken Utsui 2008
+
+## 『天地人』と『徹子の部屋』
+371: 天地人 前田利家 宇津井健=Tenchijin Maeda Toshiie Ken Utsui
+372: 徹子の部屋 宇津井健 仲代達矢=Tetsuko no Heya Ken Utsui Tatsuya Nakadai
+
+## 『相棒』で犯人役を志願
+375: 相棒 宇津井健=AIBOU Ken Utsui
+
+## アンダルシアで念願の馬に
+382: 旅のチカラ 宇津井健 アンダルシア=Tabi no Chikara Ken Utsui Andalusia
+385: アンダルシア馬=Andalusian horse
+
+## 肺気腫を患う
+390: 宇津井健 晩年=Ken Utsui later years
+393: いらすとや 肺の病気=irasutoya lung disease
+
+## 呼吸器をつけて渡鬼スペシャル
+396: 渡る世間は鬼ばかり 2013 スペシャル=Wataru Seken wa Oni Bakari 2013 special
+398: いらすとや 酸素吸入=irasutoya oxygen
+
+## 映画の遺作
+401: 劇場版 タイムスクープハンター=Time Scoop Hunter movie 2013
+
+## 82歳で死去
+405: 宇津井健 死去=Ken Utsui death 2014
+
+## 亡くなった日に入籍
+410: 宇津井健 入籍 文恵=Ken Utsui marriage registration Fumie
+
+## 仲代達矢とセコムの追悼
+418: 仲代達矢 宇津井健 追悼=Tatsuya Nakadai tribute Ken Utsui
+421: セコム 宇津井健 追悼=SECOM tribute Ken Utsui
+
+## 相棒の追悼とお別れの会
+425: 相棒 劇場版=AIBOU movie
+427: 宇津井健 お別れの会 ホテルオークラ=Ken Utsui farewell Hotel Okura
+429: 水谷豊=Yutaka Mizutani
+
+## お墓と家族
+432: 春秋苑 川崎=Shunjuen cemetery Kawasaki
+433: いらすとや 遺産相続=irasutoya inheritance
+434: フジテレビ 本社=Fuji TV headquarters
+
+## 座右の銘
+437: 宇津井健 色紙=Ken Utsui autograph shikishi
+
+## 締め：努力の器
+440: 宇津井健 笑顔=Ken Utsui smile
