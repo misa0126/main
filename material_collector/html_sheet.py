@@ -19,6 +19,41 @@ TEMPLATE_PATH = Path(__file__).with_name("html_sheet_template.html")
 START_PATTERN = re.compile(r"^\s*(\d+)\s*[:：]\s*(.*)$")
 
 
+def script_utterances(script_text: str) -> tuple[list[str], list[int]]:
+    """台本をセリフ単位にまとめる。
+
+    戻り値: (セリフの本文のリスト, 空行を除いた行番号 → セリフ番号 の対応表)
+    「」の中で改行しているセリフは1つにまとめ、続きの行は直前のセリフに属するものとして扱う。
+    """
+    utterances: list[str] = []
+    line_to_utterance: list[int] = []
+    open_quote = False
+    for raw in script_text.splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        match = SPEAKER_PATTERN.match(line)
+        starts = re.match(r"^[^「」\s]{1,10}「", line)
+        if match:
+            utterances.append(match.group("line"))
+            open_quote = False
+        elif starts and not open_quote:
+            utterances.append(line[starts.end():])
+            open_quote = "」" not in line
+        elif utterances:
+            utterances[-1] += line.rstrip("」")
+            if line.endswith("」"):
+                open_quote = False
+        else:
+            utterances.append(line)
+        line_to_utterance.append(len(utterances) - 1)
+    return utterances, line_to_utterance
+
+
+def normalize(text: str) -> str:
+    return re.sub(r"[\s「」『』、。,.!?！？…・]", "", text or "")
+
+
 def parse_scene_table(text: str) -> list[dict]:
     """区切り表を読む。「## 見出し」と「開始行: 日本語=English, ...」の並び。"""
     segments: list[dict] = []
@@ -58,6 +93,7 @@ def script_lines(script_text: str) -> list[dict]:
 
 def build_sheet(script_text: str, table_text: str, title: str) -> str:
     lines = script_lines(script_text)
+    utterances, line_to_utterance = script_utterances(script_text)
     segments = parse_scene_table(table_text)
     if not segments or segments[0]["start"] != 1:
         raise ValueError("区切り表の最初の開始行は 1 にしてください。")
@@ -68,6 +104,7 @@ def build_sheet(script_text: str, table_text: str, title: str) -> str:
         end = segments[i + 1]["start"] - 1 if i + 1 < len(segments) else len(lines)
         segment["end"] = end
         segment["lines"] = lines[segment["start"] - 1 : end]
+        segment["u"] = line_to_utterance[segment["start"] - 1]  # 区切りの最初のセリフの番号(YMM4に並べるとき使う)
         if not segment["keywords"]:
             raise ValueError(f"{segment['start']}行目からの区切りに画像がありません。どの区切りにも1枚以上入れてください。")
         images = []
@@ -78,7 +115,8 @@ def build_sheet(script_text: str, table_text: str, title: str) -> str:
             images.append({"no": number, "ja": keyword.ja, "en": en.strip() or keyword.ja, "native": native.strip()})
         segment["images"] = images
 
-    data = {"title": title, "segments": segments}
+    # YMM4のセリフと台本のセリフを、本文で突き合わせるための一覧
+    data = {"title": title, "segments": segments, "utterances": [normalize(u) for u in utterances]}
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     return template.replace("__TITLE__", title).replace("/*__DATA__*/null", payload)

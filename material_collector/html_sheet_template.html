@@ -65,6 +65,19 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
 header nav button.primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: bold; }
 .toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--text); color: var(--bg);
   padding: 8px 16px; border-radius: 8px; font-size: 13px; z-index: 20; }
+dialog { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--text); padding: 20px 24px;
+  width: min(640px, calc(100vw - 32px)); }
+dialog::backdrop { background: rgb(0 0 0 / 0.4); }
+dialog h2 { margin: 0 0 10px; font-size: 18px; }
+dialog ol { padding-left: 20px; margin: 8px 0 14px; }
+dialog li { margin-bottom: 6px; }
+dialog .big { font-size: 15px; padding: 8px 18px; background: var(--accent); color: #fff; border-color: var(--accent); font-weight: bold; }
+dialog .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--bg); color: var(--text); }
+#log { margin-top: 12px; font-size: 13px; white-space: pre-wrap; max-height: 40vh; overflow: auto; }
+#log .ok { color: var(--done); font-weight: bold; }
+#log .ng { color: var(--reimu); font-weight: bold; }
 @media (max-width: 860px) {
   .seg { grid-template-columns: 1fr; }
 }
@@ -75,14 +88,33 @@ header nav button.primary { background: var(--accent); color: #fff; border-color
   <h1>__TITLE__ 画像リスト</h1>
   <span class="stats" id="stats"></span>
   <nav>
-    <button type="button" id="zip" class="primary">貼った画像をまとめて保存(ZIP)</button>
+    <button type="button" id="ymm4" class="primary">YMM4に並べる</button>
+    <button type="button" id="zip">画像をZIPで保存</button>
     <button type="button" id="next">次の未完了へ</button>
     <button type="button" id="reset">チェックを全部外す</button>
   </nav>
 </header>
 <p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が新しいタブで開きます。Googleで見つからないときは、枠だけのボタンで同じ日本語ワードをYahoo!・Bingで探せます。
 画像を右クリック →「画像をコピー」→ このページに戻って <b>Ctrl+V</b>。青い枠で選ばれている番号に画像が入り、次の番号に進みます(番号の枠をクリックすると選び直せます。画像ファイルを枠にドラッグしても入ります)。
-全部貼ったら「貼った画像をまとめて保存(ZIP)」を押すと、「001_〇〇.png」のように番号付きの名前で1つのZIPに保存されます。そのZIPを YMM4 の画像並べツールに使えます。</p>
+貼り終わったら右上の「<b>YMM4に並べる</b>」で、YMM4のプロジェクトに画像を自動で並べられます。</p>
+<dialog id="dlg">
+  <h2>YMM4に画像を並べる</h2>
+  <ol>
+    <li>YMM4で「ツール → 台本読み込み」から台本を読み込み、タイムラインに追加します。</li>
+    <li><b>新しく作ったフォルダの中に</b>プロジェクトを保存します(Ctrl+S)。<br>例: デスクトップに「__TITLE__」というフォルダを作って、その中に保存。</li>
+    <li>下のボタンを押して、<b>そのフォルダ</b>を選びます。「編集を許可しますか？」と出たら「編集を許可」を押します。</li>
+  </ol>
+  <div class="row">
+    <button type="button" class="big" id="pick">フォルダを選んで並べる</button>
+    <button type="button" id="close">閉じる</button>
+  </div>
+  <div class="row" id="pathRow" hidden style="margin-top:12px">
+    <span>そのフォルダの場所:</span>
+    <input type="text" id="pathInput" placeholder="例: C:\Users\名前\Desktop\__TITLE__">
+    <button type="button" id="pathOk">OK</button>
+  </div>
+  <div id="log"></div>
+</dialog>
 <div class="toast" id="toast" hidden></div>
 <main id="main"></main>
 <script>
@@ -283,6 +315,160 @@ document.getElementById("zip").addEventListener("click", async () => {
   const missing = ALL.length - items.length;
   toast(`${items.length}枚をZIPに保存しました` + (missing ? `(まだ貼っていない番号が${missing}個あります)` : ""));
 });
+
+
+// ---- YMM4のプロジェクトに画像を並べる ----
+const VOICE_TYPE = "YukkuriMovieMaker.Project.Items.VoiceItem";
+const IMAGE_TYPE = "YukkuriMovieMaker.Project.Items.ImageItem, YukkuriMovieMaker";
+const REMARK = "画像自動配置";
+const normalize = t => (t || "").replace(/[\s「」『』、。,.!?！？…・]/g, "");
+const dlg = document.getElementById("dlg");
+const logBox = document.getElementById("log");
+function log(text, cls) { logBox.append(el("div", cls ? { class: cls } : {}, text)); logBox.scrollTop = logBox.scrollHeight; }
+
+function getTimeline(project) {
+  if (Array.isArray(project.Timelines) && project.Timelines.length) {
+    const i = Number.isInteger(project.SelectedTimelineIndex) && project.Timelines[project.SelectedTimelineIndex] ? project.SelectedTimelineIndex : 0;
+    return project.Timelines[i];
+  }
+  if (project.Timeline) return project.Timeline;
+  throw new Error("YMM4のプロジェクトとして読めませんでした。");
+}
+// 台本のセリフごとに、対応するYMM4のセリフの番号(なければ null)
+function align(script, voice) {
+  if (script.length === voice.length) return script.map((_, i) => i);
+  const n = script.length, m = voice.length;
+  const dp = Array.from({ length: n + 1 }, () => new Int32Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
+    dp[i][j] = script[i] === voice[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  const map = new Array(n).fill(null);
+  let i = 0, j = 0;
+  while (i < n && j < m) {
+    if (script[i] === voice[j]) { map[i++] = j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) i++; else j++;
+  }
+  return map;
+}
+function animated(value, shape) {
+  if (!shape) return { From: value, To: 0, AnimationType: "なし", Span: 0 };
+  const v = JSON.parse(JSON.stringify(shape));
+  v.Values = [{ Value: value }]; v.AnimationType = "なし";
+  return v;
+}
+function askPath(suggest) {
+  return new Promise(resolve => {
+    const row = document.getElementById("pathRow"), input = document.getElementById("pathInput");
+    try { input.value = localStorage.getItem("ymm4-folder:" + DATA.title) || suggest || ""; } catch (e) {}
+    row.hidden = false; input.focus();
+    document.getElementById("pathOk").onclick = () => {
+      const v = input.value.trim().replace(/^"|"$/g, "").replace(/[\\/]+$/, "");
+      if (!v) return;
+      try { localStorage.setItem("ymm4-folder:" + DATA.title, v); } catch (e) {}
+      row.hidden = true; resolve(v);
+    };
+  });
+}
+async function writeFile(dir, name, data) {
+  const handle = await dir.getFileHandle(name, { create: true });
+  const w = await handle.createWritable(); await w.write(data); await w.close();
+}
+
+async function placeIntoYmm4() {
+  logBox.replaceChildren();
+  if (!window.showDirectoryPicker) { log("このブラウザでは使えません。Chrome か Edge で開いてください。", "ng"); return; }
+  let dir;
+  try { dir = await showDirectoryPicker({ id: "ymm4", mode: "readwrite" }); }
+  catch (e) {
+    if (e.name !== "AbortError") log("そのフォルダは選べませんでした。デスクトップなどの中に新しくフォルダを作り、そこにプロジェクトを保存して選んでください。", "ng");
+    return;
+  }
+  // フォルダの中で一番新しく保存した .ymmp を使う
+  const found = [];
+  for await (const [name, handle] of dir.entries()) {
+    if (handle.kind === "file" && /\.ymmp$/i.test(name) && !name.includes("_画像入り")) found.push(await handle.getFile());
+  }
+  if (!found.length) { log("このフォルダにYMM4のプロジェクト(.ymmp)がありません。YMM4で保存したフォルダを選んでください。", "ng"); return; }
+  found.sort((a, b) => b.lastModified - a.lastModified);
+  const file = found[0];
+  log(`プロジェクト「${file.name}」を読み込みます。`);
+  const project = JSON.parse((await file.text()).replace(/^\uFEFF/, ""));
+  const timeline = getTimeline(project);
+  const items = timeline.Items || (timeline.Items = []);
+  const voices = items.filter(i => (i.$type || "").startsWith(VOICE_TYPE)).sort((a, b) => (a.Frame - b.Frame) || (a.Layer - b.Layer));
+  if (!voices.length) { log("このプロジェクトにはセリフがありません。先にYMM4で台本を読み込んで、タイムラインに追加してから保存してください。", "ng"); return; }
+
+  // 画像を置く場所(パソコン上のフォルダの場所)
+  let folderPath = null;
+  const own = (project.FilePath || "").replace(/\//g, "\\");
+  if (own && own.slice(own.lastIndexOf("\\") + 1) === file.name) folderPath = own.slice(0, own.lastIndexOf("\\"));
+  if (!folderPath) {
+    log("フォルダの場所が分からないので教えてください。エクスプローラーでそのフォルダを開き、上のアドレス欄をクリック → Ctrl+C → 下の欄に Ctrl+V → OK。");
+    folderPath = await askPath();
+  }
+
+  // 台本のセリフとYMM4のセリフを突き合わせる
+  const U = DATA.utterances.length;
+  const map = align(DATA.utterances, voices.map(v => normalize(v.Serif)));
+  const matched = map.filter(x => x != null).length;
+  if (U !== voices.length) log(`台本のセリフ${U}個に対してYMM4のセリフが${voices.length}個でした。本文が同じ${matched}個で位置を合わせます。`);
+  if (matched < Math.min(U, voices.length) * 0.5) { log("台本とYMM4のセリフがほとんど一致しません。別の台本のプロジェクトを選んでいませんか？", "ng"); return; }
+  const endOfVoices = Math.max(...voices.map(v => (v.Frame || 0) + (v.Length || 0)));
+  const frameOf = u => { for (let k = u; k < U; k++) if (map[k] != null) return voices[map[k]].Frame || 0; return endOfVoices; };
+
+  // 番号ごとの表示時間
+  const plan = [];
+  DATA.segments.forEach((seg, i) => {
+    const first = seg.u, after = i + 1 < DATA.segments.length ? DATA.segments[i + 1].u : U;
+    const span = Math.max(after - first, 1), count = seg.images.length;
+    seg.images.forEach((img, k) => {
+      const su = first + Math.floor(span * k / count), eu = first + Math.floor(span * (k + 1) / count);
+      const start = frameOf(su), end = eu < U ? frameOf(eu) : endOfVoices;
+      if (end > start) plan.push({ img, start, length: end - start });
+    });
+  });
+
+  // 画像をフォルダに書き出す
+  const subName = "画像_" + safeName(DATA.title);
+  const sub = await dir.getDirectoryHandle(subName, { create: true });
+  const video = timeline.VideoInfo || {};
+  const W = video.Width || 1920, H = video.Height || 1080;
+  const shape = (voices.find(v => v.X && v.X.Values) || {}).X || ((project.Timelines || voices.some(v => v.X && v.X.Values)) ? { Span: 0, AnimationType: "なし" } : null);
+  const labels = timeline.LayerSettings && Array.isArray(timeline.LayerSettings.Items) ? timeline.LayerSettings.Items : [];
+  const kept = items.filter(i => !(i.$type === IMAGE_TYPE && i.Remark === REMARK));
+  const layer = Math.max(timeline.MaxLayer || 0, ...kept.map(i => i.Layer || 0), ...labels.filter(l => l.Label !== "画像").map(l => l.Layer || 0)) + 1;
+  const added = [], missing = [];
+  for (const p of plan) {
+    const blob = pasted.get(p.img.no);
+    if (!blob) { missing.push(p.img); continue; }
+    const name = `${String(p.img.no).padStart(3, "0")}_${safeName(p.img.ja)}.${EXT[blob.type] || "png"}`;
+    await writeFile(sub, name, blob);
+    let zoom = 100;
+    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * 0.62 / bmp.width, H * 0.72 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
+    const item = {
+      $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
+      X: animated(0, shape), Y: animated(-60, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
+      FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: [], Group: 0,
+      Frame: p.start, Layer: layer, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
+    };
+    if (shape) Object.assign(item, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: REMARK });
+    added.push(item);
+  }
+  if (!added.length) { log("まだ画像が1枚も貼られていません。画像を貼ってからもう一度押してください。", "ng"); return; }
+  timeline.Items = kept.concat(added);
+  timeline.MaxLayer = Math.max(timeline.MaxLayer || 0, layer);
+  if (Number.isInteger(timeline.Length)) timeline.Length = Math.max(timeline.Length, ...timeline.Items.map(i => (i.Frame || 0) + (i.Length || 0)));
+  if (labels.length && !labels.some(l => l.Layer === layer)) labels.push(Object.assign(JSON.parse(JSON.stringify(labels[0])), { Layer: layer, Label: "画像", IsHidden: false }));
+
+  const outName = file.name.replace(/\.ymmp$/i, "") + "_画像入り.ymmp";
+  if (project.FilePath) project.FilePath = `${folderPath}\\${outName}`;
+  await writeFile(dir, outName, "\uFEFF" + JSON.stringify(project, null, 2));
+  log(`できました！ 画像${added.length}枚を並べました。`, "ok");
+  log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}、画像ファイルは「${subName}」フォルダに入っています)`);
+  if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
+}
+document.getElementById("ymm4").addEventListener("click", () => { logBox.replaceChildren(); document.getElementById("pathRow").hidden = true; dlg.showModal(); });
+document.getElementById("close").addEventListener("click", () => dlg.close());
+document.getElementById("pick").addEventListener("click", () => placeIntoYmm4().catch(e => log("うまくいきませんでした: " + e.message, "ng")));
 
 (async () => {
   db = await openDb();

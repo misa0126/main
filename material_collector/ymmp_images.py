@@ -23,8 +23,7 @@ import zipfile
 from dataclasses import dataclass
 from pathlib import Path
 
-from .html_sheet import parse_scene_table
-from .viewer import SPEAKER_PATTERN
+from .html_sheet import normalize, parse_scene_table, script_utterances
 
 VOICE_TYPE = "YukkuriMovieMaker.Project.Items.VoiceItem, YukkuriMovieMaker"
 IMAGE_TYPE = "YukkuriMovieMaker.Project.Items.ImageItem, YukkuriMovieMaker"
@@ -40,44 +39,6 @@ class Placement:
     frame: int
     length: int
     path: Path | None
-
-
-# ---------- 台本 ----------
-
-
-def script_utterances(script_text: str) -> tuple[list[str], list[int]]:
-    """台本をセリフ単位にまとめる。
-
-    戻り値: (セリフの本文のリスト, 空行を除いた行番号 → セリフ番号 の対応表)
-    「」の中で改行しているセリフは1つにまとめ、続きの行は直前のセリフに属するものとして扱う。
-    """
-    utterances: list[str] = []
-    line_to_utterance: list[int] = []
-    open_quote = False
-    for raw in script_text.splitlines():
-        line = raw.strip()
-        if not line:
-            continue
-        match = SPEAKER_PATTERN.match(line)
-        starts = re.match(r"^[^「」\s]{1,10}「", line)
-        if match:
-            utterances.append(match.group("line"))
-            open_quote = False
-        elif starts and not open_quote:
-            utterances.append(line[starts.end():])
-            open_quote = "」" not in line
-        elif utterances:
-            utterances[-1] += line.rstrip("」")
-            if line.endswith("」"):
-                open_quote = False
-        else:
-            utterances.append(line)
-        line_to_utterance.append(len(utterances) - 1)
-    return utterances, line_to_utterance
-
-
-def normalize(text: str) -> str:
-    return re.sub(r"[\s「」『』、。,.!?！？…・]", "", text or "")
 
 
 # ---------- プロジェクト ----------
@@ -227,13 +188,22 @@ def plan_placements(
     return placements, notes
 
 
-def animated(value: float, new_format: bool) -> dict:
+def _animated(value: float, new_format: bool, shape: dict | None = None) -> dict:
+    """アニメーションできる値。プロジェクトにある値の形(新しいYMM4はBezierなども持つ)をまねて作る。"""
     if new_format:
-        return {"Values": [{"Value": float(value)}], "Span": 0.0, "AnimationType": "なし"}
+        result = copy.deepcopy(shape) if shape and "Values" in shape else {"Span": 0.0, "AnimationType": "なし"}
+        result["Values"] = [{"Value": float(value)}]
+        result["AnimationType"] = "なし"
+        return result
     return {"From": float(value), "To": 0.0, "AnimationType": "なし", "Span": 0.0}
 
 
-def build_image_item(path: Path, frame: int, length: int, layer: int, x: float, y: float, zoom: float, new_format: bool) -> dict:
+def build_image_item(
+    path: Path | str, frame: int, length: int, layer: int, x: float, y: float, zoom: float, new_format: bool, shape: dict | None = None
+) -> dict:
+    def animated(value: float, new_format: bool) -> dict:
+        return _animated(value, new_format, shape)
+
     item = {
         "$type": IMAGE_TYPE,
         "FilePath": str(path),
@@ -288,9 +258,18 @@ def add_images(
     items = timeline.setdefault("Items", [])
     # 前に自動で置いた画像があれば入れ替える(何度でもやり直せるように)
     items[:] = [item for item in items if not (item.get("$type") == IMAGE_TYPE and item.get("Remark") == REMARK)]
-    max_layer = max([int(item.get("Layer", 0)) for item in items] + [int(timeline.get("MaxLayer", 0))])
+    layer_settings = timeline.get("LayerSettings") if isinstance(timeline.get("LayerSettings"), dict) else {}
+    labels = [s for s in layer_settings.get("Items", []) if isinstance(s, dict)]
+    labeled = [int(s.get("Layer", 0)) for s in labels if s.get("Label") != "画像"]
+    max_layer = max([int(item.get("Layer", 0)) for item in items] + [int(timeline.get("MaxLayer", 0))] + labeled)
     target_layer = max_layer + 1 if layer is None else layer
     new_format = any("Values" in (v.get("X") or {}) for v in voices) or "Timelines" in project
+    shape = next((v.get("X") for v in voices if isinstance(v.get("X"), dict) and "Values" in v["X"]), None)
+    if labels and not any(int(s.get("Layer", -1)) == target_layer for s in labels):
+        label = copy.deepcopy(labels[0])
+        label.update({"Layer": target_layer, "Label": "画像", "IsHidden": False})
+        labels.append(label)
+        layer_settings["Items"] = labels
 
     video = timeline.get("VideoInfo") or {}
     width, height = float(video.get("Width", 1920)), float(video.get("Height", 1080))
@@ -302,7 +281,7 @@ def add_images(
         if size and size[0] > 0 and size[1] > 0:
             zoom = round(min(width * fit_width / size[0], height * fit_height / size[1]) * 100, 1)
         items.append(
-            build_image_item(placement.path.resolve(), placement.frame, placement.length, target_layer, x, y, zoom, new_format)
+            build_image_item(placement.path.resolve(), placement.frame, placement.length, target_layer, x, y, zoom, new_format, shape)
         )
 
     timeline["MaxLayer"] = max(int(timeline.get("MaxLayer", 0)), target_layer)
