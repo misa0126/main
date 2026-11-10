@@ -1,0 +1,230 @@
+# 宇津井健の解説台本(utsui_ken.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・「#」で始まる行はメモとして無視される
+# 画像の選び方(優先順):
+#   1. 本人が写っている、その時代の写真
+#   2. 話に出てくる、その物・場所・出来事そのものの写真
+#   3. 直接の写真がない場面は、その時期の本人の写真
+#   4. それもなければ、いらすとや(1本20枚まで)
+
+## 導入：白タイツのヒーロー
+1: いらすとや 変身ベルト=irasutoya henshin belt
+3: スーパージャイアンツ 宇津井健=Super Giants Ken Utsui
+6: 赤い疑惑 宇津井健 山口百恵=Akai Giwaku Ken Utsui Momoe Yamaguchi
+
+## 導入：馬と呼吸器
+10: 思春の泉 宇津井健 馬=Shishun no Izumi Ken Utsui horse
+17: 渡る世間は鬼ばかり 宇津井健=Wataru Seken wa Oni Bakari Ken Utsui
+21: 宇津井健=Ken Utsui
+
+## 深川に生まれる
+22: 深川 昭和初期=Fukagawa Tokyo early Showa
+23: 勝新太郎 若い頃=young Shintaro Katsu
+
+## 4歳で父を亡くす
+26: 宇津井健 子供の頃=Ken Utsui childhood
+33: 千葉高校 旧制千葉中学=Chiba High School old Chiba Middle School
+
+## 『人生劇場』と早稲田
+34: 人生劇場 尾崎士郎 本=Jinsei Gekijo Shiro Ozaki book
+37: 早稲田大学 昭和20年代=Waseda University 1950s
+
+## 馬術部に一目ぼれ
+38: 早稲田大学 馬術部=Waseda University equestrian club
+42: 学習院 馬場=Gakushuin equestrian ground Mejiro
+46: いらすとや 馬 洗う=irasutoya washing horse
+
+## 馬術漬けの日々
+49: 宇津井健 乗馬=Ken Utsui horse riding
+52: 俳優座養成所=Haiyuza actor training school
+
+## 俳優座の同期
+56: 仲代達矢 若い頃=young Tatsuya Nakadai
+58: 佐藤慶 佐藤允 中谷一郎=Kei Sato Makoto Sato Ichiro Nakatani
+
+## 『思春の泉』で主演デビュー
+62: 思春の泉 1953 映画=Shishun no Izumi 1953 film
+66: 宇津井健 若い頃=young Ken Utsui
+68: 仲代達矢 1950年代=Tatsuya Nakadai 1950s
+
+## 新東宝へ、早稲田中退
+70: 新東宝 ロゴ=Shintoho film studio logo
+75: 森繁久彌 若い頃=young Hisaya Morishige
+
+## 新東宝の刺激的な題名
+79: 新東宝 映画ポスター=Shintoho movie poster
+81: 女体棧橋 ポスター=Nyotai Sanbashi poster
+84: 人喰海女 宇津井健=Hitokui Ama Ken Utsui
+
+## 正義の人という役柄
+87: 宇津井健 新東宝=Ken Utsui Shintoho
+91: 宇津井健 1950年代=Ken Utsui 1950s
+
+## スーパージャイアンツ誕生
+96: スーパージャイアンツ ポスター=Super Giants poster 1957
+100: スーパーマン 1950年代 ジョージ・リーヴス=Superman George Reeves 1950s
+104: スーパージャイアンツ 宇津井健=Super Giants Ken Utsui
+
+## 衣装の話
+107: 月光仮面 1958=Gekko Kamen 1958
+109: スーパージャイアンツ 衣装=Super Giants costume
+112: 関根勤 小堺一機 コサキン=Tsutomu Sekine Kazuki Kosakai
+
+## 照れずに演じ切る
+116: 宇津井健 スーパージャイアンツ 撮影=Super Giants filming Ken Utsui
+
+## ドラマ『人生劇場』
+122: 人生劇場 1960 ドラマ 宇津井健=Jinsei Gekijo 1960 drama Ken Utsui
+125: 昭和 テレビ 生放送 スタジオ=Showa TV live studio
+128: 尾崎士郎=Shiro Ozaki
+
+## 新東宝倒産と大映入社
+131: 新東宝 倒産=Shintoho bankruptcy 1961
+135: 大映 ロゴ=Daiei Film logo
+140: 宇津井健 大映=Ken Utsui Daiei
+141: 検事 ドラマ 宇津井健=Kenji TV drama Ken Utsui
+
+## 結婚と尾崎士郎
+144: 宇津井健 友里恵 結婚=Ken Utsui wife Yurie wedding
+148: 尾崎士郎 晩年=Shiro Ozaki later years
+
+## 『巨人 大隈重信』
+153: 巨人 大隈重信 映画=Kyojin Okuma Shigenobu 1963 film
+154: 大隈重信=Shigenobu Okuma
+157: 早稲田大学 総長室=Waseda University president office
+
+## 大隈講堂の試写会
+162: 大隈講堂=Okuma Auditorium Waseda
+164: 巨人 大隈重信 宇津井健=Kyojin Okuma Shigenobu Ken Utsui
+168: 宇津井健 1960年代=Ken Utsui 1960s
+
+## ザ・ガードマン
+172: ザ・ガードマン 宇津井健=The Guardman Ken Utsui
+177: ザ・ガードマン 出演者=The Guardman cast TBS
+
+## 増村保造と大ヒット
+184: 増村保造=Yasuzo Masumura
+189: ザ・ガードマン 高倉キャップ=The Guardman Captain Takakura
+192: セコム 創業 日本警備保障=SECOM founding Nihon Keibi Hosho
+
+## 倉石功の縁結び
+195: 倉石功=Isao Kuraishi
+201: いらすとや 結婚式=irasutoya wedding
+
+## 大映倒産と大映テレビ
+204: 大映 倒産 1971=Daiei bankruptcy 1971
+209: 大映テレビ=Daiei TV
+213: 宇津井健 1970年代=Ken Utsui 1970s
+
+## 三浦友和の名付け親
+216: シークレット部隊 宇津井健=Secret Butai Ken Utsui
+218: 三浦友和 若い頃=young Tomokazu Miura
+222: 野添和子=Kazuko Nozoe
+
+## 山口百恵と『顔で笑って』
+226: 顔で笑って 宇津井健 山口百恵=Kao de Waratte Ken Utsui Momoe Yamaguchi
+228: パパは恋人 レコード=Papa wa Koibito record
+232: 橋田壽賀子 若い頃=young Sugako Hashida
+
+## 『赤い』シリーズ
+235: 赤いシリーズ 山口百恵=Akai series Momoe Yamaguchi
+238: 赤い疑惑 山口百恵=Akai Giwaku Momoe Yamaguchi
+243: 赤い疑惑 宇津井健=Akai Giwaku Ken Utsui
+247: 増村保造 監督=director Yasuzo Masumura
+
+## 宇津井なしでは成り立たない
+249: 赤い運命 宇津井健=Akai Unmei Ken Utsui
+
+## ウツイズム
+254: 竹内義和=Yoshikazu Takeuchi
+258: 赤い衝撃 宇津井健=Akai Shogeki Ken Utsui
+
+## 『新幹線大爆破』
+263: 新幹線大爆破 1975 ポスター=The Bullet Train 1975 poster
+266: 0系新幹線=Shinkansen 0 series
+268: 高倉健 新幹線大爆破=Ken Takakura The Bullet Train
+270: 新幹線大爆破 宇津井健 指令室=The Bullet Train Ken Utsui control room
+275: スピード 映画 1994=Speed 1994 film
+277: 新幹線大爆破 2025 Netflix=Bullet Train Explosion 2025 Netflix
+
+## たばこ・米をやめる
+280: 宇津井健 たばこ=Ken Utsui cigarette
+285: いらすとや 大根おろし=irasutoya grated daikon
+
+## 馬とともに
+288: さすらい刑事旅情編 宇津井健=Sasurai Keiji Ryojohen Ken Utsui
+289: 武田信玄 大河ドラマ 1988=Takeda Shingen Taiga drama 1988
+294: 宇津井健 愛馬=Ken Utsui horse
+
+## 酒をやめる
+299: いらすとや 同窓会 酔っ払い=irasutoya drunk reunion
+
+## 勝新太郎の死
+303: 勝新太郎 晩年=Shintaro Katsu later years
+
+## 馬を手放す
+308: 宇津井健 妻 友里恵=Ken Utsui wife Yurie
+313: ごくせん 宇津井健=Gokusen Ken Utsui
+
+## 通販とヒップホップ
+317: いらすとや 通販 健康器具=irasutoya home fitness equipment
+322: いらすとや ジーンズ=irasutoya jeans
+324: 小柳ゆき=Yuki Koyanagi
+327: 宇津井健 2000年代=Ken Utsui 2000s
+
+## クリスチャンに
+331: 宇津井健 クリスチャン 教会=Ken Utsui Christian church
+
+## 妻の死と渡鬼
+336: 宇津井健 友里恵 晩年=Ken Utsui Yurie later years
+340: 渡る世間は鬼ばかり 岡倉大吉=Wataru Seken wa Oni Bakari Okakura Daikichi
+343: 藤岡琢也 渡る世間は鬼ばかり=Takuya Fujioka Wataru Seken wa Oni Bakari
+349: 石井ふく子=Fukuko Ishii
+
+## 妻の死の日も撮影
+353: 渡る世間は鬼ばかり 宇津井健 撮影=Wataru Seken wa Oni Bakari Ken Utsui filming
+
+## 再婚と晩年の意欲
+360: 橋田賞 宇津井健=Hashida Award Ken Utsui
+361: ハワイ 教会 結婚式=Hawaii church wedding
+365: 宇津井健 晩年=Ken Utsui later years
+
+## 天地人と徹子の部屋
+371: 天地人 前田利家 宇津井健=Tenchijin Maeda Toshiie Ken Utsui
+372: 徹子の部屋 宇津井健 仲代達矢=Tetsuko no Heya Ken Utsui Tatsuya Nakadai
+
+## 『相棒』出演
+375: 相棒 宇津井健=Aibou Ken Utsui
+379: 相棒 劇場版 宇津井健=Aibou movie Ken Utsui
+
+## 80歳、アンダルシアで馬に乗る
+382: 旅のチカラ 宇津井健 アンダルシア=Tabi no Chikara Ken Utsui Andalusia
+385: アンダルシア馬=Andalusian horse
+
+## 肺気腫と最後の渡鬼
+390: 宇津井健 2013=Ken Utsui 2013
+397: 渡る世間は鬼ばかり 2013 スペシャル=Wataru Seken wa Oni Bakari 2013 special
+402: 劇場版 タイムスクープハンター=Time Scoop Hunter movie
+
+## 死去
+405: 宇津井健 死去=Ken Utsui death 2014
+410: 宇津井健 文恵=Ken Utsui Fumie
+
+## 追悼
+418: 仲代達矢 宇津井健 追悼=Tatsuya Nakadai Ken Utsui tribute
+421: セコム 追悼 宇津井健 ツイート=SECOM tweet Ken Utsui tribute
+425: 宇津井健 お別れの会=Ken Utsui farewell ceremony
+429: 水谷豊 弔辞 宇津井健=Yutaka Mizutani eulogy Ken Utsui
+
+## お墓と家族
+432: 春秋苑 川崎=Shunjuen cemetery Kawasaki
+434: 宇津井健 息子=Ken Utsui son
+
+## 締め：努力の器
+437: 宇津井健 色紙=Ken Utsui autograph shikishi
+440: 宇津井健 笑顔=Ken Utsui smile
+444: いらすとや 鉄アレイ=irasutoya dumbbell
