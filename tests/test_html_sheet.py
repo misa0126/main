@@ -29,6 +29,14 @@ class SceneTableTest(unittest.TestCase):
         self.assertEqual(second["images"], [{"no": 2, "ja": "長崎", "en": "Nagasaki", "native": ""}])
         self.assertIn("<title>テスト 画像リスト</title>", html)
 
+    def test_data_for_ymm4_placement(self):
+        script = "魔理沙「一」\n霊夢「二の前半、\n二の後半」\n魔理沙「三」"
+        html = build_sheet(script, "## a\n1: x\n3: y\n", "テスト")
+        data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
+        self.assertEqual(data["utterances"], ["一", "二の前半二の後半", "三"])
+        self.assertEqual([s["u"] for s in data["segments"]], [0, 1])
+        self.assertIn('id="ymm4"', html)
+
     def test_native_language_and_numbering_across_segments(self):
         html = build_sheet(SCRIPT, "## a\n1: ピアフ=Edith Piaf=Édith Piaf, パリ=Paris\n3: 長崎\n", "テスト")
         data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))

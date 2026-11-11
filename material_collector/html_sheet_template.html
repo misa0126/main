@@ -56,6 +56,28 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
 .buttons a.alt { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 3px 11px; }
 .buttons a:hover { filter: brightness(1.12); }
 .check { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.paste { grid-column: 1 / 4; display: flex; align-items: center; gap: 10px; min-height: 44px; border: 2px dashed var(--line);
+  border-radius: 8px; padding: 6px 10px; color: var(--muted); font-size: 12px; cursor: pointer; background: transparent; text-align: left; width: 100%; }
+.paste img { max-height: 90px; max-width: 160px; border-radius: 4px; display: block; }
+.item.selected { outline: 3px solid var(--accent); outline-offset: 1px; }
+.item.selected .paste { border-color: var(--accent); color: var(--text); }
+.paste .clear { margin-left: auto; }
+header nav button.primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: bold; }
+.toast { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); background: var(--text); color: var(--bg);
+  padding: 8px 16px; border-radius: 8px; font-size: 13px; z-index: 20; }
+dialog { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--text); padding: 20px 24px;
+  width: min(640px, calc(100vw - 32px)); }
+dialog::backdrop { background: rgb(0 0 0 / 0.4); }
+dialog h2 { margin: 0 0 10px; font-size: 18px; }
+dialog ol { padding-left: 20px; margin: 8px 0 14px; }
+dialog li { margin-bottom: 6px; }
+dialog .big { font-size: 15px; padding: 8px 18px; background: var(--accent); color: #fff; border-color: var(--accent); font-weight: bold; }
+dialog .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--bg); color: var(--text); }
+#log { margin-top: 12px; font-size: 13px; white-space: pre-wrap; max-height: 40vh; overflow: auto; }
+#log .ok { color: var(--done); font-weight: bold; }
+#log .ng { color: var(--reimu); font-weight: bold; }
 @media (max-width: 860px) {
   .seg { grid-template-columns: 1fr; }
 }
@@ -66,16 +88,51 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
   <h1>__TITLE__ 画像リスト</h1>
   <span class="stats" id="stats"></span>
   <nav>
+    <button type="button" id="ymm4" class="primary">YMM4に並べる</button>
+    <button type="button" id="zip">画像をZIPで保存</button>
+    <label class="check" title="オフにすると、検索はいつものように新しいタブで開きます"><input type="checkbox" id="sideWin"> 検索を右側の窓で開く</label>
     <button type="button" id="next">次の未完了へ</button>
     <button type="button" id="reset">チェックを全部外す</button>
   </nav>
 </header>
-<p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が新しいタブで開きます。Googleで見つからないときは、枠だけのボタンで同じ日本語ワードをYahoo!・Bingで探せます。
-画像を右クリック →「画像をコピー」→ YMM4に貼り付け。貼り終わった番号は「済」にチェックを入れると、次にどこから始めればいいか分かります(チェックはこのブラウザに保存されます)。</p>
+<p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が<b>画面の右半分の窓</b>で開きます(この画像リストは <b>Windowsキー + ←</b> で左半分に寄せると見やすくなります)。Googleで見つからないときは、枠だけのボタンで同じ日本語ワードをYahoo!・Bingで探せます。
+画像を右クリック →「画像をコピー」→ このページに戻って <b>Ctrl+V</b>。青い枠で選ばれている番号に画像が入り、次の番号に進みます(番号の枠をクリックすると選び直せます。画像ファイルを枠にドラッグしても入ります)。
+貼り終わったら右上の「<b>YMM4に並べる</b>」で、YMM4のプロジェクトに画像を自動で並べられます。</p>
+<dialog id="dlg">
+  <h2>YMM4に画像を並べる</h2>
+  <ol>
+    <li>YMM4で「ツール → 台本読み込み」から台本を読み込み、タイムラインに追加します。</li>
+    <li><b>新しく作ったフォルダの中に</b>プロジェクトを保存します(Ctrl+S)。<br>例: デスクトップに「__TITLE__」というフォルダを作って、その中に保存。</li>
+    <li>下のボタンを押して、<b>そのフォルダ</b>を選びます。「編集を許可しますか？」と出たら「編集を許可」を押します。</li>
+  </ol>
+  <details id="layout" style="margin:0 0 12px">
+    <summary>画像の位置と大きさ(横 <span id="sumX"></span>・縦 <span id="sumY"></span>)</summary>
+    <div class="row" style="margin-top:8px">
+      <label>X <input type="number" id="posX" step="1" style="width:80px"></label>
+      <label>Y <input type="number" id="posY" step="1" style="width:80px"></label>
+      <label>最大の横幅 <input type="number" id="fitW" step="1" min="5" max="100" style="width:64px">%</label>
+      <label>最大の高さ <input type="number" id="fitH" step="1" min="5" max="100" style="width:64px">%</label>
+      <button type="button" id="layoutReset">元に戻す</button>
+    </div>
+    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。変えた数字はこのブラウザに覚えておきます。</p>
+  </details>
+  <div class="row">
+    <button type="button" class="big" id="pick">フォルダを選んで並べる</button>
+    <button type="button" id="close">閉じる</button>
+  </div>
+  <div class="row" id="pathRow" hidden style="margin-top:12px">
+    <span>そのフォルダの場所:</span>
+    <input type="text" id="pathInput" placeholder="例: C:\Users\名前\Desktop\__TITLE__">
+    <button type="button" id="pathOk">OK</button>
+  </div>
+  <div id="log"></div>
+</dialog>
+<div class="toast" id="toast" hidden></div>
 <main id="main"></main>
 <script>
 const DATA = /*__DATA__*/null;
-const STORAGE_KEY = "image-list:" + DATA.title;
+const PAGE_KEY = DATA.id ? DATA.title + ":" + DATA.id : DATA.title;
+const STORAGE_KEY = "image-list:" + PAGE_KEY;
 
 let done = {};
 try { done = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { done = {}; }
@@ -121,7 +178,15 @@ for (const seg of DATA.segments) {
         img.en !== img.ja ? el("a", { class: "en", href: google(img.en), target: "_blank", rel: "noopener" }, "Google画像検索(英語)") : null,
         img.native ? el("a", { class: "en", href: google(img.native), target: "_blank", rel: "noopener" }, "Google画像検索(母語)") : null,
         el("a", { class: "alt", href: yahoo(img.ja), target: "_blank", rel: "noopener" }, "Yahoo!"),
-        el("a", { class: "alt", href: bing(img.ja), target: "_blank", rel: "noopener" }, "Bing")));
+        el("a", { class: "alt", href: bing(img.ja), target: "_blank", rel: "noopener" }, "Bing")),
+      el("button", { type: "button", class: "paste", id: "paste" + img.no }, "ここを選んで Ctrl+V で画像を貼る"));
+    item.addEventListener("click", e => { if (!e.target.closest(".clear")) select(img.no); });
+    item.addEventListener("dragover", e => e.preventDefault());
+    item.addEventListener("drop", e => {
+      e.preventDefault();
+      select(img.no);
+      dropImage(img.no, e.dataTransfer);
+    });
     box.addEventListener("change", () => {
       if (box.checked) done[img.no] = true; else delete done[img.no];
       item.classList.toggle("done", box.checked);
@@ -131,6 +196,396 @@ for (const seg of DATA.segments) {
   }
   main.append(el("section", { class: "seg" }, script, images));
 }
+
+// ---- 貼り付けた画像(このブラウザのIndexedDBに保存) ----
+const ALL = DATA.segments.flatMap(s => s.images);
+const pasted = new Map();   // 番号 → Blob
+let selected = null;
+let db = null;
+const DB_KEY = (no) => PAGE_KEY + ":" + no;
+function openDb() {
+  return new Promise(resolve => {
+    try {
+      const req = indexedDB.open("image-list-pastes", 1);
+      req.onupgradeneeded = () => req.result.createObjectStore("images");
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => resolve(null);
+    } catch (e) { resolve(null); }
+  });
+}
+function dbPut(no, blob) {
+  if (!db) return;
+  try { const tx = db.transaction("images", "readwrite"); const st = tx.objectStore("images"); blob ? st.put(blob, DB_KEY(no)) : st.delete(DB_KEY(no)); } catch (e) {}
+}
+function dbGet(no) {
+  return new Promise(resolve => {
+    if (!db) return resolve(null);
+    try { const r = db.transaction("images").objectStore("images").get(DB_KEY(no)); r.onsuccess = () => resolve(r.result || null); r.onerror = () => resolve(null); }
+    catch (e) { resolve(null); }
+  });
+}
+let toastTimer = null;
+function toast(text) {
+  const t = document.getElementById("toast");
+  t.textContent = text; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2500);
+}
+function select(no, scroll = false) {
+  if (selected != null) document.getElementById("img" + selected)?.classList.remove("selected");
+  selected = no;
+  const item = document.getElementById("img" + no);
+  if (!item) return;
+  item.classList.add("selected");
+  if (scroll) item.scrollIntoView({ block: "center", behavior: "smooth" });
+}
+function renderPaste(no) {
+  const zone = document.getElementById("paste" + no);
+  zone.replaceChildren();
+  const blob = pasted.get(no);
+  if (!blob) { zone.append("ここを選んで Ctrl+V で画像を貼る"); return; }
+  const url = URL.createObjectURL(blob);
+  const image = el("img", { src: url, alt: no + "番の画像" });
+  image.onload = () => URL.revokeObjectURL(url);
+  const clear = el("button", { type: "button", class: "clear" }, "外す");
+  clear.addEventListener("click", e => { e.stopPropagation(); setImage(no, null); });
+  zone.append(image, "貼り付け済み(もう一度 Ctrl+V で差し替え)", clear);
+}
+function markDone(no, value) {
+  const item = document.getElementById("img" + no);
+  if (value) done[no] = true; else delete done[no];
+  item.classList.toggle("done", value);
+  item.querySelector("input").checked = value;
+  save();
+}
+function setImage(no, blob) {
+  if (blob) pasted.set(no, blob); else pasted.delete(no);
+  dbPut(no, blob);
+  renderPaste(no);
+  markDone(no, !!blob);
+  if (blob) {
+    toast(no + "番に貼りました");
+    const next = ALL.find(i => i.no > no && !pasted.has(i.no)) || ALL.find(i => !pasted.has(i.no));
+    if (next) select(next.no, true);
+  }
+}
+document.addEventListener("paste", e => {
+  const file = [...(e.clipboardData?.items || [])].filter(i => i.type.startsWith("image/")).map(i => i.getAsFile())[0];
+  if (!file) { toast("画像がコピーされていません。画像を右クリック →「画像をコピー」してください。"); return; }
+  if (selected == null) { const first = ALL.find(i => !pasted.has(i.no)) || ALL[0]; select(first.no); }
+  e.preventDefault();
+  setImage(selected, file);
+});
+
+// ---- ZIP(無圧縮)を作る ----
+const CRC_TABLE = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function crc32(bytes) { let c = 0xFFFFFFFF; for (let i = 0; i < bytes.length; i++) c = CRC_TABLE[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function makeZip(files) {
+  const enc = new TextEncoder(), parts = [], central = [];
+  let offset = 0;
+  for (const f of files) {
+    const name = enc.encode(f.name), crc = crc32(f.data), size = f.data.length;
+    const local = new DataView(new ArrayBuffer(30));
+    local.setUint32(0, 0x04034b50, true); local.setUint16(4, 20, true); local.setUint16(6, 0x0800, true);
+    local.setUint32(14, crc, true); local.setUint32(18, size, true); local.setUint32(22, size, true); local.setUint16(26, name.length, true);
+    parts.push(local, name, f.data);
+    const c = new DataView(new ArrayBuffer(46));
+    c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true);
+    c.setUint32(16, crc, true); c.setUint32(20, size, true); c.setUint32(24, size, true); c.setUint16(28, name.length, true);
+    c.setUint32(42, offset, true);
+    central.push(c, name);
+    offset += 30 + name.length + size;
+  }
+  const centralSize = central.reduce((n, p) => n + p.byteLength, 0);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true);
+  end.setUint32(12, centralSize, true); end.setUint32(16, offset, true);
+  return new Blob([...parts, ...central, end], { type: "application/zip" });
+}
+const EXT = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/gif": "gif", "image/bmp": "bmp", "image/avif": "avif" };
+const safeName = s => s.replace(/[\\/:*?"<>|]/g, "_").slice(0, 40);
+document.getElementById("zip").addEventListener("click", async () => {
+  const items = ALL.filter(i => pasted.has(i.no));
+  if (!items.length) { toast("まだ画像が貼られていません。"); return; }
+  const files = [];
+  for (const i of items) {
+    const blob = pasted.get(i.no);
+    files.push({ name: `${String(i.no).padStart(3, "0")}_${safeName(i.ja)}.${EXT[blob.type] || "png"}`, data: new Uint8Array(await blob.arrayBuffer()) });
+  }
+  const zip = makeZip(files), zipName = `${safeName(DATA.title)}_画像.zip`;
+  if (window.showSaveFilePicker) {
+    // パソコンに保存したHTMLから開くと、普通のダウンロードではファイル名が付かないので「名前を付けて保存」を使う
+    try {
+      const handle = await showSaveFilePicker({ suggestedName: zipName, types: [{ description: "ZIP", accept: { "application/zip": [".zip"] } }] });
+      const writable = await handle.createWritable(); await writable.write(zip); await writable.close();
+    } catch (e) {
+      if (e.name === "AbortError") return;
+      throw e;
+    }
+  } else {
+    const a = el("a", { href: URL.createObjectURL(zip), download: zipName });
+    document.body.append(a); a.click(); a.remove();
+  }
+  const missing = ALL.length - items.length;
+  toast(`${items.length}枚をZIPに保存しました` + (missing ? `(まだ貼っていない番号が${missing}個あります)` : ""));
+});
+
+
+
+// ---- 検索を画面の右半分の窓で開く ----
+const sideWin = document.getElementById("sideWin");
+try { sideWin.checked = localStorage.getItem("image-list-side-window") !== "off"; } catch (e) { sideWin.checked = true; }
+sideWin.addEventListener("change", () => { try { localStorage.setItem("image-list-side-window", sideWin.checked ? "on" : "off"); } catch (e) {} });
+let searchWin = null;
+document.addEventListener("click", e => {
+  const a = e.target.closest(".buttons a");
+  if (!a || !sideWin.checked || e.ctrlKey || e.shiftKey || e.metaKey || e.button !== 0) return;
+  const sw = screen.availWidth, sh = screen.availHeight, left = (screen.availLeft || 0) + Math.floor(sw / 2), top = screen.availTop || 0;
+  const features = `popup,width=${Math.floor(sw / 2)},height=${sh},left=${left},top=${top}`;
+  try {
+    if (searchWin && !searchWin.closed) { searchWin.location.href = a.href; searchWin.focus(); e.preventDefault(); return; }
+  } catch (err) { /* 別のサイトを開いている窓は、名前で開き直す */ }
+  const w = window.open(a.href, "image-search", features);
+  if (w) { searchWin = w; try { w.focus(); } catch (err) {} e.preventDefault(); }
+  // ポップアップが止められたときは、いつものように新しいタブで開く
+});
+
+// ---- ほかの窓から画像をドラッグしてきたとき ----
+function dataUrlToBlob(url) {
+  const [head, body] = url.split(",");
+  const type = (head.match(/data:([^;]+)/) || [])[1] || "image/png";
+  const bin = head.includes(";base64") ? atob(body) : decodeURIComponent(body);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new Blob([bytes], { type });
+}
+async function dropImage(no, dt) {
+  const file = [...(dt?.files || [])].find(f => f.type.startsWith("image/"));
+  if (file) { setImage(no, file); return; }
+  const html = dt?.getData("text/html") || "";
+  const src = (html.match(/<img[^>]+src="([^"]+)"/i) || [])[1];
+  const url = (src || dt?.getData("text/uri-list") || dt?.getData("text/plain") || "").split("\n")[0].trim().replace(/&amp;/g, "&");
+  if (url.startsWith("data:image/")) { setImage(no, dataUrlToBlob(url)); return; }
+  if (/^https?:/.test(url)) {
+    try {
+      const res = await fetch(url, { mode: "cors" });
+      const blob = await res.blob();
+      if (res.ok && blob.type.startsWith("image/")) { setImage(no, blob); return; }
+    } catch (e) { /* そのサイトが取り出しを許していない */ }
+  }
+  toast("この画像はドラッグでは入れられませんでした。画像を右クリック →「画像をコピー」→ Ctrl+V で貼ってください。");
+}
+
+// ---- YMM4のプロジェクトに画像を並べる ----
+const VOICE_TYPE = "YukkuriMovieMaker.Project.Items.VoiceItem";
+const IMAGE_TYPE = "YukkuriMovieMaker.Project.Items.ImageItem, YukkuriMovieMaker";
+const REMARK = "画像自動配置";
+const normalize = t => (t || "").normalize("NFKC").replace(/[^\p{L}\p{N}]/gu, "");
+const voiceText = t => normalize((t || "").replace(/^\s*[^「」\s]{1,10}「/, ""));
+const dlg = document.getElementById("dlg");
+const logBox = document.getElementById("log");
+function log(text, cls) { logBox.append(el("div", cls ? { class: cls } : {}, text)); logBox.scrollTop = logBox.scrollHeight; }
+
+function getTimeline(project) {
+  if (Array.isArray(project.Timelines) && project.Timelines.length) {
+    const i = Number.isInteger(project.SelectedTimelineIndex) && project.Timelines[project.SelectedTimelineIndex] ? project.SelectedTimelineIndex : 0;
+    return project.Timelines[i];
+  }
+  if (project.Timeline) return project.Timeline;
+  throw new Error("YMM4のプロジェクトとして読めませんでした。");
+}
+// 台本の文字ごとに、YMM4のセリフをつなげた文字列の中の位置を返す(コマンド版の char_map と同じ)。
+// 名前が残っている・セリフが分かれた/まとまった・記号が違う・セリフを足した/消した、があっても合わせる。
+function charMap(script, voice, windowSize = 400, key = 6) {
+  const n = script.length, m = voice.length, pos = new Int32Array(n).fill(m);
+  let i = 0, j = 0, matched = 0;
+  const find = (text, k, from, to) => { const r = text.indexOf(k, from); return r !== -1 && r < to ? r : -1; };
+  while (i < n && j < m) {
+    if (script[i] === voice[j]) { pos[i++] = j++; matched++; continue; }
+    const sk = script.slice(i, i + key), vk = voice.slice(j, j + key);
+    const sv = sk.length === key ? find(voice, sk, j, j + windowSize + 1) : -1;
+    const ss = vk.length === key ? find(script, vk, i, i + windowSize + 1) : -1;
+    if (sv !== -1 && (ss === -1 || sv - j <= ss - i)) j = sv;
+    else if (ss !== -1) { for (let t = i; t < ss; t++) pos[t] = j; i = ss; }
+    else { pos[i++] = j++; }
+  }
+  return { pos, matched };
+}
+function animated(value, shape) {
+  if (!shape) return { From: value, To: 0, AnimationType: "なし", Span: 0 };
+  const v = JSON.parse(JSON.stringify(shape));
+  v.Values = [{ Value: value }]; v.AnimationType = "なし";
+  return v;
+}
+function askPath(suggest) {
+  return new Promise(resolve => {
+    const row = document.getElementById("pathRow"), input = document.getElementById("pathInput");
+    try { input.value = localStorage.getItem("ymm4-folder:" + DATA.title) || suggest || ""; } catch (e) {}
+    row.hidden = false; input.focus();
+    document.getElementById("pathOk").onclick = () => {
+      const v = input.value.trim().replace(/^"|"$/g, "").replace(/[\\/]+$/, "");
+      if (!v) return;
+      try { localStorage.setItem("ymm4-folder:" + DATA.title, v); } catch (e) {}
+      row.hidden = true; resolve(v);
+    };
+  });
+}
+async function writeFile(dir, name, data) {
+  const handle = await dir.getFileHandle(name, { create: true });
+  const w = await handle.createWritable(); await w.write(data); await w.close();
+}
+
+async function placeIntoYmm4() {
+  logBox.replaceChildren();
+  if (!window.showDirectoryPicker) { log("このブラウザでは使えません。Chrome か Edge で開いてください。", "ng"); return; }
+  let dir;
+  try { dir = await showDirectoryPicker({ id: "ymm4", mode: "readwrite" }); }
+  catch (e) {
+    if (e.name !== "AbortError") log("そのフォルダは選べませんでした。デスクトップなどの中に新しくフォルダを作り、そこにプロジェクトを保存して選んでください。", "ng");
+    return;
+  }
+  // フォルダの中で一番新しく保存した .ymmp を使う
+  const found = [];
+  for await (const [name, handle] of dir.entries()) {
+    if (handle.kind === "file" && /\.ymmp$/i.test(name) && !name.includes("_画像入り")) found.push(await handle.getFile());
+  }
+  if (!found.length) { log("このフォルダにYMM4のプロジェクト(.ymmp)がありません。YMM4で保存したフォルダを選んでください。", "ng"); return; }
+  found.sort((a, b) => b.lastModified - a.lastModified);
+  const file = found[0];
+  log(`プロジェクト「${file.name}」を読み込みます。`);
+  const project = JSON.parse((await file.text()).replace(/^\uFEFF/, ""));
+  const timeline = getTimeline(project);
+  const items = timeline.Items || (timeline.Items = []);
+  const voices = items.filter(i => (i.$type || "").startsWith(VOICE_TYPE)).sort((a, b) => (a.Frame - b.Frame) || (a.Layer - b.Layer));
+  if (!voices.length) { log("このプロジェクトにはセリフがありません。先にYMM4で台本を読み込んで、タイムラインに追加してから保存してください。", "ng"); return; }
+
+  // 画像を置く場所(パソコン上のフォルダの場所)
+  let folderPath = null;
+  const own = (project.FilePath || "").replace(/\//g, "\\");
+  if (own && own.slice(own.lastIndexOf("\\") + 1) === file.name) folderPath = own.slice(0, own.lastIndexOf("\\"));
+  if (!folderPath) {
+    log("フォルダの場所が分からないので教えてください。エクスプローラーでそのフォルダを開き、上のアドレス欄をクリック → Ctrl+C → 下の欄に Ctrl+V → OK。");
+    folderPath = await askPath();
+  }
+
+  // 台本のセリフとYMM4のセリフを、文字の並びで突き合わせる
+  const U = DATA.utterances.length;
+  const scriptJoined = DATA.utterances.join("");
+  const starts = []; { let o = 0; for (const u of DATA.utterances) { starts.push(o); o += u.length; } }
+  const texts = voices.map(v => voiceText(v.Serif));
+  const voiceJoined = texts.join("");
+  const voiceStarts = []; { let o = 0; for (const t of texts) { voiceStarts.push(o); o += t.length; } }
+  const { pos, matched } = charMap(scriptJoined, voiceJoined);
+  if (!scriptJoined.length || matched < scriptJoined.length * 0.3) {
+    log("台本とYMM4のセリフがほとんど一致しません。別の台本のプロジェクトを選んでいませんか？", "ng");
+    log("YMM4のセリフ(最初の3つ): " + voices.slice(0, 3).map(v => "「" + (v.Serif || "").slice(0, 25) + "」").join(" "));
+    log("この画像リストの台本(最初の3つ): " + DATA.segments[0].lines.slice(0, 3).map(l => "「" + l.text.slice(0, 25) + "」").join(" "));
+    log("合っているはずなのにこう出るときは、この画面の文字を Claude に送ってください。");
+    return;
+  }
+  if (U !== voices.length) log(`台本のセリフは${U}個、YMM4のセリフは${voices.length}個で数が違いますが、本文で位置を合わせました。`);
+  const endOfVoices = Math.max(...voices.map(v => (v.Frame || 0) + (v.Length || 0)));
+  const frameOf = u => {
+    if (u >= U || starts[u] >= scriptJoined.length) return endOfVoices;
+    const p = pos[starts[u]];
+    if (p >= voiceJoined.length) return endOfVoices;
+    let k = 0, lo = 0, hi = voiceStarts.length - 1;
+    while (lo <= hi) { const mid = (lo + hi) >> 1; if (voiceStarts[mid] <= p) { k = mid; lo = mid + 1; } else hi = mid - 1; }
+    const v = voices[k], size = texts[k].length;
+    // 1つのセリフにまとめられていたときは、文字の位置の割合で途中のフレームにする
+    return (v.Frame || 0) + (size ? Math.floor((v.Length || 0) * (p - voiceStarts[k]) / size) : 0);
+  };
+
+  // 番号ごとの表示時間
+  const plan = [];
+  DATA.segments.forEach((seg, i) => {
+    const first = seg.u, after = i + 1 < DATA.segments.length ? DATA.segments[i + 1].u : U;
+    const span = Math.max(after - first, 1), count = seg.images.length;
+    seg.images.forEach((img, k) => {
+      const su = first + Math.floor(span * k / count), eu = first + Math.floor(span * (k + 1) / count);
+      const start = frameOf(su), end = eu < U ? frameOf(eu) : endOfVoices;
+      if (end > start) plan.push({ img, start, length: end - start });
+    });
+  });
+
+  // 画像をフォルダに書き出す
+  const subName = "画像_" + safeName(DATA.title);
+  const sub = await dir.getDirectoryHandle(subName, { create: true });
+  const video = timeline.VideoInfo || {};
+  const W = video.Width || 1920, H = video.Height || 1080;
+  const shape = (voices.find(v => v.X && v.X.Values) || {}).X || ((project.Timelines || voices.some(v => v.X && v.X.Values)) ? { Span: 0, AnimationType: "なし" } : null);
+  const labels = timeline.LayerSettings && Array.isArray(timeline.LayerSettings.Items) ? timeline.LayerSettings.Items : [];
+  const kept = items.filter(i => !(i.$type === IMAGE_TYPE && i.Remark === REMARK));
+  const layer = Math.max(timeline.MaxLayer || 0, ...kept.map(i => i.Layer || 0), ...labels.filter(l => l.Label !== "画像").map(l => l.Layer || 0)) + 1;
+  const L = readLayout();
+  const added = [], missing = [];
+  for (const p of plan) {
+    const blob = pasted.get(p.img.no);
+    if (!blob) { missing.push(p.img); continue; }
+    const name = `${String(p.img.no).padStart(3, "0")}_${safeName(p.img.ja)}.${EXT[blob.type] || "png"}`;
+    await writeFile(sub, name, blob);
+    let zoom = 100;
+    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
+    const item = {
+      $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
+      X: animated(L.x, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
+      FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: [], Group: 0,
+      Frame: p.start, Layer: layer, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
+    };
+    if (shape) Object.assign(item, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: REMARK });
+    added.push(item);
+  }
+  if (!added.length) { log("まだ画像が1枚も貼られていません。画像を貼ってからもう一度押してください。", "ng"); return; }
+  timeline.Items = kept.concat(added);
+  timeline.MaxLayer = Math.max(timeline.MaxLayer || 0, layer);
+  if (Number.isInteger(timeline.Length)) timeline.Length = Math.max(timeline.Length, ...timeline.Items.map(i => (i.Frame || 0) + (i.Length || 0)));
+  if (labels.length && !labels.some(l => l.Layer === layer)) labels.push(Object.assign(JSON.parse(JSON.stringify(labels[0])), { Layer: layer, Label: "画像", IsHidden: false }));
+
+  const outName = file.name.replace(/\.ymmp$/i, "") + "_画像入り.ymmp";
+  if (project.FilePath) project.FilePath = `${folderPath}\\${outName}`;
+  await writeFile(dir, outName, "\uFEFF" + JSON.stringify(project, null, 2));
+  log(`できました！ 画像${added.length}枚を並べました。`, "ok");
+  log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}、画像ファイルは「${subName}」フォルダに入っています)`);
+  if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
+}
+// 画像の位置と大きさ(このブラウザに覚えておく)
+const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69 };
+const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH" };
+function readLayout() {
+  const L = {};
+  for (const [k, id] of Object.entries(LAYOUT_FIELDS)) {
+    const v = parseFloat(document.getElementById(id).value);
+    L[k] = Number.isFinite(v) ? v : LAYOUT_DEFAULT[k];
+  }
+  L.fitW = Math.min(Math.max(L.fitW, 5), 100); L.fitH = Math.min(Math.max(L.fitH, 5), 100);
+  return L;
+}
+function showLayout(L) {
+  for (const [k, id] of Object.entries(LAYOUT_FIELDS)) document.getElementById(id).value = L[k];
+  document.getElementById("sumX").textContent = L.x; document.getElementById("sumY").textContent = L.y;
+}
+{
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem("ymm4-layout") || "{}"); } catch (e) {}
+  showLayout(Object.assign({}, LAYOUT_DEFAULT, saved));
+  for (const id of Object.values(LAYOUT_FIELDS)) document.getElementById(id).addEventListener("change", () => {
+    const L = readLayout(); showLayout(L);
+    try { localStorage.setItem("ymm4-layout", JSON.stringify(L)); } catch (e) {}
+  });
+  document.getElementById("layoutReset").addEventListener("click", () => {
+    showLayout(LAYOUT_DEFAULT);
+    try { localStorage.removeItem("ymm4-layout"); } catch (e) {}
+  });
+}
+document.getElementById("ymm4").addEventListener("click", () => { logBox.replaceChildren(); document.getElementById("pathRow").hidden = true; dlg.showModal(); });
+document.getElementById("close").addEventListener("click", () => dlg.close());
+document.getElementById("pick").addEventListener("click", () => placeIntoYmm4().catch(e => log("うまくいきませんでした: " + e.message, "ng")));
+
+(async () => {
+  db = await openDb();
+  for (const i of ALL) { const blob = await dbGet(i.no); if (blob) { pasted.set(i.no, blob); renderPaste(i.no); } }
+  const first = ALL.find(i => !pasted.has(i.no));
+  if (first) select(first.no);
+})();
 
 document.getElementById("next").addEventListener("click", () => {
   const next = DATA.segments.flatMap(s => s.images).find(img => !done[img.no]);
