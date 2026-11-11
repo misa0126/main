@@ -37,6 +37,18 @@ class SceneTableTest(unittest.TestCase):
         self.assertEqual([s["u"] for s in data["segments"]], [0, 1])
         self.assertIn('id="ymm4"', html)
 
+    def test_readings_are_keyed_by_utterance(self):
+        script = "魔理沙「一」\n霊夢「二の前半、\n二の後半」\n魔理沙「三」"
+        html = build_sheet(script, "## a\n1: x\n", "テスト", "# メモ\n2: にのぜんはん、にのこうはん\n4: さん\n")
+        data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
+        self.assertEqual(data["readings"], {"1": "にのぜんはん、にのこうはん", "2": "さん"})
+        self.assertNotIn("readings", json.loads(re.search(r"const DATA = (\{.*?\});\n", build_sheet(script, "## a\n1: x\n", "テスト")).group(1)))
+
+    def test_reading_on_continuation_line_is_an_error(self):
+        script = "魔理沙「一」\n霊夢「二の前半、\n二の後半」"
+        with self.assertRaises(ValueError):
+            build_sheet(script, "## a\n1: x\n", "テスト", "3: にのこうはん\n")
+
     def test_native_language_and_numbering_across_segments(self):
         html = build_sheet(SCRIPT, "## a\n1: ピアフ=Edith Piaf=Édith Piaf, パリ=Paris\n3: 長崎\n", "テスト")
         data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))

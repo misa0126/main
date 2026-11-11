@@ -495,6 +495,23 @@ async function placeIntoYmm4() {
     return (v.Frame || 0) + (size ? Math.floor((v.Length || 0) * (p - voiceStarts[k]) / size) : 0);
   };
 
+  // 読みの直し(台本と同じ本文のセリフだけ、YMM4の読みとちがっていれば置きかえる)
+  const fixed = [], skipped = [];
+  const kanaKey = t => (t || "").normalize("NFKC").replace(/[\u30a1-\u30f6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60))
+    .replace(/[^\p{L}\p{N}]/gu, "").replace(/ー/g, "").replace(/を/g, "お").replace(/は/g, "わ").replace(/へ/g, "え");
+  for (const [key, reading] of Object.entries(DATA.readings || {})) {
+    const u = Number(key);
+    const p = pos[starts[u]];
+    let k = -1;
+    if (p < voiceJoined.length) { for (let i = voiceStarts.length - 1; i >= 0; i--) if (voiceStarts[i] <= p) { k = i; break; } }
+    if (k < 0 || texts[k] !== DATA.utterances[u]) { skipped.push(DATA.utterances[u].slice(0, 15)); continue; }
+    const v = voices[k];
+    if (kanaKey(v.Hatsuon) === kanaKey(reading)) continue;
+    fixed.push({ serif: (v.Serif || "").replace(/\s+/g, " "), before: v.Hatsuon || "", after: reading });
+    v.Hatsuon = reading;
+    v.VoiceCache = "";  // 古い声を捨てて、YMM4に作り直してもらう
+  }
+
   // 番号ごとの表示時間
   const plan = [];
   DATA.segments.forEach((seg, i) => {
@@ -534,7 +551,7 @@ async function placeIntoYmm4() {
     if (shape) Object.assign(item, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: REMARK });
     added.push(item);
   }
-  if (!added.length) { log("まだ画像が1枚も貼られていません。画像を貼ってからもう一度押してください。", "ng"); return; }
+  if (!added.length && !fixed.length) { log("まだ画像が1枚も貼られていません。画像を貼ってからもう一度押してください。", "ng"); return; }
   timeline.Items = kept.concat(added);
   timeline.MaxLayer = Math.max(timeline.MaxLayer || 0, layer);
   if (Number.isInteger(timeline.Length)) timeline.Length = Math.max(timeline.Length, ...timeline.Items.map(i => (i.Frame || 0) + (i.Length || 0)));
@@ -543,7 +560,12 @@ async function placeIntoYmm4() {
   const outName = file.name.replace(/\.ymmp$/i, "") + "_画像入り.ymmp";
   if (project.FilePath) project.FilePath = `${folderPath}\\${outName}`;
   await writeFile(dir, outName, "\uFEFF" + JSON.stringify(project, null, 2));
-  log(`できました！ 画像${added.length}枚を並べました。`, "ok");
+  log(`できました！ 画像${added.length}枚を並べました。` + (fixed.length ? `読みを${fixed.length}か所直しました。` : ""), "ok");
+  if (fixed.length) {
+    log("読みを直したセリフ(YMM4で開いて、ここが正しく読まれているか聞いてみてください):");
+    for (const f of fixed) log(`・「${f.serif.slice(0, 30)}」\n　${f.before} → ${f.after}`);
+  }
+  if (skipped.length) log(`YMM4の側でセリフが分かれている・書きかえられているため、読みを直さなかったセリフ: ${skipped.length}個`);
   log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}、画像ファイルは「${subName}」フォルダに入っています)`);
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
 }

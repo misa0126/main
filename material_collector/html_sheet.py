@@ -94,7 +94,21 @@ def script_lines(script_text: str) -> list[dict]:
     return lines
 
 
-def build_sheet(script_text: str, table_text: str, title: str) -> str:
+def parse_yomi_table(text: str) -> dict[int, str]:
+    """読みの直し表を読む。「開始行: よみ」の並び(「#」で始まる行はメモ)。"""
+    readings: dict[int, str] = {}
+    for raw in text.splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        match = START_PATTERN.match(line)
+        if not match or not match.group(2).strip():
+            raise ValueError(f"読みの直し表の書式が読めません: {line!r}")
+        readings[int(match.group(1))] = match.group(2).strip()
+    return readings
+
+
+def build_sheet(script_text: str, table_text: str, title: str, yomi_text: str | None = None) -> str:
     lines = script_lines(script_text)
     utterances, line_to_utterance = script_utterances(script_text)
     segments = parse_scene_table(table_text)
@@ -122,6 +136,17 @@ def build_sheet(script_text: str, table_text: str, title: str) -> str:
     # 貼った画像やチェックはブラウザに保存する。同じ人物でも台本や区切りが違えば別のものとして扱う
     page_id = hashlib.sha1((title + "\n" + script_text + "\n" + table_text).encode("utf-8")).hexdigest()[:12]
     data = {"title": title, "id": page_id, "segments": segments, "utterances": [normalize(u) for u in utterances]}
+    if yomi_text:
+        # YMM4の読み(発音)をセリフごとに直すための読み。キーはセリフの番号
+        readings = {}
+        for start, reading in parse_yomi_table(yomi_text).items():
+            if not 1 <= start <= len(line_to_utterance):
+                raise ValueError(f"読みの直し表の開始行 {start} が台本の行数({len(lines)}行)を超えています。")
+            u = line_to_utterance[start - 1]
+            if start > 1 and line_to_utterance[start - 2] == u:
+                raise ValueError(f"読みの直し表の {start} 行目はセリフの途中です。セリフの1行目の番号で書いてください。")
+            readings[str(u)] = reading
+        data["readings"] = readings
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     return template.replace("__TITLE__", title).replace("/*__DATA__*/null", payload)
@@ -133,10 +158,17 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("table", type=Path)
     parser.add_argument("output", type=Path, nargs="?", help="省略すると「タイトル_image_list.html」")
     parser.add_argument("--title", required=True)
+    parser.add_argument("--yomi", type=Path, help="読みの直し表。省略すると「台本の名前_yomi.txt」があれば使う")
     args = parser.parse_args(argv)
+    yomi = args.yomi or args.script.with_name(args.script.stem + "_yomi.txt")
+    yomi_text = yomi.read_text(encoding="utf-8") if yomi.exists() else None
+    if args.yomi and yomi_text is None:
+        parser.error(f"読みの直し表が見つかりません: {args.yomi}")
     html = build_sheet(
-        args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title
+        args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title, yomi_text
     )
+    if yomi_text:
+        print(f"読みの直し表を使いました: {yomi}")
     output = args.output or Path(f"{args.title}_image_list.html")
     output.write_text(html, encoding="utf-8")
     print(f"作成しました: {output}")
