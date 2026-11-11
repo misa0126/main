@@ -73,7 +73,15 @@ def parse_scene_table(text: str) -> list[dict]:
         match = START_PATTERN.match(line)
         if not match:
             raise ValueError(f"区切り表の書式が読めません: {line!r}")
-        segments.append({"topic": topic, "start": int(match.group(1)), "keywords": parse_keyword_items(match.group(2))})
+        # 「検索ワード=英語|名前」の「|」の後ろは、人の写真に入れる名前のテロップ
+        keywords, captions = [], []
+        for item in re.split(r"[,、，]", match.group(2)):
+            words, _, caption = item.partition("|")
+            parsed = parse_keyword_items(words)
+            if parsed:
+                keywords.append(parsed[0])
+                captions.append(caption.strip())
+        segments.append({"topic": topic, "start": int(match.group(1)), "keywords": keywords, "captions": captions})
     starts = [s["start"] for s in segments]
     if starts != sorted(set(starts)):
         raise ValueError("区切り表の開始行は、小さい順に重複なく並べてください。")
@@ -125,16 +133,19 @@ def build_sheet(script_text: str, table_text: str, title: str, yomi_text: str | 
         if not segment["keywords"]:
             raise ValueError(f"{segment['start']}行目からの区切りに画像がありません。どの区切りにも1枚以上入れてください。")
         images = []
-        for keyword in segment.pop("keywords"):
+        captions = segment.pop("captions")
+        for keyword, caption in zip(segment.pop("keywords"), captions):
             number += 1
             # 「日本語=英語=母語」の3つ目は母語の検索ワード
             en, _, native = keyword.en.partition("=")
-            images.append({"no": number, "ja": keyword.ja, "en": en.strip() or keyword.ja, "native": native.strip()})
+            images.append({"no": number, "ja": keyword.ja, "en": en.strip() or keyword.ja, "native": native.strip(), "caption": caption})
         segment["images"] = images
 
     # YMM4のセリフと台本のセリフを、本文で突き合わせるための一覧
     # 貼った画像やチェックはブラウザに保存する。同じ人物でも台本や区切りが違えば別のものとして扱う
-    page_id = hashlib.sha1((title + "\n" + script_text + "\n" + table_text).encode("utf-8")).hexdigest()[:12]
+    # (名前のテロップ「|名前」とその説明のメモは、あとから足しても貼った画像が消えないように数えない)
+    id_table = re.sub(r"\|[^,、，\n]*", "", re.sub(r"(?m)^# 人の写真には.*\n", "", table_text))
+    page_id = hashlib.sha1((title + "\n" + script_text + "\n" + id_table).encode("utf-8")).hexdigest()[:12]
     data = {"title": title, "id": page_id, "segments": segments, "utterances": [normalize(u) for u in utterances]}
     if yomi_text:
         # YMM4の読み(発音)をセリフごとに直すための読み。キーはセリフの番号

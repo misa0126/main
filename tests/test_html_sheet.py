@@ -25,8 +25,8 @@ class SceneTableTest(unittest.TestCase):
         first, second = data["segments"]
         self.assertEqual((first["start"], first["end"]), (1, 2))
         self.assertEqual([line["text"] for line in second["lines"]], ["三", "四"])
-        self.assertEqual(first["images"], [{"no": 1, "ja": "甲子園", "en": "甲子園", "native": ""}])
-        self.assertEqual(second["images"], [{"no": 2, "ja": "長崎", "en": "Nagasaki", "native": ""}])
+        self.assertEqual(first["images"], [{"no": 1, "ja": "甲子園", "en": "甲子園", "native": "", "caption": ""}])
+        self.assertEqual(second["images"], [{"no": 2, "ja": "長崎", "en": "Nagasaki", "native": "", "caption": ""}])
         self.assertIn("<title>テスト 画像リスト</title>", html)
 
     def test_data_for_ymm4_placement(self):
@@ -48,6 +48,13 @@ class SceneTableTest(unittest.TestCase):
         script = "魔理沙「一」\n霊夢「二の前半、\n二の後半」"
         with self.assertRaises(ValueError):
             build_sheet(script, "## a\n1: x\n", "テスト", "3: にのこうはん\n")
+
+    def test_caption_after_bar(self):
+        html = build_sheet(SCRIPT, "## a\n1: 升田幸三 若い頃=young Kozo Masuda|升田幸三, 高野山=Mount Koya\n", "テスト")
+        data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
+        first, second = data["segments"][0]["images"]
+        self.assertEqual((first["ja"], first["en"], first["caption"]), ("升田幸三 若い頃", "young Kozo Masuda", "升田幸三"))
+        self.assertEqual(second["caption"], "")
 
     def test_native_language_and_numbering_across_segments(self):
         html = build_sheet(SCRIPT, "## a\n1: ピアフ=Edith Piaf=Édith Piaf, パリ=Paris\n3: 長崎\n", "テスト")

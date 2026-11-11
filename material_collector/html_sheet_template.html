@@ -56,6 +56,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
 .buttons a.alt { background: transparent; color: var(--accent); border: 1px solid var(--accent); padding: 3px 11px; }
 .buttons a:hover { filter: brightness(1.12); }
 .check { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.cap { grid-column: 2 / 4; display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.cap input { font: inherit; font-size: 13px; padding: 2px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--text); width: 14em; max-width: 100%; }
 .paste { grid-column: 1 / 4; display: flex; align-items: center; gap: 10px; min-height: 44px; border: 2px dashed var(--line);
   border-radius: 8px; padding: 6px 10px; color: var(--muted); font-size: 12px; cursor: pointer; background: transparent; text-align: left; width: 100%; }
 .paste img { max-height: 90px; max-width: 160px; border-radius: 4px; display: block; }
@@ -112,9 +114,13 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
       <label>Y <input type="number" id="posY" step="1" style="width:80px"></label>
       <label>最大の横幅 <input type="number" id="fitW" step="1" min="5" max="100" style="width:64px">%</label>
       <label>最大の高さ <input type="number" id="fitH" step="1" min="5" max="100" style="width:64px">%</label>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label><input type="checkbox" id="capOn"> 人の写真に名前のテロップを入れる</label>
+      <label>文字の大きさ <input type="number" id="capSize" step="1" min="10" max="200" style="width:64px"></label>
       <button type="button" id="layoutReset">元に戻す</button>
     </div>
-    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。変えた数字はこのブラウザに覚えておきます。</p>
+    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。名前のテロップは写真の下の端に、字幕と同じフォントで入ります(名前は番号ごとの「名前テロップ」の欄で変えられます)。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。変えた数字はこのブラウザに覚えておきます。</p>
   </details>
   <div class="row">
     <button type="button" class="big" id="pick">フォルダを選んで並べる</button>
@@ -156,6 +162,21 @@ const yahoo = q => "https://search.yahoo.co.jp/image/search?p=" + encodeURICompo
 const bing = q => "https://www.bing.com/images/search?q=" + encodeURIComponent(q);
 const speakerClass = s => s.includes("魔理沙") ? "marisa" : s.includes("霊夢") ? "reimu" : "";
 
+// 人の写真に入れる名前のテロップ(区切り表の「|名前」。この画面で書きかえた分はブラウザに覚えておく)
+const CAP_KEY = "image-list-cap:" + (DATA.id ? DATA.title + ":" + DATA.id : DATA.title);
+let capEdits = {};
+try { capEdits = JSON.parse(localStorage.getItem(CAP_KEY) || "{}"); } catch (e) { capEdits = {}; }
+const captionOf = img => (img.no in capEdits ? capEdits[img.no] : img.caption || "").trim();
+function captionBox(img) {
+  const input = el("input", { type: "text", placeholder: "人の写真なら名前を入れる", "aria-label": `${img.no}番の名前テロップ` });
+  input.value = captionOf(img);
+  input.addEventListener("change", () => {
+    capEdits[img.no] = input.value.trim();
+    try { localStorage.setItem(CAP_KEY, JSON.stringify(capEdits)); } catch (e) {}
+  });
+  return el("label", { class: "cap" }, "名前テロップ", input);
+}
+
 const main = document.getElementById("main");
 let lastTopic = null;
 for (const seg of DATA.segments) {
@@ -173,6 +194,7 @@ for (const seg of DATA.segments) {
       el("div", { class: "no" }, String(img.no)),
       el("div", { class: "words" }, el("div", { class: "ja" }, img.ja), img.en !== img.ja ? el("div", { class: "en" }, img.en) : null),
       el("label", { class: "check" }, box, "済"),
+      captionBox(img),
       el("div", { class: "buttons" },
         el("a", { href: google(img.ja), target: "_blank", rel: "noopener" }, "Google画像検索(日本語)"),
         img.en !== img.ja ? el("a", { class: "en", href: google(img.en), target: "_blank", rel: "noopener" }, "Google画像検索(英語)") : null,
@@ -269,6 +291,7 @@ function setImage(no, blob) {
   }
 }
 document.addEventListener("paste", e => {
+  if (e.target.closest && e.target.closest("input, textarea")) return;  // 文字の欄に貼るときは普通に貼る
   const file = [...(e.clipboardData?.items || [])].filter(i => i.type.startsWith("image/")).map(i => i.getAsFile())[0];
   if (!file) { toast("画像がコピーされていません。画像を右クリック →「画像をコピー」してください。"); return; }
   if (selected == null) { const first = ALL.find(i => !pasted.has(i.no)) || ALL[0]; select(first.no); }
@@ -379,6 +402,8 @@ async function dropImage(no, dt) {
 const VOICE_TYPE = "YukkuriMovieMaker.Project.Items.VoiceItem";
 const IMAGE_TYPE = "YukkuriMovieMaker.Project.Items.ImageItem, YukkuriMovieMaker";
 const REMARK = "画像自動配置";
+const TEXT_TYPE = "YukkuriMovieMaker.Project.Items.TextItem, YukkuriMovieMaker";
+const CAPTION_REMARK = "名前テロップ自動配置";
 const normalize = t => (t || "").normalize("NFKC").replace(/[^\p{L}\p{N}]/gu, "");
 const voiceText = t => normalize((t || "").replace(/^\s*[^「」\s]{1,10}「/, ""));
 const dlg = document.getElementById("dlg");
@@ -531,17 +556,22 @@ async function placeIntoYmm4() {
   const W = video.Width || 1920, H = video.Height || 1080;
   const shape = (voices.find(v => v.X && v.X.Values) || {}).X || ((project.Timelines || voices.some(v => v.X && v.X.Values)) ? { Span: 0, AnimationType: "なし" } : null);
   const labels = timeline.LayerSettings && Array.isArray(timeline.LayerSettings.Items) ? timeline.LayerSettings.Items : [];
-  const kept = items.filter(i => !(i.$type === IMAGE_TYPE && i.Remark === REMARK));
-  const layer = Math.max(timeline.MaxLayer || 0, ...kept.map(i => i.Layer || 0), ...labels.filter(l => l.Label !== "画像").map(l => l.Layer || 0)) + 1;
+  const kept = items.filter(i => !((i.$type === IMAGE_TYPE && i.Remark === REMARK) || (i.$type === TEXT_TYPE && i.Remark === CAPTION_REMARK)));
+  const layer = Math.max(timeline.MaxLayer || 0, ...kept.map(i => i.Layer || 0), ...labels.filter(l => l.Label !== "画像" && l.Label !== "名前").map(l => l.Layer || 0)) + 1;
   const L = readLayout();
-  const added = [], missing = [];
+  const added = [], captions = [], missing = [];
+  const font = (voices.find(v => v.Font) || {}).Font || "メイリオ";
   for (const p of plan) {
     const blob = pasted.get(p.img.no);
     if (!blob) { missing.push(p.img); continue; }
     const name = `${String(p.img.no).padStart(3, "0")}_${safeName(p.img.ja)}.${EXT[blob.type] || "png"}`;
     await writeFile(sub, name, blob);
-    let zoom = 100;
-    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
+    let zoom = 100, shownH = H * L.fitH / 100;
+    try {
+      const bmp = await createImageBitmap(blob);
+      zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10;
+      shownH = bmp.height * zoom / 100; bmp.close();
+    } catch (e) {}
     const item = {
       $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
       X: animated(L.x, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
@@ -550,28 +580,47 @@ async function placeIntoYmm4() {
     };
     if (shape) Object.assign(item, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: REMARK });
     added.push(item);
+    const caption = captionOf(p.img);
+    if (L.capOn && caption) {
+      // 写真の下の端に、少しかかるように置く(画面からはみ出さないようにする)
+      const size = Math.round(L.capSize * H / 1080);
+      const bottom = Math.min(L.y + shownH / 2 + size * 0.35, H / 2 - 8);
+      const text = {
+        $type: TEXT_TYPE, Text: caption, Decorations: [], Font: font,
+        FontSize: animated(size, shape), LineHeight2: animated(100, shape), LetterSpacing2: animated(0, shape),
+        WordWrap: "NoWrap", MaxWidth: animated(W, shape), BasePoint: "CenterBottom",
+        FontColor: "#FFFFFFFF", Style: "Border", StyleColor: "#FF000000", Bold: true, Italic: false,
+        IsTrimEndSpace: true, IsDevidedPerCharacter: false, DisplayInterval: 0, DisplayDirection: "FromFirst", HideInterval: 0, HideDirection: "FromFirst",
+        X: animated(L.x, shape), Y: animated(Math.round(bottom), shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
+        FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: [], Group: 0,
+        Frame: p.start, Layer: layer + 1, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
+      };
+      if (shape) Object.assign(text, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: CAPTION_REMARK });
+      captions.push(text);
+    }
   }
   if (!added.length && !fixed.length) { log("まだ画像が1枚も貼られていません。画像を貼ってからもう一度押してください。", "ng"); return; }
-  timeline.Items = kept.concat(added);
-  timeline.MaxLayer = Math.max(timeline.MaxLayer || 0, layer);
+  timeline.Items = kept.concat(added, captions);
+  timeline.MaxLayer = Math.max(timeline.MaxLayer || 0, layer + (captions.length ? 1 : 0));
   if (Number.isInteger(timeline.Length)) timeline.Length = Math.max(timeline.Length, ...timeline.Items.map(i => (i.Frame || 0) + (i.Length || 0)));
   if (labels.length && !labels.some(l => l.Layer === layer)) labels.push(Object.assign(JSON.parse(JSON.stringify(labels[0])), { Layer: layer, Label: "画像", IsHidden: false }));
+  if (captions.length && labels.length && !labels.some(l => l.Layer === layer + 1)) labels.push(Object.assign(JSON.parse(JSON.stringify(labels[0])), { Layer: layer + 1, Label: "名前", IsHidden: false }));
 
   const outName = file.name.replace(/\.ymmp$/i, "") + "_画像入り.ymmp";
   if (project.FilePath) project.FilePath = `${folderPath}\\${outName}`;
   await writeFile(dir, outName, "\uFEFF" + JSON.stringify(project, null, 2));
-  log(`できました！ 画像${added.length}枚を並べました。` + (fixed.length ? `読みを${fixed.length}か所直しました。` : ""), "ok");
+  log(`できました！ 画像${added.length}枚を並べました。` + (captions.length ? `名前のテロップを${captions.length}か所入れました。` : "") + (fixed.length ? `読みを${fixed.length}か所直しました。` : ""), "ok");
   if (fixed.length) {
     log("読みを直したセリフ(YMM4で開いて、ここが正しく読まれているか聞いてみてください):");
     for (const f of fixed) log(`・「${f.serif.slice(0, 30)}」\n　${f.before} → ${f.after}`);
   }
   if (skipped.length) log(`YMM4の側でセリフが分かれている・書きかえられているため、読みを直さなかったセリフ: ${skipped.length}個`);
-  log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}、画像ファイルは「${subName}」フォルダに入っています)`);
+  log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}${captions.length ? `、名前はレイヤー${layer + 1}` : ""}、画像ファイルは「${subName}」フォルダに入っています)`);
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
 }
 // 画像の位置と大きさ(このブラウザに覚えておく)
-const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69 };
-const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH" };
+const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capOn: true };
+const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", capSize: "capSize" };
 function readLayout() {
   const L = {};
   for (const [k, id] of Object.entries(LAYOUT_FIELDS)) {
@@ -579,17 +628,20 @@ function readLayout() {
     L[k] = Number.isFinite(v) ? v : LAYOUT_DEFAULT[k];
   }
   L.fitW = Math.min(Math.max(L.fitW, 5), 100); L.fitH = Math.min(Math.max(L.fitH, 5), 100);
+  L.capSize = Math.min(Math.max(L.capSize, 10), 200);
+  L.capOn = document.getElementById("capOn").checked;
   return L;
 }
 function showLayout(L) {
   for (const [k, id] of Object.entries(LAYOUT_FIELDS)) document.getElementById(id).value = L[k];
+  document.getElementById("capOn").checked = L.capOn !== false;
   document.getElementById("sumX").textContent = L.x; document.getElementById("sumY").textContent = L.y;
 }
 {
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem("ymm4-layout") || "{}"); } catch (e) {}
   showLayout(Object.assign({}, LAYOUT_DEFAULT, saved));
-  for (const id of Object.values(LAYOUT_FIELDS)) document.getElementById(id).addEventListener("change", () => {
+  for (const id of [...Object.values(LAYOUT_FIELDS), "capOn"]) document.getElementById(id).addEventListener("change", () => {
     const L = readLayout(); showLayout(L);
     try { localStorage.setItem("ymm4-layout", JSON.stringify(L)); } catch (e) {}
   });
