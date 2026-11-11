@@ -104,6 +104,17 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
     <li><b>新しく作ったフォルダの中に</b>プロジェクトを保存します(Ctrl+S)。<br>例: デスクトップに「__TITLE__」というフォルダを作って、その中に保存。</li>
     <li>下のボタンを押して、<b>そのフォルダ</b>を選びます。「編集を許可しますか？」と出たら「編集を許可」を押します。</li>
   </ol>
+  <details id="layout" style="margin:0 0 12px">
+    <summary>画像の位置と大きさ(横 <span id="sumX"></span>・縦 <span id="sumY"></span>)</summary>
+    <div class="row" style="margin-top:8px">
+      <label>X <input type="number" id="posX" step="1" style="width:80px"></label>
+      <label>Y <input type="number" id="posY" step="1" style="width:80px"></label>
+      <label>最大の横幅 <input type="number" id="fitW" step="1" min="5" max="100" style="width:64px">%</label>
+      <label>最大の高さ <input type="number" id="fitH" step="1" min="5" max="100" style="width:64px">%</label>
+      <button type="button" id="layoutReset">元に戻す</button>
+    </div>
+    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。変えた数字はこのブラウザに覚えておきます。</p>
+  </details>
   <div class="row">
     <button type="button" class="big" id="pick">フォルダを選んで並べる</button>
     <button type="button" id="close">閉じる</button>
@@ -459,6 +470,7 @@ async function placeIntoYmm4() {
   const labels = timeline.LayerSettings && Array.isArray(timeline.LayerSettings.Items) ? timeline.LayerSettings.Items : [];
   const kept = items.filter(i => !(i.$type === IMAGE_TYPE && i.Remark === REMARK));
   const layer = Math.max(timeline.MaxLayer || 0, ...kept.map(i => i.Layer || 0), ...labels.filter(l => l.Label !== "画像").map(l => l.Layer || 0)) + 1;
+  const L = readLayout();
   const added = [], missing = [];
   for (const p of plan) {
     const blob = pasted.get(p.img.no);
@@ -466,10 +478,10 @@ async function placeIntoYmm4() {
     const name = `${String(p.img.no).padStart(3, "0")}_${safeName(p.img.ja)}.${EXT[blob.type] || "png"}`;
     await writeFile(sub, name, blob);
     let zoom = 100;
-    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * 0.62 / bmp.width, H * 0.72 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
+    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
     const item = {
       $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
-      X: animated(0, shape), Y: animated(-60, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
+      X: animated(L.x, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
       FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: [], Group: 0,
       Frame: p.start, Layer: layer, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
     };
@@ -488,6 +500,35 @@ async function placeIntoYmm4() {
   log(`できました！ 画像${added.length}枚を並べました。`, "ok");
   log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}、画像ファイルは「${subName}」フォルダに入っています)`);
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
+}
+// 画像の位置と大きさ(このブラウザに覚えておく)
+const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69 };
+const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH" };
+function readLayout() {
+  const L = {};
+  for (const [k, id] of Object.entries(LAYOUT_FIELDS)) {
+    const v = parseFloat(document.getElementById(id).value);
+    L[k] = Number.isFinite(v) ? v : LAYOUT_DEFAULT[k];
+  }
+  L.fitW = Math.min(Math.max(L.fitW, 5), 100); L.fitH = Math.min(Math.max(L.fitH, 5), 100);
+  return L;
+}
+function showLayout(L) {
+  for (const [k, id] of Object.entries(LAYOUT_FIELDS)) document.getElementById(id).value = L[k];
+  document.getElementById("sumX").textContent = L.x; document.getElementById("sumY").textContent = L.y;
+}
+{
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem("ymm4-layout") || "{}"); } catch (e) {}
+  showLayout(Object.assign({}, LAYOUT_DEFAULT, saved));
+  for (const id of Object.values(LAYOUT_FIELDS)) document.getElementById(id).addEventListener("change", () => {
+    const L = readLayout(); showLayout(L);
+    try { localStorage.setItem("ymm4-layout", JSON.stringify(L)); } catch (e) {}
+  });
+  document.getElementById("layoutReset").addEventListener("click", () => {
+    showLayout(LAYOUT_DEFAULT);
+    try { localStorage.removeItem("ymm4-layout"); } catch (e) {}
+  });
 }
 document.getElementById("ymm4").addEventListener("click", () => { logBox.replaceChildren(); document.getElementById("pathRow").hidden = true; dlg.showModal(); });
 document.getElementById("close").addEventListener("click", () => dlg.close());

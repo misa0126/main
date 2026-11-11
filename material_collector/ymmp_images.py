@@ -279,9 +279,9 @@ def add_images(
     *,
     layer: int | None = None,
     fit_width: float = 0.62,
-    fit_height: float = 0.72,
+    fit_height: float = 0.69,
     x: float = 0.0,
-    y: float = -60.0,
+    y: float = -166.0,
 ) -> tuple[dict, list[Placement], list[str]]:
     project = copy.deepcopy(project)
     timeline = get_timeline(project)
@@ -369,9 +369,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("-o", "--output", type=Path, help="省略すると「元の名前_画像入り.ymmp」")
     parser.add_argument("--layer", type=int, help="画像を置くレイヤー(省略すると一番上の空いたレイヤー)")
     parser.add_argument("--fit-width", type=float, default=0.62, help="画面の横幅に対する画像の最大の大きさ(0〜1)")
-    parser.add_argument("--fit-height", type=float, default=0.72, help="画面の高さに対する画像の最大の大きさ(0〜1)")
+    parser.add_argument("--fit-height", type=float, default=0.69, help="画面の高さに対する画像の最大の大きさ(0〜1)")
     parser.add_argument("--x", type=float, default=0.0, help="画像の横位置(画面中央が0)")
-    parser.add_argument("--y", type=float, default=-60.0, help="画像の縦位置(画面中央が0、マイナスで上)")
+    parser.add_argument("--y", type=float, default=-166.0, help="画像の縦位置(画面中央が0、マイナスで上)")
     args = parser.parse_args(argv)
 
     if args.ask:
