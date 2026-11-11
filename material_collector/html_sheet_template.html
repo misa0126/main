@@ -90,11 +90,12 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
   <nav>
     <button type="button" id="ymm4" class="primary">YMM4に並べる</button>
     <button type="button" id="zip">画像をZIPで保存</button>
+    <label class="check" title="オフにすると、検索はいつものように新しいタブで開きます"><input type="checkbox" id="sideWin"> 検索を右側の窓で開く</label>
     <button type="button" id="next">次の未完了へ</button>
     <button type="button" id="reset">チェックを全部外す</button>
   </nav>
 </header>
-<p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が新しいタブで開きます。Googleで見つからないときは、枠だけのボタンで同じ日本語ワードをYahoo!・Bingで探せます。
+<p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が<b>画面の右半分の窓</b>で開きます(この画像リストは <b>Windowsキー + ←</b> で左半分に寄せると見やすくなります)。Googleで見つからないときは、枠だけのボタンで同じ日本語ワードをYahoo!・Bingで探せます。
 画像を右クリック →「画像をコピー」→ このページに戻って <b>Ctrl+V</b>。青い枠で選ばれている番号に画像が入り、次の番号に進みます(番号の枠をクリックすると選び直せます。画像ファイルを枠にドラッグしても入ります)。
 貼り終わったら右上の「<b>YMM4に並べる</b>」で、YMM4のプロジェクトに画像を自動で並べられます。</p>
 <dialog id="dlg">
@@ -183,8 +184,8 @@ for (const seg of DATA.segments) {
     item.addEventListener("dragover", e => e.preventDefault());
     item.addEventListener("drop", e => {
       e.preventDefault();
-      const file = [...(e.dataTransfer?.files || [])].find(f => f.type.startsWith("image/"));
-      if (file) setImage(img.no, file); else toast("画像ファイルではありませんでした。右クリック→「画像をコピー」→ Ctrl+V を使ってください。");
+      select(img.no);
+      dropImage(img.no, e.dataTransfer);
     });
     box.addEventListener("change", () => {
       if (box.checked) done[img.no] = true; else delete done[img.no];
@@ -328,6 +329,51 @@ document.getElementById("zip").addEventListener("click", async () => {
   toast(`${items.length}枚をZIPに保存しました` + (missing ? `(まだ貼っていない番号が${missing}個あります)` : ""));
 });
 
+
+
+// ---- 検索を画面の右半分の窓で開く ----
+const sideWin = document.getElementById("sideWin");
+try { sideWin.checked = localStorage.getItem("image-list-side-window") !== "off"; } catch (e) { sideWin.checked = true; }
+sideWin.addEventListener("change", () => { try { localStorage.setItem("image-list-side-window", sideWin.checked ? "on" : "off"); } catch (e) {} });
+let searchWin = null;
+document.addEventListener("click", e => {
+  const a = e.target.closest(".buttons a");
+  if (!a || !sideWin.checked || e.ctrlKey || e.shiftKey || e.metaKey || e.button !== 0) return;
+  const sw = screen.availWidth, sh = screen.availHeight, left = (screen.availLeft || 0) + Math.floor(sw / 2), top = screen.availTop || 0;
+  const features = `popup,width=${Math.floor(sw / 2)},height=${sh},left=${left},top=${top}`;
+  try {
+    if (searchWin && !searchWin.closed) { searchWin.location.href = a.href; searchWin.focus(); e.preventDefault(); return; }
+  } catch (err) { /* 別のサイトを開いている窓は、名前で開き直す */ }
+  const w = window.open(a.href, "image-search", features);
+  if (w) { searchWin = w; try { w.focus(); } catch (err) {} e.preventDefault(); }
+  // ポップアップが止められたときは、いつものように新しいタブで開く
+});
+
+// ---- ほかの窓から画像をドラッグしてきたとき ----
+function dataUrlToBlob(url) {
+  const [head, body] = url.split(",");
+  const type = (head.match(/data:([^;]+)/) || [])[1] || "image/png";
+  const bin = head.includes(";base64") ? atob(body) : decodeURIComponent(body);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new Blob([bytes], { type });
+}
+async function dropImage(no, dt) {
+  const file = [...(dt?.files || [])].find(f => f.type.startsWith("image/"));
+  if (file) { setImage(no, file); return; }
+  const html = dt?.getData("text/html") || "";
+  const src = (html.match(/<img[^>]+src="([^"]+)"/i) || [])[1];
+  const url = (src || dt?.getData("text/uri-list") || dt?.getData("text/plain") || "").split("\n")[0].trim().replace(/&amp;/g, "&");
+  if (url.startsWith("data:image/")) { setImage(no, dataUrlToBlob(url)); return; }
+  if (/^https?:/.test(url)) {
+    try {
+      const res = await fetch(url, { mode: "cors" });
+      const blob = await res.blob();
+      if (res.ok && blob.type.startsWith("image/")) { setImage(no, blob); return; }
+    } catch (e) { /* そのサイトが取り出しを許していない */ }
+  }
+  toast("この画像はドラッグでは入れられませんでした。画像を右クリック →「画像をコピー」→ Ctrl+V で貼ってください。");
+}
 
 // ---- YMM4のプロジェクトに画像を並べる ----
 const VOICE_TYPE = "YukkuriMovieMaker.Project.Items.VoiceItem";
