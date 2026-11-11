@@ -142,7 +142,10 @@ def build_sheet(script_text: str, table_text: str, title: str, yomi_text: str | 
         for start, reading in parse_yomi_table(yomi_text).items():
             if not 1 <= start <= len(line_to_utterance):
                 raise ValueError(f"読みの直し表の開始行 {start} が台本の行数({len(lines)}行)を超えています。")
-            readings[str(line_to_utterance[start - 1])] = reading
+            u = line_to_utterance[start - 1]
+            if start > 1 and line_to_utterance[start - 2] == u:
+                raise ValueError(f"読みの直し表の {start} 行目はセリフの途中です。セリフの1行目の番号で書いてください。")
+            readings[str(u)] = reading
         data["readings"] = readings
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     template = TEMPLATE_PATH.read_text(encoding="utf-8")

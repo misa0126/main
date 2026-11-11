@@ -44,6 +44,11 @@ class SceneTableTest(unittest.TestCase):
         self.assertEqual(data["readings"], {"1": "にのぜんはん、にのこうはん", "2": "さん"})
         self.assertNotIn("readings", json.loads(re.search(r"const DATA = (\{.*?\});\n", build_sheet(script, "## a\n1: x\n", "テスト")).group(1)))
 
+    def test_reading_on_continuation_line_is_an_error(self):
+        script = "魔理沙「一」\n霊夢「二の前半、\n二の後半」"
+        with self.assertRaises(ValueError):
+            build_sheet(script, "## a\n1: x\n", "テスト", "3: にのこうはん\n")
+
     def test_native_language_and_numbering_across_segments(self):
         html = build_sheet(SCRIPT, "## a\n1: ピアフ=Edith Piaf=Édith Piaf, パリ=Paris\n3: 長崎\n", "テスト")
         data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
