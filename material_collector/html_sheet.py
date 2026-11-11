@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import unicodedata
@@ -118,7 +119,9 @@ def build_sheet(script_text: str, table_text: str, title: str) -> str:
         segment["images"] = images
 
     # YMM4のセリフと台本のセリフを、本文で突き合わせるための一覧
-    data = {"title": title, "segments": segments, "utterances": [normalize(u) for u in utterances]}
+    # 貼った画像やチェックはブラウザに保存する。同じ人物でも台本や区切りが違えば別のものとして扱う
+    page_id = hashlib.sha1((title + "\n" + script_text + "\n" + table_text).encode("utf-8")).hexdigest()[:12]
+    data = {"title": title, "id": page_id, "segments": segments, "utterances": [normalize(u) for u in utterances]}
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     return template.replace("__TITLE__", title).replace("/*__DATA__*/null", payload)

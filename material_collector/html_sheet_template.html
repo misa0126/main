@@ -119,7 +119,8 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
 <main id="main"></main>
 <script>
 const DATA = /*__DATA__*/null;
-const STORAGE_KEY = "image-list:" + DATA.title;
+const PAGE_KEY = DATA.id ? DATA.title + ":" + DATA.id : DATA.title;
+const STORAGE_KEY = "image-list:" + PAGE_KEY;
 
 let done = {};
 try { done = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { done = {}; }
@@ -189,7 +190,7 @@ const ALL = DATA.segments.flatMap(s => s.images);
 const pasted = new Map();   // 番号 → Blob
 let selected = null;
 let db = null;
-const DB_KEY = (no) => DATA.title + ":" + no;
+const DB_KEY = (no) => PAGE_KEY + ":" + no;
 function openDb() {
   return new Promise(resolve => {
     try {
