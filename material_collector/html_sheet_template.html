@@ -118,9 +118,12 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
     <div class="row" style="margin-top:8px">
       <label><input type="checkbox" id="capOn"> 人の写真に名前のテロップを入れる</label>
       <label>文字の大きさ <input type="number" id="capSize" step="1" min="10" max="200" style="width:64px"></label>
+      <label>X <input type="number" id="capX" step="1" style="width:72px"></label>
+      <label>Y <input type="number" id="capY" step="1" style="width:72px"></label>
+      <label>縁の太さ(追加) <input type="number" id="capBorder" step="0.5" min="0" max="50" style="width:60px"></label>
       <button type="button" id="layoutReset">元に戻す</button>
     </div>
-    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。名前のテロップは写真の下の端に、字幕と同じフォントで入ります(名前は番号ごとの「名前テロップ」の欄で変えられます)。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。変えた数字はこのブラウザに覚えておきます。</p>
+    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。名前のテロップは字幕と同じフォントで、白文字に黒い縁取りで入ります。「縁の太さ(追加)」は、ふつうの縁取りの外側にさらに足す黒い縁の太さです(0で足さない)。名前は番号ごとの「名前テロップ」の欄で変えられます。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。変えた数字はこのブラウザに覚えておきます。</p>
   </details>
   <div class="row">
     <button type="button" class="big" id="pick">フォルダを選んで並べる</button>
@@ -477,7 +480,10 @@ async function placeIntoYmm4() {
   found.sort((a, b) => b.lastModified - a.lastModified);
   const file = found[0];
   log(`プロジェクト「${file.name}」を読み込みます。`);
-  const project = JSON.parse((await file.text()).replace(/^\uFEFF/, ""));
+  const rawText = (await file.text()).replace(/^\uFEFF/, "");
+  const project = JSON.parse(rawText);
+  // 縁取りエフェクトの色の指定に使う名前(このYMM4が書いている形をそのまま使う)
+  const brushType = (rawText.match(/YukkuriMovieMaker\.Plugin\.Brush\.SolidColorBrushPlugin, YukkuriMovieMaker[^"]*/) || ["YukkuriMovieMaker.Plugin.Brush.SolidColorBrushPlugin, YukkuriMovieMaker"])[0];
   const timeline = getTimeline(project);
   const items = timeline.Items || (timeline.Items = []);
   const voices = items.filter(i => (i.$type || "").startsWith(VOICE_TYPE)).sort((a, b) => (a.Frame - b.Frame) || (a.Layer - b.Layer));
@@ -566,12 +572,8 @@ async function placeIntoYmm4() {
     if (!blob) { missing.push(p.img); continue; }
     const name = `${String(p.img.no).padStart(3, "0")}_${safeName(p.img.ja)}.${EXT[blob.type] || "png"}`;
     await writeFile(sub, name, blob);
-    let zoom = 100, shownH = H * L.fitH / 100;
-    try {
-      const bmp = await createImageBitmap(blob);
-      zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10;
-      shownH = bmp.height * zoom / 100; bmp.close();
-    } catch (e) {}
+    let zoom = 100;
+    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
     const item = {
       $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
       X: animated(L.x, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
@@ -582,17 +584,23 @@ async function placeIntoYmm4() {
     added.push(item);
     const caption = captionOf(p.img);
     if (L.capOn && caption) {
-      // 写真の下の端に、少しかかるように置く(画面からはみ出さないようにする)
       const size = Math.round(L.capSize * H / 1080);
-      const bottom = Math.min(L.y + shownH / 2 + size * 0.35, H / 2 - 8);
+      // 文字そのものの縁取りに加えて、黒い縁取りエフェクトで縁を太くする
+      const outline = L.capBorder > 0 ? [{
+        $type: "YukkuriMovieMaker.Project.Effects.OutlineEffect, YukkuriMovieMaker",
+        StrokeThickness: animated(L.capBorder, shape), Blur: animated(0, shape),
+        X: animated(0, shape), Y: animated(0, shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
+        StrokeBrush: { Type: brushType, Parameter: { $type: "YukkuriMovieMaker.Plugin.Brush.SolidColorBrushParameter, YukkuriMovieMaker", Color: "#FF000000" } },
+        IsOutlineOnly: false, IsAngular: false, IsEnabled: true, Remark: "",
+      }] : [];
       const text = {
         $type: TEXT_TYPE, Text: caption, Decorations: [], Font: font,
         FontSize: animated(size, shape), LineHeight2: animated(100, shape), LetterSpacing2: animated(0, shape),
         WordWrap: "NoWrap", MaxWidth: animated(W, shape), BasePoint: "CenterBottom",
         FontColor: "#FFFFFFFF", Style: "Border", StyleColor: "#FF000000", Bold: true, Italic: false,
         IsTrimEndSpace: true, IsDevidedPerCharacter: false, DisplayInterval: 0, DisplayDirection: "FromFirst", HideInterval: 0, HideDirection: "FromFirst",
-        X: animated(L.x, shape), Y: animated(Math.round(bottom), shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
-        FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: [], Group: 0,
+        X: animated(L.capX, shape), Y: animated(L.capY, shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
+        FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: shape ? outline : [], Group: 0,
         Frame: p.start, Layer: layer + 1, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
       };
       if (shape) Object.assign(text, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: CAPTION_REMARK });
@@ -619,8 +627,8 @@ async function placeIntoYmm4() {
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
 }
 // 画像の位置と大きさ(このブラウザに覚えておく)
-const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capOn: true };
-const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", capSize: "capSize" };
+const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, capOn: true };
+const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", capSize: "capSize", capX: "capX", capY: "capY", capBorder: "capBorder" };
 function readLayout() {
   const L = {};
   for (const [k, id] of Object.entries(LAYOUT_FIELDS)) {
@@ -629,6 +637,7 @@ function readLayout() {
   }
   L.fitW = Math.min(Math.max(L.fitW, 5), 100); L.fitH = Math.min(Math.max(L.fitH, 5), 100);
   L.capSize = Math.min(Math.max(L.capSize, 10), 200);
+  L.capBorder = Math.min(Math.max(L.capBorder, 0), 50);
   L.capOn = document.getElementById("capOn").checked;
   return L;
 }
