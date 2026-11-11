@@ -130,5 +130,25 @@ class AddImagesTest(unittest.TestCase):
         self.assertEqual(len(self.images(data)), 2)
 
 
+    def test_tolerates_names_splits_merges_and_symbols(self):
+        # 名前が残っている / 1つのセリフが2つに分かれた / 2つが1つにまとまった / 記号が全角・半角で違う
+        voices = [
+            voice("魔理沙「一」", 0, 50),
+            voice("霊夢「二」", 50, 40),
+            voice("三の前半", 90, 30),
+            voice("三の後半", 120, 30),
+            voice("四！五", 150, 50),
+        ]
+        _, placements, _ = add_images(project(voices), SCRIPT, TABLE, self.folder)
+        # 「五」は「四五」のまとまりの後ろ半分なので、そのセリフの途中(150 + 50 * 1/2)から
+        self.assertEqual([(p.frame, p.length) for p in placements], [(0, 90), (90, 60), (150, 25), (175, 25)])
+
+    def test_different_script_is_an_error(self):
+        voices = [voice("まったく関係のない話です", 0, 50), voice("ほかの台本のセリフ", 50, 50)]
+        with self.assertRaises(ValueError) as caught:
+            add_images(project(voices), SCRIPT, TABLE, self.folder)
+        self.assertIn("まったく関係のない話です", str(caught.exception))
+
+
 if __name__ == "__main__":
     unittest.main()

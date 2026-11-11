@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import unicodedata
 from pathlib import Path
 
 from .preset_keywords import parse_keyword_items
@@ -51,7 +52,8 @@ def script_utterances(script_text: str) -> tuple[list[str], list[int]]:
 
 
 def normalize(text: str) -> str:
-    return re.sub(r"[\s「」『』、。,.!?！？…・]", "", text or "")
+    """突き合わせ用に、文字と数字だけにする(全角・半角もそろえる)。"""
+    return re.sub(r"[\W_]", "", unicodedata.normalize("NFKC", text or ""))
 
 
 def parse_scene_table(text: str) -> list[dict]:

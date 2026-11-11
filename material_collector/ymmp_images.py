@@ -15,8 +15,8 @@
 from __future__ import annotations
 
 import argparse
+import bisect
 import copy
-import difflib
 import json
 import re
 import zipfile
@@ -64,30 +64,45 @@ def voice_items(timeline: dict) -> list[dict]:
     return sorted(voices, key=lambda item: (item.get("Frame", 0), item.get("Layer", 0)))
 
 
-def align(utterances: list[str], voices: list[dict]) -> list[int | None]:
-    """台本のセリフごとに、対応するボイスアイテムの番号を返す(見つからなければ None)。"""
-    if len(utterances) == len(voices):
-        return list(range(len(voices)))
-    script_keys = [normalize(u) for u in utterances]
-    voice_keys = [normalize(v.get("Serif", "")) for v in voices]
-    mapping: list[int | None] = [None] * len(utterances)
-    matcher = difflib.SequenceMatcher(None, script_keys, voice_keys, autojunk=False)
-    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
-        if tag == "equal" or (tag == "replace" and i2 - i1 == j2 - j1):
-            for k in range(i2 - i1):
-                mapping[i1 + k] = j1 + k
-        elif tag == "replace":
-            # 数が合わない部分は、先頭どうしだけ対応させる(区切りの開始位置が分かれば十分)
-            mapping[i1] = j1
-    return mapping
+SPEAKER_PREFIX = re.compile(r"^\s*[^「」\s]{1,10}「")
 
 
-def voice_index_for(utterance: int, mapping: list[int | None]) -> int | None:
-    """そのセリフに対応するボイスが無ければ、後ろで最初に対応が取れているボイスを使う。"""
-    for k in range(utterance, len(mapping)):
-        if mapping[k] is not None:
-            return mapping[k]
-    return None
+def voice_text(serif: str) -> str:
+    """YMM4のセリフを突き合わせ用の文字列にする(先頭に「魔理沙「」のような名前が残っていれば外す)。"""
+    return normalize(SPEAKER_PREFIX.sub("", serif or "", count=1))
+
+
+def char_map(script: str, voice: str, window: int = 400, key: int = 6) -> tuple[list[int], int]:
+    """台本の文字ごとに、YMM4のセリフをつなげた文字列の中の位置を返す。
+
+    名前が付いている、1つのセリフが2つに分かれている、記号や言い回しが少し違う、
+    セリフを足した・消した、といった違いがあっても、前後の一致している文字で位置を合わせる。
+    戻り値: (位置の一覧, 一致した文字数)。位置が len(voice) なら「最後より後ろ」。
+    """
+    n, m = len(script), len(voice)
+    positions = [m] * n
+    i = j = matched = 0
+    while i < n and j < m:
+        if script[i] == voice[j]:
+            positions[i] = j
+            matched += 1
+            i += 1
+            j += 1
+            continue
+        script_key, voice_key = script[i : i + key], voice[j : j + key]
+        skip_voice = voice.find(script_key, j, j + window + key) if len(script_key) == key else -1
+        skip_script = script.find(voice_key, i, i + window + key) if len(voice_key) == key else -1
+        if skip_voice != -1 and (skip_script == -1 or skip_voice - j <= skip_script - i):
+            j = skip_voice  # YMM4側にだけある文字を飛ばす
+        elif skip_script != -1:
+            for t in range(i, skip_script):  # 台本側にだけある文字を飛ばす
+                positions[t] = j
+            i = skip_script
+        else:
+            positions[i] = j  # 1文字だけ違う
+            i += 1
+            j += 1
+    return positions, matched
 
 
 # ---------- 画像 ----------
@@ -150,19 +165,39 @@ def plan_placements(
     if not voices:
         raise ValueError("プロジェクトにセリフ(ボイスアイテム)がありません。先にYMM4で台本を読み込んで保存してください。")
 
-    mapping = align(utterances, voices)
-    notes: list[str] = []
-    matched = sum(1 for m in mapping if m is not None)
-    if len(utterances) != len(voices):
-        notes.append(
-            f"台本のセリフは{len(utterances)}個、プロジェクトのセリフは{len(voices)}個で数が違います。"
-            f"本文が一致した{matched}個を手がかりに位置を合わせました。"
+    script_joined = "".join(normalize(u) for u in utterances)
+    starts, offset = [], 0
+    for u in utterances:
+        starts.append(offset)
+        offset += len(normalize(u))
+    texts = [voice_text(v.get("Serif", "")) for v in voices]
+    voice_joined = "".join(texts)
+    voice_starts, offset = [], 0
+    for t in texts:
+        voice_starts.append(offset)
+        offset += len(t)
+    positions, matched = char_map(script_joined, voice_joined)
+    if not script_joined or matched < len(script_joined) * 0.3:
+        samples = " / ".join(v.get("Serif", "")[:20] for v in voices[:3])
+        raise ValueError(
+            "台本とYMM4のセリフがほとんど一致しません。別の台本のプロジェクトではありませんか？"
+            f"(YMM4の最初のセリフ: {samples})"
         )
+    notes: list[str] = []
+    if len(utterances) != len(voices):
+        notes.append(f"台本のセリフは{len(utterances)}個、プロジェクトのセリフは{len(voices)}個で数が違いますが、本文で位置を合わせました。")
     end_of_voices = max(v.get("Frame", 0) + v.get("Length", 0) for v in voices)
 
     def frame_of_utterance(utterance: int) -> int:
-        index = voice_index_for(utterance, mapping)
-        return end_of_voices if index is None else int(voices[index].get("Frame", 0))
+        if utterance >= len(utterances) or starts[utterance] >= len(script_joined):
+            return end_of_voices
+        position = positions[starts[utterance]]
+        if position >= len(voice_joined):
+            return end_of_voices
+        k = bisect.bisect_right(voice_starts, position) - 1
+        frame, length, size = int(voices[k].get("Frame", 0)), int(voices[k].get("Length", 0)), len(texts[k])
+        # 1つのセリフにまとめられていたときは、文字の位置の割合で途中のフレームにする
+        return frame + (length * (position - voice_starts[k]) // size if size else 0)
 
     placements: list[Placement] = []
     number = 0

@@ -321,7 +321,8 @@ document.getElementById("zip").addEventListener("click", async () => {
 const VOICE_TYPE = "YukkuriMovieMaker.Project.Items.VoiceItem";
 const IMAGE_TYPE = "YukkuriMovieMaker.Project.Items.ImageItem, YukkuriMovieMaker";
 const REMARK = "画像自動配置";
-const normalize = t => (t || "").replace(/[\s「」『』、。,.!?！？…・]/g, "");
+const normalize = t => (t || "").normalize("NFKC").replace(/[^\p{L}\p{N}]/gu, "");
+const voiceText = t => normalize((t || "").replace(/^\s*[^「」\s]{1,10}「/, ""));
 const dlg = document.getElementById("dlg");
 const logBox = document.getElementById("log");
 function log(text, cls) { logBox.append(el("div", cls ? { class: cls } : {}, text)); logBox.scrollTop = logBox.scrollHeight; }
@@ -334,20 +335,22 @@ function getTimeline(project) {
   if (project.Timeline) return project.Timeline;
   throw new Error("YMM4のプロジェクトとして読めませんでした。");
 }
-// 台本のセリフごとに、対応するYMM4のセリフの番号(なければ null)
-function align(script, voice) {
-  if (script.length === voice.length) return script.map((_, i) => i);
-  const n = script.length, m = voice.length;
-  const dp = Array.from({ length: n + 1 }, () => new Int32Array(m + 1));
-  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
-    dp[i][j] = script[i] === voice[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
-  const map = new Array(n).fill(null);
-  let i = 0, j = 0;
+// 台本の文字ごとに、YMM4のセリフをつなげた文字列の中の位置を返す(コマンド版の char_map と同じ)。
+// 名前が残っている・セリフが分かれた/まとまった・記号が違う・セリフを足した/消した、があっても合わせる。
+function charMap(script, voice, windowSize = 400, key = 6) {
+  const n = script.length, m = voice.length, pos = new Int32Array(n).fill(m);
+  let i = 0, j = 0, matched = 0;
+  const find = (text, k, from, to) => { const r = text.indexOf(k, from); return r !== -1 && r < to ? r : -1; };
   while (i < n && j < m) {
-    if (script[i] === voice[j]) { map[i++] = j++; }
-    else if (dp[i + 1][j] >= dp[i][j + 1]) i++; else j++;
+    if (script[i] === voice[j]) { pos[i++] = j++; matched++; continue; }
+    const sk = script.slice(i, i + key), vk = voice.slice(j, j + key);
+    const sv = sk.length === key ? find(voice, sk, j, j + windowSize + 1) : -1;
+    const ss = vk.length === key ? find(script, vk, i, i + windowSize + 1) : -1;
+    if (sv !== -1 && (ss === -1 || sv - j <= ss - i)) j = sv;
+    else if (ss !== -1) { for (let t = i; t < ss; t++) pos[t] = j; i = ss; }
+    else { pos[i++] = j++; }
   }
-  return map;
+  return { pos, matched };
 }
 function animated(value, shape) {
   if (!shape) return { From: value, To: 0, AnimationType: "なし", Span: 0 };
@@ -406,14 +409,33 @@ async function placeIntoYmm4() {
     folderPath = await askPath();
   }
 
-  // 台本のセリフとYMM4のセリフを突き合わせる
+  // 台本のセリフとYMM4のセリフを、文字の並びで突き合わせる
   const U = DATA.utterances.length;
-  const map = align(DATA.utterances, voices.map(v => normalize(v.Serif)));
-  const matched = map.filter(x => x != null).length;
-  if (U !== voices.length) log(`台本のセリフ${U}個に対してYMM4のセリフが${voices.length}個でした。本文が同じ${matched}個で位置を合わせます。`);
-  if (matched < Math.min(U, voices.length) * 0.5) { log("台本とYMM4のセリフがほとんど一致しません。別の台本のプロジェクトを選んでいませんか？", "ng"); return; }
+  const scriptJoined = DATA.utterances.join("");
+  const starts = []; { let o = 0; for (const u of DATA.utterances) { starts.push(o); o += u.length; } }
+  const texts = voices.map(v => voiceText(v.Serif));
+  const voiceJoined = texts.join("");
+  const voiceStarts = []; { let o = 0; for (const t of texts) { voiceStarts.push(o); o += t.length; } }
+  const { pos, matched } = charMap(scriptJoined, voiceJoined);
+  if (!scriptJoined.length || matched < scriptJoined.length * 0.3) {
+    log("台本とYMM4のセリフがほとんど一致しません。別の台本のプロジェクトを選んでいませんか？", "ng");
+    log("YMM4のセリフ(最初の3つ): " + voices.slice(0, 3).map(v => "「" + (v.Serif || "").slice(0, 25) + "」").join(" "));
+    log("この画像リストの台本(最初の3つ): " + DATA.segments[0].lines.slice(0, 3).map(l => "「" + l.text.slice(0, 25) + "」").join(" "));
+    log("合っているはずなのにこう出るときは、この画面の文字を Claude に送ってください。");
+    return;
+  }
+  if (U !== voices.length) log(`台本のセリフは${U}個、YMM4のセリフは${voices.length}個で数が違いますが、本文で位置を合わせました。`);
   const endOfVoices = Math.max(...voices.map(v => (v.Frame || 0) + (v.Length || 0)));
-  const frameOf = u => { for (let k = u; k < U; k++) if (map[k] != null) return voices[map[k]].Frame || 0; return endOfVoices; };
+  const frameOf = u => {
+    if (u >= U || starts[u] >= scriptJoined.length) return endOfVoices;
+    const p = pos[starts[u]];
+    if (p >= voiceJoined.length) return endOfVoices;
+    let k = 0, lo = 0, hi = voiceStarts.length - 1;
+    while (lo <= hi) { const mid = (lo + hi) >> 1; if (voiceStarts[mid] <= p) { k = mid; lo = mid + 1; } else hi = mid - 1; }
+    const v = voices[k], size = texts[k].length;
+    // 1つのセリフにまとめられていたときは、文字の位置の割合で途中のフレームにする
+    return (v.Frame || 0) + (size ? Math.floor((v.Length || 0) * (p - voiceStarts[k]) / size) : 0);
+  };
 
   // 番号ごとの表示時間
   const plan = [];
