@@ -123,6 +123,10 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
       <label>縁の太さ(追加) <input type="number" id="capBorder" step="0.5" min="0" max="50" style="width:60px"></label>
       <button type="button" id="layoutReset">元に戻す</button>
     </div>
+    <div class="row" style="margin-top:8px">
+      <label><input type="checkbox" id="fadeOn"> 画像と名前にフェードイン・フェードアウトを付ける</label>
+      <label>時間 <input type="number" id="fadeSec" step="0.1" min="0.1" max="5" style="width:60px">秒</label>
+    </div>
     <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。名前のテロップは字幕と同じフォントで、白文字に黒い縁取りで入ります。「縁の太さ(追加)」は、ふつうの縁取りの外側にさらに足す黒い縁の太さです(0で足さない)。名前は番号ごとの「名前テロップ」の欄で変えられます。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。変えた数字はこのブラウザに覚えておきます。</p>
   </details>
   <div class="row">
@@ -617,12 +621,17 @@ async function placeIntoYmm4() {
     if (!blob) { missing.push(p.img); continue; }
     const name = `${String(p.img.no).padStart(3, "0")}_${safeName(p.img.ja)}.${EXT[blob.type] || "png"}`;
     await writeFile(sub, name, blob);
+    // 登場・退場のフェード(ユーザーがいつも付けている映像エフェクト「フェードイン・フェードアウト」と同じ設定)
+    const fade = () => shape && L.fadeOn ? [{
+      $type: "YukkuriMovieMaker.Project.Effects.InOutFadeEffect, YukkuriMovieMaker",
+      Value: 0.0, IsInEffect: true, IsOutEffect: true, EffectTimeSeconds: L.fadeSec, EasingType: "Linear", EasingMode: "Out", IsEnabled: true, Remark: "",
+    }] : [];
     let zoom = 100;
     try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
     const item = {
       $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
       X: animated(L.x, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
-      FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: [], Group: 0,
+      FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: fade(), Group: 0,
       Frame: p.start, Layer: layer, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
     };
     if (shape) Object.assign(item, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: REMARK });
@@ -645,7 +654,7 @@ async function placeIntoYmm4() {
         FontColor: "#FFFFFFFF", Style: "Border", StyleColor: "#FF000000", Bold: true, Italic: false,
         IsTrimEndSpace: true, IsDevidedPerCharacter: false, DisplayInterval: 0, DisplayDirection: "FromFirst", HideInterval: 0, HideDirection: "FromFirst",
         X: animated(L.capX, shape), Y: animated(L.capY, shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
-        FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: shape ? outline : [], Group: 0,
+        FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: shape ? outline.concat(fade()) : [], Group: 0,
         Frame: p.start, Layer: layer + 1, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
       };
       if (shape) Object.assign(text, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: CAPTION_REMARK });
@@ -672,8 +681,8 @@ async function placeIntoYmm4() {
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
 }
 // 画像の位置と大きさ(このブラウザに覚えておく)
-const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, capOn: true };
-const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", capSize: "capSize", capX: "capX", capY: "capY", capBorder: "capBorder" };
+const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, capOn: true, fadeOn: true, fadeSec: 0.2 };
+const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", capSize: "capSize", capX: "capX", capY: "capY", capBorder: "capBorder", fadeSec: "fadeSec" };
 function readLayout() {
   const L = {};
   for (const [k, id] of Object.entries(LAYOUT_FIELDS)) {
@@ -684,18 +693,21 @@ function readLayout() {
   L.capSize = Math.min(Math.max(L.capSize, 10), 200);
   L.capBorder = Math.min(Math.max(L.capBorder, 0), 50);
   L.capOn = document.getElementById("capOn").checked;
+  L.fadeSec = Math.min(Math.max(L.fadeSec, 0.1), 5);
+  L.fadeOn = document.getElementById("fadeOn").checked;
   return L;
 }
 function showLayout(L) {
   for (const [k, id] of Object.entries(LAYOUT_FIELDS)) document.getElementById(id).value = L[k];
   document.getElementById("capOn").checked = L.capOn !== false;
+  document.getElementById("fadeOn").checked = L.fadeOn !== false;
   document.getElementById("sumX").textContent = L.x; document.getElementById("sumY").textContent = L.y;
 }
 {
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem("ymm4-layout") || "{}"); } catch (e) {}
   showLayout(Object.assign({}, LAYOUT_DEFAULT, saved));
-  for (const id of [...Object.values(LAYOUT_FIELDS), "capOn"]) document.getElementById(id).addEventListener("change", () => {
+  for (const id of [...Object.values(LAYOUT_FIELDS), "capOn", "fadeOn"]) document.getElementById(id).addEventListener("change", () => {
     const L = readLayout(); showLayout(L);
     try { localStorage.setItem("ymm4-layout", JSON.stringify(L)); } catch (e) {}
   });
