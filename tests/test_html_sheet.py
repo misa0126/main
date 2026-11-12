@@ -131,3 +131,9 @@ class PatchHatsuonTest(unittest.TestCase):
 
     def test_name_reading(self):
         self.assertEqual(self.run_patch("ますだ/こうぞう、かどた/みつおと", "ますだこうぞう、かくたみつおと"), "ますだ/こうぞう、かくた/みつおと")
+
+    def test_english_words(self):
+        # YMM4がかなにした英語の読みがちがうとき
+        self.assertEqual(self.run_patch("あぷれ/の/しんさく", "あっぷるのしんさく"), "あっぷる/の/しんさく")
+        # 英字のまま残っていたとき
+        self.assertEqual(self.run_patch("iPhone/を/かった", "あいふぉんおかった"), "あいふぉん/を/かった")

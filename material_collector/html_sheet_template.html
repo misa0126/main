@@ -159,7 +159,8 @@ function patchHatsuon(hatsuon, reading) {
     if (hatsuon[i] === "<") { const e = hatsuon.indexOf(">", i); const j = e < 0 ? hatsuon.length : e + 1; toks.push({ raw: hatsuon.slice(i, j), tag: true }); i = j; continue; }
     if (hatsuon[i] === "_" && /[\u3041-\u3096\u30a1-\u30f6]/.test(hatsuon[i + 1] || "")) { toks.push({ raw: hatsuon.slice(i, i + 2), kana: kanaCmp(hatsuon[i + 1]) }); i += 2; continue; }
     const c = hatsuon[i];
-    toks.push(/[\u3041-\u3096\u30a1-\u30f6ー]/.test(c) ? { raw: c, kana: kanaCmp(c) } : { raw: c });
+    // 英字・数字がそのまま残っていたら(ゆっくりボイスは読めない)、読みの表のかなで置きかえる対象にする
+    toks.push(/[\u3041-\u3096\u30a1-\u30f6ー]/.test(c) ? { raw: c, kana: kanaCmp(c) } : /[A-Za-z0-9\uff10-\uff19\uff21-\uff3a\uff41-\uff5a]/.test(c) ? { raw: c, tag: true } : { raw: c });
     i++;
   }
   const H = toks.map((t, i) => t.kana ? i : -1).filter(i => i >= 0);
