@@ -150,3 +150,15 @@ class PatchHatsuonTest(unittest.TestCase):
         # 大文字のまま残っていたとき(全角も)
         self.assertEqual(self.run_patch("HELLO/を/ききながら", "はろーおききながら"), "はろー/を/ききながら")
         self.assertEqual(self.run_patch("ＴＲＵＥ/の/かし", "とぅるーのかし"), "とぅるー/の/かし")
+
+    def test_numbers_are_not_read_twice_and_commas_stay(self):
+        hatsuon = "<NUMK VAL=1944 COUNTER=ねん><NUMK VAL=4 COUNTER=がつ>、<NUMK VAL=21 COUNTER=さい>の/おおやまの/もとに"
+        self.assertEqual(
+            self.run_patch(hatsuon, "せんきゅうひゃくよんじゅうよねんしがつ、にじゅういっさいのおおやまのもとに"),
+            "せんきゅうひゃくよんじゅうよねんしがつ、にじゅういっさいの/おおやまの/もとに",
+        )
+        # 数字の読みが、前後の言葉と偶然ずれて合わさっても、タグを残して二重に読まない
+        out = self.run_patch("<NUMK VAL=2 COUNTER=かい>めの/かいぎで、<NUMK VAL=1 COUNTER=にち>に/きまった", "にかいめのかいぎで、ついたちにきまった")
+        self.assertNotIn("<", out)
+        self.assertEqual(re.sub(r"[/、]", "", out), "にかいめのかいぎでついたちにきまった")
+        self.assertIn("かいぎで、", out)

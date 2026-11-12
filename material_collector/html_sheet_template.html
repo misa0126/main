@@ -152,10 +152,12 @@ function kanaCmp(c) { c = hiraOf(c); return c === "づ" ? "ず" : c === "ぢ" ? 
 // YMM4の助詞「は・を・へ」は、読みの表の「わ・お・え」と同じとみなす(逆は同じにしない。「へるぷ」の「へ」を「え」とまちがえないため)
 const PARTICLE = { "は": "わ", "を": "お", "へ": "え" };
 function sameKana(h, r) { return h === r || PARTICLE[h] === r; }
+// 句読点は、YMM4の読みと読みの表とで位置合わせの目印にだけ使う(読みの表の句読点は書き足さない)
+function punctOf(c) { return /[、,，]/.test(c) ? "、" : /[。．！!]/.test(c) ? "。" : /[？?]/.test(c) ? "？" : ""; }
 function patchHatsuon(hatsuon, reading) {
-  const want = [...(reading || "").normalize("NFKC")].map(hiraOf).filter(c => /[\u3041-\u3096ー]/.test(c))
+  const want = [...(reading || "").normalize("NFKC")].map(c => punctOf(c) || hiraOf(c)).filter(c => /[\u3041-\u3096ー、。？]/.test(c))
     .map(c => c === "づ" ? "ず" : c === "ぢ" ? "じ" : c);
-  if (!want.length) return hatsuon;
+  if (!want.some(c => !punctOf(c))) return hatsuon;
   // YMM4の読みを、かな1文字ずつと、それ以外(記号・タグ)に分ける
   const toks = [];
   for (let i = 0; i < hatsuon.length;) {
@@ -163,18 +165,19 @@ function patchHatsuon(hatsuon, reading) {
     if (hatsuon[i] === "_" && /[\u3041-\u3096\u30a1-\u30f6]/.test(hatsuon[i + 1] || "")) { toks.push({ raw: hatsuon.slice(i, i + 2), kana: kanaCmp(hatsuon[i + 1]) }); i += 2; continue; }
     const c = hatsuon[i];
     // 英字・数字がそのまま残っていたら(ゆっくりボイスは読めない)、読みの表のかなで置きかえる対象にする
-    toks.push(/[\u3041-\u3096\u30a1-\u30f6ー]/.test(c) ? { raw: c, kana: kanaCmp(c) } : /[A-Za-z0-9\uff10-\uff19\uff21-\uff3a\uff41-\uff5a]/.test(c) ? { raw: c, tag: true } : { raw: c });
+    toks.push(punctOf(c) ? { raw: c, punct: punctOf(c) } : /[\u3041-\u3096\u30a1-\u30f6ー]/.test(c) ? { raw: c, kana: kanaCmp(c) } : /[A-Za-z0-9\uff10-\uff19\uff21-\uff3a\uff41-\uff5a]/.test(c) ? { raw: c, tag: true } : { raw: c });
     i++;
   }
-  const H = toks.map((t, i) => t.kana ? i : -1).filter(i => i >= 0);
-  if (!H.length) return want.join("");
+  const H = toks.map((t, i) => t.kana || t.punct ? i : -1).filter(i => i >= 0);
+  if (!toks.some(t => t.kana)) return want.filter(c => !punctOf(c)).join("");
+  const eq = (t, w) => t.punct ? t.punct === w : !punctOf(w) && sameKana(t.kana, kanaCmp(w));
   // かなどうしの最長共通部分で対応を取る
   const n = H.length, m = want.length, L = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
   for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
-    L[i][j] = sameKana(toks[H[i]].kana, kanaCmp(want[j])) ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+    L[i][j] = eq(toks[H[i]], want[j]) ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
   const pairs = [];
   for (let i = 0, j = 0; i < n && j < m;) {
-    if (sameKana(toks[H[i]].kana, kanaCmp(want[j]))) { pairs.push([i, j]); i++; j++; }
+    if (eq(toks[H[i]], want[j])) { pairs.push([i, j]); i++; j++; }
     else if (L[i + 1][j] >= L[i][j + 1]) i++; else j++;
   }
   // 1文字だけの偶然の一致(「える/おー/ぶい」と「らぶ」の「ぶ」など)は使わず、まとめて置きかえる
@@ -182,15 +185,16 @@ function patchHatsuon(hatsuon, reading) {
     const prev = pairs[k - 1], next = pairs[k + 1];
     const joinedPrev = prev && prev[0] === pq[0] - 1 && prev[1] === pq[1] - 1;
     const joinedNext = next && next[0] === pq[0] + 1 && next[1] === pq[1] + 1;
-    return joinedPrev || joinedNext;
+    return toks[H[pq[0]]].punct || joinedPrev || joinedNext;
   });
   pairs.length = 0; pairs.push(...keep, [n, m]);
   let out = "", ti = 0, pj = -1;
   for (const [i, j] of pairs) {
     const tEnd = i < n ? H[i] : toks.length;              // この一致の手前までが、ちがう所
-    const gap = toks.slice(ti, tEnd), ins = want.slice(pj + 1, j);
+    // 読みの表にしかない句読点は足さない。YMM4の数字のタグは必ず消して、読みの表のかなにする(二重に読まないように)
+    const gap = toks.slice(ti, tEnd), ins = want.slice(pj + 1, j).filter(c => !punctOf(c));
     const del = gap.filter(t => t.kana || t.tag), hasTag = gap.some(t => t.tag);
-    if ((!del.length && !ins.length) || (hasTag && !ins.length)) out += gap.map(t => t.raw).join("");
+    if (!del.length && !ins.length) out += gap.map(t => t.raw).join("");
     else if (!hasTag && del.length === ins.length) { let q = 0; for (const t of gap) out += t.kana ? ins[q++] : t.raw; }
     else if (!del.length) out += ins.join("") + gap.map(t => t.raw).join("");
     else { let put = false; for (const t of gap) { if (!t.kana && !t.tag) out += t.raw; else if (!put) { out += ins.join(""); put = true; } } }
