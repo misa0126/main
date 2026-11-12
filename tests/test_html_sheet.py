@@ -93,3 +93,9 @@ class SceneTableTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class AquesTalkKanaTest(unittest.TestCase):
+    def test_du_and_di_become_zu_and_ji(self):
+        from material_collector.html_sheet import parse_yomi_table
+        self.assertEqual(parse_yomi_table("1: ねばりづよい、ちぢむ。"), {1: "ねばりずよい、ちじむ。"})
