@@ -130,12 +130,13 @@ body.editing .seg { border-color: var(--accent); }
     <li>下のボタンを押して、<b>そのフォルダ</b>を選びます。「編集を許可しますか？」と出たら「編集を許可」を押します。</li>
   </ol>
   <details id="layout" style="margin:0 0 12px">
-    <summary>画像の位置と大きさ(横 <span id="sumX"></span>・縦 <span id="sumY"></span>)</summary>
+    <summary>画像の位置と大きさ・フェード(横 <span id="sumX"></span>・縦 <span id="sumY"></span>・フェード <span id="sumF"></span>秒)</summary>
     <div class="row" style="margin-top:8px">
       <label>X <input type="number" id="posX" step="1" style="width:80px"></label>
       <label>Y <input type="number" id="posY" step="1" style="width:80px"></label>
       <label>最大の横幅 <input type="number" id="fitW" step="1" min="5" max="100" style="width:64px">%</label>
       <label>最大の高さ <input type="number" id="fitH" step="1" min="5" max="100" style="width:64px">%</label>
+      <label>フェードイン・アウト <input type="number" id="fade" step="0.1" min="0" max="10" style="width:64px">秒</label>
     </div>
     <div class="row" style="margin-top:8px">
       <label><input type="checkbox" id="capOn"> 人の写真に名前のテロップを入れる</label>
@@ -145,7 +146,7 @@ body.editing .seg { border-color: var(--accent); }
       <label>縁の太さ(追加) <input type="number" id="capBorder" step="0.5" min="0" max="50" style="width:60px"></label>
       <button type="button" id="layoutReset">元に戻す</button>
     </div>
-    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。名前のテロップは字幕と同じフォントで、白文字に黒い縁取りで入ります。「縁の太さ(追加)」は、ふつうの縁取りの外側にさらに足す黒い縁の太さです(0で足さない)。名前は番号ごとの「名前テロップ」の欄で変えられます。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。変えた数字はこのブラウザに覚えておきます。</p>
+    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。名前のテロップは字幕と同じフォントで、白文字に黒い縁取りで入ります。「縁の太さ(追加)」は、ふつうの縁取りの外側にさらに足す黒い縁の太さです(0で足さない)。名前は番号ごとの「名前テロップ」の欄で変えられます。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。画像と名前のテロップは「フェードイン・アウト」の秒数でふわっと出入りします(0でなし)。変えた数字はこのブラウザに覚えておきます。</p>
   </details>
   <div class="row">
     <button type="button" class="big" id="pick">フォルダを選んで並べる</button>
@@ -718,7 +719,7 @@ async function placeIntoYmm4() {
     const item = {
       $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
       X: animated(L.x, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
-      FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: [], Group: 0,
+      FadeIn: L.fade, FadeOut: L.fade, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: [], Group: 0,
       Frame: p.start, Layer: layer, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
     };
     if (shape) Object.assign(item, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: REMARK });
@@ -741,7 +742,7 @@ async function placeIntoYmm4() {
         FontColor: "#FFFFFFFF", Style: "Border", StyleColor: "#FF000000", Bold: true, Italic: false,
         IsTrimEndSpace: true, IsDevidedPerCharacter: false, DisplayInterval: 0, DisplayDirection: "FromFirst", HideInterval: 0, HideDirection: "FromFirst",
         X: animated(L.capX, shape), Y: animated(L.capY, shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
-        FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: shape ? outline : [], Group: 0,
+        FadeIn: L.fade, FadeOut: L.fade, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: shape ? outline : [], Group: 0,
         Frame: p.start, Layer: layer + 1, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
       };
       if (shape) Object.assign(text, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: CAPTION_REMARK });
@@ -768,8 +769,8 @@ async function placeIntoYmm4() {
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => disp(m.no)).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
 }
 // 画像の位置と大きさ(このブラウザに覚えておく)
-const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, capOn: true };
-const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", capSize: "capSize", capX: "capX", capY: "capY", capBorder: "capBorder" };
+const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, fade: 0.5, capSize: 52, capX: 0, capY: 190, capBorder: 4, capOn: true };
+const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", fade: "fade", capSize: "capSize", capX: "capX", capY: "capY", capBorder: "capBorder" };
 function readLayout() {
   const L = {};
   for (const [k, id] of Object.entries(LAYOUT_FIELDS)) {
@@ -779,13 +780,14 @@ function readLayout() {
   L.fitW = Math.min(Math.max(L.fitW, 5), 100); L.fitH = Math.min(Math.max(L.fitH, 5), 100);
   L.capSize = Math.min(Math.max(L.capSize, 10), 200);
   L.capBorder = Math.min(Math.max(L.capBorder, 0), 50);
+  L.fade = Math.min(Math.max(L.fade, 0), 10);
   L.capOn = document.getElementById("capOn").checked;
   return L;
 }
 function showLayout(L) {
   for (const [k, id] of Object.entries(LAYOUT_FIELDS)) document.getElementById(id).value = L[k];
   document.getElementById("capOn").checked = L.capOn !== false;
-  document.getElementById("sumX").textContent = L.x; document.getElementById("sumY").textContent = L.y;
+  document.getElementById("sumX").textContent = L.x; document.getElementById("sumY").textContent = L.y; document.getElementById("sumF").textContent = L.fade;
 }
 {
   let saved = {};
