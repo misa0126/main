@@ -99,3 +99,31 @@ class AquesTalkKanaTest(unittest.TestCase):
     def test_du_and_di_become_zu_and_ji(self):
         from material_collector.html_sheet import parse_yomi_table
         self.assertEqual(parse_yomi_table("1: ねばりづよい、ちぢむ。"), {1: "ねばりずよい、ちじむ。"})
+
+
+class PatchHatsuonTest(unittest.TestCase):
+    """YMM4の読みは「/」(抑揚)や数字のタグを残し、ちがうかなだけを直す(HTMLの中のJavaScriptを node で動かす)"""
+
+    def run_patch(self, hatsuon, reading):
+        import shutil
+        import subprocess
+        if not shutil.which("node"):
+            self.skipTest("node がない")
+        template = (Path(__file__).resolve().parents[1] / "material_collector" / "html_sheet_template.html").read_text(encoding="utf-8")
+        start = template.index("function hiraOf")
+        end = template.index("\n}\n", template.index("function patchHatsuon")) + 3
+        code = template[start:end] + "\nconst a = JSON.parse(process.argv[1]); process.stdout.write(patchHatsuon(a[0], a[1]));"
+        return subprocess.run(["node", "-e", code, json.dumps([hatsuon, reading])], capture_output=True, text=True, encoding="utf-8", check=True).stdout
+
+    def test_keeps_accent_marks_and_fixes_only_the_misread_word(self):
+        self.assertEqual(
+            self.run_patch("おおい/なか/しょうぎで、こま/どうしの/れんけいを/ねばりずよい", "おおいちゅうしょうぎで、こまどうしの、れんけいおねばりづよい。"),
+            "おおい/ちゅう/しょうぎで、こま/どうしの/れんけいを/ねばりずよい",
+        )
+
+    def test_number_tags_are_left_alone(self):
+        hatsuon = "<NUMK VAL=1952 COUNTER=ねん>からの<NUMK VAL=3 COUNTER=ねんかん>わ、めいじんと/おうしょうの_フたつの/たいとるを/も_チつずけた"
+        self.assertEqual(self.run_patch(hatsuon, "せんきゅうひゃくごじゅうにねんからのさんねんかんわ、めいじんとおうしょうの、ふたつのたいとるおもちつづけた。"), hatsuon)
+
+    def test_name_reading(self):
+        self.assertEqual(self.run_patch("ますだ/こうぞう、かどた/みつおと", "ますだこうぞう、かくたみつおと"), "ますだ/こうぞう、かくた/みつおと")

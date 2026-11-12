@@ -139,6 +139,52 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
 <div class="toast" id="toast" hidden></div>
 <main id="main"></main>
 <script>
+// ---- 読みの直し(YMM4の読みのうち、読みの表とちがう文字だけを置きかえる) ----
+// YMM4の読み(AquesTalkの音声記号)には、抑揚の区切り「/」、無声化「_カ」、アクセント「'」、
+// 数字のタグ <NUMK ...>、句読点が入っている。これらはそのまま残し、かなの読みがちがう所だけを直す。
+// 読みの表の句読点は使わない(台本にない間が入らないように)。数字のタグの所はYMM4の読みのまま。
+function hiraOf(c) { return /[\u30a1-\u30f6]/.test(c) ? String.fromCharCode(c.charCodeAt(0) - 0x60) : c; }
+function kanaCmp(c) { c = hiraOf(c); return c === "を" ? "お" : c === "は" ? "わ" : c === "へ" ? "え" : c === "づ" ? "ず" : c === "ぢ" ? "じ" : c; }
+function patchHatsuon(hatsuon, reading) {
+  const want = [...(reading || "").normalize("NFKC")].map(hiraOf).filter(c => /[\u3041-\u3096ー]/.test(c))
+    .map(c => c === "づ" ? "ず" : c === "ぢ" ? "じ" : c);
+  if (!want.length) return hatsuon;
+  // YMM4の読みを、かな1文字ずつと、それ以外(記号・タグ)に分ける
+  const toks = [];
+  for (let i = 0; i < hatsuon.length;) {
+    if (hatsuon[i] === "<") { const e = hatsuon.indexOf(">", i); const j = e < 0 ? hatsuon.length : e + 1; toks.push({ raw: hatsuon.slice(i, j), tag: true }); i = j; continue; }
+    if (hatsuon[i] === "_" && /[\u3041-\u3096\u30a1-\u30f6]/.test(hatsuon[i + 1] || "")) { toks.push({ raw: hatsuon.slice(i, i + 2), kana: kanaCmp(hatsuon[i + 1]) }); i += 2; continue; }
+    const c = hatsuon[i];
+    toks.push(/[\u3041-\u3096\u30a1-\u30f6ー]/.test(c) ? { raw: c, kana: kanaCmp(c) } : { raw: c });
+    i++;
+  }
+  const H = toks.map((t, i) => t.kana ? i : -1).filter(i => i >= 0);
+  if (!H.length) return want.join("");
+  // かなどうしの最長共通部分で対応を取る
+  const n = H.length, m = want.length, L = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
+    L[i][j] = toks[H[i]].kana === kanaCmp(want[j]) ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  const pairs = [];
+  for (let i = 0, j = 0; i < n && j < m;) {
+    if (toks[H[i]].kana === kanaCmp(want[j])) { pairs.push([i, j]); i++; j++; }
+    else if (L[i + 1][j] >= L[i][j + 1]) i++; else j++;
+  }
+  pairs.push([n, m]);
+  let out = "", ti = 0, pj = -1;
+  for (const [i, j] of pairs) {
+    const tEnd = i < n ? H[i] : toks.length;              // この一致の手前までが、ちがう所
+    const gap = toks.slice(ti, tEnd), ins = want.slice(pj + 1, j);
+    const del = gap.filter(t => t.kana);
+    if (gap.some(t => t.tag) || (!del.length && !ins.length)) out += gap.map(t => t.raw).join("");
+    else if (del.length === ins.length) { let q = 0; for (const t of gap) out += t.kana ? ins[q++] : t.raw; }
+    else if (!del.length) out += ins.join("") + gap.map(t => t.raw).join("");
+    else { let put = false; for (const t of gap) { if (!t.kana) out += t.raw; else if (!put) { out += ins.join(""); put = true; } } }
+    if (i < n) out += toks[H[i]].raw;
+    ti = tEnd + 1; pj = j;
+  }
+  return out;
+}
+
 const DATA = /*__DATA__*/null;
 const PAGE_KEY = DATA.id ? DATA.title + ":" + DATA.id : DATA.title;
 const STORAGE_KEY = "image-list:" + PAGE_KEY;
@@ -528,8 +574,6 @@ async function placeIntoYmm4() {
 
   // 読みの直し(台本と同じ本文のセリフだけ、YMM4の読みとちがっていれば置きかえる)
   const fixed = [], skipped = [];
-  const kanaKey = t => (t || "").normalize("NFKC").replace(/[\u30a1-\u30f6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60))
-    .replace(/[^\p{L}\p{N}]/gu, "").replace(/ー/g, "").replace(/を/g, "お").replace(/は/g, "わ").replace(/へ/g, "え");
   for (const [key, reading] of Object.entries(DATA.readings || {})) {
     const u = Number(key);
     const p = pos[starts[u]];
@@ -537,9 +581,10 @@ async function placeIntoYmm4() {
     if (p < voiceJoined.length) { for (let i = voiceStarts.length - 1; i >= 0; i--) if (voiceStarts[i] <= p) { k = i; break; } }
     if (k < 0 || texts[k] !== DATA.utterances[u]) { skipped.push(DATA.utterances[u].slice(0, 15)); continue; }
     const v = voices[k];
-    if (kanaKey(v.Hatsuon) === kanaKey(reading)) continue;
-    fixed.push({ serif: (v.Serif || "").replace(/\s+/g, " "), before: v.Hatsuon || "", after: reading });
-    v.Hatsuon = reading;
+    const patched = patchHatsuon(v.Hatsuon || "", reading);
+    if (patched === (v.Hatsuon || "")) continue;
+    fixed.push({ serif: (v.Serif || "").replace(/\s+/g, " "), before: v.Hatsuon || "", after: patched });
+    v.Hatsuon = patched;
     v.VoiceCache = "";  // 古い声を捨てて、YMM4に作り直してもらう
   }
 
