@@ -142,7 +142,7 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
 // ---- 読みの直し(YMM4の読みのうち、読みの表とちがう文字だけを置きかえる) ----
 // YMM4の読み(AquesTalkの音声記号)には、抑揚の区切り「/」、無声化「_カ」、アクセント「'」、
 // 数字のタグ <NUMK ...>、句読点が入っている。これらはそのまま残し、かなの読みがちがう所だけを直す。
-// 読みの表の句読点は使わない(台本にない間が入らないように)。数字のタグの所はYMM4の読みのまま。
+// 読みの表の句読点は使わない(台本にない間が入らないように)。数字のタグ(1日→いちにち などと読まれる)は表のかなにする。
 function hiraOf(c) { return /[\u30a1-\u30f6]/.test(c) ? String.fromCharCode(c.charCodeAt(0) - 0x60) : c; }
 function kanaCmp(c) { c = hiraOf(c); return c === "を" ? "お" : c === "は" ? "わ" : c === "へ" ? "え" : c === "づ" ? "ず" : c === "ぢ" ? "じ" : c; }
 function patchHatsuon(hatsuon, reading) {
@@ -174,11 +174,11 @@ function patchHatsuon(hatsuon, reading) {
   for (const [i, j] of pairs) {
     const tEnd = i < n ? H[i] : toks.length;              // この一致の手前までが、ちがう所
     const gap = toks.slice(ti, tEnd), ins = want.slice(pj + 1, j);
-    const del = gap.filter(t => t.kana);
-    if (gap.some(t => t.tag) || (!del.length && !ins.length)) out += gap.map(t => t.raw).join("");
-    else if (del.length === ins.length) { let q = 0; for (const t of gap) out += t.kana ? ins[q++] : t.raw; }
+    const del = gap.filter(t => t.kana || t.tag), hasTag = gap.some(t => t.tag);
+    if ((!del.length && !ins.length) || (hasTag && !ins.length)) out += gap.map(t => t.raw).join("");
+    else if (!hasTag && del.length === ins.length) { let q = 0; for (const t of gap) out += t.kana ? ins[q++] : t.raw; }
     else if (!del.length) out += ins.join("") + gap.map(t => t.raw).join("");
-    else { let put = false; for (const t of gap) { if (!t.kana) out += t.raw; else if (!put) { out += ins.join(""); put = true; } } }
+    else { let put = false; for (const t of gap) { if (!t.kana && !t.tag) out += t.raw; else if (!put) { out += ins.join(""); put = true; } } }
     if (i < n) out += toks[H[i]].raw;
     ti = tEnd + 1; pj = j;
   }

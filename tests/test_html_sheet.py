@@ -121,9 +121,13 @@ class PatchHatsuonTest(unittest.TestCase):
             "おおい/ちゅう/しょうぎで、こま/どうしの/れんけいを/ねばりずよい",
         )
 
-    def test_number_tags_are_left_alone(self):
+    def test_number_tags_become_the_table_kana(self):
         hatsuon = "<NUMK VAL=1952 COUNTER=ねん>からの<NUMK VAL=3 COUNTER=ねんかん>わ、めいじんと/おうしょうの_フたつの/たいとるを/も_チつずけた"
-        self.assertEqual(self.run_patch(hatsuon, "せんきゅうひゃくごじゅうにねんからのさんねんかんわ、めいじんとおうしょうの、ふたつのたいとるおもちつづけた。"), hatsuon)
+        self.assertEqual(
+            self.run_patch(hatsuon, "せんきゅうひゃくごじゅうにねんからのさんねんかんわ、めいじんとおうしょうの、ふたつのたいとるおもちつづけた。"),
+            "せんきゅうひゃくごじゅうにねんからのさんねんかんわ、めいじんと/おうしょうの_フたつの/たいとるを/も_チつずけた",
+        )
+        self.assertEqual(self.run_patch("しがつ<NUMK VAL=1 COUNTER=にち>に/しゅっぱつ", "しがつついたちにしゅっぱつ"), "しがつついたちに/しゅっぱつ")
 
     def test_name_reading(self):
         self.assertEqual(self.run_patch("ますだ/こうぞう、かどた/みつおと", "ますだこうぞう、かくたみつおと"), "ますだ/こうぞう、かくた/みつおと")
