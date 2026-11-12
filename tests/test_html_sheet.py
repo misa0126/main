@@ -1,5 +1,7 @@
 import json
 import re
+import shutil
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -91,6 +93,20 @@ class SceneTableTest(unittest.TestCase):
         html = build_sheet(SCRIPT, "## a\n1: x\n", "テスト")
         self.assertIn("https://search.yahoo.co.jp/image/search?p=", html)
         self.assertIn("https://www.bing.com/images/search?q=", html)
+
+    @unittest.skipUnless(shutil.which("node"), "node がない")
+    def test_merge_reading_keeps_ymm4_accent_marks(self):
+        # 読みの表で直すとき、YMM4の発音のアクセント(')や区切り(/)を消さずに、ちがう文字だけ入れかえる
+        html = build_sheet("魔理沙「一」", "## a\n1: x\n", "テスト")
+        func = re.search(r"function mergeReading\(.*?\n}\n", html, re.S).group(0)
+        cases = [
+            ["な'あ/れ'いむ、よな'かの", "なあれいむ、よなかの"],
+            ["かどた'さんわ/き'た", "かくたさんわきた"],
+            ["<NUMK VAL=3>にち", "みっか"],
+        ]
+        script = func + "console.log(JSON.stringify(" + json.dumps(cases, ensure_ascii=False) + ".map(c => mergeReading(c[0], c[1]))));"
+        out = subprocess.run(["node", "-e", script], capture_output=True, text=True, check=True).stdout
+        self.assertEqual(json.loads(out), ["な'あ/れ'いむ、よな'かの", "かくた'さんわ/き'た", "みっか"])
 
 
 if __name__ == "__main__":

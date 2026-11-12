@@ -603,6 +603,54 @@ async function writeFile(dir, name, data) {
   const w = await handle.createWritable(); await w.write(data); await w.close();
 }
 
+// YMM4の「発音」には、ゆっくりボイス(AquesTalk)用のアクセント(')や区切り(/)、間(、)の記号が入っている。
+// 読みの表の読みで丸ごと置きかえると記号が消えて、抑揚も息継ぎもない読み方になるので、
+// 読みがちがう部分の文字だけを入れかえて、それ以外の記号はYMM4のものを残す。
+function mergeReading(orig, reading) {
+  orig = orig || "";
+  const isKana = c => /[ぁ-ゖァ-ヺー]/.test(c);
+  const norm = c => {
+    let k = c.replace(/[ァ-ヶ]/g, x => String.fromCharCode(x.charCodeAt(0) - 0x60));
+    return ({ "を": "お", "は": "わ", "へ": "え", "ゔ": "ぶ" })[k] || k;
+  };
+  // YMM4の発音を「かな1文字(と、その後ろに続く記号)」の並びにする。<...> のタグは合わない1つのかたまりにする
+  const toks = [];
+  let lead = "";
+  for (let i = 0; i < orig.length; i++) {
+    const c = orig[i];
+    if (c === "<") {
+      const j = orig.indexOf(">", i);
+      const tag = j < 0 ? orig.slice(i) : orig.slice(i, j + 1);
+      toks.push({ key: "\u0000tag", text: tag, marks: "" });
+      i = j < 0 ? orig.length : j;
+    } else if (isKana(c)) toks.push({ key: norm(c), text: c, marks: "" });
+    else if (toks.length) toks[toks.length - 1].marks += c;
+    else lead += c;
+  }
+  const want = [...(reading || "")].filter(isKana);
+  const wkey = want.map(norm);
+  const n = toks.length, m = want.length;
+  if (!n || !m) return reading;
+  // 最長共通部分列で、YMM4の発音と読みの表を1文字ずつ対応させる
+  const L = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
+    L[i][j] = toks[i].key === wkey[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  if (L[0][0] < Math.min(n, m) * 0.5) return reading;  // ほとんど合わないときは、読みの表のまま
+  const PAUSE = /[\/、。？?,，]/;
+  let out = lead, i = 0, j = 0;
+  const keepPause = marks => {
+    // 入れかえた部分では、アクセント記号は外して、区切りと間だけ残す
+    const p = [...marks].filter(c => PAUSE.test(c)).join("");
+    if (p && !PAUSE.test(out.slice(-1))) out += p[0];
+  };
+  while (i < n || j < m) {
+    if (i < n && j < m && toks[i].key === wkey[j]) { out += toks[i].text + toks[i].marks; i++; j++; }
+    else if (j < m && (i >= n || L[i][j + 1] >= L[i + 1][j])) { out += want[j]; j++; }
+    else { keepPause(toks[i].marks); i++; }
+  }
+  return out;
+}
+
 async function placeIntoYmm4() {
   logBox.replaceChildren();
   if (!window.showDirectoryPicker) { log("このブラウザでは使えません。Chrome か Edge で開いてください。", "ng"); return; }
@@ -679,8 +727,9 @@ async function placeIntoYmm4() {
     if (k < 0 || texts[k] !== DATA.utterances[u]) { skipped.push(DATA.utterances[u].slice(0, 15)); continue; }
     const v = voices[k];
     if (kanaKey(v.Hatsuon) === kanaKey(reading)) continue;
-    fixed.push({ serif: (v.Serif || "").replace(/\s+/g, " "), before: v.Hatsuon || "", after: reading });
-    v.Hatsuon = reading;
+    const merged = mergeReading(v.Hatsuon, reading);
+    fixed.push({ serif: (v.Serif || "").replace(/\s+/g, " "), before: v.Hatsuon || "", after: merged });
+    v.Hatsuon = merged;
     v.VoiceCache = "";  // 古い声を捨てて、YMM4に作り直してもらう
   }
 
