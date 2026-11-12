@@ -12,8 +12,11 @@
 #   ・本人の写真がネットに少ないので、細かい年号は付けない。Googleで出ないときは Yahoo! / Bing ボタンも試す
 # 人の写真には「|名前」を付けている(YMM4に並べるとき、写真の下に名前のテロップが入る)。本人(大山康晴)の名前は付けない(ユーザーの希望)
 
-## オープニング：将棋で熱が下がった男、タイトル80期
-1: 大山康晴 十五世名人=Yasuharu Oyama 15th Meijin
+## オープニング：熱が出たら何して治す？
+1: いらすとや 熱 寝込む=irasutoya fever sleeping in bed
+
+## オープニング：その男こそ大山康晴、タイトル80期
+7: 大山康晴 十五世名人=Yasuharu Oyama 15th Meijin
 
 ## オープニング：座右の言葉
 17: 大山康晴 色紙 助からないと思っても助かっている=Oyama shikishi tasukaranai to omottemo tasukatteiru
