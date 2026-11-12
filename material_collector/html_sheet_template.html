@@ -148,7 +148,10 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
 // 数字のタグ <NUMK ...>、句読点が入っている。これらはそのまま残し、かなの読みがちがう所だけを直す。
 // 読みの表の句読点は使わない(台本にない間が入らないように)。数字のタグ(1日→いちにち などと読まれる)は表のかなにする。
 function hiraOf(c) { return /[\u30a1-\u30f6]/.test(c) ? String.fromCharCode(c.charCodeAt(0) - 0x60) : c; }
-function kanaCmp(c) { c = hiraOf(c); return c === "を" ? "お" : c === "は" ? "わ" : c === "へ" ? "え" : c === "づ" ? "ず" : c === "ぢ" ? "じ" : c; }
+function kanaCmp(c) { c = hiraOf(c); return c === "づ" ? "ず" : c === "ぢ" ? "じ" : c; }
+// YMM4の助詞「は・を・へ」は、読みの表の「わ・お・え」と同じとみなす(逆は同じにしない。「へるぷ」の「へ」を「え」とまちがえないため)
+const PARTICLE = { "は": "わ", "を": "お", "へ": "え" };
+function sameKana(h, r) { return h === r || PARTICLE[h] === r; }
 function patchHatsuon(hatsuon, reading) {
   const want = [...(reading || "").normalize("NFKC")].map(hiraOf).filter(c => /[\u3041-\u3096ー]/.test(c))
     .map(c => c === "づ" ? "ず" : c === "ぢ" ? "じ" : c);
@@ -168,13 +171,20 @@ function patchHatsuon(hatsuon, reading) {
   // かなどうしの最長共通部分で対応を取る
   const n = H.length, m = want.length, L = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
   for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
-    L[i][j] = toks[H[i]].kana === kanaCmp(want[j]) ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+    L[i][j] = sameKana(toks[H[i]].kana, kanaCmp(want[j])) ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
   const pairs = [];
   for (let i = 0, j = 0; i < n && j < m;) {
-    if (toks[H[i]].kana === kanaCmp(want[j])) { pairs.push([i, j]); i++; j++; }
+    if (sameKana(toks[H[i]].kana, kanaCmp(want[j]))) { pairs.push([i, j]); i++; j++; }
     else if (L[i + 1][j] >= L[i][j + 1]) i++; else j++;
   }
-  pairs.push([n, m]);
+  // 1文字だけの偶然の一致(「える/おー/ぶい」と「らぶ」の「ぶ」など)は使わず、まとめて置きかえる
+  const keep = pairs.filter((pq, k) => {
+    const prev = pairs[k - 1], next = pairs[k + 1];
+    const joinedPrev = prev && prev[0] === pq[0] - 1 && prev[1] === pq[1] - 1;
+    const joinedNext = next && next[0] === pq[0] + 1 && next[1] === pq[1] + 1;
+    return joinedPrev || joinedNext;
+  });
+  pairs.length = 0; pairs.push(...keep, [n, m]);
   let out = "", ti = 0, pj = -1;
   for (const [i, j] of pairs) {
     const tEnd = i < n ? H[i] : toks.length;              // この一致の手前までが、ちがう所
@@ -187,7 +197,8 @@ function patchHatsuon(hatsuon, reading) {
     if (i < n) out += toks[H[i]].raw;
     ti = tEnd + 1; pj = j;
   }
-  return out;
+  // 消した言葉の区切りが重なった「//」や、先頭・句読点の前の「/」を片づける
+  return out.replace(/\/{2,}/g, "/").replace(/^\/+/, "").replace(/\/+(?=[、。？?！!]|$)/g, "");
 }
 
 const DATA = /*__DATA__*/null;

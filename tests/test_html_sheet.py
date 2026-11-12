@@ -137,3 +137,16 @@ class PatchHatsuonTest(unittest.TestCase):
         self.assertEqual(self.run_patch("あぷれ/の/しんさく", "あっぷるのしんさく"), "あっぷる/の/しんさく")
         # 英字のまま残っていたとき
         self.assertEqual(self.run_patch("iPhone/を/かった", "あいふぉんおかった"), "あいふぉん/を/かった")
+
+    def test_uppercase_titles_read_as_words(self):
+        # 大文字の曲名・本のタイトルを、YMM4が1文字ずつ読んでいたとき
+        self.assertEqual(self.run_patch("えいちいーえるぴー/を/きいた", "へるぷおきいた"), "へるぷ/を/きいた")
+        self.assertEqual(self.run_patch("ざ/ふぁーすと/えすえるえーえむ/だんく/が", "ざふぁーすとすらむだんくが"), "ざ/ふぁーすと/すらむ/だんく/が")
+        self.assertEqual(self.run_patch("HELP/を/きいた", "へるぷおきいた"), "へるぷ/を/きいた")
+
+    def test_uppercase_titles(self):
+        # 大文字のタイトルを1文字ずつ読んでいたとき
+        self.assertEqual(self.run_patch("える/おー/ぶい/いー/の/うた", "らぶのうた"), "らぶ/の/うた")
+        # 大文字のまま残っていたとき(全角も)
+        self.assertEqual(self.run_patch("HELLO/を/ききながら", "はろーおききながら"), "はろー/を/ききながら")
+        self.assertEqual(self.run_patch("ＴＲＵＥ/の/かし", "とぅるーのかし"), "とぅるー/の/かし")
