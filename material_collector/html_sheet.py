@@ -146,7 +146,11 @@ def build_sheet(script_text: str, table_text: str, title: str, yomi_text: str | 
     # (名前のテロップ「|名前」とその説明のメモは、あとから足しても貼った画像が消えないように数えない)
     id_table = re.sub(r"\|[^,、，\n]*", "", re.sub(r"(?m)^# 人の写真には.*\n", "", table_text))
     page_id = hashlib.sha1((title + "\n" + script_text + "\n" + id_table).encode("utf-8")).hexdigest()[:12]
-    data = {"title": title, "id": page_id, "segments": segments, "utterances": [normalize(u) for u in utterances]}
+    data = {
+        "title": title, "id": page_id, "segments": segments, "utterances": [normalize(u) for u in utterances],
+        # 行(空行を除いた番号 - 1)ごとのセリフ番号。画像リストの画面で区切りを動かすときに使う
+        "lineU": line_to_utterance,
+    }
     if yomi_text:
         # YMM4の読み(発音)をセリフごとに直すための読み。キーはセリフの番号
         readings = {}

@@ -35,6 +35,8 @@ class SceneTableTest(unittest.TestCase):
         data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
         self.assertEqual(data["utterances"], ["一", "二の前半二の後半", "三"])
         self.assertEqual([s["u"] for s in data["segments"]], [0, 1])
+        self.assertEqual(data["lineU"], [0, 1, 1, 2])  # 画面で区切りを動かすときの、行ごとのセリフ番号
+        self.assertIn('id="edit"', html)
         self.assertIn('id="ymm4"', html)
 
     def test_readings_are_keyed_by_utterance(self):
