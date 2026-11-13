@@ -32,6 +32,7 @@
 from __future__ import annotations
 
 import argparse
+import subprocess
 import base64
 import hashlib
 import io
@@ -39,6 +40,7 @@ import json
 import re
 from pathlib import Path
 
+import numpy as np
 from PIL import Image
 
 from material_collector.thumb_faces import ASSETS, CHARS, EXPRESSIONS
@@ -142,8 +144,47 @@ def face_data_urls() -> dict:
     return faces
 
 
-def build_thumbnail_page(table_text: str) -> str:
+def find_face(image_bytes: bytes) -> dict | None:
+    """写真のいちばん大きい顔の位置(写真のピクセルで中心と高さ)。OpenCV がなければ None。"""
+    try:
+        import cv2
+    except ImportError:
+        return None
+    img = Image.open(io.BytesIO(image_bytes)).convert("L")
+    gray = np.asarray(img)
+    detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+    min_side = max(24, min(gray.shape) // 10)
+    found = detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=6, minSize=(min_side, min_side))
+    if len(found) == 0:
+        return None
+    x, y, w, h = max(found, key=lambda f: f[2] * f[3])
+    return {"cx": float(x + w / 2), "cy": float(y + h / 2), "h": float(h), "iw": img.width, "ih": img.height}
+
+
+def embed_photos(photo_paths: dict[int, Path]) -> tuple[dict, dict]:
+    """ページに最初から入れておく写真(data URL)と、その顔の位置。"""
+    embedded, faces = {}, {}
+    for no, path in photo_paths.items():
+        raw = path.read_bytes()
+        img = Image.open(io.BytesIO(raw)).convert("RGB")
+        if max(img.size) > 1600:  # ページが重くならないように縮める
+            img.thumbnail((1600, 1600))
+        buf = io.BytesIO()
+        img.save(buf, "JPEG", quality=92)
+        raw = buf.getvalue()
+        embedded[str(no)] = "data:image/jpeg;base64," + base64.b64encode(raw).decode("ascii")
+        face = find_face(raw)
+        if face:
+            faces[str(no)] = face
+    return embedded, faces
+
+
+def build_thumbnail_page(table_text: str, photo_paths: dict[int, Path] | None = None) -> str:
     data = parse_thumb_table(table_text)
+    for no in photo_paths or {}:
+        if not 1 <= no <= len(data["photos"]):
+            raise ValueError(f"写真 {no} 番は表にありません(写真は {len(data['photos'])} つ)。")
+    data["embedded"], data["face_boxes"] = embed_photos(photo_paths or {})
     data["id"] = hashlib.sha1(("thumb\n" + data["name"] + "\n" + json.dumps(data["photos"], ensure_ascii=False)).encode("utf-8")).hexdigest()[:12]
     data["expressions"] = FACE_CHOICES
     data["layouts"] = LAYOUTS
@@ -158,12 +199,26 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="サムネ案の表から、YouTubeのサムネを作るHTMLを作る")
     parser.add_argument("table", type=Path)
     parser.add_argument("output", type=Path, nargs="?", help="省略すると「名前_thumbnail.html」")
+    parser.add_argument("--photo", action="append", default=[], metavar="番号=ファイル",
+                        help="写真を最初から入れておく(例: --photo 1=oyama.jpg)。顔の位置に合わせて自動で拡大・配置する")
+    parser.add_argument("--render", type=Path, metavar="フォルダ",
+                        help="できたサムネを案ごとにJPGで保存する(Node.js の Playwright が要る)")
     args = parser.parse_args(argv)
-    html = build_thumbnail_page(args.table.read_text(encoding="utf-8"))
+    photo_paths = {}
+    for item in args.photo:
+        no, sep, path = item.partition("=")
+        if not sep or not no.strip().isdigit():
+            parser.error(f"--photo は「番号=ファイル」で書いてください: {item}")
+        photo_paths[int(no)] = Path(path)
+    html = build_thumbnail_page(args.table.read_text(encoding="utf-8"), photo_paths)
     name = parse_thumb_table(args.table.read_text(encoding="utf-8"))["name"]
     output = args.output or Path(f"{name}_thumbnail.html")
     output.write_text(html, encoding="utf-8")
     print(f"作成しました: {output}")
+    if args.render:
+        args.render.mkdir(parents=True, exist_ok=True)
+        script = Path(__file__).with_name("render_thumbnails.js")
+        subprocess.run(["node", str(script), str(output.resolve()), str(args.render.resolve()), name], check=True)
     return 0
 
 

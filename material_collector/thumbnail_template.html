@@ -168,7 +168,7 @@ async function setPhoto(no, blob, quiet = false) {
   if (!quiet) {
     dbPut(no, blob);
     // 新しい写真にしたら、その写真の位置と拡大を元に戻す
-    for (const p of plans) { p.state.views = p.state.views.map((v, i) => p.state.photos[i] === no ? { x: 0, y: 0, z: 1 } : v); p.save(); }
+    for (const p of plans) { p.state.views = p.state.views.map((v, i) => p.state.photos[i] === no ? autoView(no, p.state.layout, i) : v); p.save(); }
   }
   renderPhoto(no);
   plans.forEach(p => p.draw());
@@ -391,6 +391,27 @@ function drawBubble(g, text, cx, cy, tx, ty, family) {
   lines.forEach((l, i) => g.fillText(l, x + w / 2, y + 15 + size * 0.6 + i * size * 1.2));
   g.restore();
 }
+// 顔の位置が分かっている写真(--photo で入れたもの)は、型に合わせて顔が良い大きさ・位置になるようにする
+const FACE_TARGET = {
+  "顔アップ": { h: 300, x: 0.5, y: 380 }, "吹き出し": { h: 250, x: 0.5, y: 360 }, "右に写真": { h: 280, x: 0.5, y: 360 },
+  "全面写真": { h: 260, x: 0.5, y: 320 }, "比較": { h: 220, x: 0.5, y: 330 },
+};
+function autoView(no, layout, index) {
+  const f = (DATA.face_boxes || {})[no], p = photos.get(no), t = FACE_TARGET[layout];
+  const r = photoRects(layout)[index];
+  if (!f || !p || !t || !r) return { x: 0, y: 0, z: 1 };
+  const k = p.img.width / f.iw;  // 埋め込むときに縮めた分
+  const cx = f.cx * k, cy = f.cy * k, fh = f.h * k;
+  const s0 = Math.max(r.w / p.img.width, r.h / p.img.height);
+  const z = Math.min(6, Math.max(1, t.h / fh / s0)), s = s0 * z;
+  const w = p.img.width * s, h = p.img.height * s;
+  // 顔を目標の位置へ。ただし写真の端が枠の中に入らないようにする
+  let x = r.x + r.w * t.x - (r.x + (r.w - w) / 2 + cx * s);
+  let y = (r.y + t.y) - (r.y + (r.h - h) / 2 + cy * s);
+  const mx = (w - r.w) / 2, my = (h - r.h) / 2;
+  x = Math.max(-mx, Math.min(mx, x)); y = Math.max(-my, Math.min(my, y));
+  return { x, y, z };
+}
 // 型ごとの写真の枠
 function photoRects(layout) {
   if (layout === "右に写真") return [{ x: 470, y: 0, w: 810, h: H }];
@@ -555,12 +576,12 @@ function makePlan(def, index) {
   };
   const photoOpts = DATA.photos.map((p, i) => [String(i + 1), `写真 ${i + 1}(${p.ja})`]);
   const exprOpts = DATA.expressions.map(x => [x, x]);
-  const second = el("div", { class: "row2" }, sel(photoOpts, String(st.photos[1]), v => { st.photos[1] = Number(v); st.views[1] = { x: 0, y: 0, z: 1 }; }));
+  const second = el("div", { class: "row2" }, sel(photoOpts, String(st.photos[1]), v => { st.photos[1] = Number(v); st.views[1] = autoView(st.photos[1], st.layout, 1); }));
   const labelRow = el("div", { class: "row2" }, text(st.labels[0], v => { st.labels[0] = v; }, "左"), text(st.labels[1], v => { st.labels[1] = v; }, "右"));
   const secondLabel = el("label", {}, "右の写真"), labelLabel = el("label", {}, "左右の文字");
   const showCompare = () => { const on = st.layout === "比較"; [second, labelRow, secondLabel, labelLabel].forEach(x => { x.hidden = !on; }); };
   const ctrl = el("div", { class: "ctrl" },
-    el("label", {}, "型"), sel(DATA.layouts.map(x => [x, x]), st.layout, v => { st.layout = v; showCompare(); }),
+    el("label", {}, "型"), sel(DATA.layouts.map(x => [x, x]), st.layout, v => { st.layout = v; st.views = st.views.map((_, j) => autoView(st.photos[j], v, j)); showCompare(); }),
     el("label", {}, "文字"), text(st.text, v => { st.text = v; }, "| で改行、{ } で強調"),
     el("div", { class: "note" }, "| で改行、{ } で囲むと強調の色。顔アップの型は上の一言(1行12文字くらいまで)"),
     el("label", {}, "上の帯"), text(st.band, v => { st.band = v; }, "なしでもよい"),
@@ -568,7 +589,7 @@ function makePlan(def, index) {
     el("label", {}, "霊夢のセリフ"), text(st.reimuSays, v => { st.reimuSays = v; }, "空なら吹き出しなし"),
     el("label", {}, "魔理沙のセリフ"), text(st.marisaSays, v => { st.marisaSays = v; }, "空なら吹き出しなし"),
     el("label", {}, "名前"), text(st.nameText, v => { st.nameText = v; }, "空にすると名前を出さない"),
-    el("label", {}, "写真"), sel(photoOpts, String(st.photos[0]), v => { st.photos[0] = Number(v); st.views[0] = { x: 0, y: 0, z: 1 }; }),
+    el("label", {}, "写真"), sel(photoOpts, String(st.photos[0]), v => { st.photos[0] = Number(v); st.views[0] = autoView(st.photos[0], st.layout, 0); }),
     secondLabel, second, labelLabel, labelRow,
     el("label", {}, "白黒"), (() => { const c = el("input", { type: "checkbox" }); c.checked = st.mono; c.addEventListener("change", () => { st.mono = c.checked; changed(); }); return el("div", {}, c); })(),
     el("label", {}, "霊夢"), sel(exprOpts, st.reimu, v => { st.reimu = v; }),
@@ -628,7 +649,20 @@ function waitFont(family) {
   await Promise.all([loadFaces(), ...new Set(plans.map(p => p.state.font)).values()].map(x => typeof x === "string" ? waitFont(x) : x));
   plans.forEach(p => p.draw());
   db = await openDb();
-  for (let i = 0; i < DATA.photos.length; i++) { const blob = await dbGet(i + 1); if (blob) await setPhoto(i + 1, blob, true); }
+  for (let i = 0; i < DATA.photos.length; i++) {
+    const no = i + 1, blob = await dbGet(no);
+    if (blob) { await setPhoto(no, blob, true); continue; }
+    // 最初から入れてある写真(まだ自分で貼り替えていないとき)
+    const src = (DATA.embedded || {})[no];
+    if (src) {
+      await setPhoto(no, dataUrlToBlob(src), true);
+      for (const p of plans) {
+        // 自分で動かした写真はそのまま
+        p.state.views = p.state.views.map((v, j) => p.state.photos[j] === no && v.x === 0 && v.y === 0 && v.z === 1 ? autoView(no, p.state.layout, j) : v);
+        p.draw();
+      }
+    }
+  }
   const first = DATA.photos.findIndex((_, i) => !photos.has(i + 1));
   selectPhoto(first >= 0 ? first + 1 : 1);
 })();

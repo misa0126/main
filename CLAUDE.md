@@ -63,6 +63,11 @@
    ```bash
    python -m material_collector.thumbnail scripts/<名前>_thumb.txt <出力先>/<人物名>_thumbnail.html
    ```
+   **ユーザーが本人の写真を送ってきたとき** は、完成したJPGまで作って渡す(顔を自動で見つけて、型ごとに良い大きさ・位置に合わせる。顔の検出に `pip install "opencv-python-headless<5"` が要る。5.x では使えない):
+   ```bash
+   python -m material_collector.thumbnail scripts/<名前>_thumb.txt <出力先>/<人物名>_thumbnail.html --photo 1=<写真> --photo 2=<写真> --render <出力先>/サムネ
+   ```
+   送られた写真は1枚なら、表の写真の番号をすべてそれに向ける。若い頃の写真と晩年の写真が分かれていれば、それぞれの番号に入れる。できたJPGを自分で見て、顔が文字やゆっくりに隠れていないか確かめてから、JPGとHTML(写真入り。あとで文字や位置を直せる)を渡す。写真はコミットしない。
 4. できたHTMLをファイルとして直接渡し、動画タイトル案(問いかけや落差のあるもの。サムネの文字とは別の文)も2〜3個そえて、「写真の番号ごとのボタンで検索 → 画像をコピー → Ctrl+V」「サムネの写真はドラッグで移動・ホイールで拡大」「保存でJPG(1280×720)」「3案をYouTube Studioの『テストと比較』に入れる」と短く伝える。
 5. 表をコミットしてプッシュする。
 

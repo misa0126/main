@@ -98,6 +98,31 @@ def shrink_pupils(img: Image.Image, ch) -> None:
     return centers
 
 
+def half_lid(img: Image.Image, ch) -> list:
+    """上まぶたを下ろして、目を半分閉じた「ジト目」にする。まぶたの線の位置を返す。"""
+    a = np.asarray(img).copy()
+    box = ch["box"]
+    hsv = np.asarray(img.convert("RGB").convert("HSV")).astype(int)
+    lids = []
+    for (x0, y0, x1, y1) in ch["eyes"]:
+        ys = [y for y in range(y0 - box[1], y1 - box[1]) for x in range(x0 - box[0], x1 - box[0])
+              if 5 < hsv[y, x][0] < 25 and hsv[y, x][1] > 120 and 60 < hsv[y, x][2] < 250]
+        top, bottom = min(ys), max(ys)
+        cut = top + int((bottom - top) * 0.45)
+        xs = []
+        for y in range(y0 - box[1], cut):
+            for x in range(x0 - box[0], x1 - box[0]):
+                r, g, b, al = a[y, x]
+                is_hair_yellow = r > 200 and g > 170 and b < 120
+                is_hair_dark = max(r, g, b) < 90 and y < (y0 - box[1]) + 6
+                if not (is_hair_yellow or is_hair_dark) and al > 0:
+                    a[y, x, :3] = SKIN
+                    xs.append(x)
+        lids.append((min(xs) + 2, max(xs) - 2, cut))
+    img.paste(Image.fromarray(a))
+    return lids
+
+
 def erase_mouth(d: ImageDraw.ImageDraw, ch) -> None:
     cx, cy = local(ch["mouth"], ch["box"])
     d.rectangle((cx - 30 * S, cy - 5 * S, cx + 30 * S, cy + 5 * S), fill=SKIN)
@@ -137,8 +162,11 @@ def draw(name: str, expr: str, source: Image.Image) -> Image.Image:
     centers = None
     if expr in ("笑顔",):
         erase_eyes(base, ch)
+    lids = None
     if expr in ("驚き", "焦り"):
         centers = shrink_pupils(base, ch)
+    if expr == "にやり":
+        lids = half_lid(base, ch)
     big = base.resize((base.width * S, base.height * S), Image.LANCZOS)
     over = Image.new("RGBA", big.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(big)
@@ -153,10 +181,18 @@ def draw(name: str, expr: str, source: Image.Image) -> Image.Image:
             r = 5.5 * S
             d.ellipse((ex - r, ey - r, ex + r, ey + r), fill=(110, 50, 20), outline=(40, 20, 10), width=S)
             d.ellipse((ex - r * 0.5, ey - r * 0.7, ex, ey - r * 0.2), fill=(255, 255, 255))
+    if lids:
+        for (lx0, lx1, ly) in lids:
+            # まぶたの線(太め、少しななめ)
+            d.line([(lx0 * S, ly * S + 2 * S), (lx1 * S, ly * S - 1 * S)], fill=(40, 25, 20), width=S * 4)
     if expr == "にやり":
-        pts = [(mx - 24 * S + i * S, my - 3 * S + 7 * S * math.sin(math.pi * i / 48) ** 1.3 - (i / 48) * 4 * S) for i in range(49)]
-        d.line(pts, fill=LINE, width=int(w), joint="curve")
-        d.line([pts[-1], (pts[-1][0] + 3 * S, pts[-1][1] - 4 * S)], fill=LINE, width=int(w))
+        # 片方の口角が上がった、歯の見えるニヤッとした口
+        top = [(mx - 22 * S, my - 2 * S), (mx, my + 1 * S), (mx + 22 * S, my - 9 * S)]
+        bottom = [(mx + 22 * S, my - 9 * S), (mx + 8 * S, my + 9 * S), (mx - 8 * S, my + 9 * S), (mx - 22 * S, my - 2 * S)]
+        d.polygon(top + bottom[1:], fill=MOUTH)
+        d.polygon([(mx - 20 * S, my - 1 * S), (mx, my + 2 * S), (mx + 20 * S, my - 7 * S), (mx + 16 * S, my - 3 * S), (mx, my + 5 * S), (mx - 16 * S, my + 2 * S)], fill=(255, 255, 255))
+        d.line(top, fill=LINE, width=int(w), joint="curve")
+        d.line(bottom, fill=LINE, width=int(w), joint="curve")
     elif expr == "驚き":
         d.ellipse((mx - 11 * S, my - 10 * S, mx + 11 * S, my + 17 * S), fill=MOUTH, outline=LINE, width=int(w))
         d.chord((mx - 8 * S, my + 5 * S, mx + 8 * S, my + 17 * S), 200, 340, fill=TONGUE)

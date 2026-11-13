@@ -57,6 +57,19 @@ class ThumbTableTest(unittest.TestCase):
         self.assertTrue(data["faces"]["reimu_驚き"].startswith("data:image/webp;base64,"))
         self.assertIn("<title>大山康晴 サムネ作成</title>", html)
 
+    def test_embed_photo(self):
+        import tempfile
+        from PIL import Image
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "p.png"
+            Image.new("RGB", (2400, 1200), "gray").save(path)
+            html = build_thumbnail_page(TABLE, {1: path})
+        data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
+        self.assertTrue(data["embedded"]["1"].startswith("data:image/jpeg;base64,"))
+        self.assertEqual(data["face_boxes"], {})  # 顔のない画像
+        with self.assertRaises(ValueError):
+            build_thumbnail_page(TABLE, {3: path})
+
     def test_example_table_builds(self):
         path = Path(__file__).resolve().parents[1] / "scripts" / "oyama_yasuharu_thumb.txt"
         self.assertEqual(len(parse_thumb_table(path.read_text(encoding="utf-8"))["plans"]), 3)
