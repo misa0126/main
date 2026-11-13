@@ -32,6 +32,12 @@ class ThumbTableTest(unittest.TestCase):
         self.assertEqual((first["reimu"], first["marisa"], first["photos"]), ("驚き", "ふつう", [1]))
         self.assertEqual((second["photos"], second["labels"]), ([2, 1], ["若い頃", "晩年"]))
 
+    def test_face_up_is_mono_and_face_can_be_hidden(self):
+        table = TABLE.replace("型: 右に写真", "型: 顔アップ").replace("霊夢: 驚き", "霊夢: なし")
+        first = parse_thumb_table(table)["plans"][0]
+        self.assertEqual((first["layout"], first["mono"], first["reimu"]), ("顔アップ", True, "なし"))
+        self.assertFalse(parse_thumb_table(table.replace("霊夢: なし", "霊夢: なし\n白黒: いいえ"))["plans"][0]["mono"])
+
     def test_errors(self):
         for bad in [TABLE.replace("霊夢: 驚き", "霊夢: 爆笑"), TABLE.replace("写真: 2, 1", "写真: 2"),
                     TABLE.replace("写真: 2, 1", "写真: 3, 1"), TABLE.replace("型: 右に写真", "型: 縦長"),

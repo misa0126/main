@@ -271,32 +271,43 @@ function lineWidth(g, parts, size, family) {
   for (const p of parts) { g.font = font(size * (p.em ? EM_SCALE : 1), family); w += g.measureText(p.t).width; }
   return w;
 }
-// 文字の行を、枠(x中心, 下のy, 幅, 高さ)に収まる大きさで描く
-function drawTextBlock(g, text, { cx, bottom, maxW, maxH, align = "center", left = 0, color, family, scale = 1, maxSize = 150 }) {
+// 文字の色の組み合わせ。white: 白文字(強調は指定の色) / red: 赤文字に白ふち / yellow: 黄文字
+const STYLES = {
+  white: { fill: "#fff", ring: null },
+  red: { fill: "#ff1a1a", ring: "#fff" },
+  yellow: { fill: "#ffe100", ring: null },
+};
+// 文字の行を、枠に収まる大きさで描く。bottom(下の位置)、top(上の位置)、middle(まん中の位置)のどれかで置く
+function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white" }) {
   const lines = parseText(text);
   if (!lines.length) return;
+  const st = STYLES[style] || STYLES.white;
   const gap = 0.06;
-  let size = Math.min(maxSize, maxH / (lines.length * (1 + gap) * EM_SCALE)) * scale;
+  const size = Math.min(maxSize, maxH / (lines.length * (1 + gap) * EM_SCALE)) * scale;
   const sizes = lines.map(parts => Math.min(size, size * maxW / Math.max(1, lineWidth(g, parts, size, family))));
-  let y = bottom;
+  const heights = lines.map((parts, i) => sizes[i] * (1 + gap) * (parts.some(p => p.em) ? EM_SCALE : 1));
+  const total = heights.reduce((a, b) => a + b, 0);
+  let y = top != null ? top + total : middle != null ? middle + total / 2 : bottom;
   for (let i = lines.length - 1; i >= 0; i--) {
     const parts = lines[i], s = sizes[i];
     const w = lineWidth(g, parts, s, family);
-    let x = align === "left" ? left : cx - w / 2;
+    let x = cx - w / 2;
     for (const p of parts) {
       const ps = s * (p.em ? EM_SCALE : 1);
       g.font = font(ps, family);
-      g.textBaseline = "alphabetic"; g.lineJoin = "round"; g.miterLimit = 2;
+      g.textBaseline = "alphabetic"; g.textAlign = "left"; g.lineJoin = "round"; g.miterLimit = 2;
       const base = y - s * 0.12;
-      // 影 → 太い黒ふち → 白い細ふち(強調だけ) → 文字
-      g.strokeStyle = "rgba(0,0,0,.55)"; g.lineWidth = ps * 0.3; g.strokeText(p.t, x + ps * 0.04, base + ps * 0.06);
-      g.strokeStyle = "#000"; g.lineWidth = ps * 0.24; g.strokeText(p.t, x, base);
-      if (p.em) { g.strokeStyle = "#fff"; g.lineWidth = ps * 0.1; g.strokeText(p.t, x, base); g.strokeStyle = "#000"; g.lineWidth = ps * 0.05; g.strokeText(p.t, x, base); }
-      g.fillStyle = p.em ? color : "#fff";
+      const ring = st.ring || (p.em && style === "white" ? "#fff" : null);
+      const ringW = st.ring ? 0.2 : 0.1;
+      // 影 → 太い黒ふち → (白ふち) → 文字
+      g.strokeStyle = "rgba(0,0,0,.55)"; g.lineWidth = ps * (ring ? 0.2 + ringW : 0.3); g.strokeText(p.t, x + ps * 0.04, base + ps * 0.06);
+      g.strokeStyle = "#000"; g.lineWidth = ps * (ring ? 0.12 + ringW : 0.24); g.strokeText(p.t, x, base);
+      if (ring) { g.strokeStyle = ring; g.lineWidth = ps * ringW; g.strokeText(p.t, x, base); }
+      g.fillStyle = p.em ? color : st.fill;
       g.fillText(p.t, x, base);
       x += g.measureText(p.t).width;
     }
-    y -= s * (1 + gap) * (parts.some(p => p.em) ? EM_SCALE : 1);
+    y -= heights[i];
   }
 }
 function drawBand(g, text, x, y, family, centered = false) {
@@ -330,7 +341,7 @@ function drawName(g, name, x, y, family, align = "right") {
   g.fillStyle = "#fff"; g.fillText(name, left, y);
 }
 // 写真を枠いっぱいに(はみ出しは切る)。view は {x, y, z}: ドラッグとホイールで変わる
-function drawPhoto(g, no, rect, view) {
+function drawPhoto(g, no, rect, view, mono = false) {
   const p = photos.get(no);
   g.save();
   g.beginPath(); g.rect(rect.x, rect.y, rect.w, rect.h); g.clip();
@@ -342,7 +353,7 @@ function drawPhoto(g, no, rect, view) {
     const img = p.img;
     const s = Math.max(rect.w / img.width, rect.h / img.height) * view.z;
     const w = img.width * s, h = img.height * s;
-    g.filter = "contrast(1.12) saturate(1.15)";
+    g.filter = mono ? "grayscale(1) contrast(1.3) brightness(1.04)" : "contrast(1.12) saturate(1.15)";
     g.drawImage(img, rect.x + (rect.w - w) / 2 + view.x, rect.y + (rect.h - h) / 2 + view.y, w, h);
     g.filter = "none";
   }
@@ -360,7 +371,8 @@ function drawFace(g, key, cx, bottom, height, flip = false) {
 // 型ごとの写真の枠
 function photoRects(layout) {
   if (layout === "右に写真") return [{ x: 470, y: 0, w: 810, h: H }];
-  if (layout === "全面写真") return [{ x: 0, y: 0, w: W, h: H }];
+  if (layout === "全面写真" || layout === "顔アップ") return [{ x: 0, y: 0, w: W, h: H }];
+  if (layout === "文字だけ") return [];
   return [{ x: 0, y: 0, w: W / 2, h: H }, { x: W / 2, y: 0, w: W / 2, h: H }];
 }
 function render(g, st) {
@@ -371,29 +383,49 @@ function render(g, st) {
   g.textAlign = "left";
   const fs = st.faceScale;
   const reimu = "reimu_" + st.reimu, marisa = "marisa_" + st.marisa;
-  if (st.layout === "右に写真") {
+  if (st.layout === "顔アップ") {
+    // 人物の生涯解説で伸びている型: 顔を大きく、上に赤い一言、下に黄色の名前、ゆっくりは小さく
+    drawPhoto(g, st.photos[0], rects[0], st.views[0], st.mono);
+    const vig = g.createRadialGradient(W / 2, 400, 260, W / 2, 400, 820); vig.addColorStop(0, "rgba(0,0,0,0)"); vig.addColorStop(1, "rgba(0,0,0,.6)");
+    g.fillStyle = vig; g.fillRect(0, 0, W, H);
+    const topShade = g.createLinearGradient(0, 0, 0, 230); topShade.addColorStop(0, "rgba(0,0,0,.55)"); topShade.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = topShade; g.fillRect(0, 0, W, 230);
+    const bottomShade = g.createLinearGradient(0, 470, 0, H); bottomShade.addColorStop(0, "rgba(0,0,0,0)"); bottomShade.addColorStop(1, "rgba(0,0,0,.6)");
+    g.fillStyle = bottomShade; g.fillRect(0, 470, W, H - 470);
+    drawTextBlock(g, st.text, { cx: W / 2, top: 14, maxW: 1240, maxH: 250, maxSize: 112, color, family: fam, scale: st.textScale, style: "red" });
+    drawTextBlock(g, st.nameText, { cx: W / 2, bottom: H - 14, maxW: 930, maxH: 170, maxSize: 132, color, family: fam, scale: st.textScale, style: "yellow" });
+    drawFace(g, reimu, 72 * fs, H + 4, 135 * fs);
+    drawFace(g, marisa, W - 80 * fs, H + 4, 140 * fs);
+  } else if (st.layout === "文字だけ") {
+    // 黒い背景に大きな文字だけ(気になる一言で勝負する型)
+    const bg = g.createRadialGradient(W / 2, H / 2, 100, W / 2, H / 2, 800); bg.addColorStop(0, "#1a1a1a"); bg.addColorStop(1, "#000");
+    g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    drawTextBlock(g, st.text, { cx: W / 2, middle: H / 2 - 10, maxW: 1160, maxH: 560, maxSize: 190, color, family: fam, scale: st.textScale });
+    drawFace(g, reimu, 72 * fs, H + 4, 135 * fs);
+    drawFace(g, marisa, W - 80 * fs, H + 4, 140 * fs);
+  } else if (st.layout === "右に写真") {
     const bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, "#14244d"); bg.addColorStop(1, "#05070f");
     g.fillStyle = bg; g.fillRect(0, 0, W, H);
-    drawPhoto(g, st.photos[0], rects[0], st.views[0]);
+    drawPhoto(g, st.photos[0], rects[0], st.views[0], st.mono);
     const fade = g.createLinearGradient(470, 0, 700, 0); fade.addColorStop(0, "rgba(7,12,28,1)"); fade.addColorStop(1, "rgba(7,12,28,0)");
     g.fillStyle = fade; g.fillRect(470, 0, 230, H);
-    drawName(g, DATA.name, W - 26, 22, fam);
+    if (st.nameText) drawName(g, st.nameText.replace(/[{}|]/g, ""), W - 26, 22, fam);
     drawBand(g, st.band, 26, 26, fam);
     drawTextBlock(g, st.text, { cx: 370, bottom: 520, maxW: 720, maxH: st.band ? 410 : 470, color, family: fam, scale: st.textScale });
     drawFace(g, reimu, 130 * fs, H + 8, 240 * fs);
-    drawFace(g, marisa, W - 165 * fs, H + 8, 250 * fs, true);
+    drawFace(g, marisa, W - 165 * fs, H + 8, 250 * fs);
   } else if (st.layout === "全面写真") {
-    drawPhoto(g, st.photos[0], rects[0], st.views[0]);
+    drawPhoto(g, st.photos[0], rects[0], st.views[0], st.mono);
     const shade = g.createLinearGradient(0, 300, 0, H); shade.addColorStop(0, "rgba(0,0,0,0)"); shade.addColorStop(1, "rgba(0,0,0,.85)");
     g.fillStyle = shade; g.fillRect(0, 300, W, H - 300);
-    drawName(g, DATA.name, W - 26, 22, fam);
+    if (st.nameText) drawName(g, st.nameText.replace(/[{}|]/g, ""), W - 26, 22, fam);
     drawBand(g, st.band, 26, 26, fam);
     drawTextBlock(g, st.text, { cx: W / 2, bottom: H - 24, maxW: 740 * (2 - st.faceScale), maxH: 330, color, family: fam, scale: st.textScale });
     drawFace(g, reimu, 110 * fs, H + 8, 210 * fs);
-    drawFace(g, marisa, W - 140 * fs, H + 8, 220 * fs, true);
+    drawFace(g, marisa, W - 140 * fs, H + 8, 220 * fs);
   } else {
-    drawPhoto(g, st.photos[0], rects[0], st.views[0]);
-    drawPhoto(g, st.photos[1], rects[1], st.views[1]);
+    drawPhoto(g, st.photos[0], rects[0], st.views[0], st.mono);
+    drawPhoto(g, st.photos[1], rects[1], st.views[1], st.mono);
     g.fillStyle = "#fff"; g.fillRect(W / 2 - 4, 0, 8, H);
     const shade = g.createLinearGradient(0, 330, 0, H); shade.addColorStop(0, "rgba(0,0,0,0)"); shade.addColorStop(1, "rgba(0,0,0,.85)");
     g.fillStyle = shade; g.fillRect(0, 330, W, H - 330);
@@ -407,7 +439,7 @@ function render(g, st) {
     g.stroke(); g.fill(); g.restore();
     drawTextBlock(g, st.text, { cx: W / 2, bottom: H - 24, maxW: 760 * (2 - st.faceScale), maxH: 300, color, family: fam, scale: st.textScale });
     drawFace(g, reimu, 105 * fs, H + 8, 200 * fs);
-    drawFace(g, marisa, W - 135 * fs, H + 8, 210 * fs, true);
+    drawFace(g, marisa, W - 135 * fs, H + 8, 210 * fs);
   }
 }
 
@@ -416,7 +448,7 @@ const plans = [];
 function makePlan(def, index) {
   const key = PAGE_KEY + ":plan" + index;
   const initial = () => ({ layout: def.layout, band: def.band, text: def.text, photos: [def.photos[0], def.photos[1] || def.photos[0]],
-    labels: [...def.labels], reimu: def.reimu, marisa: def.marisa, color: def.color, font: "Dela Gothic One",
+    labels: [...def.labels], mono: def.mono, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, font: "Dela Gothic One",
     textScale: 1, faceScale: 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
   const plan = { state: Object.assign(initial(), loadJson(key, {})) };
   plan.save = () => saveJson(key, plan.state);
@@ -479,10 +511,12 @@ function makePlan(def, index) {
   const ctrl = el("div", { class: "ctrl" },
     el("label", {}, "型"), sel(DATA.layouts.map(x => [x, x]), st.layout, v => { st.layout = v; showCompare(); }),
     el("label", {}, "文字"), text(st.text, v => { st.text = v; }, "| で改行、{ } で強調"),
-    el("div", { class: "note" }, "| で改行、{ } で囲むと強調の色。1行8文字くらいまでが読みやすい"),
+    el("div", { class: "note" }, "| で改行、{ } で囲むと強調の色。顔アップの型は上の一言(1行12文字くらいまで)"),
     el("label", {}, "上の帯"), text(st.band, v => { st.band = v; }, "なしでもよい"),
+    el("label", {}, "名前"), text(st.nameText, v => { st.nameText = v; }, "空にすると名前を出さない"),
     el("label", {}, "写真"), sel(photoOpts, String(st.photos[0]), v => { st.photos[0] = Number(v); st.views[0] = { x: 0, y: 0, z: 1 }; }),
     secondLabel, second, labelLabel, labelRow,
+    el("label", {}, "白黒"), (() => { const c = el("input", { type: "checkbox" }); c.checked = st.mono; c.addEventListener("change", () => { st.mono = c.checked; changed(); }); return el("div", {}, c); })(),
     el("label", {}, "霊夢"), sel(exprOpts, st.reimu, v => { st.reimu = v; }),
     el("label", {}, "魔理沙"), sel(exprOpts, st.marisa, v => { st.marisa = v; }),
     el("label", {}, "強調の色"), sel(Object.keys(DATA.colors).map(x => [x, x]), st.color, v => { st.color = v; }),
