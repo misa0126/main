@@ -24,6 +24,7 @@
     写真: 1                                       ← 使う写真の番号。比較は「1, 2」
     ラベル: 20歳, 69歳                            ← 比較のときの左右の文字
     ゆっくりの大きさ: 1.5                         ← 1 がふつう。2 で2倍(顔アップは1でもスマホで見える大きさ)
+    顔の大きさ: 大                                ← 顔アップで、目が一言のすぐ下に来るまで顔を大きくする(おでこは一言に隠れる)
     白黒: はい                                    ← 写真を白黒に(顔アップは最初から白黒)
     霊夢: 驚き                                    ← ふつう にやり 驚き 焦り 怒り 泣き 笑顔 なし
     魔理沙: にやり
@@ -64,7 +65,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "reimu": "ふつう", "marisa": "ふつう", "color": "黄"})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": False, "reimu": "ふつう", "marisa": "ふつう", "color": "黄"})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -111,6 +112,10 @@ def parse_thumb_table(text: str) -> dict:
                 raise ValueError(f"ゆっくりの大きさは数字で書いてください(1 がふつう、2 で2倍): {line}") from None
             if not 0.5 <= plan["face_scale"] <= 2.5:
                 raise ValueError(f"ゆっくりの大きさは 0.5〜2.5 にしてください: {line}")
+        elif key == "顔の大きさ":
+            if value not in ("大", "ふつう"):
+                raise ValueError(f"顔の大きさは「大」か「ふつう」にしてください: {line}")
+            plan["big_face"] = value == "大"
         elif key == "白黒":
             if value not in ("はい", "いいえ"):
                 raise ValueError(f"白黒は「はい」か「いいえ」にしてください: {line}")
