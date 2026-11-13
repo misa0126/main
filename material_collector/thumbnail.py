@@ -24,7 +24,7 @@
     写真: 1                                       ← 使う写真の番号。比較は「1, 2」
     ラベル: 20歳, 69歳                            ← 比較のときの左右の文字
     ゆっくりの大きさ: 1.5                         ← 1 がふつう。2 で2倍(顔アップは1でもスマホで見える大きさ)
-    顔の大きさ: 大                                ← 顔アップで、目が一言のすぐ下に来るまで顔を大きくする(おでこは一言に隠れる)
+    顔の大きさ: 大                                ← 顔アップは「大」が標準(目が一言のすぐ下に来るまで顔を大きく。おでこは隠れる)。「ふつう」で顔全体を出す
     白黒: はい                                    ← 写真を白黒に(顔アップは最初から白黒)
     霊夢: 驚き                                    ← ふつう にやり 驚き 焦り 怒り 泣き 笑顔 なし
     魔理沙: にやり
@@ -65,7 +65,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": False, "reimu": "ふつう", "marisa": "ふつう", "color": "黄"})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "reimu": "ふつう", "marisa": "ふつう", "color": "黄"})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -135,6 +135,8 @@ def parse_thumb_table(text: str) -> dict:
     if len(plans) > 3:
         raise ValueError("案は3つまでにしてください(YouTubeのテストと比較が3枚までのため)。")
     for plan in plans:
+        if plan["big_face"] is None:  # 顔アップは顔を大きくするのが標準(ユーザーと決めた)
+            plan["big_face"] = plan["layout"] == "顔アップ"
         need = {"比較": 2, "文字だけ": 0}.get(plan["layout"], 1)
         if len(plan["photos"]) < need:
             raise ValueError(f"{plan['title']}: 比較の型は写真を2つ(例: 写真: 1, 2)書いてください。")
