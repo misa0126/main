@@ -401,7 +401,7 @@ function drawBubble(g, text, cx, cy, tx, ty, family) {
 }
 // 顔の位置が分かっている写真(--photo で入れたもの)は、型に合わせて顔が良い大きさ・位置になるようにする
 const FACE_TARGET = {
-  "顔アップ": { h: 330, x: 0.5, y: 330 }, "吹き出し": { h: 250, x: 0.5, y: 360 }, "右に写真": { h: 280, x: 0.5, y: 360 },
+  "顔アップ": { h: 320, x: 0.5, y: 370 }, "吹き出し": { h: 250, x: 0.5, y: 360 }, "右に写真": { h: 280, x: 0.5, y: 360 },
   "全面写真": { h: 260, x: 0.5, y: 320 }, "比較": { h: 220, x: 0.5, y: 330 },
 };
 function autoView(no, layout, index) {
@@ -442,8 +442,9 @@ function render(g, st) {
     const vig = g.createRadialGradient(W / 2, H / 2, 380, W / 2, H / 2, 860); vig.addColorStop(0, "rgba(0,0,0,0)"); vig.addColorStop(1, "rgba(0,0,0,.8)");
     g.fillStyle = vig; g.fillRect(0, 0, W, H);
     const tall = fam === "Noto Sans JP" ? 1.2 : 1;
-    drawTextBlock(g, st.text, { cx: W / 2, top: 6, maxW: 1250, maxH: 190, maxSize: 125, color, family: fam, scale: st.textScale, style: "red", stretch: tall > 1 ? 1.45 : 1 });
-    drawTextBlock(g, st.nameText, { cx: W / 2, bottom: H - 10, maxW: 900, maxH: 185, maxSize: 140, color, family: fam, scale: st.textScale, style: "yellow", stretch: tall });
+    // 一言は短いほど大きくなる(10文字で14文字のときの約1.5倍)。名前は一言より目立たせない
+    drawTextBlock(g, st.text, { cx: W / 2, top: 6, maxW: 1250, maxH: 235, maxSize: 132, color, family: fam, scale: st.textScale, style: "red", stretch: tall > 1 ? 1.45 : 1 });
+    drawTextBlock(g, st.nameText, { cx: W / 2, bottom: H - 10, maxW: 760, maxH: 150, maxSize: 112, color, family: fam, scale: st.textScale, style: "yellow", stretch: tall });
     drawFace(g, reimu, 50 * fs, H - 6, 82 * fs);
     drawFace(g, marisa, W - 58 * fs, H - 6, 86 * fs);
   } else if (st.layout === "吹き出し") {
