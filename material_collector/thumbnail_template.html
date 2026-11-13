@@ -368,10 +368,33 @@ function drawFace(g, key, cx, bottom, height, flip = false) {
   g.drawImage(img, cx - w / 2, bottom - height, w, height);
   g.restore();
 }
+// セリフの吹き出し。(tx, ty) はしっぽの先(ゆっくりの頭の上)
+function drawBubble(g, text, cx, cy, tx, ty, family) {
+  if (!text) return;
+  const lines = text.split("|");
+  let size = 52;
+  g.font = font(size, family);
+  const widest = Math.max(...lines.map(l => g.measureText(l).width));
+  if (widest > 430) { size = size * 430 / widest; g.font = font(size, family); }
+  const w = Math.max(...lines.map(l => g.measureText(l).width)) + 44, h = lines.length * size * 1.2 + 30;
+  const x = Math.min(W - 10 - w, Math.max(10, cx - w / 2)), y = cy - h / 2;
+  g.save();
+  g.lineJoin = "round"; g.lineWidth = 6; g.strokeStyle = "#000"; g.fillStyle = "#fff";
+  g.shadowColor = "rgba(0,0,0,.45)"; g.shadowBlur = 10; g.shadowOffsetY = 4;
+  const bx = Math.min(x + w - 40, Math.max(x + 40, tx));
+  g.beginPath();
+  g.roundRect(x, y, w, h, 18);
+  g.moveTo(bx - 18, y + h); g.lineTo(tx, ty); g.lineTo(bx + 18, y + h);
+  g.stroke(); g.shadowColor = "transparent"; g.fill();
+  g.fillRect(bx - 15, y + h - 6, 30, 8);  // しっぽの付け根の線を消す
+  g.fillStyle = "#111"; g.textBaseline = "middle"; g.textAlign = "center";
+  lines.forEach((l, i) => g.fillText(l, x + w / 2, y + 15 + size * 0.6 + i * size * 1.2));
+  g.restore();
+}
 // 型ごとの写真の枠
 function photoRects(layout) {
   if (layout === "右に写真") return [{ x: 470, y: 0, w: 810, h: H }];
-  if (layout === "全面写真" || layout === "顔アップ") return [{ x: 0, y: 0, w: W, h: H }];
+  if (layout === "全面写真" || layout === "顔アップ" || layout === "吹き出し") return [{ x: 0, y: 0, w: W, h: H }];
   if (layout === "文字だけ") return [];
   return [{ x: 0, y: 0, w: W / 2, h: H }, { x: W / 2, y: 0, w: W / 2, h: H }];
 }
@@ -396,6 +419,19 @@ function render(g, st) {
     drawTextBlock(g, st.nameText, { cx: W / 2, bottom: H - 14, maxW: 930, maxH: 170, maxSize: 132, color, family: fam, scale: st.textScale, style: "yellow" });
     drawFace(g, reimu, 72 * fs, H + 4, 135 * fs);
     drawFace(g, marisa, W - 80 * fs, H + 4, 140 * fs);
+  } else if (st.layout === "吹き出し") {
+    // ゆっくり解説全体で最近伸びている型: カラーの場面、上に黄色の一言、下に大きな赤い文字、キャラのセリフの吹き出し
+    drawPhoto(g, st.photos[0], rects[0], st.views[0], st.mono);
+    const vig = g.createRadialGradient(W / 2, 360, 300, W / 2, 360, 820); vig.addColorStop(0, "rgba(0,0,0,0)"); vig.addColorStop(1, "rgba(0,0,0,.45)");
+    g.fillStyle = vig; g.fillRect(0, 0, W, H);
+    const topShade = g.createLinearGradient(0, 0, 0, 200); topShade.addColorStop(0, "rgba(0,0,0,.6)"); topShade.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = topShade; g.fillRect(0, 0, W, 200);
+    const bottomShade = g.createLinearGradient(0, 430, 0, H); bottomShade.addColorStop(0, "rgba(0,0,0,0)"); bottomShade.addColorStop(1, "rgba(0,0,0,.75)");
+    g.fillStyle = bottomShade; g.fillRect(0, 430, W, H - 430);
+    drawTextBlock(g, st.top, { cx: W / 2, top: 10, maxW: 1240, maxH: 130, maxSize: 96, color, family: fam, scale: st.textScale, style: "yellow" });
+    drawFace(g, reimu, 130 * fs, 560, 230 * fs);
+    drawFace(g, marisa, W - 140 * fs, 560, 240 * fs);
+    drawTextBlock(g, st.text, { cx: W / 2, bottom: H - 12, maxW: 1240, maxH: 200, maxSize: 150, color, family: fam, scale: st.textScale, style: "red" });
   } else if (st.layout === "文字だけ") {
     // 黒い背景に大きな文字だけ(気になる一言で勝負する型)
     const bg = g.createRadialGradient(W / 2, H / 2, 100, W / 2, H / 2, 800); bg.addColorStop(0, "#1a1a1a"); bg.addColorStop(1, "#000");
@@ -443,12 +479,26 @@ function render(g, st) {
   }
 }
 
+function drawSpeech(g, st) {
+  const fam = st.font, fs = st.faceScale;
+  if (st.layout === "吹き出し") {
+    if (st.reimu !== "なし") drawBubble(g, st.reimuSays, 250, 200, 140 * fs, 560 - 225 * fs, fam);
+    if (st.marisa !== "なし") drawBubble(g, st.marisaSays, W - 260, 200, W - 150 * fs, 560 - 235 * fs, fam);
+  } else {
+    // ほかの型は、ゆっくりが下の隅にいるので、その少し上に出す
+    const small = st.layout === "顔アップ" || st.layout === "文字だけ";
+    const hr = (small ? 135 : 220) * fs, hm = (small ? 140 : 230) * fs;
+    if (st.reimu !== "なし") drawBubble(g, st.reimuSays, 230, H - hr - 70, 90 * fs, H - hr + 10, fam);
+    if (st.marisa !== "なし") drawBubble(g, st.marisaSays, W - 240, H - hm - 70, W - 100 * fs, H - hm + 10, fam);
+  }
+}
+
 // ---- 案ごとの欄 ----
 const plans = [];
 function makePlan(def, index) {
   const key = PAGE_KEY + ":plan" + index;
   const initial = () => ({ layout: def.layout, band: def.band, text: def.text, photos: [def.photos[0], def.photos[1] || def.photos[0]],
-    labels: [...def.labels], mono: def.mono, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, font: "Dela Gothic One",
+    labels: [...def.labels], mono: def.mono, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, font: "Dela Gothic One",
     textScale: 1, faceScale: 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
   const plan = { state: Object.assign(initial(), loadJson(key, {})) };
   plan.save = () => saveJson(key, plan.state);
@@ -462,6 +512,7 @@ function makePlan(def, index) {
     requestAnimationFrame(() => {
       pending = false;
       render(g, plan.state);
+      drawSpeech(g, plan.state);
       sg.imageSmoothingQuality = "high"; sg.clearRect(0, 0, 336, 189); sg.drawImage(big, 0, 0, 336, 189);
     });
   };
@@ -513,6 +564,9 @@ function makePlan(def, index) {
     el("label", {}, "文字"), text(st.text, v => { st.text = v; }, "| で改行、{ } で強調"),
     el("div", { class: "note" }, "| で改行、{ } で囲むと強調の色。顔アップの型は上の一言(1行12文字くらいまで)"),
     el("label", {}, "上の帯"), text(st.band, v => { st.band = v; }, "なしでもよい"),
+    el("label", {}, "上の文字"), text(st.top, v => { st.top = v; }, "吹き出しの型の上の一言"),
+    el("label", {}, "霊夢のセリフ"), text(st.reimuSays, v => { st.reimuSays = v; }, "空なら吹き出しなし"),
+    el("label", {}, "魔理沙のセリフ"), text(st.marisaSays, v => { st.marisaSays = v; }, "空なら吹き出しなし"),
     el("label", {}, "名前"), text(st.nameText, v => { st.nameText = v; }, "空にすると名前を出さない"),
     el("label", {}, "写真"), sel(photoOpts, String(st.photos[0]), v => { st.photos[0] = Number(v); st.views[0] = { x: 0, y: 0, z: 1 }; }),
     secondLabel, second, labelLabel, labelRow,

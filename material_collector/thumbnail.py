@@ -13,7 +13,12 @@
     ## 案1                                       ← 案は3つまで(YouTubeの「テストと比較」が3枚まで)
     型: 顔アップ                                  ← 顔アップ / 右に写真 / 全面写真 / 比較 / 文字だけ
                                                      顔アップ: 顔を大きく、上に赤い一言(文字)、下に黄色の名前。白黒になる
+                                                     吹き出し: カラーの写真、上に黄色の一言(上の文字)、下に大きな赤い文字、
+                                                               ゆっくりを大きめにしてセリフの吹き出しを付ける
                                                      文字だけ: 黒い背景に文字だけ
+    上の文字: 入門した次の日にボコボコ            ← 吹き出しの型の上の一言
+    霊夢のセリフ: 戦争に病気まで…                 ← 吹き出し(どの型でも付く。| で改行)
+    魔理沙のセリフ: それでも必ずはい上がる
     帯: 永世五冠・タイトル80期                     ← 上の赤い帯の文字(なくてもよい)
     文字: 69歳まで|{A級}にいた男                   ← | で改行、{ } で囲んだ所が強調の色になる
     写真: 1                                       ← 使う写真の番号。比較は「1, 2」
@@ -39,7 +44,7 @@ from PIL import Image
 from material_collector.thumb_faces import ASSETS, CHARS, EXPRESSIONS
 
 TEMPLATE_PATH = Path(__file__).with_name("thumbnail_template.html")
-LAYOUTS = ["顔アップ", "右に写真", "全面写真", "比較", "文字だけ"]
+LAYOUTS = ["顔アップ", "吹き出し", "右に写真", "全面写真", "比較", "文字だけ"]
 FACE_CHOICES = EXPRESSIONS + ["なし"]
 COLORS = {"黄": "#ffe600", "赤": "#ff3b3b", "水色": "#46d4ff"}
 CHAR_KEYS = {"霊夢": "reimu", "魔理沙": "marisa"}
@@ -56,7 +61,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "reimu": "ふつう", "marisa": "ふつう", "color": "黄"})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "reimu": "ふつう", "marisa": "ふつう", "color": "黄"})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -79,6 +84,10 @@ def parse_thumb_table(text: str) -> dict:
                 raise ValueError(f"型は {' / '.join(LAYOUTS)} のどれかにしてください: {line}")
             plan["layout"] = value
             plan["mono"] = plan["mono"] or value == "顔アップ"
+        elif key == "上の文字":
+            plan["top"] = value
+        elif key in ("霊夢のセリフ", "魔理沙のセリフ"):
+            plan["reimu_says" if key.startswith("霊夢") else "marisa_says"] = value
         elif key == "帯":
             plan["band"] = value
         elif key == "文字":

@@ -38,6 +38,11 @@ class ThumbTableTest(unittest.TestCase):
         self.assertEqual((first["layout"], first["mono"], first["reimu"]), ("顔アップ", True, "なし"))
         self.assertFalse(parse_thumb_table(table.replace("霊夢: なし", "霊夢: なし\n白黒: いいえ"))["plans"][0]["mono"])
 
+    def test_speech_bubbles(self):
+        table = TABLE.replace("型: 右に写真", "型: 吹き出し\n上の文字: 上\n霊夢のセリフ: えっ|ほんと？\n魔理沙のセリフ: そうだぜ")
+        first = parse_thumb_table(table)["plans"][0]
+        self.assertEqual((first["layout"], first["top"], first["reimu_says"], first["marisa_says"]), ("吹き出し", "上", "えっ|ほんと？", "そうだぜ"))
+
     def test_errors(self):
         for bad in [TABLE.replace("霊夢: 驚き", "霊夢: 爆笑"), TABLE.replace("写真: 2, 1", "写真: 2"),
                     TABLE.replace("写真: 2, 1", "写真: 3, 1"), TABLE.replace("型: 右に写真", "型: 縦長"),
