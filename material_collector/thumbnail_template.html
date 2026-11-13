@@ -484,7 +484,7 @@ function render(g, st) {
     g.fillStyle = shade; g.fillRect(0, 300, W, H - 300);
     if (st.nameText) drawName(g, st.nameText.replace(/[{}|]/g, ""), W - 26, 22, fam);
     drawBand(g, st.band, 26, 26, fam);
-    drawTextBlock(g, st.text, { cx: W / 2, bottom: H - 24, maxW: 740 * (2 - st.faceScale), maxH: 330, color, family: fam, scale: st.textScale });
+    drawTextBlock(g, st.text, { cx: W / 2, bottom: H - 24, maxW: Math.max(420, 740 * (2 - st.faceScale)), maxH: 330, color, family: fam, scale: st.textScale });
     drawFace(g, reimu, 110 * fs, H + 8, 210 * fs);
     drawFace(g, marisa, W - 140 * fs, H + 8, 220 * fs);
   } else {
@@ -501,7 +501,7 @@ function render(g, st) {
     g.save(); g.translate(W / 2, ly + 36); g.fillStyle = "#ffe600"; g.strokeStyle = "#000"; g.lineWidth = 6; g.lineJoin = "round";
     g.beginPath(); g.moveTo(-30, -16); g.lineTo(6, -16); g.lineTo(6, -34); g.lineTo(40, 0); g.lineTo(6, 34); g.lineTo(6, 16); g.lineTo(-30, 16); g.closePath();
     g.stroke(); g.fill(); g.restore();
-    drawTextBlock(g, st.text, { cx: W / 2, bottom: H - 24, maxW: 760 * (2 - st.faceScale), maxH: 300, color, family: fam, scale: st.textScale });
+    drawTextBlock(g, st.text, { cx: W / 2, bottom: H - 24, maxW: Math.max(420, 760 * (2 - st.faceScale)), maxH: 300, color, family: fam, scale: st.textScale });
     drawFace(g, reimu, 105 * fs, H + 8, 200 * fs);
     drawFace(g, marisa, W - 135 * fs, H + 8, 210 * fs);
   }
@@ -527,7 +527,7 @@ function makePlan(def, index) {
   const key = PAGE_KEY + ":plan" + index;
   const initial = () => ({ layout: def.layout, band: def.band, text: def.text, photos: [def.photos[0], def.photos[1] || def.photos[0]],
     labels: [...def.labels], mono: def.mono, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, font: def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
-    textScale: 1, faceScale: 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
+    textScale: 1, faceScale: def.face_scale || 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
   const plan = { state: Object.assign(initial(), loadJson(key, {})) };
   plan.save = () => saveJson(key, plan.state);
 
@@ -578,7 +578,7 @@ function makePlan(def, index) {
     const i = el("input", { type: "text", value, placeholder }); i.addEventListener("input", () => { onchange(i.value); changed(); }); return i;
   };
   const range = (value, onchange) => {
-    const r = el("input", { type: "range", min: "0.6", max: "1.4", step: "0.02", value: String(value) });
+    const r = el("input", { type: "range", min: "0.6", max: "2.4", step: "0.02", value: String(value) });
     r.addEventListener("input", () => { onchange(Number(r.value)); changed(); }); return r;
   };
   const photoOpts = DATA.photos.map((p, i) => [String(i + 1), `写真 ${i + 1}(${p.ja})`]);
