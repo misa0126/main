@@ -361,8 +361,16 @@ function drawPhoto(g, no, rect, view, mono = false) {
     const img = p.img;
     const s = Math.max(rect.w / img.width, rect.h / img.height) * view.z;
     const w = img.width * s, h = img.height * s;
-    g.filter = mono ? "grayscale(1) contrast(1.3) brightness(1.04)" : "contrast(1.12) saturate(1.15)";
-    g.drawImage(img, rect.x + (rect.w - w) / 2 + view.x, rect.y + (rect.h - h) / 2 + view.y, w, h);
+    const tone = mono ? "grayscale(1) contrast(1.3) brightness(1.04)" : "contrast(1.12) saturate(1.15)";
+    const x = rect.x + (rect.w - w) / 2 + view.x, y = rect.y + (rect.h - h) / 2 + view.y;
+    if (x > rect.x + 0.5 || y > rect.y + 0.5 || x + w < rect.x + rect.w - 0.5 || y + h < rect.y + rect.h - 0.5) {
+      // 写真を下げたときなどにできるすき間は、同じ写真を大きくぼかしたもので埋める
+      const cs = Math.max(rect.w / img.width, rect.h / img.height) * 1.15;
+      g.filter = tone + " blur(24px)";
+      g.drawImage(img, rect.x + (rect.w - img.width * cs) / 2, rect.y + (rect.h - img.height * cs) / 2, img.width * cs, img.height * cs);
+    }
+    g.filter = tone;
+    g.drawImage(img, x, y, w, h);
     g.filter = "none";
   }
   g.restore();
@@ -401,7 +409,7 @@ function drawBubble(g, text, cx, cy, tx, ty, family) {
 }
 // 顔の位置が分かっている写真(--photo で入れたもの)は、型に合わせて顔が良い大きさ・位置になるようにする
 const FACE_TARGET = {
-  "顔アップ": { h: 320, x: 0.5, y: 370 }, "吹き出し": { h: 250, x: 0.5, y: 360 }, "右に写真": { h: 280, x: 0.5, y: 360 },
+  "顔アップ": { h: 260, x: 0.5, y: 425, gapTop: 260 }, "吹き出し": { h: 250, x: 0.5, y: 360 }, "右に写真": { h: 280, x: 0.5, y: 360 },
   "全面写真": { h: 260, x: 0.5, y: 320 }, "比較": { h: 220, x: 0.5, y: 330 },
 };
 function autoView(no, layout, index) {
@@ -417,7 +425,7 @@ function autoView(no, layout, index) {
   let x = r.x + r.w * t.x - (r.x + (r.w - w) / 2 + cx * s);
   let y = (r.y + t.y) - (r.y + (r.h - h) / 2 + cy * s);
   const mx = (w - r.w) / 2, my = (h - r.h) / 2;
-  x = Math.max(-mx, Math.min(mx, x)); y = Math.max(-my, Math.min(my, y));
+  x = Math.max(-mx, Math.min(mx, x)); y = Math.max(-my, Math.min(my + (t.gapTop || 0), y));  // gapTop: 上にすき間を作って下げてよい
   return { x, y, z };
 }
 // 型ごとの写真の枠
@@ -445,8 +453,8 @@ function render(g, st) {
     // 一言は短いほど大きくなる(10文字で14文字のときの約1.5倍)。名前は一言より目立たせない
     drawTextBlock(g, st.text, { cx: W / 2, top: 6, maxW: 1250, maxH: 235, maxSize: 132, color, family: fam, scale: st.textScale, style: "red", stretch: tall > 1 ? 1.45 : 1 });
     drawTextBlock(g, st.nameText, { cx: W / 2, bottom: H - 10, maxW: 760, maxH: 150, maxSize: 112, color, family: fam, scale: st.textScale, style: "yellow", stretch: tall });
-    drawFace(g, reimu, 50 * fs, H - 6, 82 * fs);
-    drawFace(g, marisa, W - 58 * fs, H - 6, 86 * fs);
+    drawFace(g, reimu, 95 * fs, H - 6, 164 * fs);
+    drawFace(g, marisa, W - 112 * fs, H - 6, 172 * fs);
   } else if (st.layout === "吹き出し") {
     // ゆっくり解説全体で最近伸びている型: カラーの場面、上に黄色の一言、下に大きな赤い文字、キャラのセリフの吹き出し
     drawPhoto(g, st.photos[0], rects[0], st.views[0], st.mono);
@@ -465,8 +473,8 @@ function render(g, st) {
     const bg = g.createRadialGradient(W / 2, H / 2, 100, W / 2, H / 2, 800); bg.addColorStop(0, "#1a1a1a"); bg.addColorStop(1, "#000");
     g.fillStyle = bg; g.fillRect(0, 0, W, H);
     drawTextBlock(g, st.text, { cx: W / 2, middle: H / 2 - 10, maxW: 1160, maxH: 560, maxSize: 190, color, family: fam, scale: st.textScale });
-    drawFace(g, reimu, 50 * fs, H - 6, 82 * fs);
-    drawFace(g, marisa, W - 58 * fs, H - 6, 86 * fs);
+    drawFace(g, reimu, 95 * fs, H - 6, 164 * fs);
+    drawFace(g, marisa, W - 112 * fs, H - 6, 172 * fs);
   } else if (st.layout === "右に写真") {
     const bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, "#14244d"); bg.addColorStop(1, "#05070f");
     g.fillStyle = bg; g.fillRect(0, 0, W, H);
@@ -515,7 +523,7 @@ function drawSpeech(g, st) {
   } else {
     // ほかの型は、ゆっくりが下の隅にいるので、その少し上に出す
     const small = st.layout === "顔アップ" || st.layout === "文字だけ";
-    const hr = (small ? 82 : 220) * fs, hm = (small ? 86 : 230) * fs;
+    const hr = (small ? 164 : 220) * fs, hm = (small ? 172 : 230) * fs;
     if (st.reimu !== "なし") drawBubble(g, st.reimuSays, 230, H - hr - 70, 90 * fs, H - hr + 10, fam);
     if (st.marisa !== "なし") drawBubble(g, st.marisaSays, W - 240, H - hm - 70, W - 100 * fs, H - hm + 10, fam);
   }
