@@ -27,6 +27,8 @@ from .html_sheet import normalize, parse_scene_table, script_utterances
 
 VOICE_TYPE = "YukkuriMovieMaker.Project.Items.VoiceItem, YukkuriMovieMaker"
 IMAGE_TYPE = "YukkuriMovieMaker.Project.Items.ImageItem, YukkuriMovieMaker"
+# 画像に付けるフェードイン・フェードアウトの秒数(ユーザーの希望でふだんから付ける)
+DEFAULT_FADE = 0.5
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".jfif", ".avif"}
 NUMBER_PATTERN = re.compile(r"^0*(\d+)(?:\D|$)")
 REMARK = "画像自動配置"
@@ -234,7 +236,16 @@ def _animated(value: float, new_format: bool, shape: dict | None = None) -> dict
 
 
 def build_image_item(
-    path: Path | str, frame: int, length: int, layer: int, x: float, y: float, zoom: float, new_format: bool, shape: dict | None = None
+    path: Path | str,
+    frame: int,
+    length: int,
+    layer: int,
+    x: float,
+    y: float,
+    zoom: float,
+    new_format: bool,
+    shape: dict | None = None,
+    fade: float = DEFAULT_FADE,
 ) -> dict:
     def animated(value: float, new_format: bool) -> dict:
         return _animated(value, new_format, shape)
@@ -247,8 +258,8 @@ def build_image_item(
         "Opacity": animated(100, new_format),
         "Zoom": animated(zoom, new_format),
         "Rotation": animated(0, new_format),
-        "FadeIn": 0.0,
-        "FadeOut": 0.0,
+        "FadeIn": float(fade),
+        "FadeOut": float(fade),
         "Blend": "Normal",
         "IsInverted": False,
         "IsAlwaysOnTop": False,
