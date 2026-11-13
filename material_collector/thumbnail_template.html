@@ -278,7 +278,7 @@ const STYLES = {
   yellow: { fill: "#ffe100", ring: null },
 };
 // 文字の行を、枠に収まる大きさで描く。bottom(下の位置)、top(上の位置)、middle(まん中の位置)のどれかで置く
-function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1 }) {
+function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1, fillWidth = false }) {
   const lines = parseText(text);
   if (!lines.length) return;
   const st = STYLES[style] || STYLES.white;
@@ -291,7 +291,9 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
   for (let i = lines.length - 1; i >= 0; i--) {
     const parts = lines[i], s = sizes[i];
     const w = lineWidth(g, parts, s, family);
-    let x = cx - w / 2;
+    // fillWidth: 短い一言でも横いっぱいになるよう、文字を横に伸ばす(高さは変えない)
+    const xs = fillWidth ? Math.min(2.2, Math.max(1, maxW / Math.max(1, w))) : 1;
+    let x = cx - w * xs / 2;
     for (const p of parts) {
       const ps = s * (p.em ? EM_SCALE : 1);
       g.font = font(ps, family);
@@ -299,7 +301,7 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
       const ring = st.ring || (p.em && style === "white" ? "#fff" : null);
       const ringW = st.ring ? (stretch > 1 ? 0.26 : 0.2) : 0.1;
       // 縦に伸ばすときは、文字の下の位置を原点にして縦だけ拡大する
-      g.save(); g.translate(x, y - s * 0.12 * stretch); g.scale(1, stretch);
+      g.save(); g.translate(x, y - s * 0.12 * stretch); g.scale(xs, stretch);
       // 影 → 太い黒ふち → (白ふち) → 文字
       g.save(); g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = ps * 0.18;
       g.strokeStyle = "rgba(0,0,0,.55)"; g.lineWidth = ps * (ring ? 0.2 + ringW : 0.3); g.strokeText(p.t, ps * 0.03, ps * 0.04);
@@ -312,7 +314,7 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
         g.fillStyle = gr;
       } else g.fillStyle = p.em ? color : st.fill;
       g.fillText(p.t, 0, 0);
-      x += g.measureText(p.t).width;
+      x += g.measureText(p.t).width * xs;
       g.restore();
     }
     y -= heights[i];
@@ -453,7 +455,7 @@ function render(g, st) {
     g.fillStyle = vig; g.fillRect(0, 0, W, H);
     const tall = fam === "Noto Sans JP" ? 1.2 : 1;
     // 一言は短いほど大きくなる(10文字で14文字のときの約1.5倍)。名前は一言より目立たせない
-    drawTextBlock(g, st.text, { cx: W / 2, top: 6, maxW: 1250, maxH: 235, maxSize: 132, color, family: fam, scale: st.textScale, style: "red", stretch: tall > 1 ? 1.45 : 1 });
+    drawTextBlock(g, st.text, { cx: W / 2, top: 6, maxW: 1236, maxH: 235, maxSize: 132, color, family: fam, scale: st.textScale, style: "red", stretch: tall > 1 ? 1.45 : 1, fillWidth: true });
     drawTextBlock(g, st.nameText, { cx: W / 2, bottom: H - 10, maxW: 760, maxH: 150, maxSize: 112, color, family: fam, scale: st.textScale, style: "yellow", stretch: tall });
     drawFace(g, reimu, 95 * fs, H - 6, 164 * fs);
     drawFace(g, marisa, W - 112 * fs, H - 6, 172 * fs);
