@@ -184,21 +184,30 @@ def face_data_urls() -> dict:
     return faces
 
 
-def find_face(image_bytes: bytes) -> dict | None:
-    """写真のいちばん大きい顔の位置(写真のピクセルで中心と高さ)。OpenCV がなければ None。"""
+def find_face(image_bytes: bytes) -> dict:
+    """写真のいちばん大きい顔の位置(写真のピクセルで中心と高さ)。
+
+    顔が写真の端までいっぱいだと見つけにくいので、まわりに余白を足してから探す。
+    見つからないとき(OpenCV がないときも)は、人物写真によくある位置(まん中のやや上)と考える。
+    """
+    img = Image.open(io.BytesIO(image_bytes)).convert("L")
+    fallback = {"cx": img.width / 2, "cy": img.height * 0.42, "h": img.height * 0.5,
+                "iw": img.width, "ih": img.height, "guessed": True}
     try:
         import cv2
     except ImportError:
-        return None
-    img = Image.open(io.BytesIO(image_bytes)).convert("L")
-    gray = np.asarray(img)
-    detector = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-    min_side = max(24, min(gray.shape) // 10)
-    found = detector.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=6, minSize=(min_side, min_side))
-    if len(found) == 0:
-        return None
+        return fallback
+    pad = int(max(img.size) * 0.25)
+    gray = cv2.copyMakeBorder(np.asarray(img), pad, pad, pad, pad, cv2.BORDER_REPLICATE)
+    min_side = max(24, min(img.size) // 8)
+    found = []
+    for xml in ("haarcascade_frontalface_default.xml", "haarcascade_frontalface_alt2.xml"):
+        detector = cv2.CascadeClassifier(cv2.data.haarcascades + xml)
+        found += list(detector.detectMultiScale(gray, scaleFactor=1.08, minNeighbors=5, minSize=(min_side, min_side)))
+    if not found:
+        return fallback
     x, y, w, h = max(found, key=lambda f: f[2] * f[3])
-    return {"cx": float(x + w / 2), "cy": float(y + h / 2), "h": float(h), "iw": img.width, "ih": img.height}
+    return {"cx": float(x + w / 2 - pad), "cy": float(y + h / 2 - pad), "h": float(h), "iw": img.width, "ih": img.height}
 
 
 def embed_photos(photo_paths: dict[int, Path]) -> tuple[dict, dict]:
@@ -213,9 +222,7 @@ def embed_photos(photo_paths: dict[int, Path]) -> tuple[dict, dict]:
         img.save(buf, "JPEG", quality=92)
         raw = buf.getvalue()
         embedded[str(no)] = "data:image/jpeg;base64," + base64.b64encode(raw).decode("ascii")
-        face = find_face(raw)
-        if face:
-            faces[str(no)] = face
+        faces[str(no)] = find_face(raw)
     return embedded, faces
 
 

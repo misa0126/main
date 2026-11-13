@@ -78,7 +78,7 @@ class ThumbTableTest(unittest.TestCase):
             html = build_thumbnail_page(TABLE, {1: path})
         data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
         self.assertTrue(data["embedded"]["1"].startswith("data:image/jpeg;base64,"))
-        self.assertEqual(data["face_boxes"], {})  # 顔のない画像
+        self.assertTrue(data["face_boxes"]["1"]["guessed"])  # 顔のない画像は、まん中のやや上と考える
         with self.assertRaises(ValueError):
             build_thumbnail_page(TABLE, {3: path})
 
