@@ -73,15 +73,20 @@ def parse_scene_table(text: str) -> list[dict]:
         match = START_PATTERN.match(line)
         if not match:
             raise ValueError(f"区切り表の書式が読めません: {line!r}")
-        # 「検索ワード=英語|名前」の「|」の後ろは、人の写真に入れる名前のテロップ
-        keywords, captions = [], []
+        # 「検索ワード=英語|名前 @きっかけ」の「|」の後ろは、人の写真に入れる名前のテロップ。
+        # 「@」の後ろは、この画像を出すきっかけになる台本の言葉(区切りの見直し用。「/」で複数。HTMLには使わない)
+        keywords, captions, triggers = [], [], []
         for item in re.split(r"[,、，]", match.group(2)):
+            item, at, trigger = item.partition("@")
             words, _, caption = item.partition("|")
             parsed = parse_keyword_items(words)
             if parsed:
                 keywords.append(parsed[0])
                 captions.append(caption.strip())
-        segments.append({"topic": topic, "start": int(match.group(1)), "keywords": keywords, "captions": captions})
+                triggers.append([t.strip() for t in trigger.split("/") if t.strip()] if at else None)
+        segments.append(
+            {"topic": topic, "start": int(match.group(1)), "keywords": keywords, "captions": captions, "triggers": triggers}
+        )
     starts = [s["start"] for s in segments]
     if starts != sorted(set(starts)):
         raise ValueError("区切り表の開始行は、小さい順に重複なく並べてください。")
