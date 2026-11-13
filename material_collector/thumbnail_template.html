@@ -533,6 +533,14 @@ function drawSpeech(g, st) {
   }
 }
 
+// 一言から(霊夢, 魔理沙)の表情を決める(決まりは thumbnail.py の FACE_RULES)
+function guessFaces(text) {
+  for (const [pattern, reimu, marisa] of DATA.face_rules || []) {
+    if (new RegExp(pattern).test(text)) return [reimu, marisa];
+  }
+  return ["驚き", "にやり"];
+}
+
 // ---- 案ごとの欄 ----
 const plans = [];
 function makePlan(def, index) {
@@ -599,9 +607,16 @@ function makePlan(def, index) {
   const labelRow = el("div", { class: "row2" }, text(st.labels[0], v => { st.labels[0] = v; }, "左"), text(st.labels[1], v => { st.labels[1] = v; }, "右"));
   const secondLabel = el("label", {}, "右の写真"), labelLabel = el("label", {}, "左右の文字");
   const showCompare = () => { const on = st.layout === "比較"; [second, labelRow, secondLabel, labelLabel].forEach(x => { x.hidden = !on; }); };
+  const reimuSel = sel(exprOpts, st.reimu, v => { st.reimu = v; });
+  const marisaSel = sel(exprOpts, st.marisa, v => { st.marisa = v; });
   const ctrl = el("div", { class: "ctrl" },
     el("label", {}, "型"), sel(DATA.layouts.map(x => [x, x]), st.layout, v => { st.layout = v; st.views = st.views.map((_, j) => autoView(st.photos[j], v, j, st.bigFace)); showCompare(); }),
-    el("label", {}, "文字"), text(st.text, v => { st.text = v; }, "| で改行、{ } で強調"),
+    el("label", {}, "文字"), text(st.text, v => {
+      st.text = v;
+      // 一言に合わせて表情も変える(あとで欄から選び直してもよい)
+      const [r, m] = guessFaces(v);
+      st.reimu = r; st.marisa = m; reimuSel.value = r; marisaSel.value = m;
+    }, "| で改行、{ } で強調"),
     el("div", { class: "note" }, "| で改行、{ } で囲むと強調の色。顔アップの型は上の一言(1行12文字くらいまで)"),
     el("label", {}, "上の帯"), text(st.band, v => { st.band = v; }, "なしでもよい"),
     el("label", {}, "上の文字"), text(st.top, v => { st.top = v; }, "吹き出しの型の上の一言"),
@@ -611,8 +626,9 @@ function makePlan(def, index) {
     el("label", {}, "写真"), sel(photoOpts, String(st.photos[0]), v => { st.photos[0] = Number(v); st.views[0] = autoView(st.photos[0], st.layout, 0, st.bigFace); }),
     secondLabel, second, labelLabel, labelRow,
     el("label", {}, "白黒"), (() => { const c = el("input", { type: "checkbox" }); c.checked = st.mono; c.addEventListener("change", () => { st.mono = c.checked; changed(); }); return el("div", {}, c); })(),
-    el("label", {}, "霊夢"), sel(exprOpts, st.reimu, v => { st.reimu = v; }),
-    el("label", {}, "魔理沙"), sel(exprOpts, st.marisa, v => { st.marisa = v; }),
+    el("label", {}, "霊夢"), reimuSel,
+    el("label", {}, "魔理沙"), marisaSel,
+    el("div", { class: "note" }, "表情は一言を書きかえると自動で変わる(悲しい話は泣き、怖い話は焦り など)"),
     el("label", {}, "強調の色"), sel(Object.keys(DATA.colors).map(x => [x, x]), st.color, v => { st.color = v; }),
     el("label", {}, "文字の形"), sel(Object.entries(FONTS), st.font, v => { st.font = v; waitFont(v).then(() => plans.forEach(p => p.draw())); }),
     el("label", {}, "文字の大きさ"), range(st.textScale, v => { st.textScale = v; }),

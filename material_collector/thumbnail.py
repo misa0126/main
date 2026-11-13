@@ -27,6 +27,7 @@
     顔の大きさ: 大                                ← 顔アップは「大」が標準(目が一言のすぐ下に来るまで顔を大きく。おでこは隠れる)。「ふつう」で顔全体を出す
     白黒: はい                                    ← 写真を白黒に(顔アップは最初から白黒)
     霊夢: 驚き                                    ← ふつう にやり 驚き 焦り 怒り 泣き 笑顔 なし
+                                                     書かなければ一言から自動で決まる(FACE_RULES)
     魔理沙: にやり
     色: 黄                                        ← 強調の色: 黄 / 赤 / 水色
 """
@@ -53,6 +54,27 @@ FACE_CHOICES = EXPRESSIONS + ["なし"]
 COLORS = {"黄": "#ffe600", "赤": "#ff3b3b", "水色": "#46d4ff"}
 CHAR_KEYS = {"霊夢": "reimu", "魔理沙": "marisa"}
 
+# 一言から霊夢・魔理沙の表情を決める決まり。上から順に見て、最初に当てはまったものを使う。
+# サムネ作成ページでも同じ決まりを使い、一言を書きかえると表情も自動で変わる。
+FACE_RULES = [
+    # 悲しい話・苦しい話(「死ぬまで〜」は記録の話なので除く)
+    (r"がん|癌|病|亡くな|最期|命|涙|消え|失っ|孤独|自殺|悲|奪われ|追われ|事故|別れ|死(?!ぬまで)", "驚き", "泣き"),
+    # ひどい目にあった話
+    (r"裏切|いじめ|殴|ボコ|差別|追放|クビ|騙|だま|怒", "怒り", "焦り"),
+    # 怖い話・ヤバい話
+    (r"ヤバ|やば|狂|地獄|恐|怖|残酷|残虐|閲覧注意|呪|闇", "焦り", "驚き"),
+    # すごい話・記録の話・不思議な話(どれにも当てはまらないときもこれ)
+    (r"", "驚き", "にやり"),
+]
+
+
+def guess_faces(text: str) -> tuple[str, str]:
+    """一言に合う(霊夢, 魔理沙)の表情。"""
+    for pattern, reimu, marisa in FACE_RULES:
+        if re.search(pattern, text):
+            return reimu, marisa
+    return "驚き", "にやり"
+
 
 def parse_thumb_table(text: str) -> dict:
     name = ""
@@ -65,7 +87,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "reimu": "ふつう", "marisa": "ふつう", "color": "黄"})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "reimu": None, "marisa": None, "color": "黄"})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -135,6 +157,9 @@ def parse_thumb_table(text: str) -> dict:
     if len(plans) > 3:
         raise ValueError("案は3つまでにしてください(YouTubeのテストと比較が3枚までのため)。")
     for plan in plans:
+        auto_reimu, auto_marisa = guess_faces(plan["text"])  # 書いていなければ一言から決める
+        plan["reimu"] = plan["reimu"] or auto_reimu
+        plan["marisa"] = plan["marisa"] or auto_marisa
         if plan["big_face"] is None:  # 顔アップは顔を大きくするのが標準(ユーザーと決めた)
             plan["big_face"] = plan["layout"] == "顔アップ"
         need = {"比較": 2, "文字だけ": 0}.get(plan["layout"], 1)
@@ -202,6 +227,7 @@ def build_thumbnail_page(table_text: str, photo_paths: dict[int, Path] | None = 
     data["embedded"], data["face_boxes"] = embed_photos(photo_paths or {})
     data["id"] = hashlib.sha1(("thumb\n" + data["name"] + "\n" + json.dumps(data["photos"], ensure_ascii=False)).encode("utf-8")).hexdigest()[:12]
     data["expressions"] = FACE_CHOICES
+    data["face_rules"] = [[pattern, reimu, marisa] for pattern, reimu, marisa in FACE_RULES]
     data["layouts"] = LAYOUTS
     data["colors"] = COLORS
     data["faces"] = face_data_urls()

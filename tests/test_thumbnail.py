@@ -29,7 +29,7 @@ class ThumbTableTest(unittest.TestCase):
         self.assertEqual(data["name"], "大山康晴")
         self.assertEqual(data["photos"][1], {"ja": "大山康晴 若い頃", "en": "大山康晴 若い頃"})
         first, second = data["plans"]
-        self.assertEqual((first["reimu"], first["marisa"], first["photos"]), ("驚き", "ふつう", [1]))
+        self.assertEqual((first["reimu"], first["marisa"], first["photos"]), ("驚き", "にやり", [1]))
         self.assertEqual((second["photos"], second["labels"]), ([2, 1], ["若い頃", "晩年"]))
 
     def test_face_up_is_mono_and_face_can_be_hidden(self):
@@ -42,6 +42,18 @@ class ThumbTableTest(unittest.TestCase):
         table = TABLE.replace("型: 右に写真", "型: 吹き出し\n上の文字: 上\n霊夢のセリフ: えっ|ほんと？\n魔理沙のセリフ: そうだぜ")
         first = parse_thumb_table(table)["plans"][0]
         self.assertEqual((first["layout"], first["top"], first["reimu_says"], first["marisa_says"]), ("吹き出し", "上", "えっ|ほんと？", "そうだぜ"))
+
+    def test_faces_follow_text(self):
+        from material_collector.thumbnail import guess_faces
+        self.assertEqual(guess_faces("がんでも休まなかった"), ("驚き", "泣き"))
+        self.assertEqual(guess_faces("死ぬまでA級だった"), ("驚き", "にやり"))
+        self.assertEqual(guess_faces("兄弟子にボコボコにされた"), ("怒り", "焦り"))
+        self.assertEqual(guess_faces("残虐すぎる受け"), ("焦り", "驚き"))
+        self.assertEqual(guess_faces("将棋で熱が下がった"), ("驚き", "にやり"))
+        # 表に書いた表情はそのまま、書かなければ一言から決まる
+        plans = parse_thumb_table(TABLE.replace("文字: 69歳まで|{A級}", "文字: 病でも描き続けた"))["plans"]
+        self.assertEqual((plans[0]["reimu"], plans[0]["marisa"]), ("驚き", "泣き"))
+        self.assertEqual((plans[1]["reimu"], plans[1]["marisa"]), ("驚き", "にやり"))
 
     def test_errors(self):
         for bad in [TABLE.replace("霊夢: 驚き", "霊夢: 爆笑"), TABLE.replace("写真: 2, 1", "写真: 2"),
