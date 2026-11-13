@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__ サムネ作成</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Reggae+One&family=RocknRoll+One&display=swap" rel="stylesheet">
+<style>
+/* 上に写真の貼り付け欄、下に案ごとのサムネ(1280x720)と設定 */
+:root {
+  --bg: #f4f3ef; --panel: #ffffff; --text: #24221e; --muted: #6d685f; --line: #e1ddd4;
+  --accent: #2f5d8a; --done: #2e7d4f; --done-bg: #eef7f1;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1a1917; --panel: #23211e; --text: #ece8e0; --muted: #a39d92; --line: #3a3631;
+    --accent: #4f86bd; --done: #6cc28f; --done-bg: #1f2e25; }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--text); line-height: 1.6;
+  font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", system-ui, sans-serif; font-size: 14px; }
+header { position: sticky; top: 0; z-index: 10; background: var(--panel); border-bottom: 1px solid var(--line);
+  padding: 10px 20px; display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
+header h1 { font-size: 18px; margin: 0; }
+header nav { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+button, select, input[type=text] { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--panel); color: var(--text);
+  border-radius: 6px; padding: 4px 10px; }
+button { cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: bold; }
+input[type=text] { width: 100%; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
+.notice { color: var(--muted); font-size: 13px; margin: 12px 0; }
+.notice b { color: var(--text); }
+h2 { font-size: 16px; margin: 22px 0 8px; padding-left: 10px; border-left: 4px solid var(--accent); }
+.photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+.photo { background: var(--panel); border: 2px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; }
+.photo.selected { border-color: var(--accent); }
+.photo.done { background: var(--done-bg); }
+.photo .head { display: flex; gap: 8px; align-items: baseline; }
+.photo .no { font-weight: bold; font-variant-numeric: tabular-nums; }
+.buttons { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0; }
+.buttons a { font-size: 12px; text-decoration: none; color: #fff; background: var(--accent); border-radius: 5px; padding: 2px 8px; }
+.buttons a.alt { background: #6b7f96; }
+.paste { width: 100%; display: flex; align-items: center; gap: 10px; min-height: 44px; border: 2px dashed var(--line);
+  border-radius: 8px; padding: 6px 10px; color: var(--muted); text-align: left; }
+.paste img { max-height: 80px; max-width: 140px; border-radius: 4px; display: block; }
+.paste .clear { margin-left: auto; white-space: nowrap; }
+.plan { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-bottom: 14px;
+  display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 16px; }
+.plan h3 { margin: 0 0 8px; font-size: 15px; grid-column: 1 / -1; display: flex; gap: 10px; align-items: center; }
+.plan h3 .spacer { flex: 1; }
+.stage canvas.big { width: 100%; aspect-ratio: 16 / 9; display: block; border-radius: 6px; cursor: grab; touch-action: none; background: #000; }
+.stage canvas.big:active { cursor: grabbing; }
+.stage .hint { color: var(--muted); font-size: 12px; margin-top: 4px; }
+.small { display: flex; gap: 10px; align-items: flex-end; margin-top: 10px; }
+.small canvas { width: 168px; height: 94.5px; border-radius: 4px; display: block; }
+.small span { color: var(--muted); font-size: 12px; }
+.ctrl { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 6px 8px; align-content: start; font-size: 13px; }
+.ctrl label { color: var(--muted); padding-top: 4px; }
+.ctrl .row2 { display: flex; gap: 6px; }
+.ctrl input[type=range] { width: 100%; }
+.ctrl .note { grid-column: 1 / -1; color: var(--muted); font-size: 12px; }
+#toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #24221e; color: #fff;
+  padding: 8px 16px; border-radius: 8px; z-index: 20; font-size: 14px; }
+@media (max-width: 900px) { .plan { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>__TITLE__ サムネ作成</h1>
+  <nav>
+    <label style="font-size:12px;color:var(--muted)"><input type="checkbox" id="sideWin"> 検索を右半分の窓で開く</label>
+    <button type="button" class="primary" id="saveAll">全部の案を保存</button>
+  </nav>
+</header>
+<main>
+  <p class="notice">
+    <b>1.</b> 写真の番号ごとのボタンで画像検索 → 画像を右クリック →「画像をコピー」→ ここに戻って <b>Ctrl+V</b>(選んでいる番号に入ります)。<br>
+    <b>2.</b> 下のサムネの写真は <b>ドラッグで移動、マウスホイールで拡大・縮小</b>。文字や表情は右の欄で変えられます。<br>
+    <b>3.</b>「保存」で 1280×720 のJPG(YouTubeの上限2MB以内)を保存。3案をYouTube Studioの<b>「テストと比較」</b>に入れると、クリック率の高い方を自動で選んでくれます。
+  </p>
+  <h2>写真</h2>
+  <div class="photos" id="photos"></div>
+  <h2>サムネ案</h2>
+  <div id="plans"></div>
+</main>
+<div id="toast" hidden></div>
+<script>
+const DATA = /*__DATA__*/null;
+const W = 1280, H = 720;
+const PAGE_KEY = "thumb:" + DATA.id;
+const FONTS = { "Dela Gothic One": "極太(おすすめ)", "RocknRoll One": "丸ゴシック", "Reggae One": "筆っぽい" };
+const FALLBACK = '"Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif';
+
+function el(tag, attrs = {}, ...children) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (v == null) continue;
+    if (k === "class") e.className = v; else if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v);
+  }
+  for (const c of children) if (c != null) e.append(c);
+  return e;
+}
+let toastTimer = null;
+function toast(text) {
+  const t = document.getElementById("toast");
+  t.textContent = text; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2500);
+}
+function loadJson(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (e) { return fallback; } }
+function saveJson(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {} }
+
+// ---- 表情の画像(白いふち付き) ----
+const faces = {};
+function loadImage(src) { return new Promise((ok, ng) => { const i = new Image(); i.onload = () => ok(i); i.onerror = ng; i.src = src; }); }
+function sticker(img) {
+  // ステッカーのような白いふちと影をつけた画像を作っておく
+  const pad = 14, c = document.createElement("canvas");
+  c.width = img.width + pad * 2; c.height = img.height + pad * 2;
+  const g = c.getContext("2d");
+  const sil = document.createElement("canvas"); sil.width = img.width; sil.height = img.height;
+  const s = sil.getContext("2d"); s.drawImage(img, 0, 0); s.globalCompositeOperation = "source-in"; s.fillStyle = "#fff"; s.fillRect(0, 0, sil.width, sil.height);
+  g.shadowColor = "rgba(0,0,0,.55)"; g.shadowBlur = 14; g.shadowOffsetY = 4;
+  for (let a = 0; a < 24; a++) { const t = a / 24 * Math.PI * 2; g.drawImage(sil, pad + Math.cos(t) * 8, pad + Math.sin(t) * 8); }
+  g.shadowColor = "transparent";
+  g.drawImage(img, pad, pad);
+  return c;
+}
+async function loadFaces() {
+  await Promise.all(Object.entries(DATA.faces).map(async ([k, src]) => { faces[k] = sticker(await loadImage(src)); }));
+}
+
+// ---- 貼った写真(このブラウザに保存) ----
+const photos = new Map();   // 番号 → { blob, img }
+let selected = 1;
+let db = null;
+function openDb() {
+  return new Promise(resolve => {
+    try {
+      const req = indexedDB.open("thumbnail-photos", 1);
+      req.onupgradeneeded = () => req.result.createObjectStore("images");
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => resolve(null);
+    } catch (e) { resolve(null); }
+  });
+}
+function dbPut(no, blob) {
+  if (!db) return;
+  try { const st = db.transaction("images", "readwrite").objectStore("images"); blob ? st.put(blob, PAGE_KEY + ":" + no) : st.delete(PAGE_KEY + ":" + no); } catch (e) {}
+}
+function dbGet(no) {
+  return new Promise(resolve => {
+    if (!db) return resolve(null);
+    try { const r = db.transaction("images").objectStore("images").get(PAGE_KEY + ":" + no); r.onsuccess = () => resolve(r.result || null); r.onerror = () => resolve(null); }
+    catch (e) { resolve(null); }
+  });
+}
+async function setPhoto(no, blob, quiet = false) {
+  if (blob) {
+    const url = URL.createObjectURL(blob);
+    try { photos.set(no, { blob, img: await loadImage(url) }); }
+    catch (e) { toast("この画像は読み込めませんでした。別の画像をコピーしてください。"); return; }
+  } else photos.delete(no);
+  if (!quiet) {
+    dbPut(no, blob);
+    // 新しい写真にしたら、その写真の位置と拡大を元に戻す
+    for (const p of plans) { p.state.views = p.state.views.map((v, i) => p.state.photos[i] === no ? { x: 0, y: 0, z: 1 } : v); p.save(); }
+  }
+  renderPhoto(no);
+  plans.forEach(p => p.draw());
+  if (blob && !quiet) {
+    toast(no + "番に貼りました");
+    const next = DATA.photos.findIndex((_, i) => !photos.has(i + 1));
+    if (next >= 0) selectPhoto(next + 1);
+  }
+}
+function selectPhoto(no) {
+  document.getElementById("photo" + selected)?.classList.remove("selected");
+  selected = no;
+  document.getElementById("photo" + no)?.classList.add("selected");
+}
+const google = q => "https://www.google.com/search?q=" + encodeURIComponent(q) + "&tbm=isch";
+const yahoo = q => "https://search.yahoo.co.jp/image/search?p=" + encodeURIComponent(q);
+const bing = q => "https://www.bing.com/images/search?q=" + encodeURIComponent(q);
+function buildPhotos() {
+  const box = document.getElementById("photos");
+  DATA.photos.forEach((p, i) => {
+    const no = i + 1;
+    const card = el("div", { class: "photo", id: "photo" + no, onclick: () => selectPhoto(no) },
+      el("div", { class: "head" }, el("span", { class: "no" }, "写真 " + no), el("span", {}, p.ja)),
+      el("div", { class: "buttons" },
+        el("a", { href: google(p.ja + " 写真"), target: "_blank", rel: "noopener" }, "Google(日本語)"),
+        p.en !== p.ja ? el("a", { href: google(p.en), target: "_blank", rel: "noopener" }, "Google(英語)") : null,
+        el("a", { class: "alt", href: yahoo(p.ja), target: "_blank", rel: "noopener" }, "Yahoo!"),
+        el("a", { class: "alt", href: bing(p.ja), target: "_blank", rel: "noopener" }, "Bing")),
+      el("button", { type: "button", class: "paste", id: "paste" + no }));
+    card.addEventListener("dragover", e => e.preventDefault());
+    card.addEventListener("drop", e => { e.preventDefault(); selectPhoto(no); dropImage(no, e.dataTransfer); });
+    box.append(card);
+    renderPhoto(no);
+  });
+  selectPhoto(1);
+}
+function renderPhoto(no) {
+  const zone = document.getElementById("paste" + no);
+  if (!zone) return;
+  zone.replaceChildren();
+  const p = photos.get(no);
+  document.getElementById("photo" + no).classList.toggle("done", !!p);
+  if (!p) { zone.append("ここを選んで Ctrl+V で写真を貼る"); return; }
+  const clear = el("button", { type: "button", class: "clear", onclick: e => { e.stopPropagation(); setPhoto(no, null); } }, "外す");
+  zone.append(el("img", { src: p.img.src, alt: "写真" + no }), "貼り付け済み(Ctrl+Vで差し替え)", clear);
+}
+document.addEventListener("paste", e => {
+  if (e.target.closest && e.target.closest("input, textarea")) return;
+  const file = [...(e.clipboardData?.items || [])].filter(i => i.type.startsWith("image/")).map(i => i.getAsFile())[0];
+  if (!file) { toast("画像がコピーされていません。画像を右クリック →「画像をコピー」してください。"); return; }
+  setPhoto(selected, file);
+});
+function dataUrlToBlob(url) {
+  const [head, body] = url.split(",");
+  const type = (head.match(/data:([^;]+)/) || [])[1] || "image/png";
+  const bin = head.includes(";base64") ? atob(body) : decodeURIComponent(body);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new Blob([bytes], { type });
+}
+async function dropImage(no, dt) {
+  const file = [...(dt?.files || [])].find(f => f.type.startsWith("image/"));
+  if (file) { setPhoto(no, file); return; }
+  const html = dt?.getData("text/html") || "";
+  const src = (html.match(/<img[^>]+src="([^"]+)"/i) || [])[1];
+  const url = (src || dt?.getData("text/uri-list") || dt?.getData("text/plain") || "").split("\n")[0].trim().replace(/&amp;/g, "&");
+  if (url.startsWith("data:image/")) { setPhoto(no, dataUrlToBlob(url)); return; }
+  if (/^https?:/.test(url)) {
+    try { const res = await fetch(url, { mode: "cors" }); const blob = await res.blob(); if (res.ok && blob.type.startsWith("image/")) { setPhoto(no, blob); return; } } catch (e) {}
+  }
+  toast("この画像はドラッグでは入れられませんでした。右クリック →「画像をコピー」→ Ctrl+V で貼ってください。");
+}
+// 検索を画面の右半分の窓で開く
+const sideWin = document.getElementById("sideWin");
+try { sideWin.checked = localStorage.getItem("image-list-side-window") !== "off"; } catch (e) { sideWin.checked = true; }
+sideWin.addEventListener("change", () => { try { localStorage.setItem("image-list-side-window", sideWin.checked ? "on" : "off"); } catch (e) {} });
+let searchWin = null;
+document.addEventListener("click", e => {
+  const a = e.target.closest(".buttons a");
+  if (!a || !sideWin.checked || e.ctrlKey || e.shiftKey || e.metaKey || e.button !== 0) return;
+  const sw = screen.availWidth, sh = screen.availHeight, left = (screen.availLeft || 0) + Math.floor(sw / 2), top = screen.availTop || 0;
+  try { if (searchWin && !searchWin.closed) { searchWin.location.href = a.href; searchWin.focus(); e.preventDefault(); return; } } catch (err) {}
+  const w = window.open(a.href, "image-search", `popup,width=${Math.floor(sw / 2)},height=${sh},left=${left},top=${top}`);
+  if (w) { searchWin = w; try { w.focus(); } catch (err) {} e.preventDefault(); }
+});
+
+// ---- 描く ----
+function font(size, family) { return `${size}px "${family}", ${FALLBACK}`; }
+// 「69歳まで|{A級}にいた男」→ 行ごとの [{t, em}]
+function parseText(text) {
+  return text.split("|").map(line => {
+    const parts = [];
+    line.replace(/\{([^}]*)\}|([^{]+)/g, (_, em, plain) => { parts.push(em != null ? { t: em, em: true } : { t: plain, em: false }); return ""; });
+    return parts.filter(p => p.t);
+  }).filter(l => l.length);
+}
+const EM_SCALE = 1.18;  // 強調の文字は少し大きく
+function lineWidth(g, parts, size, family) {
+  let w = 0;
+  for (const p of parts) { g.font = font(size * (p.em ? EM_SCALE : 1), family); w += g.measureText(p.t).width; }
+  return w;
+}
+// 文字の行を、枠(x中心, 下のy, 幅, 高さ)に収まる大きさで描く
+function drawTextBlock(g, text, { cx, bottom, maxW, maxH, align = "center", left = 0, color, family, scale = 1, maxSize = 150 }) {
+  const lines = parseText(text);
+  if (!lines.length) return;
+  const gap = 0.06;
+  let size = Math.min(maxSize, maxH / (lines.length * (1 + gap) * EM_SCALE)) * scale;
+  const sizes = lines.map(parts => Math.min(size, size * maxW / Math.max(1, lineWidth(g, parts, size, family))));
+  let y = bottom;
+  for (let i = lines.length - 1; i >= 0; i--) {
+    const parts = lines[i], s = sizes[i];
+    const w = lineWidth(g, parts, s, family);
+    let x = align === "left" ? left : cx - w / 2;
+    for (const p of parts) {
+      const ps = s * (p.em ? EM_SCALE : 1);
+      g.font = font(ps, family);
+      g.textBaseline = "alphabetic"; g.lineJoin = "round"; g.miterLimit = 2;
+      const base = y - s * 0.12;
+      // 影 → 太い黒ふち → 白い細ふち(強調だけ) → 文字
+      g.strokeStyle = "rgba(0,0,0,.55)"; g.lineWidth = ps * 0.3; g.strokeText(p.t, x + ps * 0.04, base + ps * 0.06);
+      g.strokeStyle = "#000"; g.lineWidth = ps * 0.24; g.strokeText(p.t, x, base);
+      if (p.em) { g.strokeStyle = "#fff"; g.lineWidth = ps * 0.1; g.strokeText(p.t, x, base); g.strokeStyle = "#000"; g.lineWidth = ps * 0.05; g.strokeText(p.t, x, base); }
+      g.fillStyle = p.em ? color : "#fff";
+      g.fillText(p.t, x, base);
+      x += g.measureText(p.t).width;
+    }
+    y -= s * (1 + gap) * (parts.some(p => p.em) ? EM_SCALE : 1);
+  }
+}
+function drawBand(g, text, x, y, family, centered = false) {
+  if (!text) return;
+  const size = 44;
+  g.font = font(size, family);
+  const w = g.measureText(text).width + 56, h = size + 26;
+  if (centered) x = (W - w) / 2;
+  g.save();
+  g.shadowColor = "rgba(0,0,0,.5)"; g.shadowBlur = 10; g.shadowOffsetY = 4;
+  g.fillStyle = "#e3141e";
+  g.beginPath(); g.moveTo(x + 14, y); g.lineTo(x + w, y); g.lineTo(x + w - 14, y + h); g.lineTo(x, y + h); g.closePath(); g.fill();
+  g.restore();
+  g.fillStyle = "#fff"; g.textBaseline = "middle"; g.textAlign = "left";
+  g.fillText(text, x + 28, y + h / 2 + 2);
+}
+function drawLabel(g, text, x, y, bg, family) {
+  if (!text) return;
+  const size = 50;
+  g.font = font(size, family);
+  const w = g.measureText(text).width + 40, h = size + 22;
+  g.fillStyle = bg; g.fillRect(x - w / 2, y, w, h);
+  g.fillStyle = "#fff"; g.textBaseline = "middle"; g.fillText(text, x - w / 2 + 20, y + h / 2 + 2);
+}
+function drawName(g, name, x, y, family, align = "right") {
+  const size = 52;
+  g.font = font(size, family); g.textBaseline = "top"; g.lineJoin = "round";
+  const w = g.measureText(name).width;
+  const left = align === "right" ? x - w : x;
+  g.strokeStyle = "#000"; g.lineWidth = 12; g.strokeText(name, left, y);
+  g.fillStyle = "#fff"; g.fillText(name, left, y);
+}
+// 写真を枠いっぱいに(はみ出しは切る)。view は {x, y, z}: ドラッグとホイールで変わる
+function drawPhoto(g, no, rect, view) {
+  const p = photos.get(no);
+  g.save();
+  g.beginPath(); g.rect(rect.x, rect.y, rect.w, rect.h); g.clip();
+  if (!p) {
+    g.fillStyle = "#3a3f4a"; g.fillRect(rect.x, rect.y, rect.w, rect.h);
+    g.fillStyle = "#c9ced8"; g.font = font(40, "Dela Gothic One"); g.textBaseline = "middle";
+    const t = `写真 ${no} を貼ってください`; g.fillText(t, rect.x + (rect.w - g.measureText(t).width) / 2, rect.y + rect.h / 2);
+  } else {
+    const img = p.img;
+    const s = Math.max(rect.w / img.width, rect.h / img.height) * view.z;
+    const w = img.width * s, h = img.height * s;
+    g.filter = "contrast(1.12) saturate(1.15)";
+    g.drawImage(img, rect.x + (rect.w - w) / 2 + view.x, rect.y + (rect.h - h) / 2 + view.y, w, h);
+    g.filter = "none";
+  }
+  g.restore();
+}
+function drawFace(g, key, cx, bottom, height, flip = false) {
+  const img = faces[key];
+  if (!img) return;
+  const s = height / img.height, w = img.width * s;
+  g.save();
+  if (flip) { g.translate(cx, 0); g.scale(-1, 1); g.translate(-cx, 0); }
+  g.drawImage(img, cx - w / 2, bottom - height, w, height);
+  g.restore();
+}
+// 型ごとの写真の枠
+function photoRects(layout) {
+  if (layout === "右に写真") return [{ x: 470, y: 0, w: 810, h: H }];
+  if (layout === "全面写真") return [{ x: 0, y: 0, w: W, h: H }];
+  return [{ x: 0, y: 0, w: W / 2, h: H }, { x: W / 2, y: 0, w: W / 2, h: H }];
+}
+function render(g, st) {
+  const color = DATA.colors[st.color] || "#ffe600";
+  const fam = st.font;
+  const rects = photoRects(st.layout);
+  g.clearRect(0, 0, W, H);
+  g.textAlign = "left";
+  const fs = st.faceScale;
+  const reimu = "reimu_" + st.reimu, marisa = "marisa_" + st.marisa;
+  if (st.layout === "右に写真") {
+    const bg = g.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, "#14244d"); bg.addColorStop(1, "#05070f");
+    g.fillStyle = bg; g.fillRect(0, 0, W, H);
+    drawPhoto(g, st.photos[0], rects[0], st.views[0]);
+    const fade = g.createLinearGradient(470, 0, 700, 0); fade.addColorStop(0, "rgba(7,12,28,1)"); fade.addColorStop(1, "rgba(7,12,28,0)");
+    g.fillStyle = fade; g.fillRect(470, 0, 230, H);
+    drawName(g, DATA.name, W - 26, 22, fam);
+    drawBand(g, st.band, 26, 26, fam);
+    drawTextBlock(g, st.text, { cx: 370, bottom: 520, maxW: 720, maxH: st.band ? 410 : 470, color, family: fam, scale: st.textScale });
+    drawFace(g, reimu, 130 * fs, H + 8, 240 * fs);
+    drawFace(g, marisa, W - 165 * fs, H + 8, 250 * fs, true);
+  } else if (st.layout === "全面写真") {
+    drawPhoto(g, st.photos[0], rects[0], st.views[0]);
+    const shade = g.createLinearGradient(0, 300, 0, H); shade.addColorStop(0, "rgba(0,0,0,0)"); shade.addColorStop(1, "rgba(0,0,0,.85)");
+    g.fillStyle = shade; g.fillRect(0, 300, W, H - 300);
+    drawName(g, DATA.name, W - 26, 22, fam);
+    drawBand(g, st.band, 26, 26, fam);
+    drawTextBlock(g, st.text, { cx: W / 2, bottom: H - 24, maxW: 740 * (2 - st.faceScale), maxH: 330, color, family: fam, scale: st.textScale });
+    drawFace(g, reimu, 110 * fs, H + 8, 210 * fs);
+    drawFace(g, marisa, W - 140 * fs, H + 8, 220 * fs, true);
+  } else {
+    drawPhoto(g, st.photos[0], rects[0], st.views[0]);
+    drawPhoto(g, st.photos[1], rects[1], st.views[1]);
+    g.fillStyle = "#fff"; g.fillRect(W / 2 - 4, 0, 8, H);
+    const shade = g.createLinearGradient(0, 330, 0, H); shade.addColorStop(0, "rgba(0,0,0,0)"); shade.addColorStop(1, "rgba(0,0,0,.85)");
+    g.fillStyle = shade; g.fillRect(0, 330, W, H - 330);
+    drawBand(g, st.band, 0, 22, fam, true);
+    const ly = st.band ? 112 : 26;
+    drawLabel(g, st.labels[0], W / 4, ly, "rgba(20,20,20,.88)", fam);
+    drawLabel(g, st.labels[1], W * 3 / 4, ly, "#e3141e", fam);
+    // まん中の矢印
+    g.save(); g.translate(W / 2, ly + 36); g.fillStyle = "#ffe600"; g.strokeStyle = "#000"; g.lineWidth = 6; g.lineJoin = "round";
+    g.beginPath(); g.moveTo(-30, -16); g.lineTo(6, -16); g.lineTo(6, -34); g.lineTo(40, 0); g.lineTo(6, 34); g.lineTo(6, 16); g.lineTo(-30, 16); g.closePath();
+    g.stroke(); g.fill(); g.restore();
+    drawTextBlock(g, st.text, { cx: W / 2, bottom: H - 24, maxW: 760 * (2 - st.faceScale), maxH: 300, color, family: fam, scale: st.textScale });
+    drawFace(g, reimu, 105 * fs, H + 8, 200 * fs);
+    drawFace(g, marisa, W - 135 * fs, H + 8, 210 * fs, true);
+  }
+}
+
+// ---- 案ごとの欄 ----
+const plans = [];
+function makePlan(def, index) {
+  const key = PAGE_KEY + ":plan" + index;
+  const initial = () => ({ layout: def.layout, band: def.band, text: def.text, photos: [def.photos[0], def.photos[1] || def.photos[0]],
+    labels: [...def.labels], reimu: def.reimu, marisa: def.marisa, color: def.color, font: "Dela Gothic One",
+    textScale: 1, faceScale: 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
+  const plan = { state: Object.assign(initial(), loadJson(key, {})) };
+  plan.save = () => saveJson(key, plan.state);
+
+  const big = el("canvas", { class: "big", width: W, height: H, "aria-label": def.title + " のサムネ" });
+  const small = el("canvas", { width: 336, height: 189, "aria-label": "スマホで見たときの大きさ" });
+  const g = big.getContext("2d"), sg = small.getContext("2d");
+  let pending = false;
+  plan.draw = () => {
+    if (pending) return; pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      render(g, plan.state);
+      sg.imageSmoothingQuality = "high"; sg.clearRect(0, 0, 336, 189); sg.drawImage(big, 0, 0, 336, 189);
+    });
+  };
+  const changed = () => { plan.save(); plan.draw(); };
+
+  // 写真のドラッグとホイール
+  let drag = null;
+  const toCanvas = e => { const r = big.getBoundingClientRect(); return { x: (e.clientX - r.left) * W / r.width, y: (e.clientY - r.top) * H / r.height, k: W / r.width }; };
+  const hit = p => { const rects = photoRects(plan.state.layout); const i = rects.findIndex(r => p.x >= r.x && p.x < r.x + r.w && p.y >= r.y && p.y < r.y + r.h); return i < 0 ? 0 : i; };
+  big.addEventListener("pointerdown", e => { const p = toCanvas(e); drag = { i: hit(p), x: p.x, y: p.y }; big.setPointerCapture(e.pointerId); });
+  big.addEventListener("pointermove", e => {
+    if (!drag) return;
+    const p = toCanvas(e), v = plan.state.views[drag.i];
+    v.x += p.x - drag.x; v.y += p.y - drag.y; drag.x = p.x; drag.y = p.y; plan.draw();
+  });
+  big.addEventListener("pointerup", () => { if (drag) { drag = null; plan.save(); } });
+  big.addEventListener("wheel", e => {
+    e.preventDefault();
+    const p = toCanvas(e), i = hit(p), v = plan.state.views[i];
+    const r = photoRects(plan.state.layout)[i];
+    const old = v.z, z = Math.min(6, Math.max(1, old * (e.deltaY < 0 ? 1.08 : 1 / 1.08)));
+    // マウスの位置を中心に拡大する
+    const cx = p.x - (r.x + r.w / 2), cy = p.y - (r.y + r.h / 2);
+    v.x = cx - (cx - v.x) * z / old; v.y = cy - (cy - v.y) * z / old; v.z = z;
+    changed();
+  }, { passive: false });
+
+  // 設定の欄
+  const st = plan.state;
+  const sel = (options, value, onchange) => {
+    const s = el("select", {}, ...options.map(([v, t]) => el("option", { value: v }, t)));
+    s.value = value; s.addEventListener("change", () => { onchange(s.value); changed(); }); return s;
+  };
+  const text = (value, onchange, placeholder) => {
+    const i = el("input", { type: "text", value, placeholder }); i.addEventListener("input", () => { onchange(i.value); changed(); }); return i;
+  };
+  const range = (value, onchange) => {
+    const r = el("input", { type: "range", min: "0.6", max: "1.4", step: "0.02", value: String(value) });
+    r.addEventListener("input", () => { onchange(Number(r.value)); changed(); }); return r;
+  };
+  const photoOpts = DATA.photos.map((p, i) => [String(i + 1), `写真 ${i + 1}(${p.ja})`]);
+  const exprOpts = DATA.expressions.map(x => [x, x]);
+  const second = el("div", { class: "row2" }, sel(photoOpts, String(st.photos[1]), v => { st.photos[1] = Number(v); st.views[1] = { x: 0, y: 0, z: 1 }; }));
+  const labelRow = el("div", { class: "row2" }, text(st.labels[0], v => { st.labels[0] = v; }, "左"), text(st.labels[1], v => { st.labels[1] = v; }, "右"));
+  const secondLabel = el("label", {}, "右の写真"), labelLabel = el("label", {}, "左右の文字");
+  const showCompare = () => { const on = st.layout === "比較"; [second, labelRow, secondLabel, labelLabel].forEach(x => { x.hidden = !on; }); };
+  const ctrl = el("div", { class: "ctrl" },
+    el("label", {}, "型"), sel(DATA.layouts.map(x => [x, x]), st.layout, v => { st.layout = v; showCompare(); }),
+    el("label", {}, "文字"), text(st.text, v => { st.text = v; }, "| で改行、{ } で強調"),
+    el("div", { class: "note" }, "| で改行、{ } で囲むと強調の色。1行8文字くらいまでが読みやすい"),
+    el("label", {}, "上の帯"), text(st.band, v => { st.band = v; }, "なしでもよい"),
+    el("label", {}, "写真"), sel(photoOpts, String(st.photos[0]), v => { st.photos[0] = Number(v); st.views[0] = { x: 0, y: 0, z: 1 }; }),
+    secondLabel, second, labelLabel, labelRow,
+    el("label", {}, "霊夢"), sel(exprOpts, st.reimu, v => { st.reimu = v; }),
+    el("label", {}, "魔理沙"), sel(exprOpts, st.marisa, v => { st.marisa = v; }),
+    el("label", {}, "強調の色"), sel(Object.keys(DATA.colors).map(x => [x, x]), st.color, v => { st.color = v; }),
+    el("label", {}, "文字の形"), sel(Object.entries(FONTS), st.font, v => { st.font = v; waitFont(v).then(() => plans.forEach(p => p.draw())); }),
+    el("label", {}, "文字の大きさ"), range(st.textScale, v => { st.textScale = v; }),
+    el("label", {}, "ゆっくりの大きさ"), range(st.faceScale, v => { st.faceScale = v; }));
+  showCompare();
+
+  const save = el("button", { type: "button", class: "primary", onclick: () => exportPlan(plan, def.title) }, "保存(JPG)");
+  const reset = el("button", { type: "button", onclick: () => {
+    if (!confirm(def.title + " を最初の案の状態に戻しますか？")) return;
+    try { localStorage.removeItem(key); } catch (e) {}
+    const fresh = makePlan(def, index); plans[index] = fresh; card.replaceWith(fresh.card); fresh.draw();
+  } }, "最初に戻す");
+  const card = el("section", { class: "plan" },
+    el("h3", {}, def.title, el("span", { class: "spacer" }), reset, save),
+    el("div", { class: "stage" }, big,
+      el("div", { class: "hint" }, "写真はドラッグで移動、ホイールで拡大・縮小(比較の型は左右それぞれ)"),
+      el("div", { class: "small" }, small, el("span", {}, "← スマホのおすすめ欄で見たときの大きさ。ここで文字が読めるか確かめる"))),
+    ctrl);
+  plan.card = card;
+  plan.canvas = big;
+  return plan;
+}
+function exportPlan(plan, title) {
+  const missing = plan.state.photos.slice(0, plan.state.layout === "比較" ? 2 : 1).filter(n => !photos.has(n));
+  if (missing.length && !confirm(`写真 ${missing.join("・")} がまだ貼られていません。このまま保存しますか？`)) return Promise.resolve();
+  return new Promise(resolve => {
+    const tryQuality = q => plan.canvas.toBlob(blob => {
+      if (blob.size > 1.95 * 1024 * 1024 && q > 0.5) return tryQuality(q - 0.08);  // YouTubeは2MBまで
+      const a = el("a", { href: URL.createObjectURL(blob), download: `${DATA.name}_サムネ_${title}.jpg` });
+      document.body.append(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      toast(title + " を保存しました");
+      resolve();
+    }, "image/jpeg", q);
+    tryQuality(0.92);
+  });
+}
+document.getElementById("saveAll").addEventListener("click", async () => {
+  for (let i = 0; i < plans.length; i++) { await exportPlan(plans[i], DATA.plans[i].title); await new Promise(r => setTimeout(r, 400)); }
+});
+function waitFont(family) {
+  if (!document.fonts) return Promise.resolve();
+  const chars = [DATA.name, ...DATA.plans.map(p => p.text + p.band + p.labels.join("")), ...plans.map(p => p.state.text + p.state.band + p.state.labels.join("")),
+    "写真を貼ってください0123456789"].join("");
+  return Promise.race([document.fonts.load(`40px "${family}"`, chars), new Promise(r => setTimeout(r, 4000))]).catch(() => {});
+}
+
+(async () => {
+  buildPhotos();
+  DATA.plans.forEach((def, i) => plans.push(makePlan(def, i)));
+  const box = document.getElementById("plans");
+  plans.forEach(p => box.append(p.card));
+  await Promise.all([loadFaces(), ...new Set(plans.map(p => p.state.font)).values()].map(x => typeof x === "string" ? waitFont(x) : x));
+  plans.forEach(p => p.draw());
+  db = await openDb();
+  for (let i = 0; i < DATA.photos.length; i++) { const blob = await dbGet(i + 1); if (blob) await setPhoto(i + 1, blob, true); }
+  const first = DATA.photos.findIndex((_, i) => !photos.has(i + 1));
+  selectPhoto(first >= 0 ? first + 1 : 1);
+})();
+</script>
+</body>
+</html>
