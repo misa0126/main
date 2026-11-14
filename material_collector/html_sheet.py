@@ -117,8 +117,17 @@ def parse_yomi_table(text: str) -> dict[int, str]:
         match = START_PATTERN.match(line)
         if not match or not match.group(2).strip():
             raise ValueError(f"読みの直し表の書式が読めません: {line!r}")
-        readings[int(match.group(1))] = match.group(2).strip()
+        readings[int(match.group(1))] = to_aquestalk_kana(match.group(2).strip())
     return readings
+
+
+# ゆっくりボイス(AquesTalk)の読みには「づ」「ぢ」が使えず、入っているとそのセリフの声が作られない。
+# YMM4自身も「ねばりずよい」のように「ず」「じ」で書くので、それに合わせる
+_AQUESTALK_KANA = str.maketrans({"づ": "ず", "ぢ": "じ", "ヅ": "ず", "ヂ": "じ"})
+
+
+def to_aquestalk_kana(reading: str) -> str:
+    return reading.translate(_AQUESTALK_KANA)
 
 
 def build_sheet(script_text: str, table_text: str, title: str, yomi_text: str | None = None) -> str:

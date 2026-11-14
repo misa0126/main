@@ -114,7 +114,6 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
       <label>Y <input type="number" id="posY" step="1" style="width:80px"></label>
       <label>最大の横幅 <input type="number" id="fitW" step="1" min="5" max="100" style="width:64px">%</label>
       <label>最大の高さ <input type="number" id="fitH" step="1" min="5" max="100" style="width:64px">%</label>
-      <label>フェードイン・アウト <input type="number" id="fade" step="0.1" min="0" max="5" style="width:60px">秒</label>
     </div>
     <div class="row" style="margin-top:8px">
       <label><input type="checkbox" id="capOn"> 人の写真に名前のテロップを入れる</label>
@@ -124,7 +123,11 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
       <label>縁の太さ(追加) <input type="number" id="capBorder" step="0.5" min="0" max="50" style="width:60px"></label>
       <button type="button" id="layoutReset">元に戻す</button>
     </div>
-    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。名前のテロップは字幕と同じフォントで、白文字に黒い縁取りで入ります。「縁の太さ(追加)」は、ふつうの縁取りの外側にさらに足す黒い縁の太さです(0で足さない)。名前は番号ごとの「名前テロップ」の欄で変えられます。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。画像と名前のテロップには、ここの秒数のフェードイン・フェードアウトが付きます(0で付けない)。変えた数字はこのブラウザに覚えておきます。</p>
+    <div class="row" style="margin-top:8px">
+      <label><input type="checkbox" id="fadeOn"> 画像と名前にフェードイン・フェードアウトを付ける</label>
+      <label>時間 <input type="number" id="fadeSec" step="0.1" min="0.1" max="5" style="width:60px">秒</label>
+    </div>
+    <p style="margin:6px 0 0;font-size:12px;color:var(--muted)">X・Y は YMM4 と同じ数字(画面の真ん中が 0、Y はマイナスで上)。名前のテロップは字幕と同じフォントで、白文字に黒い縁取りで入ります。「縁の太さ(追加)」は、ふつうの縁取りの外側にさらに足す黒い縁の太さです(0で足さない)。名前は番号ごとの「名前テロップ」の欄で変えられます。どの画像も「最大の横幅・高さ」の枠に収まる大きさにそろえます。変えた数字はこのブラウザに覚えておきます。</p>
   </details>
   <div class="row">
     <button type="button" class="big" id="pick">フォルダを選んで並べる</button>
@@ -140,6 +143,68 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
 <div class="toast" id="toast" hidden></div>
 <main id="main"></main>
 <script>
+// ---- 読みの直し(YMM4の読みのうち、読みの表とちがう文字だけを置きかえる) ----
+// YMM4の読み(AquesTalkの音声記号)には、抑揚の区切り「/」、無声化「_カ」、アクセント「'」、
+// 数字のタグ <NUMK ...>、句読点が入っている。これらはそのまま残し、かなの読みがちがう所だけを直す。
+// 読みの表の句読点は使わない(台本にない間が入らないように)。数字のタグ(1日→いちにち などと読まれる)は表のかなにする。
+function hiraOf(c) { return /[\u30a1-\u30f6]/.test(c) ? String.fromCharCode(c.charCodeAt(0) - 0x60) : c; }
+function kanaCmp(c) { c = hiraOf(c); return c === "づ" ? "ず" : c === "ぢ" ? "じ" : c; }
+// YMM4の助詞「は・を・へ」は、読みの表の「わ・お・え」と同じとみなす(逆は同じにしない。「へるぷ」の「へ」を「え」とまちがえないため)
+const PARTICLE = { "は": "わ", "を": "お", "へ": "え" };
+function sameKana(h, r) { return h === r || PARTICLE[h] === r; }
+// 句読点は、YMM4の読みと読みの表とで位置合わせの目印にだけ使う(読みの表の句読点は書き足さない)
+function punctOf(c) { return /[、,，]/.test(c) ? "、" : /[。．！!]/.test(c) ? "。" : /[？?]/.test(c) ? "？" : ""; }
+function patchHatsuon(hatsuon, reading) {
+  const want = [...(reading || "").normalize("NFKC")].map(c => punctOf(c) || hiraOf(c)).filter(c => /[\u3041-\u3096ー、。？]/.test(c))
+    .map(c => c === "づ" ? "ず" : c === "ぢ" ? "じ" : c);
+  if (!want.some(c => !punctOf(c))) return hatsuon;
+  // YMM4の読みを、かな1文字ずつと、それ以外(記号・タグ)に分ける
+  const toks = [];
+  for (let i = 0; i < hatsuon.length;) {
+    if (hatsuon[i] === "<") { const e = hatsuon.indexOf(">", i); const j = e < 0 ? hatsuon.length : e + 1; toks.push({ raw: hatsuon.slice(i, j), tag: true }); i = j; continue; }
+    if (hatsuon[i] === "_" && /[\u3041-\u3096\u30a1-\u30f6]/.test(hatsuon[i + 1] || "")) { toks.push({ raw: hatsuon.slice(i, i + 2), kana: kanaCmp(hatsuon[i + 1]) }); i += 2; continue; }
+    const c = hatsuon[i];
+    // 英字・数字がそのまま残っていたら(ゆっくりボイスは読めない)、読みの表のかなで置きかえる対象にする
+    toks.push(punctOf(c) ? { raw: c, punct: punctOf(c) } : /[\u3041-\u3096\u30a1-\u30f6ー]/.test(c) ? { raw: c, kana: kanaCmp(c) } : /[A-Za-z0-9\uff10-\uff19\uff21-\uff3a\uff41-\uff5a]/.test(c) ? { raw: c, tag: true } : { raw: c });
+    i++;
+  }
+  const H = toks.map((t, i) => t.kana || t.punct ? i : -1).filter(i => i >= 0);
+  if (!toks.some(t => t.kana)) return want.filter(c => !punctOf(c)).join("");
+  const eq = (t, w) => t.punct ? t.punct === w : !punctOf(w) && sameKana(t.kana, kanaCmp(w));
+  // かなどうしの最長共通部分で対応を取る
+  const n = H.length, m = want.length, L = Array.from({ length: n + 1 }, () => new Uint16Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--)
+    L[i][j] = eq(toks[H[i]], want[j]) ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+  const pairs = [];
+  for (let i = 0, j = 0; i < n && j < m;) {
+    if (eq(toks[H[i]], want[j])) { pairs.push([i, j]); i++; j++; }
+    else if (L[i + 1][j] >= L[i][j + 1]) i++; else j++;
+  }
+  // 1文字だけの偶然の一致(「える/おー/ぶい」と「らぶ」の「ぶ」など)は使わず、まとめて置きかえる
+  const keep = pairs.filter((pq, k) => {
+    const prev = pairs[k - 1], next = pairs[k + 1];
+    const joinedPrev = prev && prev[0] === pq[0] - 1 && prev[1] === pq[1] - 1;
+    const joinedNext = next && next[0] === pq[0] + 1 && next[1] === pq[1] + 1;
+    return toks[H[pq[0]]].punct || joinedPrev || joinedNext;
+  });
+  pairs.length = 0; pairs.push(...keep, [n, m]);
+  let out = "", ti = 0, pj = -1;
+  for (const [i, j] of pairs) {
+    const tEnd = i < n ? H[i] : toks.length;              // この一致の手前までが、ちがう所
+    // 読みの表にしかない句読点は足さない。YMM4の数字のタグは必ず消して、読みの表のかなにする(二重に読まないように)
+    const gap = toks.slice(ti, tEnd), ins = want.slice(pj + 1, j).filter(c => !punctOf(c));
+    const del = gap.filter(t => t.kana || t.tag), hasTag = gap.some(t => t.tag);
+    if (!del.length && !ins.length) out += gap.map(t => t.raw).join("");
+    else if (!hasTag && del.length === ins.length) { let q = 0; for (const t of gap) out += t.kana ? ins[q++] : t.raw; }
+    else if (!del.length) out += ins.join("") + gap.map(t => t.raw).join("");
+    else { let put = false; for (const t of gap) { if (!t.kana && !t.tag) out += t.raw; else if (!put) { out += ins.join(""); put = true; } } }
+    if (i < n) out += toks[H[i]].raw;
+    ti = tEnd + 1; pj = j;
+  }
+  // 消した言葉の区切りが重なった「//」や、先頭・句読点の前の「/」を片づける
+  return out.replace(/\/{2,}/g, "/").replace(/^\/+/, "").replace(/\/+(?=[、。？?！!]|$)/g, "");
+}
+
 const DATA = /*__DATA__*/null;
 const PAGE_KEY = DATA.id ? DATA.title + ":" + DATA.id : DATA.title;
 const STORAGE_KEY = "image-list:" + PAGE_KEY;
@@ -529,8 +594,6 @@ async function placeIntoYmm4() {
 
   // 読みの直し(台本と同じ本文のセリフだけ、YMM4の読みとちがっていれば置きかえる)
   const fixed = [], skipped = [];
-  const kanaKey = t => (t || "").normalize("NFKC").replace(/[\u30a1-\u30f6]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60))
-    .replace(/[^\p{L}\p{N}]/gu, "").replace(/ー/g, "").replace(/を/g, "お").replace(/は/g, "わ").replace(/へ/g, "え");
   for (const [key, reading] of Object.entries(DATA.readings || {})) {
     const u = Number(key);
     const p = pos[starts[u]];
@@ -538,9 +601,10 @@ async function placeIntoYmm4() {
     if (p < voiceJoined.length) { for (let i = voiceStarts.length - 1; i >= 0; i--) if (voiceStarts[i] <= p) { k = i; break; } }
     if (k < 0 || texts[k] !== DATA.utterances[u]) { skipped.push(DATA.utterances[u].slice(0, 15)); continue; }
     const v = voices[k];
-    if (kanaKey(v.Hatsuon) === kanaKey(reading)) continue;
-    fixed.push({ serif: (v.Serif || "").replace(/\s+/g, " "), before: v.Hatsuon || "", after: reading });
-    v.Hatsuon = reading;
+    const patched = patchHatsuon(v.Hatsuon || "", reading);
+    if (patched === (v.Hatsuon || "")) continue;
+    fixed.push({ serif: (v.Serif || "").replace(/\s+/g, " "), before: v.Hatsuon || "", after: patched });
+    v.Hatsuon = patched;
     v.VoiceCache = "";  // 古い声を捨てて、YMM4に作り直してもらう
   }
 
@@ -573,12 +637,17 @@ async function placeIntoYmm4() {
     if (!blob) { missing.push(p.img); continue; }
     const name = `${String(p.img.no).padStart(3, "0")}_${safeName(p.img.ja)}.${EXT[blob.type] || "png"}`;
     await writeFile(sub, name, blob);
+    // 登場・退場のフェード(ユーザーがいつも付けている映像エフェクト「フェードイン・フェードアウト」と同じ設定)
+    const fade = () => shape && L.fadeOn ? [{
+      $type: "YukkuriMovieMaker.Project.Effects.InOutFadeEffect, YukkuriMovieMaker",
+      Value: 0.0, IsInEffect: true, IsOutEffect: true, EffectTimeSeconds: L.fadeSec, EasingType: "Linear", EasingMode: "Out", IsEnabled: true, Remark: "",
+    }] : [];
     let zoom = 100;
     try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
     const item = {
       $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
       X: animated(L.x, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
-      FadeIn: L.fade, FadeOut: L.fade, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: [], Group: 0,
+      FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: fade(), Group: 0,
       Frame: p.start, Layer: layer, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
     };
     if (shape) Object.assign(item, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: REMARK });
@@ -601,7 +670,7 @@ async function placeIntoYmm4() {
         FontColor: "#FFFFFFFF", Style: "Border", StyleColor: "#FF000000", Bold: true, Italic: false,
         IsTrimEndSpace: true, IsDevidedPerCharacter: false, DisplayInterval: 0, DisplayDirection: "FromFirst", HideInterval: 0, HideDirection: "FromFirst",
         X: animated(L.capX, shape), Y: animated(L.capY, shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
-        FadeIn: L.fade, FadeOut: L.fade, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: shape ? outline : [], Group: 0,
+        FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: shape ? outline.concat(fade()) : [], Group: 0,
         Frame: p.start, Layer: layer + 1, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
       };
       if (shape) Object.assign(text, { Z: animated(0, shape), IsClippingWithObjectAbove: false, IsZOrderEnabled: false, KeyFrames: { Frames: [], Count: 0 }, Remark: CAPTION_REMARK });
@@ -628,8 +697,8 @@ async function placeIntoYmm4() {
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
 }
 // 画像の位置と大きさ(このブラウザに覚えておく)
-const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, fade: 0.2, capOn: true };
-const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", capSize: "capSize", capX: "capX", capY: "capY", capBorder: "capBorder", fade: "fade" };
+const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, capOn: true, fadeOn: true, fadeSec: 0.2 };
+const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", capSize: "capSize", capX: "capX", capY: "capY", capBorder: "capBorder", fadeSec: "fadeSec" };
 function readLayout() {
   const L = {};
   for (const [k, id] of Object.entries(LAYOUT_FIELDS)) {
@@ -639,22 +708,22 @@ function readLayout() {
   L.fitW = Math.min(Math.max(L.fitW, 5), 100); L.fitH = Math.min(Math.max(L.fitH, 5), 100);
   L.capSize = Math.min(Math.max(L.capSize, 10), 200);
   L.capBorder = Math.min(Math.max(L.capBorder, 0), 50);
-  L.fade = Math.min(Math.max(L.fade, 0), 5);
   L.capOn = document.getElementById("capOn").checked;
+  L.fadeSec = Math.min(Math.max(L.fadeSec, 0.1), 5);
+  L.fadeOn = document.getElementById("fadeOn").checked;
   return L;
 }
 function showLayout(L) {
   for (const [k, id] of Object.entries(LAYOUT_FIELDS)) document.getElementById(id).value = L[k];
   document.getElementById("capOn").checked = L.capOn !== false;
+  document.getElementById("fadeOn").checked = L.fadeOn !== false;
   document.getElementById("sumX").textContent = L.x; document.getElementById("sumY").textContent = L.y;
 }
 {
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem("ymm4-layout") || "{}"); } catch (e) {}
-  // 前の標準(0.5秒)のまま覚えていたフェードは、今の標準に合わせる
-  if (saved.fade === 0.5) delete saved.fade;
   showLayout(Object.assign({}, LAYOUT_DEFAULT, saved));
-  for (const id of [...Object.values(LAYOUT_FIELDS), "capOn"]) document.getElementById(id).addEventListener("change", () => {
+  for (const id of [...Object.values(LAYOUT_FIELDS), "capOn", "fadeOn"]) document.getElementById(id).addEventListener("change", () => {
     const L = readLayout(); showLayout(L);
     try { localStorage.setItem("ymm4-layout", JSON.stringify(L)); } catch (e) {}
   });
