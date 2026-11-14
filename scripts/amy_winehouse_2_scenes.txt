@@ -1,0 +1,182 @@
+# エイミー・ワインハウスの解説台本・第2版(amy_winehouse_2.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・「#」で始まる行はメモとして無視される
+# 画像を変えるのは、話題が変わるところと、名前の出てくる人物の話になるところ(その人の写真にし、話が戻ったら話題の画像に戻す)。オープニングは2枚
+# 各画像の「@」の後ろは、その画像を出すきっかけになる台本の言葉(python -m material_collector.check_scenes で切り替えのずれを確かめる)
+# 人の写真には「|名前」を付けている(YMM4に並べるとき、写真の下に名前のテロップが入る)。主人公エイミー本人には付けない
+
+## 導入：真夜中のグラミー5冠
+1: エイミー・ワインハウス グラミー賞 2008 中継=Amy Winehouse Grammys 2008 London performance @真夜中
+8: エイミー・ワインハウス ビーハイブ=Amy Winehouse beehive @髪型/イギリスの歌姫
+
+## ロンドン北部に生まれる
+17: エイミー・ワインハウス 子供の頃 家族=Amy Winehouse childhood family @1983年/エンフィールド
+
+## 音楽が濃い家
+22: フランク・シナトラ=Frank Sinatra|フランク・シナトラ @フランク・シナトラ
+25: シンシア・ワインハウス=Cynthia Winehouse Amy grandmother|祖母シンシア @シンシア
+
+## 両親の離婚
+30: エイミー・ワインハウス 幼少期=young Amy Winehouse child @両親が別れて/9歳
+
+## ラップグループ「スウィート・ン・サワー」
+34: ジュリエット・アシュビー エイミー=Juliette Ashby Amy Winehouse|ジュリエット・アシュビー @ジュリエット/ラップグループ
+
+## シルヴィア・ヤング演劇学校
+38: シルヴィア・ヤング演劇学校=Sylvia Young Theatre School @シルヴィア・ヤング
+
+## テレビ初出演とギター
+42: エイミー・ワインハウス 若い頃 ギター=young Amy Winehouse guitar @ギター/BBC
+
+## やんちゃで学校を転々
+45: エイミー・ワインハウス 10代=teenage Amy Winehouse @やんちゃ/学校を移る
+
+## ジャズ楽団と記者の仕事
+49: エイミー・ワインハウス 10代 ジャズ=teenage Amy Winehouse jazz singing @ジャズ楽団/歌える場所
+
+## タイラー・ジェイムスのデモテープ
+54: タイラー・ジェイムス エイミー=Tyler James Amy Winehouse|タイラー・ジェイムス @タイラー・ジェイムス/16歳
+56: サイモン・フラー=Simon Fuller|サイモン・フラー @19マネジメント/サイモン・フラー
+
+## 声の主を探したダーカス・ビース
+58: ダーカス・ビース=Darcus Beese|ダーカス・ビース @ダーカス・ビース
+
+## アイランド・レコードと契約、カムデンへ
+61: カムデン・マーケット=Camden Market @カムデン
+
+## デビューアルバム『Frank』
+66: エイミー・ワインハウス Frank アルバム=Amy Winehouse Frank album cover @Frank
+71: エイミー・ワインハウス アイヴァー・ノヴェロ賞 2004=Amy Winehouse Ivor Novello award 2004 @マーキュリー賞/アイヴァー・ノヴェロ
+
+## ブレイクとの出会い
+74: ブレイク・フィールダー＝シヴィル エイミー=Blake Fielder-Civil Amy Winehouse|ブレイク・フィールダー＝シビル @ブレイク/2005年
+
+## マーク・ロンソンとの出会い
+80: マーク・ロンソン エイミー・ワインハウス=Mark Ronson Amy Winehouse|マーク・ロンソン @ニューヨーク/マーク・ロンソン
+
+## 「バック・トゥ・ブラック」の音作り
+86: エイミー・ワインハウス Back to Black MV=Amy Winehouse Back to Black music video @真っ暗/ブレイクへの思い
+89: シャロン・ジョーンズ ダップ・キングス=Sharon Jones and the Dap-Kings|シャロン・ジョーンズ&ダップ・キングス @ダップ・キングス/シャロン・ジョーンズ
+
+## 散歩の会話から『リハブ』
+92: マーク・ロンソン エイミー ニューヨーク=Mark Ronson Amy Winehouse New York|マーク・ロンソン @散歩/ニューヨークの街
+
+## 祖母シンシアの死
+103: エイミー・ワインハウス 祖母 シンシア タトゥー=Amy Winehouse Cynthia tattoo @悲しみ/シンシア
+
+## アルバム『Back to Black』発売
+109: Back to Black アルバム=Amy Winehouse Back to Black album cover @Back to Black/リハブ
+
+## 全英1位・185万枚
+115: エイミー・ワインハウス 2007 ライブ=Amy Winehouse live 2007 @とんでもなかった/全英チャート
+
+## ブリット・アワード
+121: エイミー・ワインハウス ブリット・アワード 2007=Amy Winehouse Brit Awards 2007 @ブリット・アワード
+
+## アメリカ進出
+123: エイミー・ワインハウス アメリカ 2007=Amy Winehouse USA 2007 @アメリカ/ビルボード
+127: ジェイ・Z=Jay-Z|ジェイ・Z @ジェイ・Z
+
+## マイアミでの結婚
+131: エイミー・ワインハウス ブレイク 結婚 2007=Amy Winehouse Blake Fielder-Civil wedding 2007|ブレイク・フィールダー＝シビル @結婚/マイアミ
+
+## 夫婦でリハビリ施設へ
+137: エイミー・ワインハウス ブレイク 2007=Amy Winehouse Blake Fielder-Civil 2007|ブレイク・フィールダー＝シビル @良い方向/依存
+
+## ベルゲンでの逮捕とツアー中止
+142: エイミー・ワインハウス ベルゲン=Amy Winehouse Bergen Norway 2007 @ベルゲン/逮捕
+
+## 12月の早朝の姿
+147: エイミー・ワインハウス 裸足 路上 2007=Amy Winehouse barefoot street December 2007 @晒され/ブラジャー
+
+## 2008年、再びリハビリ施設へ
+153: エイミー・ワインハウス 2008=Amy Winehouse January 2008 @2008年1月/悪い知らせ
+
+## グラミー6部門ノミネートとビザ却下
+158: 第50回グラミー賞=50th Annual Grammy Awards @グラミー賞/6部門
+
+## ロンドンからの中継
+165: エイミー・ワインハウス グラミー ロンドン 中継=Amy Winehouse Grammy 2008 satellite Riverside Studios @中継/主催者
+
+## 2008年2月10日、真夜中のステージ
+169: エイミー・ワインハウス グラミー 2008 パフォーマンス=Amy Winehouse Grammy 2008 Rehab performance @2008年2月10日/真夜中
+173: エイミー・ワインハウス グラミー 受賞 瞬間=Amy Winehouse Grammy 2008 record of the year reaction @名前を呼ばれた/固まって
+
+## 「カムデン・タウンは燃え落ちちゃいない」
+177: エイミー・ワインハウス グラミー スピーチ=Amy Winehouse Grammy acceptance speech 2008 @スピーチ/カムデン
+
+## 一夜で5部門
+181: エイミー・ワインハウス グラミー 5部門=Amy Winehouse five Grammys 2008 @5部門
+
+## ハービー・ハンコックとブリット・アワード
+189: ハービー・ハンコック=Herbie Hancock|ハービー・ハンコック @ハービー・ハンコック
+191: エイミー・ワインハウス ブリット・アワード 2008=Amy Winehouse Brit Awards 2008 Earls Court @アールズ・コート/ブリット・アワード
+
+## 肺の病気の不安
+195: ミッチ・ワインハウス 2008=Mitch Winehouse 2008|父ミッチ @ミッチ/体の状態
+
+## 夫ブレイクの収監
+200: ブレイク・フィールダー＝シヴィル 2008=Blake Fielder-Civil 2008|ブレイク・フィールダー＝シビル @刑務所/ブレイク
+
+## ライオネス・レコードとディオンヌ
+205: ディオンヌ・ブロムフィールド エイミー=Dionne Bromfield Amy Winehouse|ディオンヌ・ブロムフィールド @ライオネス/ディオンヌ
+
+## セントルシアでの日々
+212: エイミー・ワインハウス セントルシア=Amy Winehouse St Lucia @セントルシア/カリブ海
+
+## ブレイクとの離婚とトラブル
+217: ブレイク・フィールダー＝シヴィル 2009=Blake Fielder-Civil 2009|ブレイク・フィールダー＝シビル @離婚/ブレイク
+
+## 薬物はやめたが酒はやめられない
+222: エイミー・ワインハウス 2010=Amy Winehouse 2010 @変わろう/違法な薬物
+225: いらすとや お酒 やめられない=irasutoya alcohol addiction @酒だけは
+
+## レグ・トラヴィスと父のデビュー
+230: エイミー・ワインハウス レグ・トラヴィス=Amy Winehouse Reg Traviss|レグ・トラヴィス @レグ・トラヴィス
+
+## 2011年のブラジル公演
+233: エイミー・ワインハウス ブラジル 2011=Amy Winehouse Brazil 2011 @ブラジル/新しいアルバム
+
+## トニー・ベネットとのデュエット
+236: トニー・ベネット エイミー・ワインハウス=Tony Bennett Amy Winehouse Body and Soul|トニー・ベネット @アビー・ロード/トニー・ベネット
+
+## ベオグラードの悪夢
+241: エイミー・ワインハウス 2011=Amy Winehouse 2011 @リハビリ施設/1週間
+243: エイミー・ワインハウス ベオグラード=Amy Winehouse Belgrade 2011 @ベオグラード
+
+## 最後のステージ
+252: エイミー・ワインハウス ディオンヌ ラウンドハウス=Amy Winehouse Dionne Bromfield Roundhouse|ディオンヌ・ブロムフィールド @ラウンドハウス/ディオンヌ
+
+## 最後の夜
+255: エイミー・ワインハウス 自宅 カムデン=Amy Winehouse house Camden Square @医師/家を訪ねて
+263: ジャニス・ワインハウス=Janis Winehouse|母ジャニス @ジャニス
+
+## 2011年7月23日
+266: エイミー・ワインハウス 死去 自宅=Amy Winehouse death house Camden Square 2011 @2011年7月23日
+273: アレックス・ワインハウス=Alex Winehouse|兄アレックス @アレックス
+
+## ユダヤ式の葬儀
+275: エイミー・ワインハウス 葬儀 ケリー・オズボーン=Amy Winehouse funeral Kelly Osbourne|ケリー・オズボーン @葬儀/ケリー・オズボーン
+279: ミッチ・ワインハウス 葬儀=Mitch Winehouse funeral|父ミッチ @弔辞
+282: キャロル・キング=Carole King|キャロル・キング @キャロル・キング
+
+## エイミー・ワインハウス財団
+284: エイミー・ワインハウス財団=Amy Winehouse Foundation @財団/ミッチ
+
+## 遺作『Lioness』と6つ目のグラミー
+289: Lioness Hidden Treasures アルバム=Amy Winehouse Lioness Hidden Treasures album @Lioness
+
+## 祖母の隣に眠り、カムデンに立つ
+293: エイミー・ワインハウス 銅像 除幕=Amy Winehouse statue unveiling Camden 2014|父ミッチと母ジャニス @遺灰/銅像
+
+## 映画と残したもの
+298: 映画 AMY エイミー=Amy 2015 documentary poster @AMY/アカデミー賞
+300: Back to Black アルバム=Amy Winehouse Back to Black album @名簿/1200万枚
+302: アデル サム・スミス=Adele Sam Smith|アデルとサム・スミス @アデル/サム・スミス
+
+## 結び：最後まで嘘をつかなかった歌
+304: エイミー・ワインハウス ライブ=Amy Winehouse live @ノー/正直さ
