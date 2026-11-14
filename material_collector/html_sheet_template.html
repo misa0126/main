@@ -905,6 +905,13 @@ async function placeIntoYmm4() {
   if (project.FilePath) project.FilePath = `${folderPath}\\${outName}`;
   await writeFile(dir, outName, "\uFEFF" + JSON.stringify(project, null, 2));
   log(`できました！ 画像${added.length}枚を並べました。` + (captions.length ? `名前のテロップを${captions.length}か所入れました。` : "") + (fixed.length ? `読みを${fixed.length}か所直しました。` : ""), "ok");
+  // 名前のテロップが入らなかったときは、理由を出す
+  const named = plan.filter(p => captionOf(p.img)).length;
+  if (!captions.length && named) {
+    log(L.capOn
+      ? `名前のテロップを付ける画像が${named}枚ありますが、まだ画像を貼っていないため入りませんでした。`
+      : `名前のテロップは入れていません。上の「画像の位置と大きさ」を開いて「人の写真に名前のテロップを入れる」にチェックを入れ、もう一度押してください。`, "ng");
+  }
   if (fixed.length) {
     log("読みを直したセリフ(YMM4で開いて、ここが正しく読まれているか聞いてみてください):");
     for (const f of fixed) log(`・「${f.serif.slice(0, 30)}」\n　${f.before} → ${f.after}`);
@@ -939,6 +946,14 @@ function showLayout(L) {
 {
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem("ymm4-layout") || "{}"); } catch (e) {}
+  // 名前のテロップのチェックが、前に別の画像リストで外したまま残っていることがあったので、一度だけ入れ直す(2026-11-14)
+  try {
+    if (saved.capOn === false && !localStorage.getItem("ymm4-capon-reset")) {
+      saved.capOn = true;
+      localStorage.setItem("ymm4-layout", JSON.stringify(saved));
+    }
+    localStorage.setItem("ymm4-capon-reset", "1");
+  } catch (e) {}
   showLayout(Object.assign({}, LAYOUT_DEFAULT, saved));
   for (const id of [...Object.values(LAYOUT_FIELDS), "capOn", "fadeOn"]) document.getElementById(id).addEventListener("change", () => {
     const L = readLayout(); showLayout(L);
