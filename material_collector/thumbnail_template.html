@@ -55,6 +55,9 @@ h2 { font-size: 16px; margin: 22px 0 8px; padding-left: 10px; border-left: 4px s
 .plan h3 .spacer { flex: 1; }
 .stage canvas.big { width: 100%; aspect-ratio: 16 / 9; display: block; border-radius: 6px; cursor: grab; touch-action: none; background: #000; }
 .stage canvas.big:active { cursor: grabbing; }
+.vtitle { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 4px 0 8px; font-size: 15px; }
+.vtitle .label { color: var(--muted); font-size: 12px; }
+.vtitle .text { font-weight: bold; }
 .stage .hint { color: var(--muted); font-size: 12px; margin-top: 4px; }
 .small { display: flex; gap: 10px; align-items: flex-end; margin-top: 10px; }
 .small canvas { width: 168px; height: 94.5px; border-radius: 4px; display: block; }
@@ -667,6 +670,12 @@ function makePlan(def, index) {
       el("div", { class: "hint" }, "写真はドラッグで移動、ホイールで拡大・縮小(比較の型は左右それぞれ)"),
       el("div", { class: "small" }, small, el("span", {}, "← スマホのおすすめ欄で見たときの大きさ。ここで文字が読めるか確かめる"))),
     ctrl);
+  if (def.video_title) {
+    const copy = el("button", { type: "button", onclick: () => {
+      navigator.clipboard.writeText(def.video_title).then(() => { copy.textContent = "コピーしました"; setTimeout(() => { copy.textContent = "コピー"; }, 1500); });
+    } }, "コピー");
+    card.insertBefore(el("div", { class: "vtitle" }, el("span", { class: "label" }, "この案のタイトル"), el("span", { class: "text" }, def.video_title), copy), card.children[1]);
+  }
   plan.card = card;
   plan.canvas = big;
   return plan;

@@ -22,6 +22,7 @@
     帯: 永世五冠・タイトル80期                     ← 上の赤い帯の文字(なくてもよい)
     文字: 69歳まで|{A級}にいた男                   ← | で改行、{ } で囲んだ所が強調の色になる
     写真: 1                                       ← 使う写真の番号。比較は「1, 2」
+    タイトル: 大山康晴｜なぜ手術後も指し続けたのか？ ← この案と組にする動画タイトル(なくてもよい)。HTMLにコピーボタン付きで出る
     ラベル: 20歳, 69歳                            ← 比較のときの左右の文字
     ゆっくりの大きさ: 1.5                         ← 1 がふつう。2 で2倍(顔アップは1でもスマホで見える大きさ)
     顔の大きさ: 大                                ← 顔アップは「大」が標準(目が一言のすぐ下に来るまで顔を大きく。おでこは隠れる)。「ふつう」で顔全体を出す
@@ -87,7 +88,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "reimu": None, "marisa": None, "color": "黄"})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "reimu": None, "marisa": None, "color": "黄", "video_title": ""})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -118,6 +119,8 @@ def parse_thumb_table(text: str) -> dict:
             plan["band"] = value
         elif key == "文字":
             plan["text"] = value
+        elif key == "タイトル":  # この案と組にする動画タイトル(「名前｜タイトル」の形)
+            plan["video_title"] = value
         elif key == "写真":
             plan["photos"] = [int(n) for n in re.split(r"[,、，\s]+", value) if n]
         elif key == "ラベル":
