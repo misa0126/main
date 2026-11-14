@@ -464,22 +464,13 @@ function dbGetKey(key) {
   });
 }
 // 区切り表を直して画像リストを作り直すと、番号が変わって別の画像リストとして扱われる。
-// 前の版の画像リストで貼った画像を、同じ検索ワード(なければ同じ開始行)の番号へ引き継ぐ。
-async function takeOverPrevious() {
-  const prev = DATA.previous || [];
-  const empty = ALL.filter(i => !pasted.has(i.no));
-  if (!db || !prev.length || !empty.length) return;
+// 前の版の画像リストで貼った画像と、書きかえた名前テロップを、同じ検索ワード(なければ同じ開始行)の番号へ引き継ぐ。
+// cands: 前の版の { order(新しい版ほど小さい), ja, start, value }。targets: 引き継ぐ先の画像。返り値: 番号 → 引き継ぐ value
+function matchPrevious(cands, targets) {
   const startOf = {};
   for (const seg of layout) for (const img of seg.images) startOf[img.no] = seg.start;
-  const cands = [];  // 新しい版から順
-  for (const [order, version] of prev.entries()) {
-    for (const img of version.images) {
-      const blob = await dbGetKey(DATA.title + ":" + version.id + ":" + img.no);
-      if (blob) cands.push({ order, ja: img.ja, start: img.start, blob });
-    }
-  }
-  if (!cands.length) return;
-  const used = new Set();  // 同じ場面の画像は1回だけ使う(「検索ワード|開始行」)
+  const used = new Set();  // 同じ場面のものは1回だけ使う(「検索ワード|開始行」)
+  const result = new Map();
   const take = (img, ok, reuse = false) => {
     let best = null;
     for (const c of cands) {
@@ -489,18 +480,56 @@ async function takeOverPrevious() {
     }
     if (!best) return false;
     used.add(best.c.ja + "|" + best.c.start);
-    pasted.set(img.no, best.c.blob); dbPut(img.no, best.c.blob); renderPaste(img.no);
+    result.set(img.no, best.c.value);
     return true;
   };
-  let count = 0;
-  const rest = [];
-  for (const img of empty) (take(img, c => c.ja === img.ja) ? count++ : rest.push(img));
-  // 同じ検索ワードの画像は、ほかの番号で使った画像でもよい(本人の写真の使い回しなど)
-  const rest2 = [];
-  for (const img of rest) (take(img, c => c.ja === img.ja, true) ? count++ : rest2.push(img));
-  // 検索ワードを変えた番号は、同じ場面(同じ開始行)で貼っていた画像を使う
-  for (const img of rest2) if (take(img, c => c.start === startOf[img.no])) count++;
-  if (count) toast(`前の画像リストで貼った画像を${count}枚引き継ぎました`);
+  const rest = [], rest2 = [];
+  for (const img of targets) if (!take(img, c => c.ja === img.ja)) rest.push(img);
+  // 同じ検索ワードのものは、ほかの番号で使ったものでもよい(本人の写真の使い回しなど)
+  for (const img of rest) if (!take(img, c => c.ja === img.ja, true)) rest2.push(img);
+  // 検索ワードを変えた番号は、同じ場面(同じ開始行)のものを使う
+  for (const img of rest2) take(img, c => c.start === startOf[img.no]);
+  return result;
+}
+async function takeOverPrevious() {
+  const prev = DATA.previous || [];
+  if (!prev.length) return;
+  const messages = [];
+  // 貼った画像(まだ貼っていない番号だけ)
+  const empty = ALL.filter(i => !pasted.has(i.no));
+  if (db && empty.length) {
+    const cands = [];
+    for (const [order, version] of prev.entries()) {
+      for (const img of version.images) {
+        const blob = await dbGetKey(DATA.title + ":" + version.id + ":" + img.no);
+        if (blob) cands.push({ order, ja: img.ja, start: img.start, value: blob });
+      }
+    }
+    const got = matchPrevious(cands, empty);
+    for (const [no, blob] of got) { pasted.set(no, blob); dbPut(no, blob); renderPaste(no); }
+    if (got.size) messages.push(`画像を${got.size}枚`);
+  }
+  // 画面で書きかえた名前テロップ(この版でまだ書きかえていない番号だけ)
+  const noEdit = ALL.filter(i => !(i.no in capEdits));
+  if (noEdit.length) {
+    const cands = [];
+    for (const [order, version] of prev.entries()) {
+      let edits = {};
+      try { edits = JSON.parse(localStorage.getItem("image-list-cap:" + DATA.title + ":" + version.id) || "{}"); } catch (e) {}
+      for (const img of version.images) if (img.no in edits) cands.push({ order, ja: img.ja, start: img.start, value: edits[img.no] });
+    }
+    const got = matchPrevious(cands, noEdit);
+    for (const [no, caption] of got) {
+      capEdits[no] = caption;
+      const input = document.querySelector(`#img${no} .cap input`);
+      if (input) input.value = caption;
+    }
+    if (got.size) {
+      try { localStorage.setItem(CAP_KEY, JSON.stringify(capEdits)); } catch (e) {}
+      messages.push(`名前テロップを${got.size}か所`);
+    }
+  }
+  if (messages.length) toast(`前の画像リストから${messages.join("と")}引き継ぎました`);
 }
 let toastTimer = null;
 function toast(text) {
