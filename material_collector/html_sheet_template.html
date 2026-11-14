@@ -456,6 +456,52 @@ function dbGet(no) {
     catch (e) { resolve(null); }
   });
 }
+function dbGetKey(key) {
+  return new Promise(resolve => {
+    if (!db) return resolve(null);
+    try { const r = db.transaction("images").objectStore("images").get(key); r.onsuccess = () => resolve(r.result || null); r.onerror = () => resolve(null); }
+    catch (e) { resolve(null); }
+  });
+}
+// 区切り表を直して画像リストを作り直すと、番号が変わって別の画像リストとして扱われる。
+// 前の版の画像リストで貼った画像を、同じ検索ワード(なければ同じ開始行)の番号へ引き継ぐ。
+async function takeOverPrevious() {
+  const prev = DATA.previous || [];
+  const empty = ALL.filter(i => !pasted.has(i.no));
+  if (!db || !prev.length || !empty.length) return;
+  const startOf = {};
+  for (const seg of layout) for (const img of seg.images) startOf[img.no] = seg.start;
+  const cands = [];  // 新しい版から順
+  for (const [order, version] of prev.entries()) {
+    for (const img of version.images) {
+      const blob = await dbGetKey(DATA.title + ":" + version.id + ":" + img.no);
+      if (blob) cands.push({ order, ja: img.ja, start: img.start, blob });
+    }
+  }
+  if (!cands.length) return;
+  const used = new Set();  // 同じ場面の画像は1回だけ使う(「検索ワード|開始行」)
+  const take = (img, ok, reuse = false) => {
+    let best = null;
+    for (const c of cands) {
+      if ((!reuse && used.has(c.ja + "|" + c.start)) || !ok(c)) continue;
+      const score = Math.abs(c.start - startOf[img.no]) * 10 + c.order;
+      if (!best || score < best.score) best = { c, score };
+    }
+    if (!best) return false;
+    used.add(best.c.ja + "|" + best.c.start);
+    pasted.set(img.no, best.c.blob); dbPut(img.no, best.c.blob); renderPaste(img.no);
+    return true;
+  };
+  let count = 0;
+  const rest = [];
+  for (const img of empty) (take(img, c => c.ja === img.ja) ? count++ : rest.push(img));
+  // 同じ検索ワードの画像は、ほかの番号で使った画像でもよい(本人の写真の使い回しなど)
+  const rest2 = [];
+  for (const img of rest) (take(img, c => c.ja === img.ja, true) ? count++ : rest2.push(img));
+  // 検索ワードを変えた番号は、同じ場面(同じ開始行)で貼っていた画像を使う
+  for (const img of rest2) if (take(img, c => c.start === startOf[img.no])) count++;
+  if (count) toast(`前の画像リストで貼った画像を${count}枚引き継ぎました`);
+}
 let toastTimer = null;
 function toast(text) {
   const t = document.getElementById("toast");
@@ -881,6 +927,7 @@ document.getElementById("pick").addEventListener("click", () => placeIntoYmm4().
 (async () => {
   db = await openDb();
   for (const i of ALL) { const blob = await dbGet(i.no); if (blob) { pasted.set(i.no, blob); renderPaste(i.no); } }
+  await takeOverPrevious();
   const first = ALL.find(i => !pasted.has(i.no));
   if (first) select(first.no);
 })();

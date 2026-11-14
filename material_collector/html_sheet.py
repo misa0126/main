@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
 import unicodedata
 from pathlib import Path
 
@@ -130,7 +131,48 @@ def to_aquestalk_kana(reading: str) -> str:
     return reading.translate(_AQUESTALK_KANA)
 
 
-def build_sheet(script_text: str, table_text: str, title: str, yomi_text: str | None = None) -> str:
+def page_ids(title: str, script_text: str, table_text: str) -> list[str]:
+    """貼った画像をブラウザに覚えておくときの、画像リストの名前(ID)。今の作り方と、前の作り方の2つを返す。
+    同じ人物でも台本や区切りが違えば別のものとして扱う。名前のテロップ「|名前」・きっかけ「@〜」・「#」のメモは、
+    あとから足したり直したりしても貼った画像が消えないように数えない。"""
+    new_table = re.sub(r"\s*[|@][^,、，\n]*", "", re.sub(r"(?m)^\s*#(?!#).*\n?", "", table_text))
+    # 2026-11-14 までの作り方(「|名前」と、名前テロップの説明のメモだけを数えなかった)
+    old_table = re.sub(r"\|[^,、，\n]*", "", re.sub(r"(?m)^# 人の写真には.*\n", "", table_text))
+    ids = []
+    for table in (new_table, old_table):
+        page_id = hashlib.sha1((title + "\n" + script_text + "\n" + table).encode("utf-8")).hexdigest()[:12]
+        if page_id not in ids:
+            ids.append(page_id)
+    return ids
+
+
+def previous_versions(title: str, versions: list[tuple[str, str]], current_id: str) -> list[dict]:
+    """前の版の画像リストで貼った画像を引き継ぐための、前の版のIDと「番号・検索ワード・開始行」の一覧(新しい版から順)。"""
+    result, seen = [], {current_id}
+    for script_text, table_text in versions:
+        try:
+            segments = parse_scene_table(table_text)
+        except ValueError:
+            continue
+        images, number = [], 0
+        for segment in segments:
+            for keyword in segment["keywords"]:
+                number += 1
+                images.append({"no": number, "ja": keyword.ja, "start": segment["start"]})
+        for page_id in page_ids(title, script_text, table_text):
+            if page_id not in seen:
+                seen.add(page_id)
+                result.append({"id": page_id, "images": images})
+    return result
+
+
+def build_sheet(
+    script_text: str,
+    table_text: str,
+    title: str,
+    yomi_text: str | None = None,
+    previous: list[tuple[str, str]] | None = None,
+) -> str:
     lines = script_lines(script_text)
     utterances, line_to_utterance = script_utterances(script_text)
     segments = parse_scene_table(table_text)
@@ -160,14 +202,14 @@ def build_sheet(script_text: str, table_text: str, title: str, yomi_text: str | 
         segment["images"] = images
 
     # YMM4のセリフと台本のセリフを、本文で突き合わせるための一覧
-    # 貼った画像やチェックはブラウザに保存する。同じ人物でも台本や区切りが違えば別のものとして扱う
-    # (名前のテロップ「|名前」・きっかけ「@〜」・「#」のメモは、あとから足したり直したりしても貼った画像が消えないように数えない)
-    id_table = re.sub(r"\s*[|@][^,、，\n]*", "", re.sub(r"(?m)^\s*#(?!#).*\n?", "", table_text))
-    page_id = hashlib.sha1((title + "\n" + script_text + "\n" + id_table).encode("utf-8")).hexdigest()[:12]
+    # 貼った画像やチェックはブラウザに保存する(page_ids を参照)
+    page_id = page_ids(title, script_text, table_text)[0]
     data = {
         "title": title, "id": page_id, "segments": segments, "utterances": [normalize(u) for u in utterances],
         # 行(空行を除いた番号 - 1)ごとのセリフ番号。画像リストの画面で区切りを動かすときに使う
         "lineU": line_to_utterance,
+        # 前の版の画像リストで貼った画像を、検索ワードと位置で引き継ぐ
+        "previous": previous_versions(title, [(script_text, table_text)] + list(previous or []), page_id),
     }
     if yomi_text:
         # YMM4の読み(発音)をセリフごとに直すための読み。キーはセリフの番号
@@ -185,6 +227,31 @@ def build_sheet(script_text: str, table_text: str, title: str, yomi_text: str | 
     return template.replace("__TITLE__", title).replace("/*__DATA__*/null", payload)
 
 
+def git_history(script: Path, table: Path) -> list[tuple[str, str]]:
+    """git にコミットされている前の版の(台本, 区切り表)を、新しい順に返す。git がなければ空。"""
+    def git(*args: str) -> str:
+        return subprocess.run(
+            ["git", *args], cwd=table.resolve().parent, capture_output=True, text=True, encoding="utf-8", check=True
+        ).stdout
+
+    try:
+        commits = git("log", "--format=%H", "--", table.name).split()
+        versions = []
+        for commit in commits:
+            table_text = git("show", f"{commit}:./{table.name}")
+            try:
+                script_text = subprocess.run(
+                    ["git", "show", f"{commit}:./{script.name}"], cwd=script.resolve().parent,
+                    capture_output=True, text=True, encoding="utf-8", check=True,
+                ).stdout
+            except subprocess.CalledProcessError:
+                script_text = script.read_text(encoding="utf-8")
+            versions.append((script_text, table_text))
+        return versions
+    except (OSError, subprocess.CalledProcessError):
+        return []
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="台本と区切り表から、素材確認用のHTMLを作る")
     parser.add_argument("script", type=Path)
@@ -197,9 +264,12 @@ def main(argv: list[str] | None = None) -> int:
     yomi_text = yomi.read_text(encoding="utf-8") if yomi.exists() else None
     if args.yomi and yomi_text is None:
         parser.error(f"読みの直し表が見つかりません: {args.yomi}")
+    previous = git_history(args.script, args.table)
     html = build_sheet(
-        args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title, yomi_text
+        args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title, yomi_text, previous
     )
+    if previous:
+        print(f"前の版の区切り表 {len(previous)} 個から、貼った画像を引き継げるようにしました")
     if yomi_text:
         print(f"読みの直し表を使いました: {yomi}")
     output = args.output or Path(f"{args.title}_image_list.html")
