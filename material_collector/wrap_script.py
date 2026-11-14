@@ -1,0 +1,185 @@
+"""台本のセリフが長いとき、「」の中で改行する(ユーザーの希望。36文字を超えたら区切りのいいところで改行)。
+
+使い方:
+    python -m material_collector.wrap_script scripts/台本.txt [scripts/台本_scenes.txt] [scripts/台本_yomi.txt]
+
+・「」の中が36文字を超えるセリフだけ改行する。36文字以内はそのまま
+・行の数がいちばん少なくなるように、区切りのよい所で改行する(「、」の後ろ > 「』」「？」「！」の後ろ >
+  漢字・カタカナの前の助詞の後ろ)。同じくらいなら前の行を長くする(36文字以内でいちばん後ろの「、」)
+・改行すると「台本の空行を除いた行番号」がずれるので、区切り表と読みの表の行番号も一緒に付け直す
+・すでに改行してある台本にもう一度かけても、行は増えない(1つにつないでから折り返す)
+"""
+
+from __future__ import annotations
+
+import argparse
+import re
+import sys
+from pathlib import Path
+
+LIMIT = 36
+SPEAKER = re.compile(r"^(?P<speaker>[^「」\s]+)「(?P<body>.*)$")
+PUNCT_AFTER = "、"
+STRONG_AFTER = "』？！。"
+PARTICLES = "はがをにでともへや"
+HIRAGANA = re.compile(r"[ぁ-ゖ]")
+
+
+def _break_score(text: str, n: int) -> int:
+    """text[:n] の後ろで改行したときの、区切りのよさ(0 は区切りにしない)。"""
+    ch = text[n - 1]
+    if ch in PUNCT_AFTER:
+        return 3
+    if ch in STRONG_AFTER:
+        return 2
+    if ch in PARTICLES and not HIRAGANA.match(text[n]):
+        return 1
+    return 0
+
+
+def wrap_body(body: str, limit: int = LIMIT) -> list[str]:
+    """「」の中身を、limit 文字以内の行に分ける。
+
+    行の数がいちばん少なくなる分け方のうち、区切りのよい所(「、」>「』？！」>助詞の後ろ)で切る。
+    同じくらいなら、ユーザーの例と同じく前の行を長くする(36文字以内でいちばん後ろの「、」)。
+    """
+    length = len(body)
+    if length <= limit:
+        return [body]
+    for allow_any in (False, True):
+        # best[i] = ((行数, -区切りのよさの合計, -切った位置の合計), 直前に切った位置)
+        best: dict[int, tuple[tuple[int, int, int], int]] = {0: ((0, 0, 0), -1)}
+        for i in range(1, length + 1):
+            score = 0 if i == length else _break_score(body, i)
+            if i < length and score == 0 and not allow_any:
+                continue
+            for j in range(max(0, i - limit), i):
+                if j not in best:
+                    continue
+                (lines, neg_score, neg_pos), _ = best[j]
+                key = (lines + 1, neg_score - score, neg_pos - (i if i < length else 0))
+                if i not in best or key < best[i][0]:
+                    best[i] = (key, j)
+        if length in best:
+            cuts = []
+            i = length
+            while i > 0:
+                cuts.append(i)
+                i = best[i][1]
+            parts, prev = [], 0
+            for c in reversed(cuts):
+                parts.append(body[prev:c])
+                prev = c
+            return parts
+    return [body[i : i + limit] for i in range(0, length, limit)]
+
+
+def _serifs(script_text: str) -> list[tuple[str, str]]:
+    """台本を (話者, 中身) の並びにする。「」の中の改行は1つにつなぐ。"""
+    serifs: list[list[str]] = []
+    open_serif = False
+    for raw in script_text.splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        match = SPEAKER.match(line)
+        if match and not open_serif:
+            serifs.append([match.group("speaker"), match.group("body")])
+        elif serifs:
+            serifs[-1][1] += line
+        else:
+            raise ValueError(f"話者のないセリフがあります: {line!r}")
+        open_serif = not serifs[-1][1].endswith("」")
+    result = []
+    for speaker, body in serifs:
+        if not body.endswith("」"):
+            raise ValueError(f"「」が閉じていないセリフがあります: {speaker}「{body}")
+        result.append((speaker, body[:-1]))
+    return result
+
+
+def _old_starts(script_text: str) -> list[int]:
+    """今の台本で、各セリフが何行目から始まるか(空行を除いた行番号)。"""
+    starts = []
+    number = 0
+    open_serif = False
+    for raw in script_text.splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        number += 1
+        if not open_serif:
+            starts.append(number)
+        open_serif = not line.endswith("」")
+    return starts
+
+
+def wrap_script(script_text: str, limit: int = LIMIT) -> tuple[str, dict[int, int]]:
+    """折り返した台本と、{前の開始行: 新しい開始行} を返す。空行の並びはそのまま残す。"""
+    serifs = _serifs(script_text)
+    old_starts = _old_starts(script_text)
+    # 空行の位置(何番目のセリフの後に空行があるか)を残す
+    blank_after: set[int] = set()
+    count = 0
+    open_serif = False
+    for raw in script_text.splitlines():
+        line = raw.strip()
+        if not line:
+            if count:
+                blank_after.add(count)
+            continue
+        if not open_serif:
+            count += 1
+        open_serif = not line.endswith("」")
+
+    out: list[str] = []
+    mapping: dict[int, int] = {}
+    number = 0
+    for index, (speaker, body) in enumerate(serifs, start=1):
+        rows = wrap_body(body, limit)
+        mapping[old_starts[index - 1]] = number + 1
+        rows[0] = f"{speaker}「{rows[0]}"
+        rows[-1] = f"{rows[-1]}」"
+        out.extend(rows)
+        number += len(rows)
+        if index in blank_after and index != len(serifs):
+            out.append("")
+    return "\n".join(out) + "\n", mapping
+
+
+def renumber(table_text: str, mapping: dict[int, int]) -> str:
+    """区切り表・読みの表の「開始行:」を付け直す。"""
+    lines = []
+    for raw in table_text.splitlines():
+        match = re.match(r"^(\s*)(\d+)(\s*:)", raw)
+        if match and not raw.lstrip().startswith("#"):
+            old = int(match.group(2))
+            if old not in mapping:
+                raise ValueError(f"{old} 行目はセリフの始まりではありません: {raw!r}")
+            raw = f"{match.group(1)}{mapping[old]}{match.group(3)}{raw[match.end():]}"
+        lines.append(raw)
+    return "\n".join(lines) + ("\n" if table_text.endswith("\n") else "")
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="台本の長いセリフを「」の中で改行し、区切り表・読みの表の行番号を付け直す")
+    parser.add_argument("script")
+    parser.add_argument("tables", nargs="*", help="行番号を付け直す区切り表・読みの表")
+    parser.add_argument("--limit", type=int, default=LIMIT)
+    args = parser.parse_args(argv)
+
+    script_path = Path(args.script)
+    wrapped, mapping = wrap_script(script_path.read_text(encoding="utf-8"), args.limit)
+    tables = {Path(p): renumber(Path(p).read_text(encoding="utf-8"), mapping) for p in args.tables}
+    script_path.write_text(wrapped, encoding="utf-8")
+    for path, text in tables.items():
+        path.write_text(text, encoding="utf-8")
+    changed = sum(1 for old, new in mapping.items() if old != new)
+    print(f"折り返しました: {script_path}(セリフ{len(mapping)}個、行番号が変わったセリフ{changed}個)")
+    for path in tables:
+        print(f"行番号を付け直しました: {path}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

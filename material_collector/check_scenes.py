@@ -22,12 +22,32 @@ import argparse
 import sys
 from pathlib import Path
 
-from .html_sheet import parse_scene_table, script_lines
+import re
+
+from .html_sheet import parse_scene_table, script_utterances
 
 REIMU = "霊夢"
 HEAD = 2  # 出し始めの何セリフ以内に、きっかけの言葉が出てくればよいか
 MIN_LINES = 2
 MAX_LINES = 12  # 話が変わらないなら長くてよいので、目安を大きく超えたときだけ知らせる
+
+
+def _script_rows(script_text: str) -> list[dict]:
+    """空行を除いた1行ごとに、その行が属するセリフ(話者・全文・何番目のセリフか)を返す。
+
+    「」の中で改行しているセリフ(36文字を超えて折り返したもの)は、続きの行も同じセリフとして扱う。
+    """
+    utterances, line_to_utterance = script_utterances(script_text)
+    speakers: dict[int, str] = {}
+    rows = [raw.strip() for raw in script_text.splitlines() if raw.strip()]
+    for row, u in zip(rows, line_to_utterance):
+        if u not in speakers:
+            m = re.match(r"^([^「」\s]{1,10})「", row)
+            speakers[u] = m.group(1) if m else ""
+    return [
+        {"speaker": speakers[u], "text": utterances[u], "utt": u, "head": i == 0 or line_to_utterance[i - 1] != u}
+        for i, u in enumerate(line_to_utterance)
+    ]
 
 
 def _first_hit(words: list[str], lines: list[dict], first: int, last: int) -> int | None:
@@ -38,7 +58,7 @@ def _first_hit(words: list[str], lines: list[dict], first: int, last: int) -> in
 
 
 def check(script_text: str, table_text: str) -> list[dict]:
-    lines = script_lines(script_text)
+    lines = _script_rows(script_text)
     segments = parse_scene_table(table_text)
     total = len(lines)
     if segments and segments[-1]["start"] > total:
@@ -72,15 +92,21 @@ def check(script_text: str, table_text: str) -> list[dict]:
                 earlier = _first_hit(words, lines, 1, first - 1)
                 where = f"(台本では {later} 行目に出てくる)" if later else (f"(台本では {earlier} 行目に出てくる)" if earlier else "(台本のどこにも出てこない)")
                 warnings.append(f"きっかけ「{'/'.join(words)}」が、この画像のあいだに出てこない{where}")
-            elif hit >= first + HEAD:
+            elif lines[hit - 1]["utt"] - lines[first - 1]["utt"] >= HEAD:
                 warnings.append(f"きっかけ「{'/'.join(words)}」は {hit} 行目で初めて出てくる → 切り替えが早すぎる(開始行を {hit} 前後に)")
             if idx > 0 and img["seg_start"]:
                 prev = images[idx - 1]
-                tail_from = max(prev["first"] + HEAD, prev["last"] - 1)
+                # 1つ前の画像の最後の2セリフ(出し始めの2セリフは除く)
+                last_utt = lines[prev["last"] - 1]["utt"]
+                head_utt = lines[prev["first"] - 1]["utt"] + HEAD
+                tail_from = next(
+                    (r for r in range(prev["first"], prev["last"] + 1) if lines[r - 1]["utt"] >= max(head_utt, last_utt - 1)),
+                    prev["last"] + 1,
+                )
                 early = _first_hit(words, lines, tail_from, prev["last"])
                 if early is not None:
                     warnings.append(f"きっかけ「{'/'.join(words)}」は 1つ前の画像の {early} 行目でもう出てくる → 切り替えが遅すぎる(開始行を {early} に)")
-        n = last - first + 1
+        n = len({line["utt"] for line in lines[first - 1 : last]})
         if n > MAX_LINES:
             warnings.append(f"{n}セリフと長い → 話の流れが変わる所で分ける")
         elif n < MIN_LINES and first != 1:
@@ -107,7 +133,8 @@ def main(argv: list[str] | None = None) -> int:
         for w in img["warnings"]:
             print(f"  ⚠ {w}")
         for offset, line in enumerate(img["lines"]):
-            print(f"    {img['first'] + offset}: {line['speaker']}「{line['text'][:40]}」")
+            if line.get("head", True):
+                print(f"    {img['first'] + offset}: {line['speaker']}「{line['text'][:40]}」")
     print(f"\n画像{len(images)}枚のうち、直したほうがよさそうな所があるのは{len(flagged)}枚です。")
     return 1 if flagged else 0
 
