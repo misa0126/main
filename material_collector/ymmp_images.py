@@ -28,7 +28,7 @@ from .html_sheet import normalize, parse_scene_table, script_utterances
 VOICE_TYPE = "YukkuriMovieMaker.Project.Items.VoiceItem, YukkuriMovieMaker"
 IMAGE_TYPE = "YukkuriMovieMaker.Project.Items.ImageItem, YukkuriMovieMaker"
 # 画像に付けるフェードイン・フェードアウトの秒数(ユーザーの希望でふだんから付ける)
-DEFAULT_FADE = 0.5
+DEFAULT_FADE = 0.2
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".jfif", ".avif"}
 NUMBER_PATTERN = re.compile(r"^0*(\d+)(?:\D|$)")
 REMARK = "画像自動配置"

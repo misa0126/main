@@ -628,7 +628,7 @@ async function placeIntoYmm4() {
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
 }
 // 画像の位置と大きさ(このブラウザに覚えておく)
-const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, fade: 0.5, capOn: true };
+const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, fade: 0.2, capOn: true };
 const LAYOUT_FIELDS = { x: "posX", y: "posY", fitW: "fitW", fitH: "fitH", capSize: "capSize", capX: "capX", capY: "capY", capBorder: "capBorder", fade: "fade" };
 function readLayout() {
   const L = {};
@@ -651,6 +651,8 @@ function showLayout(L) {
 {
   let saved = {};
   try { saved = JSON.parse(localStorage.getItem("ymm4-layout") || "{}"); } catch (e) {}
+  // 前の標準(0.5秒)のまま覚えていたフェードは、今の標準に合わせる
+  if (saved.fade === 0.5) delete saved.fade;
   showLayout(Object.assign({}, LAYOUT_DEFAULT, saved));
   for (const id of [...Object.values(LAYOUT_FIELDS), "capOn"]) document.getElementById(id).addEventListener("change", () => {
     const L = readLayout(); showLayout(L);
