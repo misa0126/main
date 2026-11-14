@@ -63,3 +63,16 @@ class PageIdTest(unittest.TestCase):
         base = page_id("## a\n1: 将棋\n3: 熱=fever\n")
         self.assertEqual(base, page_id("# メモ\n## a\n1: 将棋|名前 @将棋\n3: 熱=fever @熱\n"))
         self.assertNotEqual(base, page_id("## a\n1: 将棋\n4: 熱=fever\n"))
+
+
+class PreviousVersionsTest(unittest.TestCase):
+    def test_previous_versions_list_old_ids_and_keywords(self):
+        from material_collector.html_sheet import page_ids, previous_versions
+
+        old_table = "## a\n1: 将棋|名前\n3: 風邪\n"
+        current_id = page_ids("テスト", SCRIPT, "## a\n1: 将棋\n3: 熱 @熱\n")[0]
+        result = previous_versions("テスト", [(SCRIPT, old_table)], current_id)
+        self.assertEqual({v["id"] for v in result}, set(page_ids("テスト", SCRIPT, old_table)))
+        self.assertEqual(result[0]["images"], [{"no": 1, "ja": "将棋", "start": 1}, {"no": 2, "ja": "風邪", "start": 3}])
+        # 今の版と同じIDは入れない
+        self.assertEqual(previous_versions("テスト", [(SCRIPT, "## a\n1: 将棋\n3: 熱\n")], current_id), [])
