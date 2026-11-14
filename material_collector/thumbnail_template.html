@@ -371,8 +371,27 @@ function drawPhoto(g, no, rect, view, mono = false) {
       g.filter = tone + " blur(24px)";
       g.drawImage(img, rect.x + (rect.w - img.width * cs) / 2, rect.y + (rect.h - img.height * cs) / 2, img.width * cs, img.height * cs);
     }
-    g.filter = tone;
-    g.drawImage(img, x, y, w, h);
+    const gap = x > rect.x + 0.5 || y > rect.y + 0.5 || x + w < rect.x + rect.w - 0.5;
+    if (!gap) { g.filter = tone; g.drawImage(img, x, y, w, h); }
+    else {
+      // すき間があるときは、写真のふちをぼかして背景になじませる
+      const off = document.createElement("canvas"); off.width = Math.ceil(w); off.height = Math.ceil(h);
+      const o = off.getContext("2d");
+      o.filter = tone; o.drawImage(img, 0, 0, w, h); o.filter = "none";
+      o.globalCompositeOperation = "destination-in";
+      const f = Math.min(90, w / 6, h / 6);
+      const fadeX = o.createLinearGradient(0, 0, w, 0);
+      const lx = x > rect.x + 0.5 ? f / w : 0, rx = x + w < rect.x + rect.w - 0.5 ? f / w : 0;
+      fadeX.addColorStop(0, lx ? "rgba(0,0,0,0)" : "#000"); fadeX.addColorStop(lx, "#000"); fadeX.addColorStop(1 - rx, "#000"); fadeX.addColorStop(1, rx ? "rgba(0,0,0,0)" : "#000");
+      o.fillStyle = fadeX; o.fillRect(0, 0, w, h);
+      if (y > rect.y + 0.5) {
+        // destination-in は塗らなかった所を消すので、全体に塗る
+        const fadeY = o.createLinearGradient(0, 0, 0, h); fadeY.addColorStop(0, "rgba(0,0,0,0)"); fadeY.addColorStop(f / h, "#000"); fadeY.addColorStop(1, "#000");
+        o.fillStyle = fadeY; o.fillRect(0, 0, w, h);
+      }
+      g.filter = "none";
+      g.drawImage(off, x, y);
+    }
     g.filter = "none";
   }
   g.restore();
@@ -423,13 +442,14 @@ function autoView(no, layout, index, big = false) {
   const k = p.img.width / f.iw;  // 埋め込むときに縮めた分
   const cx = f.cx * k, cy = f.cy * k, fh = f.h * k;
   const s0 = Math.max(r.w / p.img.width, r.h / p.img.height);
-  const z = Math.min(6, Math.max(1, t.h / fh / s0)), s = s0 * z;
+  const z = Math.min(6, Math.max(0.5, t.h / fh / s0)), s = s0 * z;  // 顔が大きすぎる写真は縮める(すき間はぼかしで埋まる)
   const w = p.img.width * s, h = p.img.height * s;
   // 顔を目標の位置へ。ただし写真の端が枠の中に入らないようにする
   let x = r.x + r.w * t.x - (r.x + (r.w - w) / 2 + cx * s);
   let y = (r.y + t.y) - (r.y + (r.h - h) / 2 + cy * s);
   const mx = (w - r.w) / 2, my = (h - r.h) / 2;
-  x = Math.max(-mx, Math.min(mx, x)); y = Math.max(-my, Math.min(my + (t.gapTop || 0), y));  // gapTop: 上にすき間を作って下げてよい
+  if (w >= r.w) x = Math.max(-mx, Math.min(mx, x));
+  y = Math.max(-my, Math.min(my + (t.gapTop || 0), y));  // 下はすき間を作らない。gapTop: 上はすき間を作って下げてよい
   return { x, y, z };
 }
 // 型ごとの写真の枠
@@ -581,7 +601,7 @@ function makePlan(def, index) {
     e.preventDefault();
     const p = toCanvas(e), i = hit(p), v = plan.state.views[i];
     const r = photoRects(plan.state.layout)[i];
-    const old = v.z, z = Math.min(6, Math.max(1, old * (e.deltaY < 0 ? 1.08 : 1 / 1.08)));
+    const old = v.z, z = Math.min(6, Math.max(0.5, old * (e.deltaY < 0 ? 1.08 : 1 / 1.08)));
     // マウスの位置を中心に拡大する
     const cx = p.x - (r.x + r.w / 2), cy = p.y - (r.y + r.h / 2);
     v.x = cx - (cx - v.x) * z / old; v.y = cy - (cy - v.y) * z / old; v.z = z;
