@@ -27,7 +27,7 @@ from .html_sheet import parse_scene_table, script_lines
 REIMU = "霊夢"
 HEAD = 2  # 出し始めの何セリフ以内に、きっかけの言葉が出てくればよいか
 MIN_LINES = 2
-MAX_LINES = 8
+MAX_LINES = 12  # 話が変わらないなら長くてよいので、目安を大きく超えたときだけ知らせる
 
 
 def _first_hit(words: list[str], lines: list[dict], first: int, last: int) -> int | None:

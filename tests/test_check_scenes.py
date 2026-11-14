@@ -47,3 +47,19 @@ class CheckScenesTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PageIdTest(unittest.TestCase):
+    def test_captions_triggers_and_memos_do_not_change_page_id(self):
+        import json
+        import re
+
+        from material_collector.html_sheet import build_sheet
+
+        def page_id(table):
+            html = build_sheet(SCRIPT, table, "テスト")
+            return json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))["id"]
+
+        base = page_id("## a\n1: 将棋\n3: 熱=fever\n")
+        self.assertEqual(base, page_id("# メモ\n## a\n1: 将棋|名前 @将棋\n3: 熱=fever @熱\n"))
+        self.assertNotEqual(base, page_id("## a\n1: 将棋\n4: 熱=fever\n"))
