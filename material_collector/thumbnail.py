@@ -200,13 +200,27 @@ def find_face(image_bytes: bytes) -> dict:
     pad = int(max(img.size) * 0.25)
     gray = cv2.copyMakeBorder(np.asarray(img), pad, pad, pad, pad, cv2.BORDER_REPLICATE)
     min_side = max(24, min(img.size) // 8)
-    found = []
+    per_cascade = []
     for xml in ("haarcascade_frontalface_default.xml", "haarcascade_frontalface_alt2.xml"):
         detector = cv2.CascadeClassifier(cv2.data.haarcascades + xml)
-        found += list(detector.detectMultiScale(gray, scaleFactor=1.08, minNeighbors=5, minSize=(min_side, min_side)))
+        per_cascade.append([tuple(int(v) for v in f) for f in
+                            detector.detectMultiScale(gray, scaleFactor=1.08, minNeighbors=5, minSize=(min_side, min_side))])
+    found = [f for faces in per_cascade for f in faces]
     if not found:
         return fallback
-    x, y, w, h = max(found, key=lambda f: f[2] * f[3])
+
+    def overlap(a, b) -> float:
+        ix = max(0, min(a[0] + a[2], b[0] + b[2]) - max(a[0], b[0]))
+        iy = max(0, min(a[1] + a[3], b[1] + b[3]) - max(a[1], b[1]))
+        inter = ix * iy
+        return inter / (a[2] * a[3] + b[2] * b[3] - inter)
+
+    # 2つの検出器がそろって見つけた顔を優先する(片方だけの大きな枠は胸元や服の柄の誤検出のことがある)
+    def score(f):
+        agree = sum(any(overlap(f, g) > 0.3 for g in faces) for faces in per_cascade)
+        return (agree, f[2] * f[3])
+
+    x, y, w, h = max(found, key=score)
     return {"cx": float(x + w / 2 - pad), "cy": float(y + h / 2 - pad), "h": float(h), "iw": img.width, "ih": img.height}
 
 
