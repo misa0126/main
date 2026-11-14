@@ -80,6 +80,18 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
 #log { margin-top: 12px; font-size: 13px; white-space: pre-wrap; max-height: 40vh; overflow: auto; }
 #log .ok { color: var(--done); font-weight: bold; }
 #log .ng { color: var(--reimu); font-weight: bold; }
+.edittools { max-width: 1400px; margin: 10px auto 0; padding: 10px 20px; background: var(--done-bg);
+  border: 1px solid var(--done); border-radius: 10px; font-size: 13px; }
+.edittools p { margin: 0 0 8px; }
+.edittools .row { display: flex; gap: 8px; flex-wrap: wrap; }
+.edittools button.primary { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: bold; }
+button.small { font-size: 12px; padding: 1px 8px; margin-left: 6px; }
+.images > button.small { margin-left: 0; justify-self: start; }
+.cut { font-size: 11px; padding: 0 6px; margin-right: 6px; border-color: var(--accent); color: var(--accent); }
+.editwords { display: grid; gap: 4px; }
+.editwords input, .topicedit { font: inherit; font-size: 13px; padding: 2px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--text); width: 100%; }
+.topicedit { font-size: 15px; font-weight: bold; max-width: 40em; }
+body.editing .seg { border-color: var(--accent); }
 @media (max-width: 860px) {
   .seg { grid-template-columns: 1fr; }
 }
@@ -93,6 +105,7 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
     <button type="button" id="ymm4" class="primary">YMM4に並べる</button>
     <button type="button" id="zip">画像をZIPで保存</button>
     <label class="check" title="オフにすると、検索はいつものように新しいタブで開きます"><input type="checkbox" id="sideWin"> 検索を右側の窓で開く</label>
+    <button type="button" id="edit">区切りを編集</button>
     <button type="button" id="next">次の未完了へ</button>
     <button type="button" id="reset">チェックを全部外す</button>
   </nav>
@@ -100,6 +113,15 @@ dialog input[type=text] { flex: 1; min-width: 0; font: inherit; padding: 4px 8px
 <p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が<b>画面の右半分の窓</b>で開きます(この画像リストは <b>Windowsキー + ←</b> で左半分に寄せると見やすくなります)。Googleで見つからないときは、枠だけのボタンで同じ日本語ワードをYahoo!・Bingで探せます。
 画像を右クリック →「画像をコピー」→ このページに戻って <b>Ctrl+V</b>。青い枠で選ばれている番号に画像が入り、次の番号に進みます(番号の枠をクリックすると選び直せます。画像ファイルを枠にドラッグしても入ります)。
 貼り終わったら右上の「<b>YMM4に並べる</b>」で、YMM4のプロジェクトに画像を自動で並べられます。</p>
+<div class="edittools" id="editTools" hidden>
+  <p><b>区切りの編集中:</b> 台本のセリフの左の「<b>✂ ここで区切る</b>」で、そのセリフから新しい区切りになります。区切りの上の「<b>▲ 境目を上へ</b>」「<b>▼ 境目を下へ</b>」で境目を1セリフずつ動かし、「<b>前とつなげる</b>」で前の区切りにまとめます(画像も前に移ります)。
+  画像の検索ワードは欄を書きかえれば変わります。貼った画像は区切りを動かしても消えません。編集はこのブラウザに覚えておきます。</p>
+  <div class="row">
+    <button type="button" id="copyTable">区切り表をコピー(Claudeに送る用)</button>
+    <button type="button" id="restore">最初の区切りに戻す</button>
+    <button type="button" id="editDone" class="primary">編集を終える</button>
+  </div>
+</div>
 <dialog id="dlg">
   <h2>YMM4に画像を並べる</h2>
   <ol>
@@ -213,9 +235,9 @@ let done = {};
 try { done = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch (e) { done = {}; }
 function save() {
   try { localStorage.setItem(STORAGE_KEY, JSON.stringify(done)); } catch (e) { /* 保存できなくても表示は続ける */ }
-  const total = DATA.segments.reduce((n, s) => n + s.images.length, 0);
-  const count = Object.keys(done).length;
-  document.getElementById("stats").textContent = `${DATA.segments.length}か所 ・ 画像${total}枚 ・ 済 ${count}/${total}`;
+  const total = ALL.length;
+  const count = ALL.filter(i => done[i.no]).length;
+  document.getElementById("stats").textContent = `${layout.length}か所 ・ 画像${total}枚 ・ 済 ${count}/${total}` + (edited() ? " ・ 区切りを編集済み" : "");
 }
 
 const el = (tag, attrs = {}, ...kids) => {
@@ -236,8 +258,75 @@ const CAP_KEY = "image-list-cap:" + (DATA.id ? DATA.title + ":" + DATA.id : DATA
 let capEdits = {};
 try { capEdits = JSON.parse(localStorage.getItem(CAP_KEY) || "{}"); } catch (e) { capEdits = {}; }
 const captionOf = img => (img.no in capEdits ? capEdits[img.no] : img.caption || "").trim();
+// ---- 区切りと画像(この画面で区切りを動かせる。動かした分はこのブラウザに覚えておく) ----
+// 画像の「no」は貼った画像を覚えておくための番号で、区切りを動かしても変わらない。画面の番号は台本順に振り直す
+const EDIT_KEY = "image-list-edit:" + PAGE_KEY;
+const ALL_LINES = DATA.segments.flatMap(s => s.lines);
+const LINE_U = DATA.lineU || ALL_LINES.map((_, i) => i);
+const isUttStart = n => n === 1 || LINE_U[n - 1] !== LINE_U[n - 2];
+const originalLayout = () => DATA.segments.map(s => ({ topic: s.topic, start: s.start, images: s.images.map(i => ({ no: i.no, ja: i.ja, en: i.en, native: i.native, caption: i.caption, trigger: i.trigger })) }));
+let layout = null;
+try {
+  const saved = JSON.parse(localStorage.getItem(EDIT_KEY) || "null");
+  if (saved && Array.isArray(saved.segs) && saved.segs.length && saved.segs[0].start === 1) layout = saved.segs;
+} catch (e) { layout = null; }
+const edited = () => { try { return !!localStorage.getItem(EDIT_KEY); } catch (e) { return false; } };
+if (!layout) layout = originalLayout();
+let nextNo = Math.max(0, ...DATA.segments.flatMap(s => s.images.map(i => i.no)), ...layout.flatMap(s => s.images.map(i => i.no))) + 1;
+let editMode = false;
+let ALL = [];
+const dispNo = new Map();   // 画像の no → 画面の番号
+const disp = no => dispNo.get(no) || no;
+const pasted = new Map();   // 画像の no → Blob
+let selected = null;
+
+function saveLayout() {
+  try { localStorage.setItem(EDIT_KEY, JSON.stringify({ segs: layout.map(s => ({ topic: s.topic, start: s.start, images: s.images })) })); } catch (e) {}
+}
+function derive() {
+  layout.forEach((s, i) => {
+    s.end = i + 1 < layout.length ? layout[i + 1].start - 1 : ALL_LINES.length;
+    s.lines = ALL_LINES.slice(s.start - 1, s.end);
+    s.u = LINE_U[s.start - 1];
+  });
+  ALL = layout.flatMap(s => s.images);
+  dispNo.clear();
+  ALL.forEach((img, i) => dispNo.set(img.no, i + 1));
+}
+const blankImage = () => ({ no: nextNo++, ja: "", en: "", native: "", caption: "" });
+function changed() { saveLayout(); render(); save(); }
+function splitAt(i, line) {
+  const seg = layout[i];
+  // 画像が2枚以上ある区切りなら、2枚目からを新しい区切りに移す。1枚なら新しい区切りに空の画像を1つ作る
+  const images = seg.images.length > 1 ? seg.images.splice(1) : [blankImage()];
+  layout.splice(i + 1, 0, { topic: seg.topic, start: line, images });
+  changed();
+  toast(`${line}行目から新しい区切りにしました` + (images[0].ja ? "" : "。検索ワードを入れてください"));
+}
+function mergeUp(i) {
+  layout[i - 1].images.push(...layout[i].images);
+  layout.splice(i, 1);
+  changed();
+}
+function moveStart(i, dir) {
+  const seg = layout[i], lo = layout[i - 1].start, hi = i + 1 < layout.length ? layout[i + 1].start : ALL_LINES.length + 1;
+  let n = seg.start + dir;
+  while (n > lo && n < hi && !isUttStart(n)) n += dir;
+  if (n <= lo || n >= hi) { toast(dir < 0 ? "これ以上は上に動かせません(前の区切りとつなげるなら「前とつなげる」)" : "これ以上は下に動かせません"); return; }
+  seg.start = n;
+  changed();
+}
+function wordsBox(img) {
+  if (!editMode) return el("div", { class: "words" }, el("div", { class: "ja" }, img.ja || "(検索ワードなし)"), img.en && img.en !== img.ja ? el("div", { class: "en" }, img.en) : null);
+  const ja = el("input", { type: "text", placeholder: "日本語の検索ワード", "aria-label": `${disp(img.no)}番の日本語の検索ワード` });
+  const en = el("input", { type: "text", placeholder: "英語の検索ワード(なくてもよい)", "aria-label": `${disp(img.no)}番の英語の検索ワード` });
+  ja.value = img.ja; en.value = img.en === img.ja ? "" : img.en;
+  const update = () => { img.ja = ja.value.trim(); img.en = en.value.trim() || img.ja; changed(); };
+  ja.addEventListener("change", update); en.addEventListener("change", update);
+  return el("div", { class: "words editwords" }, ja, en);
+}
 function captionBox(img) {
-  const input = el("input", { type: "text", placeholder: "人の写真なら名前を入れる", "aria-label": `${img.no}番の名前テロップ` });
+  const input = el("input", { type: "text", placeholder: "人の写真なら名前を入れる", "aria-label": `${disp(img.no)}番の名前テロップ` });
   input.value = captionOf(img);
   input.addEventListener("change", () => {
     capEdits[img.no] = input.value.trim();
@@ -245,53 +334,105 @@ function captionBox(img) {
   });
   return el("label", { class: "cap" }, "名前テロップ", input);
 }
+function imageItem(img, seg) {
+  const box = el("input", { type: "checkbox", "aria-label": `${disp(img.no)}番を済にする` });
+  box.checked = !!done[img.no];
+  const q = img.ja || img.en;
+  const remove = editMode && seg.images.length > 1 ? el("button", { type: "button", class: "small", onclick: e => {
+    e.stopPropagation();
+    seg.images.splice(seg.images.indexOf(img), 1);
+    pasted.delete(img.no); dbPut(img.no, null); delete done[img.no];
+    changed();
+  } }, "この画像を消す") : null;
+  const item = el("div", { class: "item" + (box.checked ? " done" : ""), id: "img" + img.no },
+    el("div", { class: "no" }, String(disp(img.no))),
+    wordsBox(img),
+    el("label", { class: "check" }, box, "済"),
+    captionBox(img),
+    el("div", { class: "buttons" },
+      q ? el("a", { href: google(q), target: "_blank", rel: "noopener" }, "Google画像検索(日本語)") : null,
+      img.en && img.en !== img.ja ? el("a", { class: "en", href: google(img.en), target: "_blank", rel: "noopener" }, "Google画像検索(英語)") : null,
+      img.native ? el("a", { class: "en", href: google(img.native), target: "_blank", rel: "noopener" }, "Google画像検索(母語)") : null,
+      q ? el("a", { class: "alt", href: yahoo(q), target: "_blank", rel: "noopener" }, "Yahoo!") : null,
+      q ? el("a", { class: "alt", href: bing(q), target: "_blank", rel: "noopener" }, "Bing") : null,
+      remove),
+    el("button", { type: "button", class: "paste", id: "paste" + img.no }, "ここを選んで Ctrl+V で画像を貼る"));
+  item.addEventListener("click", e => { if (!e.target.closest(".clear, input, .small")) select(img.no); });
+  item.addEventListener("dragover", e => e.preventDefault());
+  item.addEventListener("drop", e => {
+    e.preventDefault();
+    select(img.no);
+    dropImage(img.no, e.dataTransfer);
+  });
+  box.addEventListener("change", () => {
+    if (box.checked) done[img.no] = true; else delete done[img.no];
+    item.classList.toggle("done", box.checked);
+    save();
+  });
+  return item;
+}
+function render() {
+  derive();
+  const main = document.getElementById("main");
+  main.replaceChildren();
+  document.body.classList.toggle("editing", editMode);
+  let lastTopic = null;
+  layout.forEach((seg, i) => {
+    if (editMode) {
+      const topic = el("input", { type: "text", class: "topicedit", "aria-label": "見出し" });
+      topic.value = seg.topic;
+      topic.addEventListener("change", () => { seg.topic = topic.value.trim(); changed(); });
+      main.append(el("div", { class: "topic" }, topic));
+    } else if (seg.topic !== lastTopic) {
+      main.append(el("h2", { class: "topic" }, seg.topic));
+    }
+    lastTopic = seg.topic;
+    const head = el("div", { class: "lineno" }, `${seg.start}〜${seg.end}行目`);
+    if (editMode && i > 0) {
+      head.append(
+        el("button", { type: "button", class: "small", title: "この区切りの始まりを1つ前のセリフにする", onclick: () => moveStart(i, -1) }, "▲ 境目を上へ"),
+        el("button", { type: "button", class: "small", title: "この区切りの始まりを1つ後のセリフにする", onclick: () => moveStart(i, 1) }, "▼ 境目を下へ"),
+        el("button", { type: "button", class: "small", title: "この区切りをなくして、前の区切りにまとめる(画像も前に移る)", onclick: () => mergeUp(i) }, "前とつなげる"));
+    }
+    const script = el("div", { class: "script" }, head);
+    seg.lines.forEach((l, k) => {
+      const n = seg.start + k;
+      const cut = editMode && k > 0 && isUttStart(n)
+        ? el("button", { type: "button", class: "cut", title: "このセリフから新しい区切りにする", onclick: () => splitAt(i, n) }, "✂ ここで区切る") : null;
+      script.append(el("p", {}, cut, l.speaker ? el("span", { class: "sp " + speakerClass(l.speaker) }, l.speaker) : null,
+        l.speaker ? "「" + l.text + "」" : l.text));
+    });
+    const images = el("div", { class: "images" });
+    for (const img of seg.images) images.append(imageItem(img, seg));
+    if (editMode) images.append(el("button", { type: "button", class: "small", onclick: () => { seg.images.push(blankImage()); changed(); } }, "＋ この区切りに画像を足す"));
+    main.append(el("section", { class: "seg" }, script, images));
+  });
+  for (const img of ALL) if (pasted.has(img.no)) renderPaste(img.no);
+  if (selected != null && document.getElementById("img" + selected)) document.getElementById("img" + selected).classList.add("selected");
+  document.getElementById("edit").textContent = editMode ? "区切りの編集を終える" : "区切りを編集";
+  document.getElementById("editTools").hidden = !editMode;
+}
 
-const main = document.getElementById("main");
-let lastTopic = null;
-for (const seg of DATA.segments) {
-  if (seg.topic !== lastTopic) { main.append(el("h2", { class: "topic" }, seg.topic)); lastTopic = seg.topic; }
-  const script = el("div", { class: "script" }, el("div", { class: "lineno" }, `${seg.start}〜${seg.end}行目`));
-  for (const l of seg.lines) {
-    script.append(el("p", {}, l.speaker ? el("span", { class: "sp " + speakerClass(l.speaker) }, l.speaker) : null,
-      l.speaker ? "「" + l.text + "」" : l.text));
-  }
-  const images = el("div", { class: "images" });
-  for (const img of seg.images) {
-    const box = el("input", { type: "checkbox", "aria-label": `${img.no}番を済にする` });
-    box.checked = !!done[img.no];
-    const item = el("div", { class: "item" + (box.checked ? " done" : ""), id: "img" + img.no },
-      el("div", { class: "no" }, String(img.no)),
-      el("div", { class: "words" }, el("div", { class: "ja" }, img.ja), img.en !== img.ja ? el("div", { class: "en" }, img.en) : null),
-      el("label", { class: "check" }, box, "済"),
-      captionBox(img),
-      el("div", { class: "buttons" },
-        el("a", { href: google(img.ja), target: "_blank", rel: "noopener" }, "Google画像検索(日本語)"),
-        img.en !== img.ja ? el("a", { class: "en", href: google(img.en), target: "_blank", rel: "noopener" }, "Google画像検索(英語)") : null,
-        img.native ? el("a", { class: "en", href: google(img.native), target: "_blank", rel: "noopener" }, "Google画像検索(母語)") : null,
-        el("a", { class: "alt", href: yahoo(img.ja), target: "_blank", rel: "noopener" }, "Yahoo!"),
-        el("a", { class: "alt", href: bing(img.ja), target: "_blank", rel: "noopener" }, "Bing")),
-      el("button", { type: "button", class: "paste", id: "paste" + img.no }, "ここを選んで Ctrl+V で画像を貼る"));
-    item.addEventListener("click", e => { if (!e.target.closest(".clear")) select(img.no); });
-    item.addEventListener("dragover", e => e.preventDefault());
-    item.addEventListener("drop", e => {
-      e.preventDefault();
-      select(img.no);
-      dropImage(img.no, e.dataTransfer);
+// 区切り表の形にする(Claude に送れば、台本の区切り表をこの形に直してもらえる)
+function sceneTableText() {
+  const out = [`# ${DATA.title}の区切り表(画像リストの画面で編集したもの)`];
+  let lastTopic = null;
+  for (const seg of layout) {
+    if (seg.topic !== lastTopic) { out.push("", "## " + (seg.topic || "(見出しなし)")); lastTopic = seg.topic; }
+    const words = seg.images.map(img => {
+      let w = img.ja || img.en || "(未入力)";
+      if (img.en && img.en !== img.ja) w += "=" + img.en;
+      if (img.native) w += (img.en && img.en !== img.ja ? "" : "=" + (img.ja || "")) + "=" + img.native;
+      const cap = captionOf(img);
+      if (cap) w += "|" + cap;
+      return img.trigger ? w + " @" + img.trigger : w;
     });
-    box.addEventListener("change", () => {
-      if (box.checked) done[img.no] = true; else delete done[img.no];
-      item.classList.toggle("done", box.checked);
-      save();
-    });
-    images.append(item);
+    out.push(`${seg.start}: ${words.join(", ")}`);
   }
-  main.append(el("section", { class: "seg" }, script, images));
+  return out.join("\n") + "\n";
 }
 
 // ---- 貼り付けた画像(このブラウザのIndexedDBに保存) ----
-const ALL = DATA.segments.flatMap(s => s.images);
-const pasted = new Map();   // 番号 → Blob
-let selected = null;
 let db = null;
 const DB_KEY = (no) => PAGE_KEY + ":" + no;
 function openDb() {
@@ -335,7 +476,7 @@ function renderPaste(no) {
   const blob = pasted.get(no);
   if (!blob) { zone.append("ここを選んで Ctrl+V で画像を貼る"); return; }
   const url = URL.createObjectURL(blob);
-  const image = el("img", { src: url, alt: no + "番の画像" });
+  const image = el("img", { src: url, alt: disp(no) + "番の画像" });
   image.onload = () => URL.revokeObjectURL(url);
   const clear = el("button", { type: "button", class: "clear" }, "外す");
   clear.addEventListener("click", e => { e.stopPropagation(); setImage(no, null); });
@@ -354,7 +495,7 @@ function setImage(no, blob) {
   renderPaste(no);
   markDone(no, !!blob);
   if (blob) {
-    toast(no + "番に貼りました");
+    toast(disp(no) + "番に貼りました");
     const next = ALL.find(i => i.no > no && !pasted.has(i.no)) || ALL.find(i => !pasted.has(i.no));
     if (next) select(next.no, true);
   }
@@ -401,7 +542,7 @@ document.getElementById("zip").addEventListener("click", async () => {
   const files = [];
   for (const i of items) {
     const blob = pasted.get(i.no);
-    files.push({ name: `${String(i.no).padStart(3, "0")}_${safeName(i.ja)}.${EXT[blob.type] || "png"}`, data: new Uint8Array(await blob.arrayBuffer()) });
+    files.push({ name: `${String(disp(i.no)).padStart(3, "0")}_${safeName(i.ja || i.en || "画像")}.${EXT[blob.type] || "png"}`, data: new Uint8Array(await blob.arrayBuffer()) });
   }
   const zip = makeZip(files), zipName = `${safeName(DATA.title)}_画像.zip`;
   if (window.showSaveFilePicker) {
@@ -610,8 +751,9 @@ async function placeIntoYmm4() {
 
   // 番号ごとの表示時間
   const plan = [];
-  DATA.segments.forEach((seg, i) => {
-    const first = seg.u, after = i + 1 < DATA.segments.length ? DATA.segments[i + 1].u : U;
+  derive();
+  layout.forEach((seg, i) => {
+    const first = seg.u, after = i + 1 < layout.length ? layout[i + 1].u : U;
     const span = Math.max(after - first, 1), count = seg.images.length;
     seg.images.forEach((img, k) => {
       const su = first + Math.floor(span * k / count), eu = first + Math.floor(span * (k + 1) / count);
@@ -635,7 +777,7 @@ async function placeIntoYmm4() {
   for (const p of plan) {
     const blob = pasted.get(p.img.no);
     if (!blob) { missing.push(p.img); continue; }
-    const name = `${String(p.img.no).padStart(3, "0")}_${safeName(p.img.ja)}.${EXT[blob.type] || "png"}`;
+    const name = `${String(disp(p.img.no)).padStart(3, "0")}_${safeName(p.img.ja || p.img.en || "画像")}.${EXT[blob.type] || "png"}`;
     await writeFile(sub, name, blob);
     // 登場・退場のフェード(ユーザーがいつも付けている映像エフェクト「フェードイン・フェードアウト」と同じ設定)
     const fade = () => shape && L.fadeOn ? [{
@@ -694,7 +836,7 @@ async function placeIntoYmm4() {
   }
   if (skipped.length) log(`YMM4の側でセリフが分かれている・書きかえられているため、読みを直さなかったセリフ: ${skipped.length}個`);
   log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}${captions.length ? `、名前はレイヤー${layer + 1}` : ""}、画像ファイルは「${subName}」フォルダに入っています)`);
-  if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => m.no).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
+  if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => disp(m.no)).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
 }
 // 画像の位置と大きさ(このブラウザに覚えておく)
 const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, capOn: true, fadeOn: true, fadeSec: 0.2 };
@@ -744,7 +886,7 @@ document.getElementById("pick").addEventListener("click", () => placeIntoYmm4().
 })();
 
 document.getElementById("next").addEventListener("click", () => {
-  const next = DATA.segments.flatMap(s => s.images).find(img => !done[img.no]);
+  const next = ALL.find(img => !done[img.no]);
   if (next) document.getElementById("img" + next.no).scrollIntoView({ block: "center", behavior: "smooth" });
 });
 const resetButton = document.getElementById("reset");
@@ -761,6 +903,33 @@ resetButton.addEventListener("click", () => {
   resetButton.textContent = "チェックを全部外す";
   save();
 });
+const editButton = document.getElementById("edit");
+function setEdit(on) { editMode = on; render(); save(); }
+editButton.addEventListener("click", () => setEdit(!editMode));
+document.getElementById("editDone").addEventListener("click", () => setEdit(false));
+document.getElementById("copyTable").addEventListener("click", async () => {
+  const text = sceneTableText();
+  try { await navigator.clipboard.writeText(text); toast("区切り表をコピーしました。Claude との会話に Ctrl+V で貼ってください"); }
+  catch (e) {
+    const area = el("textarea", { style: "width:100%;height:40vh" }); area.value = text;
+    document.getElementById("editTools").append(area); area.select();
+    toast("コピーできなかったので、下の欄の文字を選んで Ctrl+C でコピーしてください");
+  }
+});
+const restoreButton = document.getElementById("restore");
+restoreButton.addEventListener("click", () => {
+  if (restoreButton.dataset.confirm !== "1") {
+    restoreButton.dataset.confirm = "1"; restoreButton.textContent = "本当に戻す？(もう一度押す)";
+    setTimeout(() => { restoreButton.dataset.confirm = ""; restoreButton.textContent = "最初の区切りに戻す"; }, 3000);
+    return;
+  }
+  restoreButton.dataset.confirm = ""; restoreButton.textContent = "最初の区切りに戻す";
+  layout = originalLayout();
+  try { localStorage.removeItem(EDIT_KEY); } catch (e) {}
+  render(); save();
+  toast("最初の区切りに戻しました(足した画像に貼った画像は外れます)");
+});
+render();
 save();
 </script>
 </body>

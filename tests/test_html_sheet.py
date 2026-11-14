@@ -1,5 +1,7 @@
 import json
 import re
+import shutil
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -35,6 +37,8 @@ class SceneTableTest(unittest.TestCase):
         data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
         self.assertEqual(data["utterances"], ["一", "二の前半二の後半", "三"])
         self.assertEqual([s["u"] for s in data["segments"]], [0, 1])
+        self.assertEqual(data["lineU"], [0, 1, 1, 2])  # 画面で区切りを動かすときの、行ごとのセリフ番号
+        self.assertIn('id="edit"', html)
         self.assertIn('id="ymm4"', html)
 
     def test_readings_are_keyed_by_utterance(self):
@@ -131,6 +135,8 @@ class PatchHatsuonTest(unittest.TestCase):
 
     def test_name_reading(self):
         self.assertEqual(self.run_patch("ますだ/こうぞう、かどた/みつおと", "ますだこうぞう、かくたみつおと"), "ますだ/こうぞう、かくた/みつおと")
+        # アクセント(')も残す
+        self.assertEqual(self.run_patch("かどた'さんわ/き'た", "かくたさんわきた"), "かくた'さんわ/き'た")
 
     def test_english_words(self):
         # YMM4がかなにした英語の読みがちがうとき

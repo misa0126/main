@@ -148,19 +148,27 @@ def build_sheet(script_text: str, table_text: str, title: str, yomi_text: str | 
             raise ValueError(f"{segment['start']}行目からの区切りに画像がありません。どの区切りにも1枚以上入れてください。")
         images = []
         captions = segment.pop("captions")
-        for keyword, caption in zip(segment.pop("keywords"), captions):
+        triggers = segment.pop("triggers")
+        for keyword, caption, trigger in zip(segment.pop("keywords"), captions, triggers):
             number += 1
             # 「日本語=英語=母語」の3つ目は母語の検索ワード
             en, _, native = keyword.en.partition("=")
             images.append({"no": number, "ja": keyword.ja, "en": en.strip() or keyword.ja, "native": native.strip(), "caption": caption})
+            if trigger is not None:
+                # 区切り表の「@きっかけ」。画面で区切りを編集して「区切り表をコピー」したときに残す
+                images[-1]["trigger"] = "/".join(trigger) or "-"
         segment["images"] = images
 
     # YMM4のセリフと台本のセリフを、本文で突き合わせるための一覧
     # 貼った画像やチェックはブラウザに保存する。同じ人物でも台本や区切りが違えば別のものとして扱う
-    # (名前のテロップ「|名前」とその説明のメモは、あとから足しても貼った画像が消えないように数えない)
-    id_table = re.sub(r"\|[^,、，\n]*", "", re.sub(r"(?m)^# 人の写真には.*\n", "", table_text))
+    # (名前のテロップ「|名前」・きっかけ「@〜」・「#」のメモは、あとから足したり直したりしても貼った画像が消えないように数えない)
+    id_table = re.sub(r"\s*[|@][^,、，\n]*", "", re.sub(r"(?m)^\s*#(?!#).*\n?", "", table_text))
     page_id = hashlib.sha1((title + "\n" + script_text + "\n" + id_table).encode("utf-8")).hexdigest()[:12]
-    data = {"title": title, "id": page_id, "segments": segments, "utterances": [normalize(u) for u in utterances]}
+    data = {
+        "title": title, "id": page_id, "segments": segments, "utterances": [normalize(u) for u in utterances],
+        # 行(空行を除いた番号 - 1)ごとのセリフ番号。画像リストの画面で区切りを動かすときに使う
+        "lineU": line_to_utterance,
+    }
     if yomi_text:
         # YMM4の読み(発音)をセリフごとに直すための読み。キーはセリフの番号
         readings = {}
