@@ -7,6 +7,11 @@
 ・行の数がいちばん少なくなるように、区切りのよい所で改行する(「、」の後ろ > 「』」「？」「！」の後ろ >
   漢字・カタカナの前の助詞の後ろ)。同じくらいなら前の行を長くする(36文字以内でいちばん後ろの「、」)
 ・改行すると「台本の空行を除いた行番号」がずれるので、区切り表と読みの表の行番号も一緒に付け直す
+・1つのセリフは2行まで。3行になりそうなときは、2行に収まる所の「、」の後ろでセリフを2つに分ける(ユーザーの希望)
+    魔理沙「〜
+    〜、」
+    魔理沙「〜」
+  読みの表を一緒に付けると、分けたセリフの読みも「、」の位置で分ける
 ・すでに改行してある台本にもう一度かけても、行は増えない(1つにつないでから折り返す)
 """
 
@@ -114,8 +119,32 @@ def _old_starts(script_text: str) -> list[int]:
     return starts
 
 
-def wrap_script(script_text: str, limit: int = LIMIT) -> tuple[str, dict[int, int]]:
-    """折り返した台本と、{前の開始行: 新しい開始行} を返す。空行の並びはそのまま残す。"""
+def split_serif(body: str, limit: int = LIMIT) -> list[list[str]]:
+    """1つのセリフを、2行まで(1行は limit 文字以内)のセリフに分ける(ユーザーの希望)。
+
+    2行に収まるならそのまま。3行になりそうなら、2行に収まる範囲の区切りのよい所(「、」の後ろが一番)で
+    セリフを2つに分け、残りも同じように続ける。戻り値はセリフごとの行のリスト。
+    """
+    rows = wrap_body(body, limit)
+    if len(rows) <= 2:
+        return [rows]
+    best = None
+    for p in range(1, min(len(body) - 1, 2 * limit) + 1):
+        score = _break_score(body, p)
+        if not score or len(wrap_body(body[:p], limit)) > 2:
+            continue
+        key = (score, p)
+        if best is None or key > best:
+            best = key
+    cut = best[1] if best else len(rows[0]) + len(rows[1])
+    return [wrap_body(body[:cut], limit)] + split_serif(body[cut:], limit)
+
+
+def wrap_script(script_text: str, limit: int = LIMIT) -> tuple[str, dict[int, list[tuple[int, int]]]]:
+    """折り返した台本と、{前の開始行: [(新しい開始行, そのセリフより前にある「、」の数), ...]} を返す。
+
+    1つのセリフが2つ以上に分かれたときは、リストに分かれた先の数だけ入る。空行の並びはそのまま残す。
+    """
     serifs = _serifs(script_text)
     old_starts = _old_starts(script_text)
     # 空行の位置(何番目のセリフの後に空行があるか)を残す
@@ -133,22 +162,48 @@ def wrap_script(script_text: str, limit: int = LIMIT) -> tuple[str, dict[int, in
         open_serif = not line.endswith("」")
 
     out: list[str] = []
-    mapping: dict[int, int] = {}
+    mapping: dict[int, list[tuple[int, int]]] = {}
     number = 0
     for index, (speaker, body) in enumerate(serifs, start=1):
-        rows = wrap_body(body, limit)
-        mapping[old_starts[index - 1]] = number + 1
-        rows[0] = f"{speaker}「{rows[0]}"
-        rows[-1] = f"{rows[-1]}」"
-        out.extend(rows)
-        number += len(rows)
+        parts = []
+        commas = 0
+        for rows in split_serif(body, limit):
+            parts.append((number + 1, commas))
+            commas += sum(r.count("、") for r in rows)
+            rows = list(rows)
+            rows[0] = f"{speaker}「{rows[0]}"
+            rows[-1] = f"{rows[-1]}」"
+            out.extend(rows)
+            number += len(rows)
+        mapping[old_starts[index - 1]] = parts
         if index in blank_after and index != len(serifs):
             out.append("")
     return "\n".join(out) + "\n", mapping
 
 
-def renumber(table_text: str, mapping: dict[int, int]) -> str:
-    """区切り表・読みの表の「開始行:」を付け直す。"""
+def _split_reading(reading: str, comma_counts: list[int]) -> list[str] | None:
+    """読みを「、」の数で分ける(台本と読みの表は「、」の数がそろっている決まり)。合わなければ None。"""
+    pieces = []
+    rest = reading
+    taken = 0
+    for need in comma_counts[1:]:
+        pos = -1
+        for _ in range(need - taken):
+            pos = rest.find("、", pos + 1)
+            if pos < 0:
+                return None
+        pieces.append(rest[: pos + 1])
+        rest = rest[pos + 1 :]
+        taken = need
+    pieces.append(rest)
+    return pieces
+
+
+def renumber(table_text: str, mapping: dict, *, reading: bool = False) -> str:
+    """区切り表・読みの表の「開始行:」を付け直す。
+
+    reading=True(読みの表)のときは、2つに分かれたセリフの読みも「、」の位置で分けて、分かれた先ごとに1行ずつ書く。
+    """
     lines = []
     for raw in table_text.splitlines():
         match = re.match(r"^(\s*)(\d+)(\s*:)", raw)
@@ -156,9 +211,27 @@ def renumber(table_text: str, mapping: dict[int, int]) -> str:
             old = int(match.group(2))
             if old not in mapping:
                 raise ValueError(f"{old} 行目はセリフの始まりではありません: {raw!r}")
-            raw = f"{match.group(1)}{mapping[old]}{match.group(3)}{raw[match.end():]}"
+            parts = mapping[old]
+            if isinstance(parts, int):
+                parts = [(parts, 0)]
+            body = raw[match.end():]
+            if reading and len(parts) > 1:
+                pieces = _split_reading(body.strip(), [c for _, c in parts])
+                if pieces is not None:
+                    for (start, _), piece in zip(parts, pieces):
+                        lines.append(f"{match.group(1)}{start}{match.group(3)} {piece}")
+                    continue
+                print(f"注意: {old} 行目の読みは「、」の数が台本と合わないので分けられませんでした(分かれた最初のセリフに付けたまま)", file=sys.stderr)
+            raw = f"{match.group(1)}{parts[0][0]}{match.group(3)}{body}"
         lines.append(raw)
     return "\n".join(lines) + ("\n" if table_text.endswith("\n") else "")
+
+
+def _is_reading_table(path: Path, text: str) -> bool:
+    if "yomi" in path.name or "読み" in path.name:
+        return True
+    data = [l for l in text.splitlines() if re.match(r"^\s*\d+\s*:", l)]
+    return bool(data) and not any("=" in l for l in data)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -170,12 +243,16 @@ def main(argv: list[str] | None = None) -> int:
 
     script_path = Path(args.script)
     wrapped, mapping = wrap_script(script_path.read_text(encoding="utf-8"), args.limit)
-    tables = {Path(p): renumber(Path(p).read_text(encoding="utf-8"), mapping) for p in args.tables}
+    tables = {}
+    for p in args.tables:
+        text = Path(p).read_text(encoding="utf-8")
+        tables[Path(p)] = renumber(text, mapping, reading=_is_reading_table(Path(p), text))
     script_path.write_text(wrapped, encoding="utf-8")
     for path, text in tables.items():
         path.write_text(text, encoding="utf-8")
-    changed = sum(1 for old, new in mapping.items() if old != new)
-    print(f"折り返しました: {script_path}(セリフ{len(mapping)}個、行番号が変わったセリフ{changed}個)")
+    changed = sum(1 for old, parts in mapping.items() if old != parts[0][0])
+    split = sum(1 for parts in mapping.values() if len(parts) > 1)
+    print(f"折り返しました: {script_path}(セリフ{len(mapping)}個、行番号が変わったセリフ{changed}個、3行になりそうで2つに分けたセリフ{split}個)")
     for path in tables:
         print(f"行番号を付け直しました: {path}")
     return 0

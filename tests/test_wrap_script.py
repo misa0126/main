@@ -1,6 +1,6 @@
 import unittest
 
-from material_collector.wrap_script import renumber, wrap_body, wrap_script
+from material_collector.wrap_script import renumber, split_serif, wrap_body, wrap_script
 
 
 class WrapBodyTest(unittest.TestCase):
@@ -48,14 +48,43 @@ class WrapScriptTest(unittest.TestCase):
             "\n"
             "霊夢「へえ」\n",
         )
-        self.assertEqual(mapping, {1: 1, 2: 2, 3: 4})
+        self.assertEqual(mapping, {1: [(1, 0)], 2: [(2, 0)], 3: [(4, 0)]})
         self.assertEqual(renumber("# メモ\n1: a\n3: b @へえ\n", mapping), "# メモ\n1: a\n4: b @へえ\n")
 
     def test_idempotent(self):
         wrapped, _ = wrap_script(self.SCRIPT)
         again, mapping = wrap_script(wrapped)
         self.assertEqual(again, wrapped)
-        self.assertEqual(mapping, {1: 1, 2: 2, 4: 4})
+        self.assertEqual(mapping, {1: [(1, 0)], 2: [(2, 0)], 4: [(4, 0)]})
+
+
+class SplitSerifTest(unittest.TestCase):
+    LONG = "2007年3月12日には、アメリカの人気深夜番組、デイヴィッド・レターマンのショーで、ニューヨークの夜景を背に生のバンドと『リハブ』を歌った"
+
+    def test_two_rows_max(self):
+        # 3行になりそうなら、2行に収まる所の「、」でセリフを分ける(ユーザーの希望)
+        parts = split_serif(self.LONG)
+        self.assertEqual(len(parts), 2)
+        self.assertTrue(all(len(rows) <= 2 for rows in parts))
+        self.assertTrue(parts[0][-1].endswith("、"))
+        self.assertEqual("".join("".join(r) for r in parts), self.LONG)
+
+    def test_script_and_reading_split(self):
+        script = f"霊夢「へえ」\n\n魔理沙「{self.LONG}」\n"
+        wrapped, mapping = wrap_script(script)
+        self.assertEqual(
+            wrapped,
+            "霊夢「へえ」\n\n"
+            "魔理沙「2007年3月12日には、アメリカの人気深夜番組、\n"
+            "デイヴィッド・レターマンのショーで、」\n"
+            "魔理沙「ニューヨークの夜景を背に生のバンドと『リハブ』を歌った」\n",
+        )
+        self.assertEqual(mapping[2], [(2, 0), (4, 3)])
+        yomi = "1: へえ。\n2: にせんななねん、あめりかの、れたーまんのしょーで、にゅーよーくで。\n"
+        self.assertEqual(
+            renumber(yomi, mapping, reading=True),
+            "1: へえ。\n2: にせんななねん、あめりかの、れたーまんのしょーで、\n4: にゅーよーくで。\n",
+        )
 
 
 if __name__ == "__main__":
