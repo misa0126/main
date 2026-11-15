@@ -4,8 +4,8 @@
     python -m material_collector.wrap_script scripts/台本.txt [scripts/台本_scenes.txt] [scripts/台本_yomi.txt]
 
 ・「」の中が36文字を超えるセリフだけ改行する。36文字以内はそのまま
-・行の数がいちばん少なくなるように、区切りのよい所で改行する(「、」の後ろ > 「』」「？」「！」の後ろ >
-  漢字・カタカナの前の助詞の後ろ)。同じくらいなら前の行を長くする(36文字以内でいちばん後ろの「、」)
+・行の数がいちばん少なくなるように、区切りのよい所で改行する(「、」の後ろ > 「』」「？」「！」の後ろ・「『」の前 >
+  漢字・カタカナの前の助詞(は・が・を・の など)の後ろ)。同じくらいなら前の行を長くする(36文字以内でいちばん後ろの「、」)
 ・改行すると「台本の空行を除いた行番号」がずれるので、区切り表と読みの表の行番号も一緒に付け直す
 ・1つのセリフは2行まで。3行になりそうなときは、2行に収まる所の「、」の後ろでセリフを2つに分ける(ユーザーの希望)
     魔理沙「〜
@@ -26,7 +26,7 @@ LIMIT = 36
 SPEAKER = re.compile(r"^(?P<speaker>[^「」\s]+)「(?P<body>.*)$")
 PUNCT_AFTER = "、"
 STRONG_AFTER = "』？！。"
-PARTICLES = "はがをにでともへや"
+PARTICLES = "はがをにでともへやの"
 HIRAGANA = re.compile(r"[ぁ-ゖ]")
 
 
@@ -36,6 +36,8 @@ def _break_score(text: str, n: int) -> int:
     if ch in PUNCT_AFTER:
         return 3
     if ch in STRONG_AFTER:
+        return 2
+    if text[n] in "『「":
         return 2
     if ch in PARTICLES and not HIRAGANA.match(text[n]):
         return 1
