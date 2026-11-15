@@ -24,6 +24,15 @@ class WrapBodyTest(unittest.TestCase):
         for body, expected in cases.items():
             self.assertEqual(wrap_body(body), expected)
 
+    def test_sentence_end_first(self):
+        # 「！」「？」「。」の後ろで改行するのがいちばん(ユーザーの希望)
+        self.assertEqual(
+            wrap_body("子どもにそんな役目をさせるなんて！見張りじゃなくて、おやつを持たせてあげてほしいわ"),
+            ["子どもにそんな役目をさせるなんて！", "見張りじゃなくて、おやつを持たせてあげてほしいわ"],
+        )
+        # 『』の中の「！」では切らない
+        self.assertNotIn("『死ぬ！", wrap_body("霊夢はそのときの気持ちを、『死ぬ！もう無理！』と言いながら、何度も何度もくり返していた")[0][-3:])
+
     def test_fewest_lines(self):
         parts = wrap_body("そこで2008年2月10日、エイミーはロンドンのリバーサイド・スタジオから、中継で出演することになった")
         self.assertEqual(len(parts), 2)

@@ -4,7 +4,7 @@
     python -m material_collector.wrap_script scripts/台本.txt [scripts/台本_scenes.txt] [scripts/台本_yomi.txt]
 
 ・「」の中が36文字を超えるセリフだけ改行する。36文字以内はそのまま
-・行の数がいちばん少なくなるように、区切りのよい所で改行する(「、」の後ろ > 「』」「？」「！」の後ろ・「『」の前 >
+・行の数がいちばん少なくなるように、区切りのよい所で改行する(「！」「？」「。」の後ろ > 「、」の後ろ > 「』」の後ろ・「『」の前 >
   漢字・カタカナの前の助詞(は・が・を・の など)の後ろ)。同じくらいなら前の行を長くする(36文字以内でいちばん後ろの「、」)
 ・改行すると「台本の空行を除いた行番号」がずれるので、区切り表と読みの表の行番号も一緒に付け直す
 ・1つのセリフは2行まで。3行になりそうなときは、2行に収まる所の「、」の後ろでセリフを2つに分ける(ユーザーの希望)
@@ -24,8 +24,9 @@ from pathlib import Path
 
 LIMIT = 36
 SPEAKER = re.compile(r"^(?P<speaker>[^「」\s]+)「(?P<body>.*)$")
+SENTENCE_END = "？！。"
 PUNCT_AFTER = "、"
-STRONG_AFTER = "』？！。"
+STRONG_AFTER = "』"
 PARTICLES = "はがをにでともへやの"
 HIRAGANA = re.compile(r"[ぁ-ゖ]")
 
@@ -33,6 +34,8 @@ HIRAGANA = re.compile(r"[ぁ-ゖ]")
 def _break_score(text: str, n: int) -> int:
     """text[:n] の後ろで改行したときの、区切りのよさ(0 は区切りにしない)。"""
     ch = text[n - 1]
+    if ch in SENTENCE_END and text[n] not in SENTENCE_END + "」』" and text[:n].count("『") <= text[:n].count("』"):
+        return 4  # 文の終わり(「！」「？」「。」の後ろ。『』の中は除く)がいちばん(ユーザーの希望)
     if ch in PUNCT_AFTER:
         return 3
     if ch in STRONG_AFTER:
@@ -47,7 +50,7 @@ def _break_score(text: str, n: int) -> int:
 def wrap_body(body: str, limit: int = LIMIT) -> list[str]:
     """「」の中身を、limit 文字以内の行に分ける。
 
-    行の数がいちばん少なくなる分け方のうち、区切りのよい所(「、」>「』？！」>助詞の後ろ)で切る。
+    行の数がいちばん少なくなる分け方のうち、区切りのよい所(「！？。」>「、」>「』」>助詞の後ろ)で切る。
     同じくらいなら、ユーザーの例と同じく前の行を長くする(36文字以内でいちばん後ろの「、」)。
     """
     length = len(body)
