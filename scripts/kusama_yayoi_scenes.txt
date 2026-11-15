@@ -1,0 +1,209 @@
+# 草間彌生の解説台本(kusama_yayoi.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 草間彌生は作品の写真が多いので、場面ごとに「その時期の作品・展示そのもの」を優先している
+# 話に出てくる人物(瀧口修造、ジョセフ・コーネル、建畠晢など)はその人の写真にして「|名前」を付けている。主人公の草間彌生には付けない
+# 英語圏の人物なので、母語の検索ボタンは付けていない(英語のワードがそのまま母語)
+# 各画像の「@」の後ろは、その画像を出すきっかけになる台本の言葉
+
+## 導入：病室から仕事場へ通う画家
+1: 草間彌生 制作風景 アトリエ=Yayoi Kusama painting in studio @毎朝/病院
+12: 直島 南瓜 草間彌生=Naoshima yellow pumpkin Yayoi Kusama @かぼちゃ
+
+## 松本の種苗業の家に生まれる
+22: 草間彌生 水玉 ポートレート=Yayoi Kusama portrait polka dots @草間彌生
+
+## 厳しい母と家にいない父
+28: 草間彌生 子供の頃=Yayoi Kusama childhood photo @穏やか/父親
+
+## スミレが話しかけてくる
+35: スミレ 花=violet flowers @幻覚/スミレ
+
+## 見えたものを描き写す
+43: 草間彌生 少女時代=young Yayoi Kusama girl @スケッチブック/描き写した
+
+## かぼちゃとの出会い
+53: 草間彌生 南瓜 日本画=Yayoi Kusama early pumpkin painting nihonga @おじいさん/かぼちゃ
+
+## 10歳で水玉と網
+63: 草間彌生 母の肖像 1939=Yayoi Kusama untitled 1939 portrait of mother dots @10歳/水玉
+
+## 軍需工場に動員
+68: 学徒勤労動員 女学生=wartime Japan schoolgirls factory mobilization @戦争/軍需工場
+
+## 16歳で初入選
+74: 草間彌生 10代=teenage Yayoi Kusama @入選/1945年
+
+## 京都で日本画を学ぶ
+81: 草間彌生 京都 日本画 若い頃=young Yayoi Kusama Kyoto nihonga @京都/日本画
+
+## 日本画にがっかり
+92: 草間彌生 初期 日本画 作品=Yayoi Kusama early nihonga works @そうはならなかった/がっかり
+
+## 松本で描きまくる
+102: 草間彌生 初期作品 紙=Yayoi Kusama early works on paper 1950s @何十枚/描きまくった
+
+## 松本の初個展と西丸四方
+104: 草間彌生 松本 初個展=Yayoi Kusama first solo exhibition Matsumoto @個展
+108: 西丸四方=Shiho Nishimaru psychiatrist|西丸四方 @西丸四方
+
+## 瀧口修造を訪ねる
+114: 瀧口修造=Shuzo Takiguchi|瀧口修造 @瀧口修造
+120: みづゑ 草間彌生 表紙=Mizue magazine cover Yayoi Kusama @みづゑ
+
+## 東京で初個展
+127: 草間彌生 若い頃 着物=young Yayoi Kusama kimono 1950s @1954年/25歳
+
+## オキーフとキャラハンへの手紙
+129: ジョージア・オキーフ=Georgia O'Keeffe|ジョージア・オキーフ @オキーフ
+132: ケネス・キャラハン=Kenneth Callahan painter|ケネス・キャラハン @キャラハン
+
+## 作品を燃やして渡米
+141: 草間彌生 渡米 若い頃=young Yayoi Kusama leaving for America 1957 @アメリカ/焼き捨て
+
+## ニューヨークの厳しさ
+153: 草間彌生 ニューヨーク アトリエ 若い頃=young Yayoi Kusama New York studio 1950s @厳しい街/女性が1人
+
+## 網目を描き続ける
+161: 草間彌生 ネット・ペインティング 制作=Yayoi Kusama painting infinity net 1950s @網
+
+## ブラタ画廊の初個展とドナルド・ジャッド
+165: 草間彌生 無限の網 1959=Yayoi Kusama Infinity Nets 1959 Brata Gallery @無限の網/1959年
+169: ドナルド・ジャッド=Donald Judd|ドナルド・ジャッド @ジャッド
+
+## ネット・ペインティング
+178: 草間彌生 ネット・ペインティング=Yayoi Kusama net painting @ネット・ペインティング
+
+## エヴァ・ヘスとご近所に
+183: エヴァ・ヘス=Eva Hesse|エヴァ・ヘス @エヴァ・ヘス/ジャッド
+
+## ソフト・スカルプチュア
+186: 草間彌生 ソフト・スカルプチュア 集積=Yayoi Kusama Accumulation No. 1 soft sculpture @ソフト・スカルプチュア
+
+## ウォーホルたちへの影響とショック
+198: アンディ・ウォーホル=Andy Warhol|アンディ・ウォーホル @ウォーホル/オルデンバーグ
+203: 草間彌生 アトリエ 1960年代 ニューヨーク=Yayoi Kusama studio 1960s New York @窓
+
+## ジョセフ・コーネル
+206: ジョセフ・コーネル 草間彌生=Joseph Cornell Yayoi Kusama|ジョセフ・コーネル @コーネル/信頼できる
+
+## 千艘のボートショー
+215: 草間彌生 千艘のボートショー=Yayoi Kusama Aggregation One Thousand Boats Show 1963 @ボートショー/インスタレーション
+
+## 無限の鏡の間
+224: 草間彌生 無限の鏡の間 ファルスの原野=Yayoi Kusama Infinity Mirror Room Phalli's Field 1965 @無限の鏡の間
+
+## 建畠晢の解説：自己消滅
+236: 建畠晢=Akira Tatehata|建畠晢 @建畠晢/核心
+
+## ヴェネツィア・ビエンナーレ1966《ナルシスの庭》
+245: 草間彌生 ナルシスの庭 1966 ヴェネツィア=Yayoi Kusama Narcissus Garden Venice Biennale 1966 @ヴェネツィア/ナルシス
+
+## 着物でウォーキング・ピース
+258: 草間彌生 ウォーキング・ピース 着物=Yayoi Kusama Walking Piece kimono 1966 @ウォーキング・ピース/着物
+
+## ベトナム戦争とハプニング
+263: ベトナム反戦デモ ニューヨーク=Vietnam war protest New York 1960s @ベトナム戦争/過激
+266: 草間彌生 ハプニング 水玉=Yayoi Kusama happening body painting polka dots 1960s @ハプニング
+
+## ニクソンへの公開書簡とMoMA
+275: 草間彌生 ニクソン 公開書簡=Yayoi Kusama open letter to Richard Nixon 1968 @反対の声/ニクソン
+279: 草間彌生 MoMA 彫刻庭園 ハプニング=Yayoi Kusama Grand Orgy to Awaken the Dead MoMA 1969 @MoMA/彫刻庭園
+
+## 映画『草間の自己消滅』とブティック
+283: 草間の自己消滅 映画=Kusama's Self-Obliteration film 1968 @自己消滅/映画
+290: 草間彌生 ブティック ファッション=Yayoi Kusama fashion boutique 1969 @ブティック/ファッション
+
+## 限界とコーネルの死
+294: 草間彌生 1960年代 ニューヨーク=Yayoi Kusama 1960s New York @限界/スキャンダル
+297: ジョセフ・コーネル=Joseph Cornell|ジョセフ・コーネル @1972年/知らせ
+
+## 日本へ帰国、冷たい報道
+303: 草間彌生 1970年代=Yayoi Kusama 1970s Tokyo @帰国/1973年
+308: いらすとや 週刊誌=irasutoya weekly magazine gossip @新聞/雑誌/冷たかった
+
+## 父の死と詩・小説
+313: いらすとや 喪服 悲しむ 女性=irasutoya mourning woman @悲しい知らせ/父親
+316: 草間彌生 詩集=Yayoi Kusama poetry book @詩/小説
+
+## 西村画廊の個展と建畠晢
+321: 草間彌生 冥界からの死のメッセージ 西村画廊=Yayoi Kusama Message of Death from Hades Nishimura Gallery 1975 @冥界からの死のメッセージ/西村画廊
+324: 建畠晢 若い頃=Akira Tatehata young|建畠晢 @専門家/建畠晢
+
+## 自ら精神科病院に入院し、アトリエへ通う
+335: いらすとや 落ち込む 女性=irasutoya depressed woman @心の状態/苦しみ
+338: 草間彌生 アトリエ 制作 1970年代=Yayoi Kusama studio working 1970s @入院/決断
+
+## 小説家としてのデビュー
+351: 草間彌生 マンハッタン自殺未遂常習犯 本=Yayoi Kusama Manhattan Suicide Addict book @マンハッタン自殺未遂常習犯/文章
+356: 草間彌生 クリストファー男娼窟 本=Yayoi Kusama Christopher Street Hustlers book @クリストファー男娼窟
+
+## ニューヨークで回顧展
+365: 草間彌生 回顧展 ニューヨーク 1989=Yayoi Kusama retrospective Center for International Contemporary Arts 1989 @回顧展/ニューヨーク
+
+## ヴェネツィア・ビエンナーレ1993の日本代表
+372: 草間彌生 ヴェネツィア・ビエンナーレ 1993 日本館=Yayoi Kusama Venice Biennale 1993 Japan Pavilion @ヴェネツィア/日本代表
+
+## 直島の《南瓜》
+386: 直島 南瓜 草間彌生=Naoshima yellow pumpkin Yayoi Kusama @南瓜/直島
+
+## MoMAの個展
+400: 草間彌生 MoMA 1998 ラブ・フォーエバー=Yayoi Kusama Love Forever MoMA 1998 @MoMA
+
+## 自伝『無限の網』と松本市美術館
+408: 草間彌生 無限の網 自伝 本=Yayoi Kusama Infinity Net autobiography book @無限の網/自伝
+410: 松本市美術館 草間彌生 水玉=Matsumoto City Museum of Art Kusama polka dots @松本市美術館
+
+## 世界文化賞
+415: 草間彌生 高松宮殿下記念世界文化賞=Yayoi Kusama Praemium Imperiale 2006 @世界文化賞/旭日小綬章
+
+## 映画『わたし大好き』
+420: ≒草間彌生 わたし大好き 映画=Yayoi Kusama I Adore Myself documentary film poster @わたし大好き/ドキュメンタリー
+
+## オークションで510万ドル
+425: 草間彌生 オークション 落札=Yayoi Kusama auction record Christie's @オークション/510万ドル
+
+## 80歳から『わが永遠の魂』
+430: 草間彌生 わが永遠の魂=Yayoi Kusama My Eternal Soul series @わが永遠の魂/2009年
+
+## 世界の美術館を巡る回顧展
+443: 草間彌生 ソフィア王妃芸術センター 回顧展=Yayoi Kusama Reina Sofia retrospective 2011 @ソフィア王妃/回顧展
+
+## ルイ・ヴィトンとのコラボ
+449: ルイ・ヴィトン 草間彌生=Louis Vuitton Yayoi Kusama 2012 store @ルイ・ヴィトン
+
+## 710万ドルと文化勲章・TIME100
+453: 草間彌生 White No. 28=Yayoi Kusama White No. 28 auction @710万ドル/オークション
+457: TIME100 草間彌生=Yayoi Kusama TIME 100 2016 @TIME/100人
+460: 草間彌生 文化勲章 会見=Yayoi Kusama Order of Culture press conference @文化勲章を受けたとき/死に物狂い
+
+## 国立新美術館『わが永遠の魂』展
+465: 草間彌生 わが永遠の魂 国立新美術館=Yayoi Kusama My Eternal Soul National Art Center Tokyo 2017 @国立新美術館
+
+## 草間彌生美術館の開館
+469: 草間彌生美術館 新宿=Yayoi Kusama Museum Shinjuku @草間彌生美術館
+
+## 南瓜が台風で流される
+475: 直島 南瓜 台風 流出=Naoshima pumpkin swept away typhoon 2021 @台風/流されて
+
+## 南瓜が帰ってきた
+481: 直島 南瓜 再設置 2022=Naoshima pumpkin returns 2022 @帰ってきた/作り直し
+
+## 新シリーズとバイエラー財団の回顧展
+487: 草間彌生 毎日愛について祈っている=Yayoi Kusama Every Day I Pray for Love @毎日愛について祈っている
+490: バイエラー財団 草間彌生 回顧展=Fondation Beyeler Yayoi Kusama retrospective 2025 @バイエラー/回顧展
+
+## 最後まで現役
+495: 草間彌生 晩年 制作=Yayoi Kusama painting late years @最後まで現役/描き続けた
+
+## 訃報とアムステルダムの回顧展
+504: 草間彌生 訃報=Yayoi Kusama dies news @訃報/事務所
+508: アムステルダム市立美術館 草間彌生=Stedelijk Museum Amsterdam Yayoi Kusama @アムステルダム
+
+## 自他の同時救済
+513: 建畠晢 草間彌生=Akira Tatehata Yayoi Kusama|建畠晢 @建畠/自他の同時救済
+518: 草間彌生 笑顔 水玉=Yayoi Kusama smiling polka dots @幻覚から逃げる/笑顔

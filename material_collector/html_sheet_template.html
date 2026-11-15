@@ -571,8 +571,12 @@ function setImage(no, blob) {
   markDone(no, !!blob);
   if (blob) {
     toast(disp(no) + "番に貼りました");
-    const next = ALL.find(i => i.no > no && !pasted.has(i.no)) || ALL.find(i => !pasted.has(i.no));
+    // 次は「下にある、まだ貼っていない番号」だけ。上の空き番号へは戻らない(上に飛ぶとユーザーが困るため)
+    // 「下」は画面の並び順で見る(区切りを編集で足した画像は no が大きいので、no の大小では比べない)
+    const here = ALL.findIndex(i => i.no === no);
+    const next = ALL.slice(here + 1).find(i => !pasted.has(i.no));
     if (next) select(next.no, true);
+    else if (ALL.some(i => !pasted.has(i.no))) toast(disp(no) + "番に貼りました(ここより下は全部貼り済み。上の空いている番号は、その番号を押してから貼ってください)");
   }
 }
 document.addEventListener("paste", e => {
