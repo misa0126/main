@@ -19,6 +19,8 @@
     上の文字: 入門した次の日にボコボコ            ← 吹き出しの型の上の一言
     霊夢のセリフ: 戦争に病気まで…                 ← 吹き出し(どの型でも付く。| で改行)
     魔理沙のセリフ: それでも必ずはい上がる
+    動画タイトル: 大山康晴｜がんでも休まなかった最強の名人【ゆっくり生涯解説】
+                                                  ← この案と組にする動画のタイトル(ページにコピーボタン付きで出る)
     帯: 永世五冠・タイトル80期                     ← 上の赤い帯の文字(なくてもよい)
     文字: 69歳まで|{A級}にいた男                   ← | で改行、{ } で囲んだ所が強調の色になる
     写真: 1                                       ← 使う写真の番号。比較は「1, 2」
@@ -87,7 +89,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "reimu": None, "marisa": None, "color": "黄"})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "reimu": None, "marisa": None, "color": "黄", "video_title": ""})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -112,6 +114,8 @@ def parse_thumb_table(text: str) -> dict:
             plan["mono"] = plan["mono"] or value == "顔アップ"
         elif key == "上の文字":
             plan["top"] = value
+        elif key == "動画タイトル":
+            plan["video_title"] = value
         elif key in ("霊夢のセリフ", "魔理沙のセリフ"):
             plan["reimu_says" if key.startswith("霊夢") else "marisa_says"] = value
         elif key == "帯":

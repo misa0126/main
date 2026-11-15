@@ -67,6 +67,7 @@ h2 { font-size: 16px; margin: 22px 0 8px; padding-left: 10px; border-left: 4px s
 #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #24221e; color: #fff;
   padding: 8px 16px; border-radius: 8px; z-index: 20; font-size: 14px; }
 @media (max-width: 900px) { .plan { grid-template-columns: 1fr; } }
+.vtitle { margin: 4px 0 10px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 </style>
 </head>
 <body>
@@ -663,6 +664,8 @@ function makePlan(def, index) {
   } }, "最初に戻す");
   const card = el("section", { class: "plan" },
     el("h3", {}, def.title, el("span", { class: "spacer" }), reset, save),
+    def.video_title ? el("div", { class: "vtitle" }, "動画タイトル: ", el("b", {}, def.video_title),
+      el("button", { type: "button", onclick: e => { navigator.clipboard?.writeText(def.video_title); e.target.textContent = "コピーしました"; } }, "コピー")) : null,
     el("div", { class: "stage" }, big,
       el("div", { class: "hint" }, "写真はドラッグで移動、ホイールで拡大・縮小(比較の型は左右それぞれ)"),
       el("div", { class: "small" }, small, el("span", {}, "← スマホのおすすめ欄で見たときの大きさ。ここで文字が読めるか確かめる"))),
