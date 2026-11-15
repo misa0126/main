@@ -436,8 +436,11 @@ const FACE_TARGET = {
 };
 // 顔の大きさ「大」: 顔全体と髪が見えるくらい(560 だと「顔アップ過ぎ」とユーザーに言われて 400 に引いた)
 const BIG_FACE = { h: 400, x: 0.5, y: 385, gapTop: 260 };
+// 顔の大きさ「アップ」: 目が一言のすぐ下に来るまで寄せる(おでこは一言に隠れる。顔や表情が印象的な人向け)
+const CLOSE_FACE = { h: 560, x: 0.5, y: 345, gapTop: 260 };
 function autoView(no, layout, index, big = false) {
-  const f = (DATA.face_boxes || {})[no], p = photos.get(no), t = big && layout === "顔アップ" ? BIG_FACE : FACE_TARGET[layout];
+  const f = (DATA.face_boxes || {})[no], p = photos.get(no);
+  const t = layout === "顔アップ" && big === "close" ? CLOSE_FACE : big && layout === "顔アップ" ? BIG_FACE : FACE_TARGET[layout];
   const r = photoRects(layout)[index];
   if (!f || !p || !t || !r) return { x: 0, y: 0, z: 1 };
   const k = p.img.width / f.iw;  // 埋め込むときに縮めた分
