@@ -276,7 +276,7 @@ function lineWidth(g, parts, size, family) {
 const STYLES = {
   white: { fill: "#fff", ring: null },
   red: { fill: "#ff1a1a", ring: "#fff" },
-  yellow: { fill: "#ffe100", ring: null },
+  yellow: { fill: "#ffe100", ring: "#000" },  // 名前は黒ふちを太く(伸びた頃のサムネに合わせる)
 };
 // 文字の行を、枠に収まる大きさで描く。bottom(下の位置)、top(上の位置)、middle(まん中の位置)のどれかで置く
 function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1, fillWidth = false }) {
