@@ -1,0 +1,264 @@
+# エイミー・ワインハウスの解説台本・第6版(amy_winehouse_6.txt。「夜中に目が覚めて」で始まる版)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 英語圏の人物なので、母語の検索ボタンは付けていない(英語のワードがそのまま母語)
+# 人の写真には「|名前」を付けている。主人公のエイミー・ワインハウスには付けない
+# 各画像の「@」の後ろは、その画像を出すきっかけになる台本の言葉
+
+## 導入：ロンドンから中継で歌ったグラミー賞
+1: エイミー・ワインハウス グラミー賞 2008 中継=Amy Winehouse Grammys 2008 satellite performance @夜中/グラミー賞
+13: エイミー・ワインハウス=Amy Winehouse @エイミー・ワインハウス
+
+## 生まれと家族
+20: エイミー・ワインハウス 子供の頃=Amy Winehouse childhood @1983年/エンフィールド
+
+## シナトラを歌うお父さん
+24: ミッチ・ワインハウス=Mitch Winehouse|ミッチ・ワインハウス @ミッチ/タクシー
+27: フランク・シナトラ=Frank Sinatra|フランク・シナトラ @シナトラ
+
+## 歌手だったおばあちゃん
+30: シンシア・ワインハウス 歌手=Cynthia Winehouse singer|シンシア・ワインハウス @シンシア/元歌手
+
+## 両親の別居とおばあちゃん
+38: エイミー・ワインハウス 祖母 シンシア 子供=young Amy Winehouse with grandmother Cynthia|シンシア・ワインハウス @9歳/シンシア
+
+## ラップの2人組
+46: エイミー・ワインハウス ジュリエット・アシュビー 子供=Amy Winehouse Juliette Ashby childhood|ジュリエット・アシュビー @ジュリエット・アシュビー/スウィート・アンド・サワー
+
+## シルヴィア・ヤング演劇学校
+49: シルヴィア・ヤング演劇学校=Sylvia Young Theatre School @シルヴィア・ヤング
+
+## ギターと曲作り
+57: エイミー・ワインハウス ギター 10代=young Amy Winehouse guitar @曲作り/ギター
+
+## 10代の苦しみ
+61: いらすとや 過食症=irasutoya eating disorder @落ち込み/過食症
+
+## 記者のバイトとジャズ楽団
+65: ナショナル・ユース・ジャズ・オーケストラ エイミー・ワインハウス=National Youth Jazz Orchestra Amy Winehouse @ナショナル・ユース・ジャズ・オーケストラ/記者
+
+## タイラー・ジェイムスのテープ
+70: タイラー・ジェイムス エイミー・ワインハウス=Tyler James Amy Winehouse|タイラー・ジェイムス @タイラー・ジェイムス
+
+## 事務所「19」とサイモン・フラー
+75: サイモン・フラー=Simon Fuller|サイモン・フラー @19/サイモン・フラー
+
+## 週250ポンドの前借り
+80: エイミー・ワインハウス 若い頃=young Amy Winehouse @250ポンド
+
+## EMIとサラーム・レミ
+87: サラーム・レミ エイミー・ワインハウス=Salaam Remi Amy Winehouse|サラーム・レミ @評価/サラーム・レミ
+
+## アイランド・レコードとの契約
+90: ダーカス・ビーズ=Darcus Beese|ダーカス・ビーズ @アイランド・レコード/ダーカス・ビーズ
+
+## デビューアルバム『フランク』
+93: エイミー・ワインハウス フランク ジャケット=Amy Winehouse Frank album cover @フランク
+
+## マーキュリー賞とアイヴァー・ノヴェロ賞
+106: エイミー・ワインハウス アイヴァー・ノヴェロ賞 2004=Amy Winehouse Ivor Novello Award 2004 @マーキュリー賞/アイヴァー・ノヴェロ賞
+
+## グラストンベリー
+111: エイミー・ワインハウス グラストンベリー 2004=Amy Winehouse Glastonbury 2004 @グラストンベリー
+
+## 実家を出る
+114: いらすとや 一人暮らし 女性=irasutoya woman living alone @お金/実家を出て
+
+## カムデンのパブ
+122: グッド・ミキサー パブ カムデン=The Good Mixer pub Camden @カムデン/グッド・ミキサー
+
+## ブレイクとの出会い
+125: エイミー・ワインハウス ブレイク・フィールダー＝シヴィル=Amy Winehouse Blake Fielder-Civil|ブレイク・フィールダー＝シヴィル @出会う/ブレイク
+
+## 失恋と酒
+131: いらすとや 失恋 お酒 女性=irasutoya heartbroken woman drinking @長く続かなかった/離れていき
+
+## リハビリを断る
+137: エイミー・ワインハウス リハブ ジャケット=Amy Winehouse Rehab single cover @リハビリ施設/ノー
+
+## お父さんの反論
+143: ミッチ・ワインハウス=Mitch Winehouse|ミッチ・ワインハウス @父親
+
+## おばあちゃんの死
+148: エイミー・ワインハウス シンシア タトゥー=Amy Winehouse Cynthia tattoo @悲しみ/シンシア
+
+## ニューヨークへ
+154: エイミー・ワインハウス ニューヨーク=Amy Winehouse New York @ニューヨーク
+
+## マーク・ロンソンと『リハブ』
+158: マーク・ロンソン エイミー・ワインハウス=Mark Ronson Amy Winehouse|マーク・ロンソン @マーク・ロンソン
+167: リバティーンズ=The Libertines|リバティーンズ @リバティーンズ
+169: マーク・ロンソン エイミー・ワインハウス スタジオ=Mark Ronson Amy Winehouse studio|マーク・ロンソン @ロンソン
+
+## 韻を直さない
+174: エイミー・ワインハウス バック・トゥ・ブラック シングル=Amy Winehouse Back to Black single cover @Back to Black/彼女らしい
+
+## ダップ・キングス
+183: ダップ・キングス エイミー・ワインハウス=Dap-Kings Amy Winehouse|ダップ・キングス @ダップ・キングス/シャロン・ジョーンズ
+
+## 『バック・トゥ・ブラック』発売
+187: エイミー・ワインハウス バック・トゥ・ブラック ジャケット=Amy Winehouse Back to Black album cover @60年代/バック・トゥ・ブラック
+
+## 185万枚の大ヒット
+193: エイミー・ワインハウス バック・トゥ・ブラック プラチナ ディスク=Amy Winehouse Back to Black platinum disc @売れて/1位
+
+## ブリット・アワード
+198: エイミー・ワインハウス ブリット・アワード 2007=Amy Winehouse Brit Awards 2007 @評価/ブリット・アワード
+
+## マイアミの結婚式
+205: エイミー・ワインハウス ブレイク 結婚=Amy Winehouse Blake Fielder-Civil married Miami|ブレイク・フィールダー＝シヴィル @元カレ/マイアミ
+
+## 夫婦げんかのけが
+213: エイミー・ワインハウス ブレイク けが 2007=Amy Winehouse Blake Fielder-Civil bloodied London 2007|ブレイク・フィールダー＝シヴィル @夫婦げんか/けが
+
+## ベルゲンで逮捕
+217: エイミー・ワインハウス ベルゲン 逮捕=Amy Winehouse Bergen arrest 2007 @ベルゲン/逮捕
+
+## ブレイクの逮捕
+225: ブレイク・フィールダー＝シヴィル 逮捕=Blake Fielder-Civil arrested|ブレイク・フィールダー＝シヴィル @打撃/ブレイク
+
+## ブーイングとツアー中止
+229: エイミー・ワインハウス 2007 ライブ ブーイング=Amy Winehouse booed concert 2007 @ステージ/ブーイング
+
+## 裸足で歩く姿
+241: エイミー・ワインハウス 裸足 カムデン=Amy Winehouse barefoot Camden December 2007 @裸足
+
+## 売れるほど壊れる
+244: エイミー・ワインハウス リハブ ミュージックビデオ=Amy Winehouse Rehab music video @皮肉/評判
+
+## 流出した映像
+253: いらすとや 薬物=irasutoya drugs @追い込まれ/映像
+
+## リハビリ施設へ
+258: いらすとや リハビリ=irasutoya rehabilitation @助け/リハビリ施設
+
+## グラミー賞6部門ノミネート
+265: 第50回グラミー賞=50th Annual Grammy Awards @グラミー賞
+
+## ビザを断られる
+270: いらすとや パスポート ビザ=irasutoya passport visa @ビザ/許可
+
+## 午前4時のステージ
+280: エイミー・ワインハウス グラミー賞 リバーサイド・スタジオ=Amy Winehouse Grammys 2008 Riverside Studios performance @リバーサイド・スタジオ
+
+## 5冠
+289: エイミー・ワインハウス グラミー賞 5冠=Amy Winehouse five Grammys @受賞の発表/最優秀新人賞
+
+## 名前を呼ばれた瞬間
+299: エイミー・ワインハウス グラミー賞 年間最優秀レコード 両親=Amy Winehouse Record of the Year reaction 2008 parents @年間最優秀レコード/信じられない
+
+## スピーチとカムデンの火事
+305: エイミー・ワインハウス グラミー賞 スピーチ=Amy Winehouse Grammy acceptance speech 2008 @スピーチ
+
+## ハービー・ハンコック
+311: ハービー・ハンコック グラミー賞 2008=Herbie Hancock Grammy 2008 Album of the Year|ハービー・ハンコック @6つ目/ハービー・ハンコック
+
+## アイヴァー・ノヴェロ賞
+318: エイミー・ワインハウス アイヴァー・ノヴェロ賞 2008=Amy Winehouse Ivor Novello Award 2008 @アイヴァー・ノヴェロ賞
+
+## マンデラの90歳を祝うコンサート
+322: ネルソン・マンデラ 90歳 コンサート エイミー・ワインハウス=Amy Winehouse Nelson Mandela 90th birthday concert Hyde Park|ネルソン・マンデラ @マンデラ/ハイドパーク
+
+## 倒れて入院
+326: いらすとや 救急車=irasutoya ambulance @悲鳴/病院
+
+## ブレイクが刑務所へ
+332: ブレイク・フィールダー＝シヴィル=Blake Fielder-Civil|ブレイク・フィールダー＝シヴィル @ブレイク/刑務所
+
+## セントルシア
+337: エイミー・ワインハウス セントルシア=Amy Winehouse St Lucia 2009 @思いきった/セントルシア
+
+## 島での優しさ
+344: いらすとや 手術=irasutoya surgery @優しい/手術
+
+## セントルシア・ジャズ・フェスティバル
+349: エイミー・ワインハウス セントルシア ジャズ・フェスティバル 2009=Amy Winehouse St Lucia Jazz Festival 2009 @ジャズ・フェスティバル
+
+## ライオネス・レコードとディオンヌ
+353: エイミー・ワインハウス ディオンヌ・ブロムフィールド=Amy Winehouse Dionne Bromfield|ディオンヌ・ブロムフィールド @ライオネス・レコード/ディオンヌ
+
+## 離婚
+361: エイミー・ワインハウス ブレイク 離婚=Amy Winehouse Blake Fielder-Civil divorce|ブレイク・フィールダー＝シヴィル @結婚生活/離婚
+
+## 裁判
+370: いらすとや 裁判=irasutoya trial court @裁判
+
+## 007の主題歌
+374: 007 慰めの報酬 ポスター=Quantum of Solace poster @チャンス/慰めの報酬
+
+## レッグ・トラヴィスと、薬から酒へ
+380: レッグ・トラヴィス エイミー・ワインハウス=Reg Traviss Amy Winehouse|レッグ・トラヴィス @レッグ・トラヴィス
+
+## 酒を断つ薬
+384: いらすとや アルコール依存症=irasutoya alcoholism @医者/酒を断つ
+
+## ブラジル公演
+389: エイミー・ワインハウス ブラジル 2011=Amy Winehouse Brazil 2011 concert @海外/ブラジル
+
+## ドバイ公演
+392: エイミー・ワインハウス ドバイ 2011=Amy Winehouse Dubai 2011 concert @ドバイ
+
+## トニー・ベネットとの録音
+396: トニー・ベネット エイミー・ワインハウス ボディ・アンド・ソウル=Tony Bennett Amy Winehouse Body and Soul|トニー・ベネット @録音/アビー・ロード
+
+## お父さんの25年
+402: ミッチ・ワインハウス=Mitch Winehouse|ミッチ・ワインハウス @ミッチ
+
+## ジャズの本物と肩を並べる
+407: トニー・ベネット エイミー・ワインハウス 録音=Tony Bennett Amy Winehouse recording Abbey Road|トニー・ベネット @シナトラ/本物
+
+## 1週間のリハビリと復帰ツアー
+411: エイミー・ワインハウス 2011=Amy Winehouse 2011 @リハビリ施設/ツアー
+
+## ホテルの酒を片付ける
+420: いらすとや ホテル お酒 禁止=irasutoya hotel no alcohol @スタッフ/ホテル
+
+## ベオグラード公演
+423: エイミー・ワインハウス ベオグラード=Amy Winehouse Belgrade 2011 @とりで/2万人
+
+## 最後のステージ
+431: エイミー・ワインハウス ディオンヌ・ブロムフィールド ラウンドハウス=Amy Winehouse Dionne Bromfield Roundhouse|ディオンヌ・ブロムフィールド @最後/ラウンドハウス
+
+## 最期の日
+436: エイミー・ワインハウス 自宅 カムデン・スクエア=Amy Winehouse house Camden Square @7月23日/カムデン・スクエア
+
+## お母さんの覚悟
+444: ジャニス・ワインハウス=Janis Winehouse|ジャニス・ワインハウス @ジャニス
+
+## ファンの花束
+447: エイミー・ワインハウス 自宅 花束 ファン=Amy Winehouse Camden Square flowers tributes @花束
+
+## 葬儀
+450: エイミー・ワインハウス 葬儀=Amy Winehouse funeral @お葬式/エッジウェアベリー
+454: ミッチ・ワインハウス 葬儀=Mitch Winehouse funeral|ミッチ・ワインハウス @ミッチ
+
+## 死因
+458: いらすとや 急性アルコール中毒=irasutoya alcohol poisoning @検死審問/アルコール中毒
+
+## お兄さんの見方
+471: アレックス・ワインハウス=Alex Winehouse|アレックス・ワインハウス @アレックス
+
+## エイミー・ワインハウス財団
+474: エイミー・ワインハウス財団=Amy Winehouse Foundation @財団/28歳
+
+## 両親が受け取ったグラミー賞
+481: ミッチ ジャニス トニー・ベネット グラミー賞 2012=Mitch Janis Winehouse Tony Bennett Grammy 2012|トニー・ベネット @Body and Soul/トロフィー
+
+## アルバム『ライオネス』
+487: エイミー・ワインハウス ライオネス ジャケット=Amy Winehouse Lioness Hidden Treasures album cover @ライオネス
+
+## おばあちゃんの隣に
+492: エイミー・ワインハウス 墓=Amy Winehouse grave Edgwarebury @遺灰/シンシア
+
+## 伝記映画と続く歌手たち
+495: Back to Black エイミーのすべて ポスター=Back to Black 2024 film poster @Back to Black
+
+## 27クラブ
+500: 27クラブ ジミ・ヘンドリックス カート・コバーン エイミー・ワインハウス=27 Club Jimi Hendrix Kurt Cobain Amy Winehouse @27クラブ
+
+## 今も流れる歌声
+505: エイミー・ワインハウス 笑顔=Amy Winehouse smiling @ノー/流れ続けて
