@@ -3,7 +3,7 @@ import re
 import unittest
 from pathlib import Path
 
-from material_collector.thumbnail import build_thumbnail_page, parse_thumb_table
+from material_collector.thumbnail import build_thumbnail_page, format_video_title, parse_thumb_table
 
 TABLE = """# メモ
 名前: 大山康晴
@@ -24,6 +24,16 @@ TABLE = """# メモ
 
 
 class ThumbTableTest(unittest.TestCase):
+    def test_video_title_is_title_then_name(self):
+        # ユーザーと決めた「タイトル｜名前【ゆっくり生涯解説】」の形に、どう書いてもそろう
+        want = "『リハブ』を歌った英国の歌姫｜エイミー・ワインハウス【ゆっくり生涯解説】"
+        for written in ("『リハブ』を歌った英国の歌姫", want,
+                        "エイミー・ワインハウス｜『リハブ』を歌った英国の歌姫【ゆっくり生涯解説】"):
+            self.assertEqual(format_video_title(written, "エイミー・ワインハウス"), want)
+        self.assertEqual(format_video_title("", "エイミー・ワインハウス"), "")
+        plans = parse_thumb_table(TABLE.replace("型: 右に写真", "型: 右に写真\n動画タイトル: がんでも休まなかった名人"))["plans"]
+        self.assertEqual(plans[0]["video_title"], "がんでも休まなかった名人｜大山康晴【ゆっくり生涯解説】")
+
     def test_parse(self):
         data = parse_thumb_table(TABLE)
         self.assertEqual(data["name"], "大山康晴")

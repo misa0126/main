@@ -19,8 +19,8 @@
     上の文字: 入門した次の日にボコボコ            ← 吹き出しの型の上の一言
     霊夢のセリフ: 戦争に病気まで…                 ← 吹き出し(どの型でも付く。| で改行)
     魔理沙のセリフ: それでも必ずはい上がる
-    動画タイトル: がんでも休まなかった最強の名人｜大山康晴【ゆっくり生涯解説】
-                                                  ← この案と組にする動画のタイトル(ページにコピーボタン付きで出る)
+    動画タイトル: がんでも休まなかった最強の名人   ← この案と組にする動画のタイトル(ページにコピーボタン付きで出る)。
+                                                     タイトルだけ書けば「タイトル｜名前【ゆっくり生涯解説】」の形に自動でそろう
     帯: 永世五冠・タイトル80期                     ← 上の赤い帯の文字(なくてもよい)
     文字: 69歳まで|{A級}にいた男                   ← | で改行、{ } で囲んだ所が強調の色になる
     写真: 1                                       ← 使う写真の番号。比較は「1, 2」
@@ -69,6 +69,25 @@ FACE_RULES = [
     # すごい話・記録の話・不思議な話(どれにも当てはまらないときもこれ)
     (r"", "驚き", "にやり"),
 ]
+
+
+TITLE_SUFFIX = "【ゆっくり生涯解説】"
+
+
+def format_video_title(title: str, name: str) -> str:
+    """動画タイトルを、ユーザーと決めた「タイトル｜名前【ゆっくり生涯解説】」の形にそろえる。
+
+    タイトルだけ書いても、前の形(「名前｜タイトル【ゆっくり生涯解説】」)で書いても、この形になる。
+    """
+    title = title.strip()
+    if not title:
+        return ""
+    if title.endswith(TITLE_SUFFIX):
+        title = title[: -len(TITLE_SUFFIX)].strip()
+    parts = [p.strip() for p in re.split(r"[｜|]", title) if p.strip()]
+    plain = name.replace(" ", "").replace("　", "")
+    body = [p for p in parts if p.replace(" ", "").replace("　", "") != plain]
+    return f"{'｜'.join(body) or title}｜{name}{TITLE_SUFFIX}"
 
 
 def guess_faces(text: str) -> tuple[str, str]:
@@ -162,6 +181,7 @@ def parse_thumb_table(text: str) -> dict:
     if len(plans) > 3:
         raise ValueError("案は3つまでにしてください(YouTubeのテストと比較が3枚までのため)。")
     for plan in plans:
+        plan["video_title"] = format_video_title(plan["video_title"], name)
         auto_reimu, auto_marisa = guess_faces(plan["text"])  # 書いていなければ一言から決める
         plan["reimu"] = plan["reimu"] or auto_reimu
         plan["marisa"] = plan["marisa"] or auto_marisa
