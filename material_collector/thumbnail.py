@@ -205,14 +205,26 @@ def find_face(image_bytes: bytes) -> dict:
     pad = int(max(img.size) * 0.25)
     gray = cv2.copyMakeBorder(np.asarray(img), pad, pad, pad, pad, cv2.BORDER_REPLICATE)
     min_side = max(24, min(img.size) // 8)
+    detectors = [cv2.CascadeClassifier(cv2.data.haarcascades + xml)
+                 for xml in ("haarcascade_frontalface_default.xml", "haarcascade_frontalface_alt2.xml")]
+    gh, gw = gray.shape
+    # 首をかしげた写真(歌っている人など)はまっすぐのままだと見つからないので、写真を少し回しても探す。
+    # 腕のタトゥーの顔などを拾わないよう、まっすぐで見つからなければ全部の角度で探していちばん大きい顔を使う
     found = []
-    for xml in ("haarcascade_frontalface_default.xml", "haarcascade_frontalface_alt2.xml"):
-        detector = cv2.CascadeClassifier(cv2.data.haarcascades + xml)
-        found += list(detector.detectMultiScale(gray, scaleFactor=1.08, minNeighbors=5, minSize=(min_side, min_side)))
+    for angle in (0, -15, 15, -25, 25):
+        rot = cv2.getRotationMatrix2D((gw / 2, gh / 2), angle, 1.0)
+        img_r = gray if angle == 0 else cv2.warpAffine(gray, rot, (gw, gh), borderMode=cv2.BORDER_REPLICATE)
+        for detector in detectors:
+            for x, y, w, h in detector.detectMultiScale(img_r, scaleFactor=1.08, minNeighbors=5, minSize=(min_side, min_side)):
+                # 回した写真での顔の中心を、元の写真の位置にもどす
+                cx, cy = cv2.invertAffineTransform(rot) @ np.array([x + w / 2, y + h / 2, 1.0])
+                found.append((float(h), float(cx), float(cy)))
+        if angle == 0 and found:
+            break
     if not found:
         return fallback
-    x, y, w, h = max(found, key=lambda f: f[2] * f[3])
-    return {"cx": float(x + w / 2 - pad), "cy": float(y + h / 2 - pad), "h": float(h), "iw": img.width, "ih": img.height}
+    h, cx, cy = max(found)
+    return {"cx": float(cx - pad), "cy": float(cy - pad), "h": float(h), "iw": img.width, "ih": img.height}
 
 
 def embed_photos(photo_paths: dict[int, Path]) -> tuple[dict, dict]:
