@@ -397,6 +397,16 @@ function drawPhoto(g, no, rect, view, mono = false) {
   }
   g.restore();
 }
+// まわりをぼかす: 真ん中(r0 まで)はそのまま、外へ行くほど(r1 で最大)ぼかした絵に置きかえる
+function edgeBlur(g, r0, r1, px) {
+  const off = document.createElement("canvas"); off.width = W; off.height = H;
+  const o = off.getContext("2d");
+  o.filter = `blur(${px}px)`; o.drawImage(g.canvas, 0, 0); o.filter = "none";
+  o.globalCompositeOperation = "destination-in";
+  const m = o.createRadialGradient(W / 2, H / 2, r0, W / 2, H / 2, r1); m.addColorStop(0, "rgba(0,0,0,0)"); m.addColorStop(1, "#000");
+  o.fillStyle = m; o.fillRect(0, 0, W, H);
+  g.drawImage(off, 0, 0);
+}
 function drawFace(g, key, cx, bottom, height, flip = false) {
   const img = faces[key];
   if (!img) return;
@@ -475,7 +485,9 @@ function render(g, st) {
     // 人物の生涯解説で伸びている型: 顔を大きく、上に赤い一言、下に黄色の名前、ゆっくりは小さく
     drawPhoto(g, st.photos[0], rects[0], st.views[0], st.mono);
     // 四隅だけを暗くする(写真の明るいところはそのまま)
-    const vig = g.createRadialGradient(W / 2, H / 2, 380, W / 2, H / 2, 860); vig.addColorStop(0, "rgba(0,0,0,0)"); vig.addColorStop(1, "rgba(0,0,0,.8)");
+    // まわりを黒くぼかす(ユーザーが3通りから選んだ「弱め」。強めは昔の暗い写真だと黒が多すぎる)
+    edgeBlur(g, 260, 700, 16);
+    const vig = g.createRadialGradient(W / 2, H / 2, 250, W / 2, H / 2, 720); vig.addColorStop(0, "rgba(0,0,0,0)"); vig.addColorStop(1, "rgba(0,0,0,.95)");
     g.fillStyle = vig; g.fillRect(0, 0, W, H);
     const tall = fam === "Noto Sans JP" ? 1.2 : 1;
     // 一言は短いほど大きくなる(10文字で14文字のときの約1.5倍)。名前は一言より目立たせない
