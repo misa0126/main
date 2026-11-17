@@ -1,0 +1,175 @@
+# 生頼範義の解説台本(ohrai_noriyoshi.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(1行目から数える)。次の区切りの手前までが1つの区切り
+#   ・外国の人物は「日本語=英語=母語」と3つ書くと、母語の検索ボタンも付く
+#   ・「#」で始まる行はメモとして無視される
+# 生頼範義は本人の写真がネットに少ないので、次の方針で選んでいる:
+#   ・本人の写真は「若い頃」「アトリエ」「晩年」など見つかりやすいワードに絞る(同じ写真の使い回しも前提)
+#   ・本人の写真がなさそうな場面は、本人の作品(ポスター・本の表紙・箱絵・画集)、展覧会、話に出てくる相手の写真で代える
+#   ・Googleで出ないときは、各番号の Yahoo! / Bing ボタンも試す
+# 各画像の「@」の後ろは、その画像を出すきっかけになる台本の言葉(python -m material_collector.check_scenes で切り替えのずれを確かめる)
+# 人の写真には「|名前」を付けている(YMM4に並べるとき、写真の下に名前のテロップが入る)。主人公の生頼範義には付けない
+
+## 導入：信長の野望の箱の絵
+1: 信長の野望 パッケージ 生頼範義=Nobunaga's Ambition box art Noriyoshi Ohrai @箱の絵
+16: 生頼範義=Noriyoshi Ohrai @生頼範義
+
+## 明石の空襲
+22: 明石空襲=Akashi air raid 1945 @空襲
+
+## 鹿児島・川内へ疎開
+26: 薩摩川内市 川内川=Satsumasendai Sendai River @川内市/薩摩川内市
+
+## 川内高校でデッサン
+31: 鹿児島県立川内高校=Kagoshima Prefectural Sendai High School @川内北中学校/川内高校
+
+## 東京藝術大学に合格
+42: 東京藝術大学=Tokyo University of the Arts @東京藝術大学
+
+## 同学舎と山田家
+49: 同学舎 鹿児島 学生寮=Dogakusha Kagoshima student dormitory Tokyo @同学舎
+
+## 藝大を中退
+54: いらすとや 退学=irasutoya dropout @辞めてしまう
+
+## 銀座の個展、1枚も売れず
+61: 銀座 画廊 昭和=Ginza art gallery Showa @画家としての真っ向勝負/銀座の画廊
+
+## 結婚と下請けの仕事
+72: 生頼範義 若い頃=young Noriyoshi Ohrai @康子と結婚
+74: 昭和 新聞広告 イラスト=Showa newspaper advertisement illustration @新聞広告/下請け
+
+## 吉川英治全集の三国志
+82: 吉川英治全集 広告 生頼範義 三国志=Yoshikawa Eiji complete works ad Ohrai Sangokushi @吉川英治/三国志
+
+## 電子顕微鏡で人体を観察
+95: 電子顕微鏡=electron microscope @調べぶり/電子顕微鏡
+
+## 平井和正『狼の紋章』
+103: 狼の紋章 生頼範義 表紙=Okami no Monsho Ohrai cover @狼の紋章
+106: 平井和正=Kazumasa Hirai|平井和正 @平井はすっかり惚れ込んだ
+
+## 小松左京『復活の日』
+112: 復活の日 生頼範義 表紙=Fukkatsu no Hi Ohrai cover @復活の日
+114: 小松左京=Sakyo Komatsu|小松左京 @小松
+
+## 宮崎へ移住
+123: 宮崎市 昭和=Miyazaki city Showa @東京を離れる/宮崎市
+130: 生頼範義 アトリエ=Noriyoshi Ohrai atelier @アトリエ
+
+## 初めての映画ポスター『日本沈没』
+138: 日本沈没 1973 ポスター 生頼範義=Japan Sinks 1973 poster Ohrai @初めての映画ポスター/日本沈没
+
+## 表紙1枚15万円
+142: 生頼範義 文庫 表紙=Noriyoshi Ohrai paperback covers @注文は途切れなかった/15万円
+
+## 映画『復活の日』のイメージボード
+149: 復活の日 イメージボード 生頼範義=Virus 1980 image board Ohrai @イメージボード
+
+## スター・ウォーズとジョージ・ルーカス
+162: スター・ウォーズ 徳間書店 生頼範義=Star Wars Tokuma Shoten Ohrai illustration @スター・ウォーズ
+165: ジョージ・ルーカス 若い頃=young George Lucas=George Lucas|ジョージ・ルーカス @ジョージ・ルーカス
+169: スター・ウォーズ 帝国の逆襲=The Empire Strikes Back 1980 @帝国の逆襲
+174: 生頼範義 制作中=Noriyoshi Ohrai painting @海外へ行かなかった
+
+## 帝国の逆襲の国際版ポスター
+181: 帝国の逆襲 ポスター 生頼範義=Empire Strikes Back international poster Ohrai @国際版
+
+## 星雲賞
+192: 星雲賞=Seiun Award @星雲賞
+
+## SFアドベンチャーの表紙
+195: SFアドベンチャー 表紙 生頼範義=SF Adventure magazine cover Ohrai @SFアドベンチャー
+205: テオドラ 皇后 モザイク=Empress Theodora mosaic=Θεοδώρα|テオドラ @テオドラ
+
+## マッドマックス2とFUTURE WAR
+208: マッドマックス2 ポスター 生頼範義=Mad Max 2 poster Ohrai @マッドマックス2
+211: FUTURE WAR 198X年 生頼範義=Future War 198X Ohrai @FUTURE WAR
+
+## 油絵『破壊される人間』
+216: 破壊される人間 生頼範義=Ohrai Hakai sareru Ningen painting @別の思い/破壊される人間
+227: 明石空襲=Akashi air raid 1945 @明石の空襲
+
+## 川内歴史資料館に寄贈
+239: 川内歴史資料館=Sendai History Museum Satsumasendai @川内歴史資料館
+
+## 東宝特撮映画全史
+246: 東宝特撮映画全史 表紙 生頼範義=Toho Tokusatsu Eiga Zenshi cover Ohrai @東宝特撮映画全史
+
+## ゴジラ復活のポスター
+251: ゴジラ 1984 ポスター 生頼範義=The Return of Godzilla 1984 poster Ohrai @とんでもない仕事/復活
+
+## ゴジラVSシリーズ
+263: ゴジラ VSシリーズ ポスター 生頼範義=Godzilla vs series poster Ohrai @平成までのゴジラ/VSシリーズ
+274: ゴジラvsキングギドラ ポスター 生頼範義=Godzilla vs King Ghidorah poster Ohrai @想像で描いた怪獣/キングギドラ
+
+## 逆襲のシャアとHOPEの広告
+278: 逆襲のシャア ポスター 生頼範義=Char's Counterattack poster Ohrai @逆襲のシャア/グーニーズ
+281: HOPE MY WAY 生頼範義 広告=Hope My Way cigarette ad Ohrai @HOPE
+
+## コーエーのゲームの箱絵
+285: 水滸伝 天命の誓い パッケージ 生頼範義=Suikoden Tenmei no Chikai box art Ohrai @ゲームの世界/水滸伝
+
+## 小島秀夫とメタルギア
+291: 小島秀夫=Hideo Kojima|小島秀夫 @小島秀夫
+
+## 画集『神話』
+297: 生頼範義 画集 神話=Noriyoshi Ohrai art book Shinwa @神話
+
+## 3日に1枚、全部一人で
+300: 生頼範義 画集 作品=Noriyoshi Ohrai artworks collection @超人的/3日に1枚
+305: 生頼範義 アトリエ 制作=Noriyoshi Ohrai atelier at work @アシスタント
+
+## 戦艦を設計図から描く
+317: 戦艦大和 生頼範義=Battleship Yamato Ohrai painting @戦艦
+
+## 60歳で仕事を減らす
+322: 生頼範義 晩年=Noriyoshi Ohrai later years @60歳
+
+## 緑色の宇宙
+333: 生頼範義 宇宙 緑=Noriyoshi Ohrai green space painting @宇宙の色/緑
+
+## ゴジラ FINAL WARS
+343: ゴジラ FINAL WARS ポスター 生頼範義=Godzilla Final Wars poster Ohrai @FINAL WARS
+
+## 樋口真嗣と2006年の日本沈没
+347: 樋口真嗣 日本沈没=Shinji Higuchi Japan Sinks 2006|樋口真嗣 @日本沈没
+
+## 脳梗塞で倒れる
+355: いらすとや 脳梗塞=irasutoya stroke @病に倒れた
+
+## 初めての大規模な展覧会
+362: 生賴範義展 THE ILLUSTRATOR みやざきアートセンター=Ohrai Noriyoshi exhibition The Illustrator Miyazaki Art Center @評価が一気に/THE ILLUSTRATOR
+
+## 文化庁映画賞
+374: 文化庁映画賞=Agency for Cultural Affairs Film Award @文化庁映画賞
+
+## 画集『緑色の宇宙』
+380: 緑色の宇宙 生頼範義 画集=Ohrai Noriyoshi Midori-iro no Uchu art book @緑色の宇宙
+
+## 79歳で亡くなる
+383: 生頼範義 肖像=Noriyoshi Ohrai portrait @この世を去った
+
+## 亡くなった後の受賞
+387: 日本SF大賞=Japan SF Grand Prize @日本SF大賞
+
+## 明石と宮崎の展覧会、記念の協会
+393: 明石市立文化博物館 生頼範義展=Akashi City Cultural Museum Ohrai exhibition @明石市立文化博物館
+
+## 3000点以上の作品
+400: 生頼範義 原画 展示=Noriyoshi Ohrai original artworks exhibition @生涯に描いた作品
+
+## 大分と上野の森美術館の展覧会
+403: 大分市美術館 生頼範義展=Oita City Museum of Art Ohrai exhibition @大分市美術館
+405: 上野の森美術館 生賴範義展=Ueno Royal Museum Ohrai exhibition @上野の森美術館
+411: 破壊される人間 上野の森美術館 展示=Hakai sareru Ningen Ueno Royal Museum @破壊される人間
+
+## 今も受け継がれる
+419: 生賴範義展 図録=Ohrai exhibition catalog @受け継がれて/図録
+422: 生賴範義賞=Ohrai Noriyoshi Award @生賴範義賞
+
+## まとめ
+426: 生頼範義 作品 ポスター=Noriyoshi Ohrai posters artworks @黙々と描き続けた
