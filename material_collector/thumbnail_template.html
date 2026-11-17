@@ -279,14 +279,15 @@ const STYLES = {
   yellow: { fill: "#ffe100", ring: "#000" },  // 名前は黒ふちを太く(伸びた頃のサムネに合わせる)
 };
 // 文字の行を、枠に収まる大きさで描く。bottom(下の位置)、top(上の位置)、middle(まん中の位置)のどれかで置く
-function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1, fillWidth = false }) {
+function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1, fillWidth = false, keepHeight = false }) {
   const lines = parseText(text);
   if (!lines.length) return;
   const st = STYLES[style] || STYLES.white;
   const gap = 0.06;
   const size = Math.min(maxSize, maxH / stretch / (lines.length * (1 + gap) * EM_SCALE)) * scale;
   // fillWidth の一言は、文字数が多くても縦の大きさを変えない(ユーザーの希望)。長いときは横に縮めて収める
-  const sizes = lines.map(parts => fillWidth ? size : Math.min(size, size * maxW / Math.max(1, lineWidth(g, parts, size, family))));
+  // keepHeight の名前も、長い名前で縦を小さくせず横に縮める(草間彌生と同じ縦の大きさにそろえる。ユーザーの希望)
+  const sizes = lines.map(parts => (fillWidth || keepHeight) ? size : Math.min(size, size * maxW / Math.max(1, lineWidth(g, parts, size, family))));
   const heights = lines.map((parts, i) => sizes[i] * stretch * (1 + gap) * (parts.some(p => p.em) ? EM_SCALE : 1));
   const total = heights.reduce((a, b) => a + b, 0);
   let y = top != null ? top + total : middle != null ? middle + total / 2 : bottom;
@@ -294,7 +295,7 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
     const parts = lines[i], s = sizes[i];
     const w = lineWidth(g, parts, s, family);
     // fillWidth: 一言をちょうど横いっぱいにする。短いときは横に伸ばし、長いときは横に縮める(高さは変えない)
-    const xs = fillWidth ? Math.min(2.2, maxW / Math.max(1, w)) : 1;
+    const xs = fillWidth ? Math.min(2.2, maxW / Math.max(1, w)) : keepHeight ? Math.min(1, maxW / Math.max(1, w)) : 1;
     let x = cx - w * xs / 2;
     for (const p of parts) {
       const ps = s * (p.em ? EM_SCALE : 1);
@@ -493,7 +494,7 @@ function render(g, st) {
     const tall = fam === "Noto Sans JP" ? 1.2 : 1;
     // 一言は短いほど大きくなる(10文字で14文字のときの約1.5倍)。名前は一言より目立たせない
     drawTextBlock(g, st.text, { cx: W / 2, top: 6, maxW: 1236, maxH: 235, maxSize: 132, color, family: fam, scale: st.textScale, style: "red", stretch: tall > 1 ? 1.45 : 1, fillWidth: true });
-    drawTextBlock(g, st.nameText, { cx: W / 2, bottom: H - 10, maxW: 760, maxH: 150, maxSize: 112, color, family: fam, scale: st.textScale, style: "yellow", stretch: tall });
+    drawTextBlock(g, st.nameText, { cx: W / 2, bottom: H - 10, maxW: 860, maxH: 150, maxSize: 112, color, family: fam, scale: st.textScale, style: "yellow", stretch: tall, keepHeight: true });
     drawFace(g, reimu, 95 * fs, H - 6, 164 * fs);
     drawFace(g, marisa, W - 112 * fs, H - 6, 172 * fs);
   } else if (st.layout === "吹き出し") {
