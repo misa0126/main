@@ -285,15 +285,16 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
   const st = STYLES[style] || STYLES.white;
   const gap = 0.06;
   const size = Math.min(maxSize, maxH / stretch / (lines.length * (1 + gap) * EM_SCALE)) * scale;
-  const sizes = lines.map(parts => Math.min(size, size * maxW / Math.max(1, lineWidth(g, parts, size, family))));
+  // fillWidth の一言は、文字数が多くても縦の大きさを変えない(ユーザーの希望)。長いときは横に縮めて収める
+  const sizes = lines.map(parts => fillWidth ? size : Math.min(size, size * maxW / Math.max(1, lineWidth(g, parts, size, family))));
   const heights = lines.map((parts, i) => sizes[i] * stretch * (1 + gap) * (parts.some(p => p.em) ? EM_SCALE : 1));
   const total = heights.reduce((a, b) => a + b, 0);
   let y = top != null ? top + total : middle != null ? middle + total / 2 : bottom;
   for (let i = lines.length - 1; i >= 0; i--) {
     const parts = lines[i], s = sizes[i];
     const w = lineWidth(g, parts, s, family);
-    // fillWidth: 短い一言でも横いっぱいになるよう、文字を横に伸ばす(高さは変えない)
-    const xs = fillWidth ? Math.min(2.2, Math.max(1, maxW / Math.max(1, w))) : 1;
+    // fillWidth: 一言をちょうど横いっぱいにする。短いときは横に伸ばし、長いときは横に縮める(高さは変えない)
+    const xs = fillWidth ? Math.min(2.2, maxW / Math.max(1, w)) : 1;
     let x = cx - w * xs / 2;
     for (const p of parts) {
       const ps = s * (p.em ? EM_SCALE : 1);
