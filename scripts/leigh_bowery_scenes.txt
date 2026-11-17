@@ -1,0 +1,195 @@
+# リー・バウリーの解説台本(leigh_bowery.txt)の区切りと画像
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 英語圏の人物なので、母語の検索ボタンは付けていない(英語のワードがそのまま母語)
+# 人の写真には「|名前」を付けている。主人公のリー・バウリーには付けない
+# 各画像の「@」の後ろは、その画像を出すきっかけになる台本の言葉
+# フロイドの絵(Leigh Bowery (Seated)、Naked Man, Back View など)は作品名で探すと出やすい
+
+## 導入：毎晩のファッションショー
+1: いらすとや 服を選ぶ 鏡=irasutoya choosing clothes mirror @服を選ぶ
+4: リー・バウリー 衣装=Leigh Bowery look costume @ファッションショー
+
+## サンシャインに生まれる
+20: サンシャイン ビクトリア州 昔=Sunshine Victoria old photo @サンシャイン
+
+## ごく普通の家庭
+24: リー・バウリー 子供の頃=Leigh Bowery childhood @家庭/普通
+
+## メルボルン・ハイスクールとピアノ
+31: メルボルン・ハイスクール=Melbourne High School @メルボルン・ハイスクール
+
+## パンクに夢中
+39: パンク・ロック 1970年代=punk rock 1970s @パンク
+
+## RMITを中退
+46: RMIT大学=RMIT University Melbourne @RMIT
+
+## ロンドンへ
+54: ニューロマンティック ブリッツ・クラブ=New Romantics Blitz Club London @ロンドン/ニューロマンティック
+
+## バーガーキングで夜勤
+64: バーガーキング ロンドン 1980年代=Burger King London 1980s @バーガーキング
+
+## 仕立て屋の腕
+72: リー・バウリー ミシン 服作り=Leigh Bowery sewing @奇抜な服/型紙
+
+## ヴィヴィアン・ウエストウッド
+77: ヴィヴィアン・ウエストウッド 若い頃=young Vivienne Westwood|ヴィヴィアン・ウエストウッド @ヴィヴィアン・ウエストウッド
+
+## スー・ティリーと親友に
+84: スー・ティリー リー・バウリー=Sue Tilley Leigh Bowery|スー・ティリー @チャチャ/スー・ティリー
+
+## ニューヨークで「Hobo」
+92: リー・バウリー ファッションデザイナー 1980年代=Leigh Bowery fashion designer 1980s @結果/Hobo
+
+## ICAでパフォーマンス
+100: ICA ロンドン 現代美術研究所=Institute of Contemporary Arts London @ICA
+
+## 雑誌「The Face」
+105: The Face 雑誌 リー・バウリー=The Face magazine Leigh Bowery 1984 @1984/The Face
+
+## Mincing Queensと日本
+111: リー・バウリー Mincing Queens=Leigh Bowery Mincing Queens collection @Mincing Queens
+
+## マイケル・クラークの舞台衣装
+115: マイケル・クラーク リー・バウリー 衣装=Michael Clark Leigh Bowery costume|マイケル・クラーク @出会い/マイケル・クラーク
+
+## クラブ「タブー」
+123: クラブ タブー リー・バウリー=Taboo club Leigh Bowery 1985 @クラブ/タブー
+
+## 命がけで着飾れ
+136: タブー 命がけで着飾れ=Taboo Dress as though your life depends on it @入店ルール/命がけ
+
+## スターが常連に
+143: ボーイ・ジョージ リー・バウリー=Boy George Leigh Bowery|ボーイ・ジョージ @顔ぶれ/ボーイ・ジョージ
+
+## ザ・フォールのミュージックビデオ
+151: ザ・フォール Cruiser's Creek=The Fall Cruiser's Creek video @映像の仕事/ザ・フォール
+
+## 映画『Hail the New Puritan』
+154: Hail the New Puritan チャールズ・アトラス=Hail the New Puritan Charles Atlas @チャールズ・アトラス/Hail the New Puritan
+
+## トロージャンの死とタブーの閉店
+163: トロージャン リー・バウリー=Trojan artist Leigh Bowery|トロージャン @同居人/トロージャン
+
+## 故郷での公演と酷評
+178: マイケル・クラーク No Fire Escape in Hell=Michael Clark No Fire Escape in Hell|マイケル・クラーク @故郷/No Fire Escape in Hell
+
+## ベッシー賞
+191: ベッシー賞=Bessie Awards New York dance @ベッシー賞
+
+## 画廊のマジックミラー
+199: リー・バウリー アンソニー・ドフェイ画廊=Leigh Bowery Anthony d'Offay Gallery 1988 @画廊
+204: リー・バウリー マジックミラー 画廊=Leigh Bowery two-way mirror d'Offay @何もしない/マジックミラー
+222: スー・ティリー=Sue Tilley|スー・ティリー @見方/スー・ティリー
+
+## ルシアン・フロイド
+227: ルシアン・フロイド=Lucian Freud|ルシアン・フロイド @人物/ルシアン・フロイド
+
+## クラブで出会う
+234: ルシアン・フロイド リー・バウリー=Lucian Freud Leigh Bowery|ルシアン・フロイド @1988/顔を合わせた
+
+## ファーガス・グリアの写真
+238: ファーガス・グリア リー・バウリー=Fergus Greer Leigh Bowery photograph @もうひとつ/ファーガス・グリア
+
+## HIVを隠す
+243: レッドリボン エイズ=red ribbon AIDS @暗い影/HIV
+
+## 裸で描かれる
+255: ルシアン・フロイド リー・バウリー 絵=Lucian Freud Leigh Bowery painting @正反対/何ひとつ
+
+## 完璧に美しい
+264: リー・バウリー 座る ルシアン・フロイド=Leigh Bowery (Seated) Lucian Freud @大柄な体/惚れこんだ
+
+## 内気な素顔
+271: リー・バウリー 素顔=Leigh Bowery without makeup @内気/大事なこと
+
+## アトリエの2人
+281: ルシアン・フロイド アトリエ リー・バウリー=Lucian Freud studio Leigh Bowery|ルシアン・フロイド @アトリエ
+
+## スー・ティリーもモデルに
+294: 眠る給付金監督官 ルシアン・フロイド=Benefits Supervisor Sleeping Lucian Freud @つなぐ/スー・ティリー
+
+## 『裸体の男、背面』
+299: 裸体の男 背面 ルシアン・フロイド=Naked Man Back View Lucian Freud @裸体の男
+
+## 『Nude with Leg Up』
+305: Nude with Leg Up ルシアン・フロイド=Nude with Leg Up Lucian Freud @Nude with Leg Up
+
+## ニコラへの手紙
+311: ニコラ・ベイトマン リー・バウリー=Nicola Bateman Leigh Bowery|ニコラ・ベイトマン @感謝/ニコラ・ベイトマン
+
+## メトロポリタン美術館の晴れ舞台
+316: リー・バウリー The Metropolitan 衣装=Leigh Bowery The Metropolitan look 1993 @1993/晴れ舞台
+
+## レッテル嫌い
+330: ガーディアン 新聞=The Guardian newspaper @アクセル/ガーディアン
+
+## バンド「ミンティ」
+337: ミンティ リー・バウリー バンド=Minty band Leigh Bowery @新しい肩書き/ミンティ
+350: ミンティ ライブ リー・バウリー=Minty live Leigh Bowery @やり方
+
+## 出産パフォーマンス
+355: リー・バウリー 出産 パフォーマンス=Leigh Bowery birth performance Nicola Bateman @演目/出産
+
+## ボーイ・ジョージの感想
+360: ボーイ・ジョージ 1990年代=Boy George 1990s|ボーイ・ジョージ @反応/ボーイ・ジョージ
+
+## ニコラと結婚
+365: リー・バウリー ニコラ・ベイトマン 結婚=Leigh Bowery Nicola Bateman wedding|ニコラ・ベイトマン @決断/結婚
+
+## フォート・アスペレン芸術祭
+376: フォート・アスペレン リー・バウリー=Fort Asperen Leigh Bowery performance @勢い/フォート・アスペレン
+
+## フリーダム・カフェ、一晩で打ち切り
+379: ミンティ フリーダム・カフェ=Minty Freedom Cafe Leigh Bowery @フリーダム・カフェ
+
+## 客席の2人
+388: ルシアン・フロイド 晩年=Lucian Freud old|ルシアン・フロイド @2人/フロイド
+390: アレキサンダー・マックイーン 若い頃=young Alexander McQueen|アレキサンダー・マックイーン @マックイーン
+
+## 入院
+394: いらすとや 入院=irasutoya hospitalized @入院
+
+## 大晦日の死
+401: リー・バウリー 1994=Leigh Bowery 1994 @息を引き取った/大晦日
+
+## アイデアを持った人間として
+405: リー・バウリー=Leigh Bowery portrait @生前/言葉
+
+## フロイドが故郷へ送る
+412: ルシアン・フロイド=Lucian Freud|ルシアン・フロイド @フロイド
+415: マセドン墓地=Macedon cemetery Victoria @マセドン墓地
+
+## ボンド・ストリートの追悼会
+419: ルシアン・フロイド リー・バウリー 肖像画=Lucian Freud Leigh Bowery portrait painting @ボンド・ストリート/追悼
+
+## ニューヨーク・タイムズの訃報
+424: ニューヨーク・タイムズ リー・バウリー 訃報=New York Times Leigh Bowery obituary @訃報/ニューヨーク・タイムズ
+
+## 伝記とアルバム
+429: スー・ティリー リー・バウリー 伝記=Sue Tilley Leigh Bowery biography book @評価/伝記
+
+## RMITの回顧展
+433: リー・バウリー Look at Me 展覧会=Leigh Bowery Look at Me exhibition RMIT @Look at Me
+
+## ミュージカル『Taboo』
+437: ボーイ・ジョージ ミュージカル Taboo=Boy George Taboo musical|ボーイ・ジョージ @Taboo
+
+## チャールズ・アトラスのドキュメンタリー
+440: チャールズ・アトラス リー・バウリー ドキュメンタリー=The Legend of Leigh Bowery Charles Atlas @チャールズ・アトラス/ドキュメンタリー
+
+## シドニー現代美術館の回顧展
+443: シドニー現代美術館 リー・バウリー=Museum of Contemporary Art Australia Leigh Bowery @シドニー現代美術館
+
+## テート・モダンの大回顧展
+446: テート・モダン Leigh Bowery! 展覧会=Tate Modern Leigh Bowery! exhibition 2025 @テート・モダン
+
+## 毎日が舞台
+456: スー・ティリー=Sue Tilley|スー・ティリー @スー・ティリー
+458: リー・バウリー 衣装 パフォーマンス=Leigh Bowery look performance @着飾る
