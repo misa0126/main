@@ -513,9 +513,17 @@ async function takeOverPrevious() {
   if (db && empty.length) {
     const cands = [];
     for (const [order, version] of prev.entries()) {
+      // 前の版で Claude が入れたままの画像は引き継がない(この版にも Claude が選び直した画像が入っているので)。ユーザーが貼った画像だけ引き継ぐ
+      const key = DATA.title + ":" + version.id;
+      let autoNos = new Set(), legacy = false;
+      if (DATA.preload) {
+        try { autoNos = new Set(JSON.parse(localStorage.getItem("image-list-preload-nos:" + key) || "[]")); } catch (e) {}
+        try { legacy = localStorage.getItem("image-list-preload:" + key) === "1"; } catch (e) {}
+      }
       for (const img of version.images) {
-        const blob = await dbGetKey(DATA.title + ":" + version.id + ":" + img.no);
-        if (blob) cands.push({ order, ja: img.ja, start: img.start, value: blob });
+        const blob = await dbGetKey(key + ":" + img.no);
+        if (!blob || autoNos.has(img.no) || (legacy && blob.type === "image/jpeg")) continue;
+        cands.push({ order, ja: img.ja, start: img.start, value: blob });
       }
     }
     const got = matchPrevious(cands, empty);
