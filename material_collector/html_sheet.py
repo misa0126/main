@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import base64
 import json
 import re
 import subprocess
@@ -172,6 +173,7 @@ def build_sheet(
     title: str,
     yomi_text: str | None = None,
     previous: list[tuple[str, str]] | None = None,
+    preload: dict[int, str] | None = None,
 ) -> str:
     lines = script_lines(script_text)
     utterances, line_to_utterance = script_utterances(script_text)
@@ -211,6 +213,9 @@ def build_sheet(
         # 前の版の画像リストで貼った画像を、検索ワードと位置で引き継ぐ
         "previous": previous_versions(title, [(script_text, table_text)] + list(previous or []), page_id),
     }
+    if preload:
+        # Claude が選んで最初から入れておく画像(番号 → data URL)。最初に開いたときだけ空いている番号に入る
+        data["preload"] = {str(no): url for no, url in preload.items() if 1 <= no <= number}
     if yomi_text:
         # YMM4の読み(発音)をセリフごとに直すための読み。キーはセリフの番号
         readings = {}
@@ -225,6 +230,18 @@ def build_sheet(
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     return template.replace("__TITLE__", title).replace("/*__DATA__*/null", payload)
+
+
+def load_images(folder: Path) -> dict[int, str]:
+    """「001_ワード.jpg」のような画像を、番号 → data URL にする。"""
+    types = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".gif": "image/gif", ".webp": "image/webp"}
+    images: dict[int, str] = {}
+    for path in sorted(folder.iterdir()):
+        m = re.match(r"(\d+)", path.name)
+        kind = types.get(path.suffix.lower())
+        if m and kind and int(m.group(1)) not in images:
+            images[int(m.group(1))] = f"data:{kind};base64," + base64.b64encode(path.read_bytes()).decode()
+    return images
 
 
 def git_history(script: Path, table: Path) -> list[tuple[str, str]]:
@@ -258,6 +275,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("table", type=Path)
     parser.add_argument("output", type=Path, nargs="?", help="省略すると「タイトル_image_list.html」")
     parser.add_argument("--title", required=True)
+    parser.add_argument("--images", type=Path, help="「001_ワード.jpg」のように番号で始まる画像のフォルダ。最初から画像リストに入れておく")
     parser.add_argument("--yomi", type=Path, help="読みの直し表。省略すると「台本の名前_yomi.txt」があれば使う")
     args = parser.parse_args(argv)
     yomi = args.yomi or args.script.with_name(args.script.stem + "_yomi.txt")
@@ -265,9 +283,13 @@ def main(argv: list[str] | None = None) -> int:
     if args.yomi and yomi_text is None:
         parser.error(f"読みの直し表が見つかりません: {args.yomi}")
     previous = git_history(args.script, args.table)
+    preload = load_images(args.images) if args.images else None
     html = build_sheet(
-        args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title, yomi_text, previous
+        args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title, yomi_text, previous,
+        preload,
     )
+    if preload:
+        print(f"画像を {len(preload)} 枚入れました: {args.images}")
     if previous:
         print(f"前の版の区切り表 {len(previous)} 個から、貼った画像を引き継げるようにしました")
     if yomi_text:

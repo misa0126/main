@@ -41,6 +41,23 @@ class SceneTableTest(unittest.TestCase):
         self.assertIn('id="edit"', html)
         self.assertIn('id="ymm4"', html)
 
+    def test_preloaded_images_by_number(self):
+        # Claude が選んだ画像(001_ワード.jpg)を番号どおりに最初から入れておく。番号のない画像・範囲外は使わない
+        tmp = Path(self.id().replace(".", "_") + "_imgs")
+        tmp.mkdir(exist_ok=True)
+        self.addCleanup(shutil.rmtree, tmp, ignore_errors=True)
+        (tmp / "001_甲子園.jpg").write_bytes(b"\xff\xd8x")
+        (tmp / "002_長崎.png").write_bytes(b"\x89PNGx")
+        (tmp / "009_範囲外.jpg").write_bytes(b"\xff\xd8x")
+        (tmp / "メモ.jpg").write_bytes(b"\xff\xd8x")
+        (tmp / "一覧.txt").write_text("x", encoding="utf-8")
+        from material_collector.html_sheet import load_images
+        html = build_sheet(SCRIPT, "## 導入\n1: 甲子園\n3: 長崎\n", "テスト", preload=load_images(tmp))
+        data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
+        self.assertEqual(sorted(data["preload"]), ["1", "2"])
+        self.assertTrue(data["preload"]["1"].startswith("data:image/jpeg;base64,"))
+        self.assertTrue(data["preload"]["2"].startswith("data:image/png;base64,"))
+
     def test_readings_are_keyed_by_utterance(self):
         script = "魔理沙「一」\n霊夢「二の前半、\n二の後半」\n魔理沙「三」"
         html = build_sheet(script, "## a\n1: x\n", "テスト", "# メモ\n2: にのぜんはん、にのこうはん\n4: さん\n")

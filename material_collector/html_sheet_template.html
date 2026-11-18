@@ -1007,6 +1007,24 @@ document.getElementById("pick").addEventListener("click", () => placeIntoYmm4().
   db = await openDb();
   for (const i of ALL) { const blob = await dbGet(i.no); if (blob) { pasted.set(i.no, blob); renderPaste(i.no); } }
   await takeOverPrevious();
+  // Claude が選んで最初から入れた画像(html_sheet の --images)。最初に開いたときだけ、空いている番号に入れる
+  // (あとでユーザーが「外す」した番号に、開き直すたびに戻ってこないように)
+  if (DATA.preload) {
+    const flag = "image-list-preload:" + PAGE_KEY;
+    let applied = false;
+    try { applied = localStorage.getItem(flag) === "1"; } catch (e) {}
+    if (!applied) {
+      let count = 0;
+      for (const [no, url] of Object.entries(DATA.preload)) {
+        const n = Number(no);
+        if (pasted.has(n) || !ALL.some(i => i.no === n)) continue;
+        const blob = dataUrlToBlob(url);
+        pasted.set(n, blob); dbPut(n, blob); renderPaste(n); markDone(n, true); count++;
+      }
+      try { localStorage.setItem(flag, "1"); } catch (e) {}
+      if (count) toast(`Claude が選んだ画像を ${count} 枚入れてあります。合わない番号だけ貼り直してください`);
+    }
+  }
   const first = ALL.find(i => !pasted.has(i.no));
   if (first) select(first.no);
 })();
