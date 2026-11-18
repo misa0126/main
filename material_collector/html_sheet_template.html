@@ -168,6 +168,11 @@ body.editing .seg { border-color: var(--accent); }
   <div id="log"></div>
 </dialog>
 <div class="toast" id="toast" hidden></div>
+<div id="wrongPlace" hidden style="margin:12px 16px;padding:12px 16px;border:3px solid #d22;border-radius:8px;background:#fff1f1;color:#900;font-weight:bold;line-height:1.7">
+  ⚠ いまの画面では、画像の保存や「YMM4に並べる」ができません(Claudeのアプリの中など、ブラウザ以外で開いています)。<br>
+  このHTMLファイルをパソコンに保存し、エクスプローラーでそのファイルを右クリック →「プログラムから開く」→「Google Chrome」か「Microsoft Edge」で開いてください。<br>
+  開けたら、いちばん上のアドレス欄が「file:///C:/…」で始まっていれば大丈夫です。<b>貼った画像は開いた画面ごとに別に覚えられるので、ここで貼る前に開き直してください。</b>
+</div>
 <main id="main"></main>
 <script>
 // ---- 読みの直し(YMM4の読みのうち、読みの表とちがう文字だけを置きかえる) ----
@@ -1011,6 +1016,13 @@ function showLayout(L) {
     showLayout(LAYOUT_DEFAULT);
     try { localStorage.removeItem("ymm4-layout"); } catch (e) {}
   });
+}
+// Claudeのアプリの中のプレビューなど(別のページの中に入っている・ファイル保存の仕組みがない)で開いたときは、保存できないので最初に知らせる
+// (ユーザーがアプリの中で開いていて「保存しても保存ファイルがない」となったことがある)
+{
+  let framed = false;
+  try { framed = window.self !== window.top; } catch (e) { framed = true; }
+  if (framed || !window.showDirectoryPicker || !window.showSaveFilePicker || location.protocol !== "file:" && location.protocol !== "http:" && location.protocol !== "https:") document.getElementById("wrongPlace").hidden = false;
 }
 document.getElementById("ymm4").addEventListener("click", () => { logBox.replaceChildren(); document.getElementById("pathRow").hidden = true; dlg.showModal(); });
 document.getElementById("close").addEventListener("click", () => dlg.close());
