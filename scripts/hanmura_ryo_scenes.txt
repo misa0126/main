@@ -11,6 +11,7 @@
 #   ・個人的なエピソード(父の死、退職、前借り、母の死など)はいらすとや
 #   ・場所・街並みは「年代+白黒写真/古写真」、建物は「旧社屋」、本人は「作家 写真」で当時の本物の写真が出るようにしている
 # 人の写真には「|名前」を付けている。主人公の半村良には付けない
+# 話と画像をぴったり合わせるため、話題の途中で写すもの(場所・人・物)が変わる所でも切り替えている(ユーザーの希望。2026年11月18日)
 # 各画像の「@」の後ろは、その画像を出すきっかけになる台本の言葉
 
 ## 導入：雨宿りと直木賞
@@ -19,15 +20,18 @@
 
 ## 柴又に生まれる
 18: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @半村良
+20: 柴又 帝釈天 昭和 古写真=Shibamata Taishakuten old photo @生まれた
 
 ## 父の死
 24: いらすとや お葬式 子供=irasutoya funeral child @長く続かなかった/亡くなって
 
 ## 能登へ疎開
 32: 学童疎開 白黒写真=school evacuation Japan WWII photo @戦争/疎開
+36: 能登 昭和 古写真=Noto Peninsula old photo @都会とはまるで違う
 
 ## 両国高校と野球部
 41: 府立三中 両国高校 古写真=Ryogoku High School old photo @東京へ戻って/両国高校
+45: いらすとや 野球 少年=irasutoya baseball boy @野球部
 47: 柿澤弘治 政治家=Koji Kakizawa politician|柿澤弘治 @柿澤弘治
 
 ## 進駐軍のバーでアルバイト
@@ -56,6 +60,7 @@
 
 ## 神保町の『神田茶屋』
 95: 神保町 昭和30年代 白黒写真=Jinbocho 1950s photo @神保町/集英社
+99: バーテンダー 昭和 白黒写真=Japanese bartender Showa photo @カウンターの内側
 
 ## 広告代理店へ
 106: 広告代理店 昭和30年代 白黒写真=Japanese advertising agency 1950s photo @広告代理店
@@ -83,6 +88,7 @@
 
 ## 結婚と作家への転身
 169: いらすとや 結婚式=irasutoya wedding @結婚
+174: 半村良 作家 写真=Ryo Hanmura novelist photo @35歳/転身
 
 ## 編集長交代と早川書房
 179: 早川書房 旧社屋=Hayakawa Publishing old building @早川書房
@@ -104,8 +110,9 @@
 ## 第1回泉鏡花文学賞
 232: 泉鏡花=Kyoka Izumi|泉鏡花 @泉鏡花
 
-## 『妖星伝』の連載と『英雄伝説』(ゲームの話も同じ画像のまま)
+## 『妖星伝』の連載と『英雄伝説』
 241: 妖星伝 半村良=Yoseiden Ryo Hanmura @妖星伝
+243: 英雄伝説 ゲーム=The Legend of Heroes Falcom game @英雄伝説
 
 ## 直木賞を目指す
 247: 直木賞 授賞式 昭和 報道写真=Naoki Prize ceremony Showa photo @直木賞
