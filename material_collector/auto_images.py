@@ -8,6 +8,7 @@
     python -m material_collector.auto_images candidates scripts/台本_scenes.txt 作業フォルダ
 
     # 2. 一覧画像を見て、作業フォルダ/picks.txt に「番号: 候補の番号」を書く(例: 「12: 3」。合うものがなければ「12: -」)
+    #    本や雑誌に載った写真は、写真の所だけ切り抜く: 「3: 1 crop=0.58,0.03,0.96,0.38」(左,上,右,下。幅と高さに対する割合)
 
     # 3. 選んだ画像を保存する(作業フォルダ/選んだ画像/001_ワード.jpg)
     python -m material_collector.auto_images fetch 作業フォルダ
@@ -146,16 +147,17 @@ def cmd_fetch(work: Path) -> int:
     data = json.loads((work / "candidates.json").read_text(encoding="utf-8"))
     picks = {}
     for line in (work / "picks.txt").read_text(encoding="utf-8").splitlines():
-        m = re.match(r"\s*(\d+)\s*:\s*([\d-]+)", line)
+        m = re.match(r"\s*(\d+)\s*:\s*([\d-]+)(?:\s+crop=([\d.]+),([\d.]+),([\d.]+),([\d.]+))?", line)
         if m:
-            picks[m.group(1).lstrip("0") or "0"] = m.group(2)
+            crop = tuple(float(v) for v in m.groups()[2:]) if m.group(3) else None
+            picks[m.group(1).lstrip("0") or "0"] = (m.group(2), crop)
     out = work / "選んだ画像"
     out.mkdir(exist_ok=True)
     session = requests.Session()
     session.headers["User-Agent"] = UA
     missing = []
     for key, item in sorted(data.items(), key=lambda kv: int(kv[0])):
-        pick = picks.get(key)
+        pick, crop = picks.get(key, (None, None))
         name = f"{int(key):03d}_{safe_name(item['ja'])}.jpg"
         if (out / name).exists():
             continue
@@ -176,8 +178,12 @@ def cmd_fetch(work: Path) -> int:
             missing.append(int(key))
             print(f"{int(key):03d} 保存できませんでした")
             continue
+        if crop:
+            # 本や雑誌の、写真の所だけ切り抜く(文字を入れずに、写真に見えるようにする)
+            l, t, r, b = crop
+            img = img.crop((round(l * img.width), round(t * img.height), round(r * img.width), round(b * img.height)))
         img.thumbnail((MAX_SIDE, MAX_SIDE))
-        img.save(out / name, quality=85)
+        img.save(out / name, quality=90)
         print(f"{int(key):03d} 保存 {img.size[0]}x{img.size[1]}")
     (work / "見つからなかった番号.txt").write_text("\n".join(map(str, missing)) + "\n", encoding="utf-8")
     print("入れられなかった番号:", ", ".join(map(str, missing)) or "なし")

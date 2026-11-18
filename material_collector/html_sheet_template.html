@@ -577,7 +577,13 @@ function markDone(no, value) {
   item.querySelector("input").checked = value;
   save();
 }
+// Claude が最初から入れた画像の番号(ユーザーが貼り替えたら外す。新しい版の画像リストで入れかえてよい番号)
+const PRELOAD_NOS_KEY = "image-list-preload-nos:" + PAGE_KEY;
+function preloadNos() { try { return new Set(JSON.parse(localStorage.getItem(PRELOAD_NOS_KEY) || "[]")); } catch (e) { return new Set(); } }
+function savePreloadNos(set) { try { localStorage.setItem(PRELOAD_NOS_KEY, JSON.stringify([...set])); } catch (e) {} }
+function userTouched(no) { const s = preloadNos(); if (s.delete(no)) savePreloadNos(s); }
 function setImage(no, blob) {
+  userTouched(no);
   if (blob) pasted.set(no, blob); else pasted.delete(no);
   dbPut(no, blob);
   renderPaste(no);
@@ -641,6 +647,7 @@ folderInput.addEventListener("change", () => {
     if (!img || taken.has(img.no)) { unknown++; continue; }
     taken.add(img.no);
     if (pasted.has(img.no)) { kept++; continue; }
+    userTouched(img.no);
     pasted.set(img.no, f);
     dbPut(img.no, f);
     renderPaste(img.no);
@@ -1068,18 +1075,27 @@ ymmpFile.addEventListener("change", () => { const f = ymmpFile.files[0]; if (f) 
   // Claude が選んで最初から入れた画像(html_sheet の --images)。最初に開いたときだけ、空いている番号に入れる
   // (あとでユーザーが「外す」した番号に、開き直すたびに戻ってこないように)
   if (DATA.preload) {
+    // 版ごとに1回だけ入れる。前の版で Claude が入れたまま(ユーザーが貼り替えていない)の番号は、新しい版の画像に入れかえる
     const flag = "image-list-preload:" + PAGE_KEY;
-    let applied = false;
-    try { applied = localStorage.getItem(flag) === "1"; } catch (e) {}
-    if (!applied) {
+    let applied = null;
+    try { applied = localStorage.getItem(flag); } catch (e) {}
+    if (applied !== DATA.preloadVersion) {
+      const auto = preloadNos();
+      if (applied === "1") {
+        // 前の作り方(番号を覚えていない版)で入れた画像: Claude が入れたJPEGのままなら入れかえてよい。
+        // 画像のコピー&貼り付けはPNGになるので、ユーザーが貼った画像とは分けられる
+        for (const [no, blob] of pasted) if (blob.type === "image/jpeg" && String(no) in DATA.preload) auto.add(no);
+      }
       let count = 0;
       for (const [no, url] of Object.entries(DATA.preload)) {
         const n = Number(no);
-        if (pasted.has(n) || !ALL.some(i => i.no === n)) continue;
+        if (!ALL.some(i => i.no === n)) continue;
+        if (pasted.has(n) && !auto.has(n)) continue;  // ユーザーが自分で貼った画像は残す
         const blob = dataUrlToBlob(url);
-        pasted.set(n, blob); dbPut(n, blob); renderPaste(n); markDone(n, true); count++;
+        pasted.set(n, blob); dbPut(n, blob); renderPaste(n); markDone(n, true); auto.add(n); count++;
       }
-      try { localStorage.setItem(flag, "1"); } catch (e) {}
+      savePreloadNos(auto);
+      try { localStorage.setItem(flag, DATA.preloadVersion); } catch (e) {}
       if (count) toast(`Claude が選んだ画像を ${count} 枚入れてあります。合わない番号だけ貼り直してください`);
     }
   }

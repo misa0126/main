@@ -216,6 +216,8 @@ def build_sheet(
     if preload:
         # Claude が選んで最初から入れておく画像(番号 → data URL)。最初に開いたときだけ空いている番号に入る
         data["preload"] = {str(no): url for no, url in preload.items() if 1 <= no <= number}
+        # 画像を選び直して作り直したとき、前の版で入れた画像を入れかえるための目印
+        data["preloadVersion"] = hashlib.sha1(json.dumps(data["preload"], sort_keys=True).encode()).hexdigest()[:12]
     if yomi_text:
         # YMM4の読み(発音)をセリフごとに直すための読み。キーはセリフの番号
         readings = {}
