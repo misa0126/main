@@ -159,7 +159,7 @@ body.editing .seg { border-color: var(--accent); }
     <button type="button" id="pickFile">うまくいかないとき: プロジェクト(.ymmp)を選んでZIPで受け取る</button>
     <input type="file" id="ymmpFile" accept=".ymmp" hidden>
   </div>
-  <p style="margin:4px 0 0;font-size:12px;color:var(--muted)">「編集を許可」が出ない・フォルダを選べないときはこちら。YMM4のプロジェクト(.ymmp)を選ぶと、画像と並べ終えたプロジェクトを1つのZIPにします。ZIPは<b>プロジェクトと同じフォルダ</b>に保存し、右クリック →「すべて展開」→「展開」(場所は変えない)。できた「〜_画像入り」フォルダの中の「open_in_ymm4.ymmp」をYMM4で開きます。</p>
+  <p style="margin:4px 0 0;font-size:12px;color:var(--muted)">「編集を許可」が出ない・フォルダを選べないときはこちら。許可は要りません。YMM4のプロジェクト(.ymmp)を選ぶと、画像と並べ終えたプロジェクトを1つのZIPにしてダウンロードします。展開のしかたは、ダウンロードした後にここに出ます。</p>
   <div class="row" id="pathRow" hidden style="margin-top:12px">
     <span>そのフォルダの場所:</span>
     <input type="text" id="pathInput" placeholder="例: C:\Users\名前\Desktop\__TITLE__">
@@ -766,7 +766,9 @@ async function placeIntoYmm4(pickedFile) {
     if (!window.showDirectoryPicker) { log("このブラウザではフォルダを選べません。Chrome か Edge で開くか、下の「プロジェクト(.ymmp)を選んでZIPで受け取る」を使ってください。", "ng"); return; }
     try { dir = await showDirectoryPicker({ id: "ymm4", mode: "readwrite" }); }
     catch (e) {
-      if (e.name !== "AbortError") log("そのフォルダは選べませんでした(" + e.message + ")。デスクトップなどの中に新しくフォルダを作り、そこにプロジェクトを保存して選んでください。それでもだめなときは、下の「プロジェクト(.ymmp)を選んでZIPで受け取る」を使ってください。", "ng");
+      // 確認を何度か閉じると、Chromeは確認を出さずに断る(このときも AbortError になる)。黙って終わらせず、次の手を出す
+      if (e.name === "AbortError") log("フォルダが選ばれなかったか、Chromeが「ファイルの編集」の確認を出さずに断りました。フォルダを選んでも何も出ないときは、下の「プロジェクト(.ymmp)を選んでZIPで受け取る」を使ってください(許可は要りません)。", "ng");
+      else log("そのフォルダは選べませんでした(" + e.message + ")。デスクトップなどの中に新しくフォルダを作り、そこにプロジェクトを保存して選んでください。それでもだめなときは、下の「プロジェクト(.ymmp)を選んでZIPで受け取る」を使ってください。", "ng");
       return;
     }
     // フォルダの中で一番新しく保存した .ymmp を使う
@@ -933,26 +935,23 @@ async function placeIntoYmm4(pickedFile) {
   else {
     zipFiles.unshift({ name: outName, data: new TextEncoder().encode(projectText) });
     const zip = makeZip(zipFiles), zipName = outBase + ".zip";
-    // 保存の窓は、押したすぐ後でないと開けないので、ボタンを押してもらう
-    const btn = el("button", { type: "button", class: "big primary" }, `「${zipName}」を保存する`);
-    btn.addEventListener("click", async () => {
-      if (window.showSaveFilePicker) {
-        try {
-          const handle = await showSaveFilePicker({ id: "ymm4zip", suggestedName: zipName, types: [{ description: "ZIP", accept: { "application/zip": [".zip"] } }] });
-          const w = await handle.createWritable(); await w.write(zip); await w.close();
-        } catch (e) {
-          if (e.name === "AbortError") return;
-          log("保存できませんでした(" + e.message + ")。もう一度押してください。", "ng"); return;
-        }
-      } else {
-        const a = el("a", { href: URL.createObjectURL(zip), download: zipName });
-        document.body.append(a); a.click(); a.remove();
-      }
-      log(`保存しました。ZIPを右クリック →「すべて展開」→「展開」(場所はそのまま)。できた「${outBase}」フォルダの中の「${outName}」をYMM4で開いてください。`, "ok");
-      log(`画像は、展開した後のこの場所にある前提で並べています: ${folderPath}\\${subName}\\ 。ZIPを別の場所に保存したり、展開先を変えたりすると、YMM4で画像が見つかりません。`);
+    // Chromeの「ファイルの編集」の許可を使わず、普通のダウンロードで渡す(ユーザーのPCで許可の確認が出ず、保存の窓でも保存されなかったため)
+    const extractTo = folderPath;  // 「すべて展開」の展開先(ここに展開すると、画像の場所がプロジェクトと合う)
+    const btn = el("button", { type: "button", class: "big primary" }, `「${zipName}」をダウンロード`);
+    btn.addEventListener("click", () => {
+      const a = el("a", { href: URL.createObjectURL(zip), download: zipName });
+      document.body.append(a); a.click(); a.remove();
+      log(`ダウンロードしました(ふつうは「ダウンロード」フォルダに入ります)。次の手順で開いてください。`, "ok");
+      log(`① ダウンロードしたZIPを右クリック →「すべて展開」\n② 「ファイルを下のフォルダーに展開する」の欄を、下の「展開先をコピー」でコピーした場所に書きかえる(欄の中を全部選んで Ctrl+V)→「展開」\n③ 開いたフォルダの「${outName}」をYMM4で開く`);
+      const copy = el("button", { type: "button" }, "展開先をコピー");
+      copy.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(extractTo); copy.textContent = "コピーしました"; }
+        catch (e) { copy.textContent = "コピーできませんでした。右の文字を選んで Ctrl+C"; }
+      });
+      logBox.append(el("div", {}, copy, " 展開先: ", el("b", {}, extractTo))); logBox.scrollTop = logBox.scrollHeight;
     });
     showZipButton = () => {
-      log(`ZIPの準備ができました。下のボタンを押して、プロジェクトと同じフォルダ(${folderPath.slice(0, folderPath.lastIndexOf("\\"))})に保存してください。`, "ok");
+      log(`ZIPの準備ができました。下のボタンを押してダウンロードしてください。`, "ok");
       logBox.append(el("div", {}, btn)); logBox.scrollTop = logBox.scrollHeight;
     };
   }
