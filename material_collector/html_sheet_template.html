@@ -1004,9 +1004,9 @@ document.getElementById("close").addEventListener("click", () => dlg.close());
 document.getElementById("pick").addEventListener("click", () => placeIntoYmm4().catch(e => log("うまくいきませんでした: " + e.message, "ng")));
 
 (async () => {
-  db = await openDb();
+  try { db = await openDb(); } catch (e) { db = null; }
   for (const i of ALL) { const blob = await dbGet(i.no); if (blob) { pasted.set(i.no, blob); renderPaste(i.no); } }
-  await takeOverPrevious();
+  try { await takeOverPrevious(); } catch (e) { console.error(e); }  // 引き継ぎで失敗しても、下の画像は入れる
   // Claude が選んで最初から入れた画像(html_sheet の --images)。最初に開いたときだけ、空いている番号に入れる
   // (あとでユーザーが「外す」した番号に、開き直すたびに戻ってこないように)
   if (DATA.preload) {
