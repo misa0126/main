@@ -75,16 +75,20 @@ def _font(size: int):
     return ImageFont.load_default()
 
 
-def load_image(data: bytes) -> Image.Image | None:
+def load_image(data: bytes, keep_alpha: bool = False) -> Image.Image | None:
+    """画像を読む。透明な所があるとき、keep_alpha なら透明のまま(RGBA)、そうでなければ白にする(一覧画像用)。"""
     try:
         img = Image.open(io.BytesIO(data))
         img.load()
-        if img.mode in ("RGBA", "LA", "P"):
-            # 透明な所(いらすとやなど)は白にする。そのままRGBにすると黒くなる
+        if img.mode in ("RGBA", "LA", "P") or "transparency" in img.info:
             img = img.convert("RGBA")
-            back = Image.new("RGB", img.size, "white")
-            back.paste(img, mask=img.getchannel("A"))
-            return back
+            if img.getchannel("A").getextrema()[0] < 255:
+                if keep_alpha:
+                    return img  # いらすとやなどは透明のまま残す(ユーザーの希望。白い背景にしない)
+                # 一覧画像では白にする(そのままRGBにすると黒くなる)
+                back = Image.new("RGB", img.size, "white")
+                back.paste(img, mask=img.getchannel("A"))
+                return back
         return img.convert("RGB")
     except Exception:
         return None
@@ -139,6 +143,29 @@ def cmd_candidates(table: Path, work: Path) -> int:
     return 0
 
 
+def white_to_alpha(img: Image.Image, tolerance: int = 24) -> Image.Image:
+    """いらすとやの白い背景を透明にする(透過していないJPGで出回っているもの用)。
+
+    画像のふちから続いている白い所だけを透明にする(絵の中の白い服などは残す)。
+    """
+    rgb = img.convert("RGB")
+    marked = rgb.copy()
+    marker = (255, 0, 255)
+    w, h = rgb.size
+    for x, y in [(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1), (w // 2, 0), (w // 2, h - 1), (0, h // 2), (w - 1, h // 2)]:
+        if min(rgb.getpixel((x, y))) >= 255 - tolerance and marked.getpixel((x, y)) != marker:
+            ImageDraw.floodfill(marked, (x, y), marker, thresh=tolerance)
+    out = rgb.convert("RGBA")
+    alpha = Image.new("L", (w, h), 255)
+    px, apx = marked.load(), alpha.load()
+    for yy in range(h):
+        for xx in range(w):
+            if px[xx, yy] == marker:
+                apx[xx, yy] = 0
+    out.putalpha(alpha)
+    return out
+
+
 def safe_name(text: str) -> str:
     return re.sub(r'[\\/:*?"<>|\s]+', "_", text).strip("_")[:40]
 
@@ -158,8 +185,8 @@ def cmd_fetch(work: Path) -> int:
     missing = []
     for key, item in sorted(data.items(), key=lambda kv: int(kv[0])):
         pick, crop = picks.get(key, (None, None))
-        name = f"{int(key):03d}_{safe_name(item['ja'])}.jpg"
-        if (out / name).exists():
+        stem = f"{int(key):03d}_{safe_name(item['ja'])}"
+        if any(out.glob(f"{int(key):03d}_*")):
             continue
         if not pick or pick == "-":
             missing.append(int(key))
@@ -169,7 +196,7 @@ def cmd_fetch(work: Path) -> int:
         for url in (cand["orig"], cand["thumb"]):
             try:
                 resp = session.get(url, timeout=20, headers={"Referer": cand["page"] or "https://search.yahoo.co.jp/"})
-                img = load_image(resp.content) if resp.ok else None
+                img = load_image(resp.content, keep_alpha=True) if resp.ok else None
             except Exception:
                 img = None
             if img and min(img.size) >= 120:
@@ -183,7 +210,12 @@ def cmd_fetch(work: Path) -> int:
             l, t, r, b = crop
             img = img.crop((round(l * img.width), round(t * img.height), round(r * img.width), round(b * img.height)))
         img.thumbnail((MAX_SIDE, MAX_SIDE))
-        img.save(out / name, quality=90)
+        if img.mode != "RGBA" and "いらすとや" in item["ja"]:
+            img = white_to_alpha(img)  # いらすとやは背景を透明にする(ユーザーの希望)
+        if img.mode == "RGBA":
+            img.save(out / f"{stem}.png")  # 透明な所があるので PNG のまま
+        else:
+            img.save(out / f"{stem}.jpg", quality=90)
         print(f"{int(key):03d} 保存 {img.size[0]}x{img.size[1]}")
     (work / "見つからなかった番号.txt").write_text("\n".join(map(str, missing)) + "\n", encoding="utf-8")
     print("入れられなかった番号:", ", ".join(map(str, missing)) or "なし")
