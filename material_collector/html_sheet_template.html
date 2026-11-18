@@ -155,6 +155,11 @@ body.editing .seg { border-color: var(--accent); }
     <button type="button" class="big" id="pick">フォルダを選んで並べる</button>
     <button type="button" id="close">閉じる</button>
   </div>
+  <div class="row" style="margin-top:10px">
+    <button type="button" id="pickFile">うまくいかないとき: プロジェクト(.ymmp)を選んでZIPで受け取る</button>
+    <input type="file" id="ymmpFile" accept=".ymmp" hidden>
+  </div>
+  <p style="margin:4px 0 0;font-size:12px;color:var(--muted)">「編集を許可」が出ない・フォルダを選べないときはこちら。YMM4のプロジェクト(.ymmp)を選ぶと、画像と並べ終えたプロジェクトを1つのZIPにします。ZIPは<b>プロジェクトと同じフォルダ</b>に保存し、右クリック →「すべて展開」→「展開」(場所は変えない)。できたフォルダの中の「〜_画像入り.ymmp」をYMM4で開きます。</p>
   <div class="row" id="pathRow" hidden style="margin-top:12px">
     <span>そのフォルダの場所:</span>
     <input type="text" id="pathInput" placeholder="例: C:\Users\名前\Desktop\__TITLE__">
@@ -748,23 +753,27 @@ async function writeFile(dir, name, data) {
   const w = await handle.createWritable(); await w.write(data); await w.close();
 }
 
-async function placeIntoYmm4() {
+// pickedFile を渡したとき(ZIPで受け取る方法): フォルダの書き込み許可を使わず、できたものを1つのZIPにして保存してもらう
+async function placeIntoYmm4(pickedFile) {
   logBox.replaceChildren();
-  if (!window.showDirectoryPicker) { log("このブラウザでは使えません。Chrome か Edge で開いてください。", "ng"); return; }
-  let dir;
-  try { dir = await showDirectoryPicker({ id: "ymm4", mode: "readwrite" }); }
-  catch (e) {
-    if (e.name !== "AbortError") log("そのフォルダは選べませんでした。デスクトップなどの中に新しくフォルダを作り、そこにプロジェクトを保存して選んでください。", "ng");
-    return;
+  let dir = null, file = pickedFile;
+  if (!file) {
+    if (!window.showDirectoryPicker) { log("このブラウザではフォルダを選べません。Chrome か Edge で開くか、下の「プロジェクト(.ymmp)を選んでZIPで受け取る」を使ってください。", "ng"); return; }
+    try { dir = await showDirectoryPicker({ id: "ymm4", mode: "readwrite" }); }
+    catch (e) {
+      if (e.name !== "AbortError") log("そのフォルダは選べませんでした(" + e.message + ")。デスクトップなどの中に新しくフォルダを作り、そこにプロジェクトを保存して選んでください。それでもだめなときは、下の「プロジェクト(.ymmp)を選んでZIPで受け取る」を使ってください。", "ng");
+      return;
+    }
+    // フォルダの中で一番新しく保存した .ymmp を使う
+    const found = [];
+    for await (const [name, handle] of dir.entries()) {
+      if (handle.kind === "file" && /\.ymmp$/i.test(name) && !name.includes("_画像入り")) found.push(await handle.getFile());
+    }
+    if (!found.length) { log("このフォルダにYMM4のプロジェクト(.ymmp)がありません。YMM4で保存したフォルダを選んでください。", "ng"); return; }
+    found.sort((a, b) => b.lastModified - a.lastModified);
+    file = found[0];
   }
-  // フォルダの中で一番新しく保存した .ymmp を使う
-  const found = [];
-  for await (const [name, handle] of dir.entries()) {
-    if (handle.kind === "file" && /\.ymmp$/i.test(name) && !name.includes("_画像入り")) found.push(await handle.getFile());
-  }
-  if (!found.length) { log("このフォルダにYMM4のプロジェクト(.ymmp)がありません。YMM4で保存したフォルダを選んでください。", "ng"); return; }
-  found.sort((a, b) => b.lastModified - a.lastModified);
-  const file = found[0];
+  const zipFiles = [];
   log(`プロジェクト「${file.name}」を読み込みます。`);
   const rawText = (await file.text()).replace(/^\uFEFF/, "");
   const project = JSON.parse(rawText);
@@ -783,6 +792,9 @@ async function placeIntoYmm4() {
     log("フォルダの場所が分からないので教えてください。エクスプローラーでそのフォルダを開き、上のアドレス欄をクリック → Ctrl+C → 下の欄に Ctrl+V → OK。");
     folderPath = await askPath();
   }
+  // ZIPで受け取るときは、ZIPを「すべて展開」でできるフォルダ(ZIPと同じ名前)の中に画像が入る
+  const outBase = file.name.replace(/\.ymmp$/i, "") + "_画像入り";
+  if (!dir) folderPath += "\\" + outBase;
 
   // 台本のセリフとYMM4のセリフを、文字の並びで突き合わせる
   const U = DATA.utterances.length;
@@ -843,7 +855,7 @@ async function placeIntoYmm4() {
 
   // 画像をフォルダに書き出す
   const subName = "画像_" + safeName(DATA.title);
-  const sub = await dir.getDirectoryHandle(subName, { create: true });
+  const sub = dir ? await dir.getDirectoryHandle(subName, { create: true }) : null;
   const video = timeline.VideoInfo || {};
   const W = video.Width || 1920, H = video.Height || 1080;
   const shape = (voices.find(v => v.X && v.X.Values) || {}).X || ((project.Timelines || voices.some(v => v.X && v.X.Values)) ? { Span: 0, AnimationType: "なし" } : null);
@@ -857,7 +869,8 @@ async function placeIntoYmm4() {
     const blob = pasted.get(p.img.no);
     if (!blob) { missing.push(p.img); continue; }
     const name = `${String(disp(p.img.no)).padStart(3, "0")}_${safeName(p.img.ja || p.img.en || "画像")}.${EXT[blob.type] || "png"}`;
-    await writeFile(sub, name, blob);
+    if (sub) await writeFile(sub, name, blob);
+    else zipFiles.push({ name: `${subName}/${name}`, data: new Uint8Array(await blob.arrayBuffer()) });
     // 登場・退場のフェード(ユーザーがいつも付けている映像エフェクト「フェードイン・フェードアウト」と同じ設定)
     const fade = () => shape && L.fadeOn ? [{
       $type: "YukkuriMovieMaker.Project.Effects.InOutFadeEffect, YukkuriMovieMaker",
@@ -905,9 +918,36 @@ async function placeIntoYmm4() {
   if (labels.length && !labels.some(l => l.Layer === layer)) labels.push(Object.assign(JSON.parse(JSON.stringify(labels[0])), { Layer: layer, Label: "画像", IsHidden: false }));
   if (captions.length && labels.length && !labels.some(l => l.Layer === layer + 1)) labels.push(Object.assign(JSON.parse(JSON.stringify(labels[0])), { Layer: layer + 1, Label: "名前", IsHidden: false }));
 
-  const outName = file.name.replace(/\.ymmp$/i, "") + "_画像入り.ymmp";
+  const outName = outBase + ".ymmp";
+  let showZipButton = null;
   if (project.FilePath) project.FilePath = `${folderPath}\\${outName}`;
-  await writeFile(dir, outName, "\uFEFF" + JSON.stringify(project, null, 2));
+  const projectText = "\uFEFF" + JSON.stringify(project, null, 2);
+  if (dir) await writeFile(dir, outName, projectText);
+  else {
+    zipFiles.unshift({ name: outName, data: new TextEncoder().encode(projectText) });
+    const zip = makeZip(zipFiles), zipName = outBase + ".zip";
+    // 保存の窓は、押したすぐ後でないと開けないので、ボタンを押してもらう
+    const btn = el("button", { type: "button", class: "big primary" }, `「${zipName}」を保存する`);
+    btn.addEventListener("click", async () => {
+      if (window.showSaveFilePicker) {
+        try {
+          const handle = await showSaveFilePicker({ id: "ymm4zip", suggestedName: zipName, types: [{ description: "ZIP", accept: { "application/zip": [".zip"] } }] });
+          const w = await handle.createWritable(); await w.write(zip); await w.close();
+        } catch (e) {
+          if (e.name === "AbortError") return;
+          log("保存できませんでした(" + e.message + ")。もう一度押してください。", "ng"); return;
+        }
+      } else {
+        const a = el("a", { href: URL.createObjectURL(zip), download: zipName });
+        document.body.append(a); a.click(); a.remove();
+      }
+      log(`保存しました。ZIPを右クリック →「すべて展開」→「展開」(場所はそのまま)。できた「${outBase}」フォルダの中の「${outName}」をYMM4で開いてください。`, "ok");
+    });
+    showZipButton = () => {
+      log(`ZIPの準備ができました。下のボタンを押して、プロジェクトと同じフォルダ(${folderPath.slice(0, folderPath.lastIndexOf("\\"))})に保存してください。`, "ok");
+      logBox.append(el("div", {}, btn)); logBox.scrollTop = logBox.scrollHeight;
+    };
+  }
   log(`できました！ 画像${added.length}枚を並べました。` + (captions.length ? `名前のテロップを${captions.length}か所入れました。` : "") + (fixed.length ? `読みを${fixed.length}か所直しました。` : ""), "ok");
   // 名前のテロップが入らなかったときは、理由を出す
   const named = plan.filter(p => captionOf(p.img)).length;
@@ -921,8 +961,9 @@ async function placeIntoYmm4() {
     for (const f of fixed) log(`・「${f.serif.slice(0, 30)}」\n　${f.before} → ${f.after}`);
   }
   if (skipped.length) log(`YMM4の側でセリフが分かれている・書きかえられているため、読みを直さなかったセリフ: ${skipped.length}個`);
-  log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}${captions.length ? `、名前はレイヤー${layer + 1}` : ""}、画像ファイルは「${subName}」フォルダに入っています)`);
+  if (dir) log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}${captions.length ? `、名前はレイヤー${layer + 1}` : ""}、画像ファイルは「${subName}」フォルダに入っています)`);
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => disp(m.no)).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
+  if (showZipButton) showZipButton();
 }
 // 画像の位置と大きさ(このブラウザに覚えておく)
 const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, capOn: true, fadeOn: true, fadeSec: 0.2 };
@@ -971,6 +1012,9 @@ function showLayout(L) {
 document.getElementById("ymm4").addEventListener("click", () => { logBox.replaceChildren(); document.getElementById("pathRow").hidden = true; dlg.showModal(); });
 document.getElementById("close").addEventListener("click", () => dlg.close());
 document.getElementById("pick").addEventListener("click", () => placeIntoYmm4().catch(e => log("うまくいきませんでした: " + e.message, "ng")));
+const ymmpFile = document.getElementById("ymmpFile");
+document.getElementById("pickFile").addEventListener("click", () => { ymmpFile.value = ""; ymmpFile.click(); });
+ymmpFile.addEventListener("change", () => { const f = ymmpFile.files[0]; if (f) placeIntoYmm4(f).catch(e => log("うまくいきませんでした: " + e.message, "ng")); });
 
 (async () => {
   db = await openDb();
