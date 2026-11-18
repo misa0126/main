@@ -9,6 +9,7 @@
 #   ・本人の写真は「若い頃」「作家」「晩年」など見つかりやすいワードに絞る(同じ写真の使い回しも前提)
 #   ・本人の写真がなさそうな場面は、作品の本の表紙・映画のポスター・話に出てくる人物の写真で代える
 #   ・個人的なエピソード(父の死、退職、前借り、母の死など)はいらすとや
+#   ・場所・街並みは「年代+白黒写真/古写真」、建物は「旧社屋」、本人は「作家 写真」で当時の本物の写真が出るようにしている
 # 人の写真には「|名前」を付けている。主人公の半村良には付けない
 # 各画像の「@」の後ろは、その画像を出すきっかけになる台本の言葉
 
@@ -17,51 +18,51 @@
 4: 雨やどり 半村良 本=Amayadori Ryo Hanmura book @題名にした小説
 
 ## 柴又に生まれる
-18: 半村良 若い頃=young Ryo Hanmura @半村良
+18: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @半村良
 
 ## 父の死
 24: いらすとや お葬式 子供=irasutoya funeral child @長く続かなかった/亡くなって
 
 ## 能登へ疎開
-32: 学童疎開=school evacuation Japan WWII @戦争/疎開
+32: 学童疎開 白黒写真=school evacuation Japan WWII photo @戦争/疎開
 
 ## 両国高校と野球部
-41: 両国高校=Ryogoku High School Tokyo @東京へ戻って/両国高校
-47: 柿澤弘治=Koji Kakizawa|柿澤弘治 @柿澤弘治
+41: 府立三中 両国高校 古写真=Ryogoku High School old photo @東京へ戻って/両国高校
+47: 柿澤弘治 政治家=Koji Kakizawa politician|柿澤弘治 @柿澤弘治
 
 ## 進駐軍のバーでアルバイト
-51: 進駐軍 銀座 バー=occupation forces Ginza bar @健全なだけじゃなかった/進駐軍
+51: 進駐軍 銀座 昭和20年代 白黒写真=occupation Ginza 1940s photo @健全なだけじゃなかった/進駐軍
 
 ## 高校卒業
-60: 半村良 若い頃=young Ryo Hanmura @-
+60: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @-
 
 ## 日本橋の紙問屋
-65: 日本橋 紙問屋 昭和=Nihonbashi paper wholesaler Showa @紙問屋
+65: 日本橋 昭和20年代 白黒写真=Nihonbashi 1950s photo @紙問屋
 
 ## 会社を辞めて水商売へ
 69: いらすとや 退職=irasutoya quit job @長続き/辞めて
 
 ## 職業遍歴とキャバレー
-74: キャバレー 昭和=cabaret Showa Japan @職業遍歴/キャバレー
+74: キャバレー 昭和30年代 白黒写真=Japanese cabaret 1950s photo @職業遍歴/キャバレー
 
 ## 母の旅館
 82: いらすとや 旅館 女将=irasutoya ryokan okami @蒲田/母の房子
 
 ## バーテンダーと店の経営
-85: 昭和 バーテンダー カウンター=Showa bartender counter @バーの仕事/バーテンダー
+85: バー カウンター 昭和30年代 白黒写真=Japanese bar counter 1950s photo @バーの仕事/バーテンダー
 
 ## 新宿の文壇バー『とと』
-91: 新宿 文壇バー=Shinjuku bundan bar @新宿/文壇バー
+91: 新宿 昭和30年代 白黒写真=Shinjuku 1950s photo @新宿/文壇バー
 
 ## 神保町の『神田茶屋』
-95: 神保町 集英社=Jinbocho Shueisha @神保町/集英社
+95: 神保町 昭和30年代 白黒写真=Jinbocho 1950s photo @神保町/集英社
 
 ## 広告代理店へ
-106: 広告代理店 昭和=advertising agency Showa Japan @広告代理店
+106: 広告代理店 昭和30年代 白黒写真=Japanese advertising agency 1950s photo @広告代理店
 
 ## ニッポン放送と月の家圓鏡
-114: ニッポン放送 昭和=Nippon Broadcasting System old @ニッポン放送
-117: 月の家圓鏡=Tsukinoya Enkyo|月の家圓鏡 @圓鏡
+114: ニッポン放送 旧社屋 有楽町=Nippon Broadcasting old building Yurakucho @ニッポン放送
+117: 月の家圓鏡 若い頃=young Tsukinoya Enkyo|月の家圓鏡 @圓鏡
 
 ## SFコンテスト入選とデビュー
 129: SFマガジン 1960年代=SF Magazine 1960s Hayakawa @早川書房/SFコンテスト
@@ -74,7 +75,7 @@
 150: 小松左京=Sakyo Komatsu|小松左京 @小松左京
 
 ## 書かなくなった60年代
-156: 半村良 若い頃=young Ryo Hanmura @-
+156: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @-
 159: 福島正実=Masami Fukushima|福島正実 @福島正実
 
 ## アニメの脚本
@@ -84,7 +85,7 @@
 169: いらすとや 結婚式=irasutoya wedding @結婚
 
 ## 編集長交代と早川書房
-179: 早川書房=Hayakawa Publishing @早川書房
+179: 早川書房 旧社屋=Hayakawa Publishing old building @早川書房
 
 ## 初の単行本『およね平吉時穴道行』
 190: およね平吉時穴道行 半村良=Oyone Heikichi Jiketsu Michiyuki Ryo Hanmura @およね平吉
@@ -107,19 +108,19 @@
 241: 妖星伝 半村良=Yoseiden Ryo Hanmura @妖星伝
 
 ## 直木賞を目指す
-247: 直木賞=Naoki Prize @直木賞
+247: 直木賞 授賞式 昭和 報道写真=Naoki Prize ceremony Showa photo @直木賞
 
 ## 2度の落選
 253: 黄金伝説 半村良=Ogon Densetsu Ryo Hanmura @黄金伝説
 
 ## 3度目の候補『雨やどり』
 261: 雨やどり 半村良=Amayadori Ryo Hanmura @雨やどり
-266: 新宿 裏通り バー 昭和=Shinjuku back alley bar Showa @新宿の裏通り/バー
+266: 新宿 ゴールデン街 昭和 白黒写真=Shinjuku Golden Gai Showa photo @新宿の裏通り/バー
 
 ## 直木賞受賞
-276: 半村良 直木賞=Ryo Hanmura Naoki Prize @直木賞を受賞
+276: 半村良 直木賞 受賞 写真=Ryo Hanmura Naoki Prize photo @直木賞を受賞
 281: 景山民夫=Tamio Kageyama|景山民夫 @景山民夫
-285: 半村良 作家=Ryo Hanmura novelist @-
+285: 半村良 作家 写真=Ryo Hanmura novelist photo @-
 
 ## 仕事場『半文居』
 290: 半村良 書斎=Ryo Hanmura study @半文居/仕事場
@@ -128,7 +129,7 @@
 293: どぶどろ 半村良=Dobudoro Ryo Hanmura @どぶどろ
 
 ## 政治家との付き合い
-299: 加藤紘一=Koichi Kato|加藤紘一 @加藤紘一
+299: 加藤紘一 政治家=Koichi Kato politician|加藤紘一 @加藤紘一
 
 ## 酒と女と前借り
 303: いらすとや 前借り お金=irasutoya borrow money @酒と女/前借り
@@ -155,11 +156,11 @@
 348: 妖星伝 講談社文庫=Yoseiden Kodansha bunko @トラブル/妖星伝
 
 ## 苫小牧へ
-356: 苫小牧=Tomakomai Hokkaido @思い切った行動/苫小牧
+356: 苫小牧 昭和 古写真=Tomakomai Showa old photo @思い切った行動/苫小牧
 363: どさんこ大将 半村良=Dosanko Taisho Ryo Hanmura @どさんこ大将
 
 ## 浅草へ戻る
-367: 浅草 雷門=Asakusa Kaminarimon @東京へ戻って/浅草
+367: 浅草 雷門 昭和=Asakusa Kaminarimon Showa @東京へ戻って/浅草
 
 ## 『岬一郎の抵抗』で日本SF大賞
 372: 岬一郎の抵抗 半村良=Misaki Ichiro no Teiko Ryo Hanmura @岬一郎の抵抗/大きな成果
@@ -180,7 +181,7 @@
 421: 妖星伝 全巻=Yoseiden complete set @妖星伝
 
 ## 晩年の引っ越し
-431: 半村良 晩年=Ryo Hanmura later years @鹿沼/前橋
+431: 半村良 晩年 写真=Ryo Hanmura later years photo @鹿沼/前橋
 
 ## 最後の作品『すべて辛抱』『獄門首』
 436: すべて辛抱 半村良=Subete Shinbo Ryo Hanmura @すべて辛抱
@@ -198,4 +199,4 @@
 452: 能登怪異譚 半村良=Noto Kaii Tan Ryo Hanmura @能登怪異譚
 
 ## まとめ：嘘屋の物語
-456: 半村良=Ryo Hanmura @-
+456: 半村良 作家 写真=Ryo Hanmura novelist photo @-
