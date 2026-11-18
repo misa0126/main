@@ -26,6 +26,7 @@
     写真: 1                                       ← 使う写真の番号。比較は「1, 2」
     ラベル: 20歳, 69歳                            ← 比較のときの左右の文字
     ゆっくりの大きさ: 1.5                         ← 1 がふつう。2 で2倍(顔アップは1でもスマホで見える大きさ)
+    写真を下げる: 80                              ← 自動で合わせた位置から写真を下げる(画面の高さ720のうちの画素。マイナスで上げる)
     顔の大きさ: 大                                ← 顔アップは「大」が標準(顔全体と髪が見えるくらい)。
                                                      「アップ」は目が一言のすぐ下に来るまで寄せる(おでこは隠れる)。「ふつう」はもっと引く
     白黒: はい                                    ← 写真を白黒に(顔アップは最初から白黒。「白黒: いいえ」でカラーにできる)
@@ -109,7 +110,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "reimu": None, "marisa": None, "color": "黄", "video_title": ""})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "photo_shift": 0, "reimu": None, "marisa": None, "color": "黄", "video_title": ""})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -162,6 +163,11 @@ def parse_thumb_table(text: str) -> dict:
             if value not in ("アップ", "大", "ふつう"):
                 raise ValueError(f"顔の大きさは「アップ」「大」「ふつう」のどれかにしてください: {line}")
             plan["big_face"] = "close" if value == "アップ" else value == "大"
+        elif key == "写真を下げる":
+            try:
+                plan["photo_shift"] = int(float(value))
+            except ValueError:
+                raise ValueError(f"写真を下げるは数字で書いてください(画面の高さ720のうち何画素下げるか。マイナスで上げる): {line}") from None
         elif key == "白黒":
             if value not in ("はい", "いいえ"):
                 raise ValueError(f"白黒は「はい」か「いいえ」にしてください: {line}")

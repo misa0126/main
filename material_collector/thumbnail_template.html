@@ -169,7 +169,7 @@ async function setPhoto(no, blob, quiet = false) {
   if (!quiet) {
     dbPut(no, blob);
     // 新しい写真にしたら、その写真の位置と拡大を元に戻す
-    for (const p of plans) { p.state.views = p.state.views.map((v, i) => p.state.photos[i] === no ? autoView(no, p.state.layout, i, p.state.bigFace) : v); p.save(); }
+    for (const p of plans) { p.state.views = p.state.views.map((v, i) => p.state.photos[i] === no ? autoView(no, p.state.layout, i, p.state.bigFace, p.state.shift) : v); p.save(); }
   }
   renderPhoto(no);
   plans.forEach(p => p.draw());
@@ -450,7 +450,8 @@ const FACE_TARGET = {
 const BIG_FACE = { h: 400, x: 0.5, y: 385, gapTop: 260 };
 // 顔の大きさ「アップ」: 目が一言のすぐ下に来るまで寄せる(おでこは一言に隠れる。顔や表情が印象的な人向け)
 const CLOSE_FACE = { h: 560, x: 0.5, y: 345, gapTop: 260 };
-function autoView(no, layout, index, big = false) {
+// shift: 表の「写真を下げる: 数字」。顔を目標の位置からその分だけ下げる(1280×720 の画素。マイナスで上げる)
+function autoView(no, layout, index, big = false, shift = 0) {
   const f = (DATA.face_boxes || {})[no], p = photos.get(no);
   const t = layout === "顔アップ" && big === "close" ? CLOSE_FACE : big && layout === "顔アップ" ? BIG_FACE : FACE_TARGET[layout];
   const r = photoRects(layout)[index];
@@ -462,7 +463,7 @@ function autoView(no, layout, index, big = false) {
   const w = p.img.width * s, h = p.img.height * s;
   // 顔を目標の位置へ。ただし写真の端が枠の中に入らないようにする
   let x = r.x + r.w * t.x - (r.x + (r.w - w) / 2 + cx * s);
-  let y = (r.y + t.y) - (r.y + (r.h - h) / 2 + cy * s);
+  let y = (r.y + t.y + (shift || 0)) - (r.y + (r.h - h) / 2 + cy * s);
   const mx = (w - r.w) / 2, my = (h - r.h) / 2;
   if (w >= r.w) x = Math.max(-mx, Math.min(mx, x));
   y = Math.max(-my, Math.min(my + (t.gapTop || 0), y));  // 下はすき間を作らない。gapTop: 上はすき間を作って下げてよい
@@ -584,7 +585,7 @@ const plans = [];
 function makePlan(def, index) {
   const key = PAGE_KEY + ":plan" + index;
   const initial = () => ({ layout: def.layout, band: def.band, text: def.text, photos: [def.photos[0], def.photos[1] || def.photos[0]],
-    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, font: def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
+    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, shift: def.photo_shift || 0, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, font: def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
     textScale: 1, faceScale: def.face_scale || 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
   const plan = { state: Object.assign(initial(), loadJson(key, {})) };
   plan.save = () => saveJson(key, plan.state);
@@ -641,14 +642,14 @@ function makePlan(def, index) {
   };
   const photoOpts = DATA.photos.map((p, i) => [String(i + 1), `写真 ${i + 1}(${p.ja})`]);
   const exprOpts = DATA.expressions.map(x => [x, x]);
-  const second = el("div", { class: "row2" }, sel(photoOpts, String(st.photos[1]), v => { st.photos[1] = Number(v); st.views[1] = autoView(st.photos[1], st.layout, 1, st.bigFace); }));
+  const second = el("div", { class: "row2" }, sel(photoOpts, String(st.photos[1]), v => { st.photos[1] = Number(v); st.views[1] = autoView(st.photos[1], st.layout, 1, st.bigFace, st.shift); }));
   const labelRow = el("div", { class: "row2" }, text(st.labels[0], v => { st.labels[0] = v; }, "左"), text(st.labels[1], v => { st.labels[1] = v; }, "右"));
   const secondLabel = el("label", {}, "右の写真"), labelLabel = el("label", {}, "左右の文字");
   const showCompare = () => { const on = st.layout === "比較"; [second, labelRow, secondLabel, labelLabel].forEach(x => { x.hidden = !on; }); };
   const reimuSel = sel(exprOpts, st.reimu, v => { st.reimu = v; });
   const marisaSel = sel(exprOpts, st.marisa, v => { st.marisa = v; });
   const ctrl = el("div", { class: "ctrl" },
-    el("label", {}, "型"), sel(DATA.layouts.map(x => [x, x]), st.layout, v => { st.layout = v; st.views = st.views.map((_, j) => autoView(st.photos[j], v, j, st.bigFace)); showCompare(); }),
+    el("label", {}, "型"), sel(DATA.layouts.map(x => [x, x]), st.layout, v => { st.layout = v; st.views = st.views.map((_, j) => autoView(st.photos[j], v, j, st.bigFace, st.shift)); showCompare(); }),
     el("label", {}, "文字"), text(st.text, v => {
       st.text = v;
       // 一言に合わせて表情も変える(あとで欄から選び直してもよい)
@@ -661,7 +662,7 @@ function makePlan(def, index) {
     el("label", {}, "霊夢のセリフ"), text(st.reimuSays, v => { st.reimuSays = v; }, "空なら吹き出しなし"),
     el("label", {}, "魔理沙のセリフ"), text(st.marisaSays, v => { st.marisaSays = v; }, "空なら吹き出しなし"),
     el("label", {}, "名前"), text(st.nameText, v => { st.nameText = v; }, "空にすると名前を出さない"),
-    el("label", {}, "写真"), sel(photoOpts, String(st.photos[0]), v => { st.photos[0] = Number(v); st.views[0] = autoView(st.photos[0], st.layout, 0, st.bigFace); }),
+    el("label", {}, "写真"), sel(photoOpts, String(st.photos[0]), v => { st.photos[0] = Number(v); st.views[0] = autoView(st.photos[0], st.layout, 0, st.bigFace, st.shift); }),
     secondLabel, second, labelLabel, labelRow,
     el("label", {}, "白黒"), (() => { const c = el("input", { type: "checkbox" }); c.checked = st.mono; c.addEventListener("change", () => { st.mono = c.checked; changed(); }); return el("div", {}, c); })(),
     el("label", {}, "霊夢"), reimuSel,
@@ -733,7 +734,7 @@ function waitFont(family) {
       await setPhoto(no, dataUrlToBlob(src), true);
       for (const p of plans) {
         // 自分で動かした写真はそのまま
-        p.state.views = p.state.views.map((v, j) => p.state.photos[j] === no && v.x === 0 && v.y === 0 && v.z === 1 ? autoView(no, p.state.layout, j, p.state.bigFace) : v);
+        p.state.views = p.state.views.map((v, j) => p.state.photos[j] === no && v.x === 0 && v.y === 0 && v.z === 1 ? autoView(no, p.state.layout, j, p.state.bigFace, p.state.shift) : v);
         p.draw();
       }
     }
