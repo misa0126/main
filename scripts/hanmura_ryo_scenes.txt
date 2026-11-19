@@ -132,7 +132,7 @@
 124: ニッポン放送 旧社屋 有楽町=Nippon Broadcasting old building Yurakucho @ニッポン放送 + 月の家圓鏡 若い頃=young Tsukinoya Enkyo|月の家圓鏡 @落語家/圓鏡
 
 ## SFコンテスト入選とデビュー
-136: SFマガジン 1960年代=SF Magazine 1960s Hayakawa @早川書房/SFコンテスト
+138: SFマガジン 1960年代=SF Magazine 1960s Hayakawa @早川書房/SFコンテスト
 
 ## 日本SF作家クラブ
 145: 日本SF作家クラブ 創立メンバー 写真=Japan SF Writers Club founding members photo @日本SF作家クラブ
@@ -242,7 +242,7 @@
 425: 太陽の世界 18巻=Taiyo no Sekai volume 18 Ryo Hanmura @18巻
 
 ## 人情時代小説と柴田錬三郎賞
-433: かかし長屋 半村良=Kakashi Nagaya Ryo Hanmura @江戸の下町/かかし長屋
+434: かかし長屋 半村良=Kakashi Nagaya Ryo Hanmura @江戸の下町/かかし長屋
 +437: 柴田錬三郎 作家=Renzaburo Shibata novelist|柴田錬三郎 @柴田錬三郎賞
 
 ## 『妖星伝』完結

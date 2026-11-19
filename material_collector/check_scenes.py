@@ -13,6 +13,7 @@
   - きっかけの言葉が、出し始めの2セリフより後で初めて出てくる(切り替えが早すぎる)
   - きっかけの言葉が、1つ前の画像の最後の2セリフにもう出てくる(切り替えが遅すぎる)
   - 霊夢のセリフから始まっている(あいづち・ツッコミは前の区切りに含める)
+  - きっかけの言葉が、出し始めのセリフに出てこない(切り替えが早すぎる。前置きの「ところが」の行ではなく、話が出てくる行から出す)
   - きっかけ(@)が書いていない
   (区切りの長さは見ない。話が変わる所なら1セリフで変えてよく、同じ話題なら何セリフ続いてもよい。ユーザーの希望)
 """
@@ -96,8 +97,9 @@ def check(script_text: str, table_text: str) -> list[dict]:
                 earlier = _first_hit(words, lines, 1, first - 1)
                 where = f"(台本では {later} 行目に出てくる)" if later else (f"(台本では {earlier} 行目に出てくる)" if earlier else "(台本のどこにも出てこない)")
                 warnings.append(f"きっかけ「{'/'.join(words)}」が、この画像のあいだに出てこない{where}")
-            elif lines[hit - 1]["utt"] - lines[first - 1]["utt"] >= HEAD:
-                warnings.append(f"きっかけ「{'/'.join(words)}」は {hit} 行目で初めて出てくる → 切り替えが早すぎる(開始行を {hit} 前後に)")
+            elif lines[hit - 1]["utt"] > lines[first - 1]["utt"]:
+                # 画像は、その話が出てくるセリフから出す(「ところがそうじゃなかった。」の次の「1900年、〇〇が発売」から。ユーザーの希望)
+                warnings.append(f"きっかけ「{'/'.join(words)}」は {hit} 行目で初めて出てくる → 切り替えが早すぎる(開始行を {lines.index(next(l for l in lines if l['utt'] == lines[hit - 1]['utt'])) + 1} に)")
             if idx > 0 and img["seg_start"]:
                 prev = images[idx - 1]
                 # 1つ前の画像の最後の2セリフ(出し始めの2セリフは除く)

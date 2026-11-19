@@ -33,6 +33,11 @@ class CheckScenesTest(unittest.TestCase):
         result = warnings("1: 将棋 @将棋\n3: 駒袋 @駒袋\n")
         self.assertIn("5 行目で初めて", result[1][0])
 
+    def test_switch_one_line_early(self):
+        # 「だが熱が出た」の前置きの行から駒袋を出すと1セリフ早い。「そして駒袋をもらった」の行から出す
+        result = warnings("1: 将棋 @将棋\n4: 駒袋 @駒袋\n")
+        self.assertIn("開始行を 5 に", result[1][0])
+
     def test_switch_too_late(self):
         result = warnings("1: 将棋 @将棋\n3: 熱 @熱/喜ん\n6: 駒袋 @駒袋\n")
         self.assertTrue(any("切り替えが遅すぎる" in w for w in result[2]))
