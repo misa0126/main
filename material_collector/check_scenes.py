@@ -13,7 +13,8 @@
   - きっかけの言葉が、出し始めの2セリフより後で初めて出てくる(切り替えが早すぎる)
   - きっかけの言葉が、1つ前の画像の最後の2セリフにもう出てくる(切り替えが遅すぎる)
   - 霊夢のセリフから始まっている(あいづち・ツッコミは前の区切りに含める)
-  - 長すぎる・短すぎる、きっかけ(@)が書いていない
+  - きっかけ(@)が書いていない
+  (区切りの長さは見ない。話が変わる所なら1セリフで変えてよく、同じ話題なら何セリフ続いてもよい。ユーザーの希望)
 """
 
 from __future__ import annotations
@@ -28,8 +29,6 @@ from .html_sheet import image_groups, parse_scene_table, script_utterances
 
 REIMU = "霊夢"
 HEAD = 2  # 出し始めの何セリフ以内に、きっかけの言葉が出てくればよいか
-MIN_LINES = 2
-MAX_LINES = 25  # 同じ話題のあいだは同じ画像でよい(ユーザーの希望)ので、かなり長いときだけ知らせる
 
 
 def _script_rows(script_text: str) -> list[dict]:
@@ -111,13 +110,6 @@ def check(script_text: str, table_text: str) -> list[dict]:
                 early = _first_hit(words, lines, tail_from, prev["last"])
                 if early is not None:
                     warnings.append(f"きっかけ「{'/'.join(words)}」は 1つ前の画像の {early} 行目でもう出てくる → 切り替えが遅すぎる(開始行を {early} に)")
-        n = len({line["utt"] for line in lines[first - 1 : last]})
-        if img.get("joined"):
-            pass  # 並べて出す画像は、前の画像といっしょに出るので長さは見ない
-        elif n > MAX_LINES:
-            warnings.append(f"{n}セリフと長い → 話題が変わっていないか確かめる(同じ話題ならそのままでよい。途中の物は +行: で足す)")
-        elif n < MIN_LINES and first != 1:
-            warnings.append(f"{n}セリフと短い")
         img["lines"] = lines[first - 1 : last]
         img["warnings"] = warnings
     return images
