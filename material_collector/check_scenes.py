@@ -29,7 +29,7 @@ from .html_sheet import image_groups, parse_scene_table, script_utterances
 REIMU = "霊夢"
 HEAD = 2  # 出し始めの何セリフ以内に、きっかけの言葉が出てくればよいか
 MIN_LINES = 2
-MAX_LINES = 12  # 話が変わらないなら長くてよいので、目安を大きく超えたときだけ知らせる
+MAX_LINES = 25  # 同じ話題のあいだは同じ画像でよい(ユーザーの希望)ので、かなり長いときだけ知らせる
 
 
 def _script_rows(script_text: str) -> list[dict]:
@@ -115,7 +115,7 @@ def check(script_text: str, table_text: str) -> list[dict]:
         if img.get("joined"):
             pass  # 並べて出す画像は、前の画像といっしょに出るので長さは見ない
         elif n > MAX_LINES:
-            warnings.append(f"{n}セリフと長い → 話の流れが変わる所で分ける")
+            warnings.append(f"{n}セリフと長い → 話題が変わっていないか確かめる(同じ話題ならそのままでよい。途中の物は +行: で足す)")
         elif n < MIN_LINES and first != 1:
             warnings.append(f"{n}セリフと短い")
         img["lines"] = lines[first - 1 : last]
