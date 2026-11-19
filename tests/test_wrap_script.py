@@ -59,6 +59,8 @@ class WrapScriptTest(unittest.TestCase):
         )
         self.assertEqual(mapping, {1: [(1, 0)], 2: [(2, 0)], 3: [(4, 0)]})
         self.assertEqual(renumber("# メモ\n1: a\n3: b @へえ\n", mapping), "# メモ\n1: a\n4: b @へえ\n")
+        # 横に足す画像の「+行:」も付け直す(半村良で付け直されず、区切りの順番が崩れた)
+        self.assertEqual(renumber("1: a\n+3: b @へえ\n", mapping), "1: a\n+4: b @へえ\n")
 
     def test_idempotent(self):
         wrapped, _ = wrap_script(self.SCRIPT)

@@ -229,7 +229,7 @@ def renumber(table_text: str, mapping: dict, *, reading: bool = False) -> str:
     """
     lines = []
     for raw in table_text.splitlines():
-        match = re.match(r"^(\s*)(\d+)(\s*:)", raw)
+        match = re.match(r"^(\s*\+?\s*)(\d+)(\s*:)", raw)  # 「+行:」(横に足す画像)も付け直す
         if match and not raw.lstrip().startswith("#"):
             old = int(match.group(2))
             if old not in mapping:
