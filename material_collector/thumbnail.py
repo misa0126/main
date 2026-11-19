@@ -29,6 +29,7 @@
     写真を下げる: 80                              ← 自動で合わせた位置から写真を下げる(画面の高さ720のうちの画素。マイナスで上げる)
     顔の大きさ: 大                                ← 顔アップは「大」が標準(顔全体と髪が見えるくらい)。
                                                      「アップ」は目が一言のすぐ下に来るまで寄せる(おでこは隠れる)。「ふつう」はもっと引く
+    写真の明るさ: 1.3                              ← 写真だけ明るくする(1 がふつう。1.3 で3割明るく。0.5〜2)
     白黒: はい                                    ← 写真を白黒に(顔アップは最初から白黒。「白黒: いいえ」でカラーにできる)
     霊夢: 驚き                                    ← ふつう にやり 驚き 焦り 怒り 泣き 笑顔 なし
                                                      書かなければ一言から自動で決まる(FACE_RULES)
@@ -110,7 +111,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "photo_shift": 0, "reimu": None, "marisa": None, "color": "黄", "video_title": ""})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "photo_shift": 0, "brightness": 1.0, "reimu": None, "marisa": None, "color": "黄", "video_title": ""})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -168,6 +169,13 @@ def parse_thumb_table(text: str) -> dict:
                 plan["photo_shift"] = int(float(value))
             except ValueError:
                 raise ValueError(f"写真を下げるは数字で書いてください(画面の高さ720のうち何画素下げるか。マイナスで上げる): {line}") from None
+        elif key == "写真の明るさ":
+            try:
+                plan["brightness"] = float(value)
+            except ValueError:
+                raise ValueError(f"写真の明るさは数字で書いてください(1 がふつう、1.3 で3割明るく): {line}") from None
+            if not 0.5 <= plan["brightness"] <= 2:
+                raise ValueError(f"写真の明るさは 0.5〜2 にしてください: {line}")
         elif key == "白黒":
             if value not in ("はい", "いいえ"):
                 raise ValueError(f"白黒は「はい」か「いいえ」にしてください: {line}")
