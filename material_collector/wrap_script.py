@@ -157,7 +157,8 @@ def split_sentences(body: str) -> list[str]:
             parts.append(body[prev:n])
             prev = n
     parts.append(body[prev:])
-    return parts
+    # 「えっ！ そんな」のように「！」の後ろに空白があると、分けたセリフの頭に空白が残るので消す
+    return [p.strip(" 　") for p in parts if p.strip(" 　")]
 
 
 def _marks(text: str) -> int:
