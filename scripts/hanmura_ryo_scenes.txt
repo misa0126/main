@@ -22,7 +22,7 @@
 
 ## 柴又に生まれる
 18: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @半村良
-20: 柴又 帝釈天 昭和 古写真=Shibamata Taishakuten old photo @生まれた
++19: 柴又 帝釈天 昭和 古写真=Shibamata Taishakuten old photo @柴又
 
 ## 父の死
 24: いらすとや お葬式 子供=irasutoya funeral child @長く続かなかった/亡くなって
@@ -62,14 +62,14 @@
 
 ## 神保町の『神田茶屋』
 95: 神保町 昭和30年代 白黒写真=Jinbocho 1950s photo @神保町/集英社
-99: バーテンダー 昭和 白黒写真=Japanese bartender Showa photo @カウンターの内側
+100: バーテンダー 昭和 白黒写真=Japanese bartender Showa photo @カウンターの内側
 
 ## 広告代理店へ
 106: 広告代理店 昭和30年代 白黒写真=Japanese advertising agency 1950s photo @広告代理店
 
 ## ニッポン放送と月の家圓鏡
 114: ニッポン放送 旧社屋 有楽町=Nippon Broadcasting old building Yurakucho @ニッポン放送
-117: 月の家圓鏡 若い頃=young Tsukinoya Enkyo|月の家圓鏡 @圓鏡
+116: 月の家圓鏡 若い頃=young Tsukinoya Enkyo|月の家圓鏡 @落語家/圓鏡
 
 ## SFコンテスト入選とデビュー
 129: SFマガジン 1960年代=SF Magazine 1960s Hayakawa @早川書房/SFコンテスト
@@ -79,10 +79,10 @@
 
 ## ペンネームの由来
 146: イーデス・ハンソン=Edith Hanson|イーデス・ハンソン @ハンソン
-150: 小松左京=Sakyo Komatsu|小松左京 @小松左京
++150: 小松左京=Sakyo Komatsu|小松左京 @小松左京
 
 ## 書かなくなった60年代
-156: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @-
+152: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @-
 159: 福島正実=Masami Fukushima|福島正実 @福島正実
 
 ## アニメの脚本
@@ -157,6 +157,7 @@
 ## 全80巻『太陽の世界』
 333: 太陽の世界 半村良=Taiyo no Sekai Ryo Hanmura @大風呂敷/太陽の世界
 335: ムー大陸 地図=Mu continent map @ムー大陸
+339: 太陽の世界 全巻=Taiyo no Sekai complete set @全80巻
 
 ## 1冊1千万円の印税
 343: いらすとや 札束=irasutoya money stack @1千万円/印税
@@ -175,6 +176,7 @@
 372: 岬一郎の抵抗 半村良=Misaki Ichiro no Teiko Ryo Hanmura @岬一郎の抵抗/大きな成果
 379: いらすとや 手かざし=irasutoya hand healing @手のひら/普通の男
 385: いらすとや 追い詰められる=irasutoya cornered @国家権力
+387: 岬一郎の抵抗 半村良=Misaki Ichiro no Teiko Ryo Hanmura @下町の人情/超能力
 
 ## 『小説・浅草案内』と半文居の終わり
 391: 小説・浅草案内 半村良=Shosetsu Asakusa Annai Ryo Hanmura @浅草案内
@@ -185,7 +187,7 @@
 ## 人情時代小説と柴田錬三郎賞
 408: かかし長屋 半村良=Kakashi Nagaya Ryo Hanmura @人情時代小説/かかし長屋
 +411: 柴田錬三郎 作家=Renzaburo Shibata novelist|柴田錬三郎 @柴田錬三郎賞
-416: 石の血脈 半村良=Ishi no Ketsumyaku Ryo Hanmura @ジャンル/浅草に帰ってきた + 雨やどり 半村良=Amayadori Ryo Hanmura @ジャンル + かかし長屋 半村良=Kakashi Nagaya Ryo Hanmura @ジャンル
+418: 石の血脈 半村良=Ishi no Ketsumyaku Ryo Hanmura @ジャンル + 雨やどり 半村良=Amayadori Ryo Hanmura @ジャンル + かかし長屋 半村良=Kakashi Nagaya Ryo Hanmura @ジャンル
 
 ## 『妖星伝』完結
 421: 妖星伝 全巻=Yoseiden complete set @妖星伝
