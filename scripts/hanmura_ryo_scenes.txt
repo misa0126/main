@@ -1,132 +1,59 @@
-# 半村良の解説台本(hanmura_ryo.txt)の区切りと画像(2026年11月19日、改訂した台本で作り直した。霊夢のセリフは「！」「。」で分けてある)
+# 半村良の解説台本(hanmura_ryo.txt)の区切りと画像(2026年11月19日、新しい決め方で作り直した)
 # 書き方:
 #   ## 話題の見出し
 #   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
-#   ・1つの区切りに画像1枚。その区切りのあいだ表示し続ける想定
 #   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
 #   ・「#」で始まる行はメモとして無視される
-# 半村良は本人の写真がネットに少ないので、次の方針で選んでいる:
-#   ・本人の写真は「若い頃」「作家」「晩年」など見つかりやすいワードに絞る(同じ写真の使い回しも前提)
-#   ・本人の写真がなさそうな場面は、作品の本の表紙・映画のポスター・話に出てくる人物の写真で代える
-#   ・個人的なエピソード(父の死、退職、前借り、母の死など)はいらすとや
-#   ・場所・街並みは「年代+白黒写真/古写真」、建物は「旧社屋」、本人は「作家 写真」で当時の本物の写真が出るようにしている
+# 決め方(ユーザーの希望。2026年11月19日):
+#   ・画像を入れかえるのは話題が変わる所だけ。同じ作品・同じ出来事の話のあいだは同じ画像(小説なら表紙)のまま
+#   ・話題の途中で出てきた物・人・場所は、メインの画像を出したまま「+行:」で横の空いている所に足す
+#   ・切り替えは「ところが〜」「だが〜」のような前置きの行ではなく、その話の中身が出てくる行から
+#   ・いらすとやはできるだけ使わない(5枚以下)。何を使えばいいか分からない所は、本人のその頃の写真
+# 半村良は本人の写真がネットに少ないので、本人の写真は「若い頃」「作家」「晩年」など見つかりやすいワードにしている(同じ写真の使い回しも前提)
+# 場所・街並みは「年代+白黒写真/古写真」、建物は「旧社屋」で当時の写真が出るようにしている
 # 人の写真には「|名前」を付けている。主人公の半村良には付けない
-# 2作品・2人以上が出てくる所は「A + B」で横に並べて同時に出し、話の途中で別の作品・人が出たら「+行: C」で横の空いている所に足している(ユーザーの希望。2026年11月19日)
-# 話と画像をぴったり合わせるため、話題の途中で写すもの(場所・人・物)が変わる所でも切り替えている(ユーザーの希望。2026年11月18日)
 # 各画像の「@」の後ろは、その画像を出すきっかけになる台本の言葉
-## 導入：雨宿りと直木賞
-## 柴又に生まれる
-## 父の死
-## 能登へ疎開
-## 両国高校と野球部
-## 進駐軍のバーでアルバイト
-## 高校卒業
-## 日本橋の紙問屋
-## 会社を辞めて水商売へ
-## 職業遍歴とキャバレー
-## 母の旅館
-## バーテンダーと店の経営
-## 新宿の文壇バー『とと』
-## 神保町の『神田茶屋』
-## 広告代理店へ
-## ニッポン放送と月の家圓鏡
-## SFコンテスト入選とデビュー
-## 日本SF作家クラブ
-## ペンネームの由来
-## 書かなくなった60年代
-## アニメの脚本
-## 結婚と作家への転身
-## 編集長交代と早川書房
-## 初の単行本『およね平吉時穴道行』
-## 『石の血脈』と伝奇SF
-## 『戦国自衛隊』(小説)
-## 『産霊山秘録』
-## 第1回泉鏡花文学賞
-## 『妖星伝』の連載と『英雄伝説』
-## 直木賞を目指す
-## 2度の落選
-## 3度目の候補『雨やどり』
-## 直木賞受賞
-## 仕事場『半文居』
-## 『どぶどろ』『戸隠伝説』『新宿馬鹿物語』
-## 政治家との付き合い
-## 酒と女と前借り
-## 母の死
-## 雑誌『面白半分』の編集長
-## 映画『戦国自衛隊』
-## 全80巻『太陽の世界』
-## 1冊1千万円の印税
-## 『妖星伝』完結編のトラブル
-## 苫小牧へ
-## 浅草へ戻る
-## 『岬一郎の抵抗』で日本SF大賞
-## 『小説・浅草案内』と半文居の終わり
-## 『太陽の世界』は未完に
-## 人情時代小説と柴田錬三郎賞
-## 『妖星伝』完結
-## 晩年の引っ越し
-## 最後の作品『すべて辛抱』『獄門首』
-## 68歳で死去
-## 『戦国自衛隊1549』
-## 英語版『雨やどり』
-## 『能登怪異譚』
-## まとめ：嘘屋の物語
 
 ## 導入：雨宿りと直木賞
-1: いらすとや 雨宿り=irasutoya rain shelter @雨宿り
-5: 雨やどり 半村良 本=Amayadori Ryo Hanmura book @題名にした小説
+1: 雨やどり 半村良 本=Amayadori Ryo Hanmura book @雨宿り
 +9: 戦国自衛隊 半村良 小説=Sengoku Jieitai novel Ryo Hanmura @自衛隊
 
-## 柴又に生まれる
+## 柴又に生まれ、父を亡くす
 20: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @半村良
 +22: 柴又 帝釈天 昭和 古写真=Shibamata Taishakuten old photo @柴又
 
-## 父の死
-28: いらすとや お葬式 子供=irasutoya funeral child @亡くなって
-
-## 母ひとりで兄弟を育てる
-31: いらすとや 母子家庭=irasutoya single mother @房子/たった一人で
-
-## 能登へ疎開
-37: 学童疎開 白黒写真=school evacuation Japan WWII photo @疎開
-41: 能登 昭和 古写真=Noto Peninsula old photo @能登には
-
-## 東京へ戻る
-45: 東京 戦時中 白黒写真=Tokyo wartime photo @東京へ戻って
+## 能登へ疎開、東京へ戻る
+37: 能登 昭和 古写真=Noto Peninsula Showa old photo @能登
++45: 東京 戦時中 白黒写真=Tokyo wartime photo @東京へ戻って
 
 ## 都立第三中学と野球部
 50: 府立三中 両国高校 古写真=Ryogoku High School old photo @都立第三中学/両国高校
-+51: いらすとや 野球 少年=irasutoya baseball boy @野球部
 +57: 柿澤弘治 政治家=Koji Kakizawa politician|柿澤弘治 @柿澤弘治
 
 ## 銀座のバーでアルバイト
 59: 銀座 昭和20年代 白黒写真=Ginza 1950s photo @銀座のバー
 
 ## 高校卒業
-64: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @-
+64: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @卒業
 
 ## 日本橋の紙問屋
 68: 日本橋 昭和20年代 白黒写真=Nihonbashi 1950s photo @日本橋の紙問屋
 
 ## 30近い職業
-73: いらすとや 転職=irasutoya job change @長続き/次々に変えて
-78: 旅館 帳場 昭和 白黒写真=Japanese ryokan front desk Showa photo @番頭/帳場
-+80: キャバレー 昭和30年代 白黒写真=Japanese cabaret 1950s photo @キャバレー
-83: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @-
+74: キャバレー 昭和30年代 白黒写真=Japanese cabaret 1950s photo @キャバレー + 旅館 帳場 昭和 白黒写真=Japanese ryokan front desk Showa photo @番頭
 
 ## 水商売とバーの経営
 90: 新宿 昭和30年代 白黒写真=Shinjuku 1950s photo @水商売/新宿
-93: バー カウンター 昭和30年代 白黒写真=Japanese bar counter 1950s photo @カウンター
 
 ## 文壇バー『とと』と神田の店
 99: 文壇バー 昭和30年代 作家 写真=bundan bar Showa writers photo @文壇バー
-101: 集英社 旧社屋 神保町=Shueisha old building Jinbocho @集英社/神田
++101: 集英社 旧社屋 神保町=Shueisha old building Jinbocho @集英社/神田
 
 ## カウンターからの人間観察
-105: バーテンダー 昭和 白黒写真=Japanese bartender Showa photo @本音/カウンター
+105: バーテンダー 昭和 白黒写真=Japanese bartender Showa photo @本音
 
 ## 広告代理店へ
-114: 広告代理店 昭和30年代 白黒写真=Japanese advertising agency 1950s photo @昼の世界/広告代理店
+115: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @広告代理店
 
 ## ニッポン放送と月の家圓鏡
 124: ニッポン放送 旧社屋 有楽町=Nippon Broadcasting old building Yurakucho @ニッポン放送 + 月の家圓鏡 若い頃=young Tsukinoya Enkyo|月の家圓鏡 @落語家/圓鏡
@@ -137,7 +64,6 @@
 ## 日本SF作家クラブ
 145: 日本SF作家クラブ 創立メンバー 写真=Japan SF Writers Club founding members photo @日本SF作家クラブ
 +147: 小松左京 作家=Sakyo Komatsu novelist|小松左京 @小松左京 + 星新一 作家=Shinichi Hoshi novelist|星新一 @星新一
-151: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @-
 
 ## ペンネームの由来
 160: イーデス・ハンソン=Edith Hanson|イーデス・ハンソン @ハンソン
@@ -147,12 +73,12 @@
 170: エイトマン アニメ=8 Man anime 1963 @テレビアニメ/エイトマン + スーパージェッター アニメ=Super Jetter anime @テレビアニメ/スーパージェッター
 
 ## 書かなくなった60年代
-176: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @-
-181: 福島正実 編集者=Masami Fukushima editor|福島正実 @福島正実
+176: 半村良 作家 写真=Ryo Hanmura novelist photo @小説
++181: 福島正実 編集者=Masami Fukushima editor|福島正実 @福島正実
 
 ## 結婚と作家への決意
-189: いらすとや 結婚式=irasutoya wedding @大きな出来事/結婚
-191: 赤い酒場を訪れたまえ 半村良=Akai Sakaba wo Otozuretamae Ryo Hanmura @赤い酒場
+190: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @結婚
++191: 赤い酒場を訪れたまえ 半村良=Akai Sakaba wo Otozuretamae Ryo Hanmura @赤い酒場
 
 ## 編集長交代と早川書房
 198: 早川書房 旧社屋=Hayakawa Publishing old building @早川書房
@@ -160,18 +86,14 @@
 ## 初の単行本と『石の血脈』
 208: およね平吉時穴道行 半村良=Oyone Heikichi Jiketsu Michiyuki Ryo Hanmura @およね平吉
 +209: 石の血脈 半村良=Ishi no Ketsumyaku Ryo Hanmura @石の血脈
-222: 星雲賞=Seiun Award @星雲賞
++222: 星雲賞=Seiun Award @星雲賞
 
 ## 『戦国自衛隊』(小説)
-225: 半村良 作家 写真=Ryo Hanmura novelist photo @-
 228: 戦国自衛隊 半村良 小説=Sengoku Jieitai novel Ryo Hanmura @中編/戦国自衛隊
-238: 戦国自衛隊 角川文庫=Sengoku Jieitai Kadokawa bunko @権力/批判
 
-## 『産霊山秘録』
+## 『産霊山秘録』と第1回泉鏡花文学賞
 243: 産霊山秘録 半村良=Musubi no Yama Hiroku Ryo Hanmura @産霊山秘録
-
-## 第1回泉鏡花文学賞
-254: 泉鏡花=Kyoka Izumi|泉鏡花 @泉鏡花
++254: 泉鏡花=Kyoka Izumi|泉鏡花 @泉鏡花
 
 ## 『妖星伝』の連載と『英雄伝説』
 262: 妖星伝 半村良=Yoseiden Ryo Hanmura @妖星伝
@@ -179,12 +101,12 @@
 +270: 英雄伝説 ゲーム=The Legend of Heroes Falcom game @人気ゲーム
 
 ## 直木賞に届かない
-274: 直木賞 授賞式 昭和 報道写真=Naoki Prize ceremony Showa photo @手が届かない賞/直木賞
-278: 黄金伝説 半村良=Ogon Densetsu Ryo Hanmura @黄金伝説 + 不可触領域 半村良=Fukashoku Ryoiki Ryo Hanmura @不可触領域
+275: 直木賞 授賞式 昭和 報道写真=Naoki Prize ceremony Showa photo @直木賞
++278: 黄金伝説 半村良=Ogon Densetsu Ryo Hanmura @黄金伝説 + 不可触領域 半村良=Fukashoku Ryoiki Ryo Hanmura @不可触領域
 
 ## 3度目の候補『雨やどり』
-287: 雨やどり 半村良=Amayadori Ryo Hanmura @SFじゃなかった/雨やどり
-294: 新宿 ゴールデン街 昭和 白黒写真=Shinjuku Golden Gai Showa photo @店に/カウンター
+288: 雨やどり 半村良=Amayadori Ryo Hanmura @ルヰ/雨やどり
++294: 新宿 ゴールデン街 昭和 白黒写真=Shinjuku Golden Gai Showa photo @店に/カウンター
 
 ## 直木賞受賞
 298: 半村良 直木賞 受賞 写真=Ryo Hanmura Naoki Prize photo @直木賞を受賞
@@ -194,13 +116,15 @@
 
 ## 『どぶどろ』『戸隠伝説』『新宿馬鹿物語』
 314: どぶどろ 半村良=Dobudoro Ryo Hanmura @どぶどろ + 戸隠伝説 半村良=Togakushi Densetsu Ryo Hanmura @戸隠伝説 + 新宿馬鹿物語 映画=Shinjuku Baka Monogatari film @新宿馬鹿物語
+
+## 吉川英治文学賞の候補
 318: 吉川英治 作家=Eiji Yoshikawa novelist|吉川英治 @吉川英治
 
 ## 酒と女と前借り
-321: いらすとや 前借り お金=irasutoya borrow money @影/前借り
+322: 半村良 作家 写真=Ryo Hanmura novelist photo @前借り/おぼれ
 
 ## 母の死
-335: いらすとや お墓参り=irasutoya grave visit @大切な人/房子
+336: いらすとや お葬式=irasutoya funeral @房子
 
 ## 雑誌『面白半分』の編集長と柿澤弘治
 342: 面白半分 雑誌=Omoshiro Hanbun magazine @面白半分
@@ -210,33 +134,25 @@
 350: 戦国自衛隊 映画 1979 ポスター=G.I. Samurai 1979 film poster @戦国自衛隊
 +352: 千葉真一 戦国自衛隊=Sonny Chiba G.I. Samurai|千葉真一 @千葉真一
 
-## 全80巻『太陽の世界』
+## 全80巻『太陽の世界』と1冊1千万円
 363: ムー大陸 地図=Mu continent map @幻の大陸
 +364: 太陽の世界 半村良=Taiyo no Sekai Ryo Hanmura @太陽の世界
-370: 太陽の世界 全巻=Taiyo no Sekai complete set @全80巻
-
-## 1冊1千万円の印税
-376: いらすとや 札束=irasutoya money stack @1千万円/印税
++370: 太陽の世界 全巻=Taiyo no Sekai complete set @全80巻
 
 ## 『妖星伝』完結編のトラブル
 383: 妖星伝 講談社文庫=Yoseiden Kodansha bunko @妖星伝
 
 ## 苫小牧へ
-388: 苫小牧 昭和 古写真=Tomakomai Showa old photo @思い切った行動/苫小牧
-395: どさんこ大将 半村良=Dosanko Taisho Ryo Hanmura @どさんこ大将
+389: 苫小牧 昭和 古写真=Tomakomai Showa old photo @苫小牧
++395: どさんこ大将 半村良=Dosanko Taisho Ryo Hanmura @どさんこ大将
 
 ## 浅草へ戻る
 398: 浅草 雷門 昭和 白黒写真=Asakusa Kaminarimon Showa photo @浅草
 
 ## 『岬一郎の抵抗』で日本SF大賞
-402: 岬一郎の抵抗 半村良=Misaki Ichiro no Teiko Ryo Hanmura @実を結ぶ/岬一郎の抵抗
+403: 岬一郎の抵抗 半村良=Misaki Ichiro no Teiko Ryo Hanmura @岬一郎の抵抗
 +405: 日本SF大賞 トロフィー=Nihon SF Taisho trophy @日本SF大賞
-412: いらすとや 手かざし=irasutoya hand healing @手で触れる/病気を治せる
-416: いらすとや 孤立=irasutoya isolated @離れていく
-418: 岬一郎の抵抗 半村良=Misaki Ichiro no Teiko Ryo Hanmura @下町の人情
-
-## 『小説・浅草案内』と半文居の終わり
-421: 小説・浅草案内 半村良=Shosetsu Asakusa Annai Ryo Hanmura @浅草案内
++421: 小説・浅草案内 半村良=Shosetsu Asakusa Annai Ryo Hanmura @浅草案内
 
 ## 『太陽の世界』は未完に
 425: 太陽の世界 18巻=Taiyo no Sekai volume 18 Ryo Hanmura @18巻
@@ -246,26 +162,24 @@
 +437: 柴田錬三郎 作家=Renzaburo Shibata novelist|柴田錬三郎 @柴田錬三郎賞
 
 ## 『妖星伝』完結
-442: 妖星伝 全巻=Yoseiden complete set @大仕事/妖星伝
+443: 妖星伝 全巻=Yoseiden complete set @妖星伝
 +448: 太陽の世界 全巻=Taiyo no Sekai complete set @太陽の世界
 
 ## 『能登怪異譚』
 450: 能登怪異譚 半村良=Noto Kaii Tan Ryo Hanmura @能登怪異譚
 
 ## 晩年の引っ越し
-454: 半村良 晩年 写真=Ryo Hanmura later years photo @落ち着かない/鹿沼
+455: 半村良 晩年 写真=Ryo Hanmura later years photo @鹿沼
 
 ## 最後の作品『すべて辛抱』『獄門首』
 462: すべて辛抱 半村良=Subete Shinbo Ryo Hanmura @すべて辛抱
 +465: 獄門首 半村良=Gokumon Kubi Ryo Hanmura @獄門首
 
 ## 68歳で死去
-466: いらすとや 献花=irasutoya flower offering @息を引き取った/肺炎
-471: 半村良 晩年 写真=Ryo Hanmura later years photo @-
+466: 半村良 晩年 ポートレート=Ryo Hanmura portrait later years @息を引き取った/肺炎
 
 ## 『戦国自衛隊1549』
-473: 戦国自衛隊1549=Sengoku Jieitai 1549 film @終わらなかった/戦国自衛隊1549
-+474: 福井晴敏 作家=Harutoshi Fukui novelist|福井晴敏 @福井晴敏
+474: 戦国自衛隊1549=Sengoku Jieitai 1549 film @戦国自衛隊1549 + 福井晴敏 作家=Harutoshi Fukui novelist|福井晴敏 @福井晴敏
 
 ## 英語版『雨やどり』
 478: The Sheltering Rain Hanmura=The Sheltering Rain Ryo Hanmura @英語/Sheltering
