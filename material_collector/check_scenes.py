@@ -35,7 +35,7 @@ MAX_LINES = 12  # 話が変わらないなら長くてよいので、目安を�
 def _script_rows(script_text: str) -> list[dict]:
     """空行を除いた1行ごとに、その行が属するセリフ(話者・全文・何番目のセリフか)を返す。
 
-    「」の中で改行しているセリフ(36文字を超えて折り返したもの)は、続きの行も同じセリフとして扱う。
+    「」の中で改行しているセリフ(34文字を超えて折り返したもの)は、続きの行も同じセリフとして扱う。
     """
     utterances, line_to_utterance = script_utterances(script_text)
     speakers: dict[int, str] = {}
