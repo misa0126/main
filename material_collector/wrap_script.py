@@ -1,17 +1,19 @@
-"""台本のセリフが長いとき、「」の中で改行する(ユーザーの希望。36文字を超えたら区切りのいいところで改行)。
+"""台本のセリフが長いとき、「」の中で改行する(ユーザーの希望。34文字を超えたら区切りのいいところで改行)。
 
 使い方:
     python -m material_collector.wrap_script scripts/台本.txt [scripts/台本_scenes.txt] [scripts/台本_yomi.txt]
 
-・「」の中が36文字を超えるセリフだけ改行する。36文字以内はそのまま
+・「」の中が34文字を超えるセリフだけ改行する。34文字以内はそのまま(2026年11月19日に36文字から34文字に変えた。ユーザーの希望)
+・霊夢のセリフは、「！」「？」「。」の後ろで 霊夢「」 を分ける(長さに関係なく。『』の中と、セリフの最後は除く。ユーザーの希望)
+    霊夢「えっ！そんなことあるの？」 → 霊夢「えっ！」 霊夢「そんなことあるの？」
 ・行の数がいちばん少なくなるように、区切りのよい所で改行する(「！」「？」「。」の後ろ > 「、」の後ろ > 「』」の後ろ・「『」の前 >
-  漢字・カタカナの前の助詞(は・が・を・の など)の後ろ)。同じくらいなら前の行を長くする(36文字以内でいちばん後ろの「、」)
+  漢字・カタカナの前の助詞(は・が・を・の など)の後ろ)。同じくらいなら前の行を長くする(34文字以内でいちばん後ろの「、」)
 ・改行すると「台本の空行を除いた行番号」がずれるので、区切り表と読みの表の行番号も一緒に付け直す
 ・1つのセリフは2行まで。3行になりそうなときは、2行に収まる所の「、」の後ろでセリフを2つに分ける(ユーザーの希望)
     魔理沙「〜
     〜、」
     魔理沙「〜」
-  読みの表を一緒に付けると、分けたセリフの読みも「、」の位置で分ける
+  読みの表を一緒に付けると、分けたセリフの読みも「、」「。」「？」の位置で分ける
 ・すでに改行してある台本にもう一度かけても、行は増えない(1つにつないでから折り返す)
 """
 
@@ -22,7 +24,9 @@ import re
 import sys
 from pathlib import Path
 
-LIMIT = 36
+LIMIT = 34
+SENTENCE_SPLIT_SPEAKERS = ("霊夢",)  # 文の終わりごとに「」を分ける話者(ユーザーの希望)
+MARK = re.compile(r"、|[。！？!?]+")
 SPEAKER = re.compile(r"^(?P<speaker>[^「」\s]+)「(?P<body>.*)$")
 SENTENCE_END = "？！。"
 PUNCT_AFTER = "、"
@@ -51,7 +55,7 @@ def wrap_body(body: str, limit: int = LIMIT) -> list[str]:
     """「」の中身を、limit 文字以内の行に分ける。
 
     行の数がいちばん少なくなる分け方のうち、区切りのよい所(「！？。」>「、」>「』」>助詞の後ろ)で切る。
-    同じくらいなら、ユーザーの例と同じく前の行を長くする(36文字以内でいちばん後ろの「、」)。
+    同じくらいなら、ユーザーの例と同じく前の行を長くする(34文字以内でいちばん後ろの「、」)。
     """
     length = len(body)
     if length <= limit:
@@ -145,8 +149,24 @@ def split_serif(body: str, limit: int = LIMIT) -> list[list[str]]:
     return [wrap_body(body[:cut], limit)] + split_serif(body[cut:], limit)
 
 
+def split_sentences(body: str) -> list[str]:
+    """「！」「？」「。」の後ろでセリフを分ける(『』の中とセリフの最後は除く。霊夢のセリフ用。ユーザーの希望)。"""
+    parts, prev = [], 0
+    for n in range(1, len(body)):
+        if _break_score(body, n) == 4:
+            parts.append(body[prev:n])
+            prev = n
+    parts.append(body[prev:])
+    return parts
+
+
+def _marks(text: str) -> int:
+    """読みと台本で数をそろえる区切りの数(「、」と、続けて書いた「。！？」のまとまり)。"""
+    return len(MARK.findall(text))
+
+
 def wrap_script(script_text: str, limit: int = LIMIT) -> tuple[str, dict[int, list[tuple[int, int]]]]:
-    """折り返した台本と、{前の開始行: [(新しい開始行, そのセリフより前にある「、」の数), ...]} を返す。
+    """折り返した台本と、{前の開始行: [(新しい開始行, そのセリフより前にある区切り(「、」「。」など)の数), ...]} を返す。
 
     1つのセリフが2つ以上に分かれたときは、リストに分かれた先の数だけ入る。空行の並びはそのまま残す。
     """
@@ -172,9 +192,10 @@ def wrap_script(script_text: str, limit: int = LIMIT) -> tuple[str, dict[int, li
     for index, (speaker, body) in enumerate(serifs, start=1):
         parts = []
         commas = 0
-        for rows in split_serif(body, limit):
+        pieces = split_sentences(body) if speaker in SENTENCE_SPLIT_SPEAKERS else [body]
+        for rows in (r for piece in pieces for r in split_serif(piece, limit)):
             parts.append((number + 1, commas))
-            commas += sum(r.count("、") for r in rows)
+            commas += _marks("".join(rows))
             rows = list(rows)
             rows[0] = f"{speaker}「{rows[0]}"
             rows[-1] = f"{rows[-1]}」"
@@ -187,20 +208,17 @@ def wrap_script(script_text: str, limit: int = LIMIT) -> tuple[str, dict[int, li
 
 
 def _split_reading(reading: str, comma_counts: list[int]) -> list[str] | None:
-    """読みを「、」の数で分ける(台本と読みの表は「、」の数がそろっている決まり)。合わなければ None。"""
-    pieces = []
-    rest = reading
-    taken = 0
+    """読みを区切り(「、」「。」「？」)の数で分ける(台本と読みの表は句読点がそろっている決まり)。合わなければ None。"""
+    ends = [m.end() for m in MARK.finditer(reading)]
+    pieces, prev = [], 0
     for need in comma_counts[1:]:
-        pos = -1
-        for _ in range(need - taken):
-            pos = rest.find("、", pos + 1)
-            if pos < 0:
-                return None
-        pieces.append(rest[: pos + 1])
-        rest = rest[pos + 1 :]
-        taken = need
-    pieces.append(rest)
+        if need < 1 or need > len(ends) or ends[need - 1] <= prev:
+            return None
+        pieces.append(reading[prev : ends[need - 1]])
+        prev = ends[need - 1]
+    pieces.append(reading[prev:])
+    if not pieces[-1]:
+        return None
     return pieces
 
 
@@ -226,7 +244,7 @@ def renumber(table_text: str, mapping: dict, *, reading: bool = False) -> str:
                     for (start, _), piece in zip(parts, pieces):
                         lines.append(f"{match.group(1)}{start}{match.group(3)} {piece}")
                     continue
-                print(f"注意: {old} 行目の読みは「、」の数が台本と合わないので分けられませんでした(分かれた最初のセリフに付けたまま)", file=sys.stderr)
+                print(f"注意: {old} 行目の読みは句読点の数が台本と合わないので分けられませんでした(分かれた最初のセリフに付けたまま)", file=sys.stderr)
             raw = f"{match.group(1)}{parts[0][0]}{match.group(3)}{body}"
         lines.append(raw)
     return "\n".join(lines) + ("\n" if table_text.endswith("\n") else "")
@@ -257,7 +275,7 @@ def main(argv: list[str] | None = None) -> int:
         path.write_text(text, encoding="utf-8")
     changed = sum(1 for old, parts in mapping.items() if old != parts[0][0])
     split = sum(1 for parts in mapping.values() if len(parts) > 1)
-    print(f"折り返しました: {script_path}(セリフ{len(mapping)}個、行番号が変わったセリフ{changed}個、3行になりそうで2つに分けたセリフ{split}個)")
+    print(f"折り返しました: {script_path}(セリフ{len(mapping)}個、行番号が変わったセリフ{changed}個、2つ以上に分けたセリフ{split}個)")
     for path in tables:
         print(f"行番号を付け直しました: {path}")
     return 0
