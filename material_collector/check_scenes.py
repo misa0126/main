@@ -24,7 +24,7 @@ from pathlib import Path
 
 import re
 
-from .html_sheet import parse_scene_table, script_utterances
+from .html_sheet import image_groups, parse_scene_table, script_utterances
 
 REIMU = "霊夢"
 HEAD = 2  # 出し始めの何セリフ以内に、きっかけの言葉が出てくればよいか
@@ -68,15 +68,20 @@ def check(script_text: str, table_text: str) -> list[dict]:
     for i, seg in enumerate(segments):
         end = segments[i + 1]["start"] - 1 if i + 1 < len(segments) else total
         span = max(end - seg["start"] + 1, 1)
-        count = len(seg["keywords"]) or 1
-        for k, kw in enumerate(seg["keywords"]):
-            number += 1
-            # YMM4に並べるときと同じく、1つの区切りに2枚あれば、セリフを等分して順に出す
-            images.append({
-                "no": number, "topic": seg["topic"], "ja": kw.ja, "triggers": seg["triggers"][k],
-                "first": seg["start"] + span * k // count, "last": seg["start"] + span * (k + 1) // count - 1,
-                "seg_start": k == 0,
-            })
+        groups = image_groups(seg)
+        count = len(groups) or 1
+        for g, group in enumerate(groups):
+            # YMM4に並べるときと同じく、1つの区切りに順に出すまとまりが2つあれば、セリフを等分して順に出す
+            g_first, g_last = seg["start"] + span * g // count, seg["start"] + span * (g + 1) // count - 1
+            for j, k in enumerate(group):
+                number += 1
+                at = seg["ats"][k]
+                # 並べて出す画像(「+」)は、その画像を出し始める行から、まとまりの終わりまで
+                first = max(at, g_first) if at else g_first
+                images.append({
+                    "no": number, "topic": seg["topic"], "ja": seg["keywords"][k].ja, "triggers": seg["triggers"][k],
+                    "first": first, "last": g_last, "seg_start": g == 0 and j == 0, "joined": j > 0,
+                })
     for idx, img in enumerate(images):
         first, last = img["first"], img["last"]
         warnings = []
@@ -107,7 +112,9 @@ def check(script_text: str, table_text: str) -> list[dict]:
                 if early is not None:
                     warnings.append(f"きっかけ「{'/'.join(words)}」は 1つ前の画像の {early} 行目でもう出てくる → 切り替えが遅すぎる(開始行を {early} に)")
         n = len({line["utt"] for line in lines[first - 1 : last]})
-        if n > MAX_LINES:
+        if img.get("joined"):
+            pass  # 並べて出す画像は、前の画像といっしょに出るので長さは見ない
+        elif n > MAX_LINES:
             warnings.append(f"{n}セリフと長い → 話の流れが変わる所で分ける")
         elif n < MIN_LINES and first != 1:
             warnings.append(f"{n}セリフと短い")

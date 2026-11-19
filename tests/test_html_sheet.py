@@ -58,6 +58,22 @@ class SceneTableTest(unittest.TestCase):
         self.assertTrue(data["preload"]["1"].startswith("data:image/jpeg;base64,"))
         self.assertTrue(data["preload"]["2"].startswith("data:image/png;base64,"))
 
+    def test_side_by_side_images(self):
+        # 「A + B」は同時に横に並べる。「+3: C」は前の区切りの画像を出したまま、3行目から横に足す
+        table = "## a\n1: 甲 @x + 乙 @y\n+3: 丙 @z\n"
+        seg = parse_scene_table(table)[0]
+        self.assertEqual([k.ja for k in seg["keywords"]], ["甲", "乙", "丙"])
+        self.assertEqual(seg["joins"], [False, True, True])
+        self.assertEqual(seg["ats"], [None, None, 3])
+        html = build_sheet(SCRIPT, table, "テスト")
+        data = json.loads(re.search(r"const DATA = (\{.*?\});\n", html).group(1))
+        images = data["segments"][0]["images"]
+        self.assertNotIn("with", images[0])
+        self.assertTrue(images[1]["with"])
+        self.assertEqual((images[2]["with"], images[2]["at"]), (True, 3))
+        with self.assertRaises(ValueError):
+            parse_scene_table("## a\n1: 甲\n3: 乙\n+2: 丙\n")  # 区切りより前の行には足せない
+
     def test_readings_are_keyed_by_utterance(self):
         script = "魔理沙「一」\n霊夢「二の前半、\n二の後半」\n魔理沙「三」"
         html = build_sheet(script, "## a\n1: x\n", "テスト", "# メモ\n2: にのぜんはん、にのこうはん\n4: さん\n")

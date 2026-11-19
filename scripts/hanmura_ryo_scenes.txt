@@ -11,12 +11,14 @@
 #   ・個人的なエピソード(父の死、退職、前借り、母の死など)はいらすとや
 #   ・場所・街並みは「年代+白黒写真/古写真」、建物は「旧社屋」、本人は「作家 写真」で当時の本物の写真が出るようにしている
 # 人の写真には「|名前」を付けている。主人公の半村良には付けない
+# 2作品・2人以上が出てくる所は「A + B」で横に並べて同時に出し、話の途中で別の作品・人が出たら「+行: C」で横の空いている所に足している(ユーザーの希望。2026年11月19日)
 # 話と画像をぴったり合わせるため、話題の途中で写すもの(場所・人・物)が変わる所でも切り替えている(ユーザーの希望。2026年11月18日)
 # 各画像の「@」の後ろは、その画像を出すきっかけになる台本の言葉
 
 ## 導入：雨宿りと直木賞
 1: いらすとや 雨宿り=irasutoya rain shelter @雨宿り
 4: 雨やどり 半村良 本=Amayadori Ryo Hanmura book @題名にした小説
++7: 戦国自衛隊 半村良 小説=Sengoku Jieitai novel Ryo Hanmura @自衛隊
 
 ## 柴又に生まれる
 18: 半村良 作家 若い頃 写真=young Ryo Hanmura novelist photo @半村良
@@ -84,7 +86,7 @@
 159: 福島正実=Masami Fukushima|福島正実 @福島正実
 
 ## アニメの脚本
-164: エイトマン アニメ=8 Man anime 1963 @エイトマン
+164: エイトマン アニメ=8 Man anime 1963 @エイトマン + スーパージェッター アニメ=Super Jetter anime @スーパージェッター
 
 ## 結婚と作家への転身
 169: いらすとや 結婚式=irasutoya wedding @結婚
@@ -112,13 +114,13 @@
 
 ## 『妖星伝』の連載と『英雄伝説』
 241: 妖星伝 半村良=Yoseiden Ryo Hanmura @妖星伝
-243: 英雄伝説 ゲーム=The Legend of Heroes Falcom game @英雄伝説
++243: 英雄伝説 ゲーム=The Legend of Heroes Falcom game @英雄伝説
 
 ## 直木賞を目指す
 247: 直木賞 授賞式 昭和 報道写真=Naoki Prize ceremony Showa photo @直木賞
 
 ## 2度の落選
-253: 黄金伝説 半村良=Ogon Densetsu Ryo Hanmura @黄金伝説
+253: 黄金伝説 半村良=Ogon Densetsu Ryo Hanmura @黄金伝説 + 不可触領域 半村良=Fukashoku Ryoiki Ryo Hanmura @不可触領域
 
 ## 3度目の候補『雨やどり』
 261: 雨やどり 半村良=Amayadori Ryo Hanmura @雨やどり
@@ -126,17 +128,17 @@
 
 ## 直木賞受賞
 276: 半村良 直木賞 受賞 写真=Ryo Hanmura Naoki Prize photo @直木賞を受賞
-281: 景山民夫=Tamio Kageyama|景山民夫 @景山民夫
+281: 景山民夫=Tamio Kageyama|景山民夫 @景山民夫 + 遠い海から来たCOO 本=Toi Umi kara Kita COO book @COO
 285: 半村良 作家 写真=Ryo Hanmura novelist photo @-
 
 ## 仕事場『半文居』
 290: 半村良 書斎=Ryo Hanmura study @半文居/仕事場
 
 ## 『どぶどろ』『戸隠伝説』『新宿馬鹿物語』
-293: どぶどろ 半村良=Dobudoro Ryo Hanmura @どぶどろ
+293: どぶどろ 半村良=Dobudoro Ryo Hanmura @どぶどろ + 戸隠伝説 半村良=Togakushi Densetsu Ryo Hanmura @戸隠伝説 + 新宿馬鹿物語 映画=Shinjuku Baka Monogatari film @新宿馬鹿物語
 
 ## 政治家との付き合い
-299: 加藤紘一 政治家=Koichi Kato politician|加藤紘一 @加藤紘一
+299: 柿澤弘治 政治家=Koji Kakizawa politician|柿澤弘治 @柿澤弘治 + 加藤紘一 政治家=Koichi Kato politician|加藤紘一 @加藤紘一
 
 ## 酒と女と前借り
 303: いらすとや 前借り お金=irasutoya borrow money @酒と女/前借り
@@ -182,7 +184,8 @@
 
 ## 人情時代小説と柴田錬三郎賞
 408: かかし長屋 半村良=Kakashi Nagaya Ryo Hanmura @人情時代小説/かかし長屋
-416: 半村良 文庫=Ryo Hanmura paperbacks @ジャンル/浅草に帰ってきた
++411: 柴田錬三郎 作家=Renzaburo Shibata novelist|柴田錬三郎 @柴田錬三郎賞
+416: 石の血脈 半村良=Ishi no Ketsumyaku Ryo Hanmura @ジャンル/浅草に帰ってきた + 雨やどり 半村良=Amayadori Ryo Hanmura @ジャンル + かかし長屋 半村良=Kakashi Nagaya Ryo Hanmura @ジャンル
 
 ## 『妖星伝』完結
 421: 妖星伝 全巻=Yoseiden complete set @妖星伝
@@ -192,12 +195,14 @@
 
 ## 最後の作品『すべて辛抱』『獄門首』
 436: すべて辛抱 半村良=Subete Shinbo Ryo Hanmura @すべて辛抱
++437: 獄門首 半村良=Gokumon Kubi Ryo Hanmura @獄門首
 
 ## 68歳で死去
 438: いらすとや 献花=irasutoya flower offering @息を引き取った/肺炎
 
 ## 『戦国自衛隊1549』
 444: 戦国自衛隊1549=Sengoku Jieitai 1549 film @生き続けている/戦国自衛隊1549
++446: 福井晴敏 作家=Harutoshi Fukui novelist|福井晴敏 @福井晴敏
 
 ## 英語版『雨やどり』
 449: The Sheltering Rain Hanmura=The Sheltering Rain Ryo Hanmura @英語/Sheltering

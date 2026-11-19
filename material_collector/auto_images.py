@@ -36,7 +36,7 @@ from .html_sheet import parse_scene_table
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 PER_KEYWORD = 8
 THUMB = 220
-MAX_SIDE = 1280
+MAX_SIDE = 1920  # 画質を落とさない(ユーザーの希望「画質もできるだけいいものに」)
 SHEET_ROWS = 4  # 一覧画像1枚に何番分のせるか
 
 
@@ -166,6 +166,43 @@ def white_to_alpha(img: Image.Image, tolerance: int = 24) -> Image.Image:
     return out
 
 
+def download_full(session: requests.Session, url: str, page: str) -> Image.Image | None:
+    """元の大きさの画像を取る(画質を落とさないため。小さな見本の画像に落ちないように何度か試す)。
+
+    ・img.wikiwand.com は断られるので、同じ画像の upload.wikimedia.org から取る
+    ・Wikipedia の画像の置き場は、何の道具か分かる名前で頼まないと 429(頼みすぎ)で断るので、名前を付けて間をあけて試し直す
+    """
+    url = re.sub(r"^https?://img\.wikiwand\.com/wikipedia/", "https://upload.wikimedia.org/wikipedia/", url)
+    if "upload.wikimedia.org" in url:
+        # 元の画像はくり返し取ると断られるので、Wikipedia が決めている大きさの見本(1920・960・500px)から取る
+        m = re.match(r"(https://upload\.wikimedia\.org/wikipedia/[^/]+)/(?:thumb/)?([0-9a-f]/[0-9a-f]{2})/([^/?]+)", url)
+        if m:
+            base, path, name = m.groups()
+            for width in (1920, 960, 500):
+                img = _get_image(session, f"{base}/thumb/{path}/{name}/{width}px-{name}", page, wiki=True)
+                if img:
+                    return img
+    return _get_image(session, url, page, wiki="wikimedia.org" in url or "wikipedia.org" in url)
+
+
+def _get_image(session: requests.Session, url: str, page: str, wiki: bool = False) -> Image.Image | None:
+    headers = {"Referer": page or "https://search.yahoo.co.jp/"}
+    if wiki:
+        headers = {"User-Agent": "MaterialCollector/1.0 (personal YouTube research; image list for YMM4)"}
+    for attempt in range(3):
+        try:
+            resp = session.get(url, timeout=30, headers=headers)
+        except Exception:
+            resp = None
+        if resp is not None and resp.status_code == 429:
+            time.sleep(3 * (attempt + 1))
+            continue
+        if resp is None or not resp.ok:
+            return None
+        return load_image(resp.content, keep_alpha=True)
+    return None
+
+
 def safe_name(text: str) -> str:
     return re.sub(r'[\\/:*?"<>|\s]+', "_", text).strip("_")[:40]
 
@@ -194,11 +231,7 @@ def cmd_fetch(work: Path) -> int:
         cand = item["cands"][int(pick) - 1]
         img = None
         for url in (cand["orig"], cand["thumb"]):
-            try:
-                resp = session.get(url, timeout=20, headers={"Referer": cand["page"] or "https://search.yahoo.co.jp/"})
-                img = load_image(resp.content, keep_alpha=True) if resp.ok else None
-            except Exception:
-                img = None
+            img = download_full(session, url, cand["page"])
             if img and min(img.size) >= 120:
                 break
         if not img:

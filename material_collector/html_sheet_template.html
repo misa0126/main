@@ -46,6 +46,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
 .item.done { background: var(--done-bg); border-color: var(--done); }
 .no { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center;
   font-weight: bold; font-size: 13px; font-variant-numeric: tabular-nums; }
+.together { grid-column: 1 / -1; font-size: 12px; font-weight: bold; color: #b45309; background: #fef3c7; border-radius: 6px; padding: 2px 8px; width: fit-content; }
 .item.done .no { background: var(--done); }
 .words .ja { font-weight: bold; font-size: 15px; word-break: break-word; }
 .words .en { color: var(--muted); font-size: 12px; word-break: break-word; }
@@ -277,7 +278,7 @@ const EDIT_KEY = "image-list-edit:" + PAGE_KEY;
 const ALL_LINES = DATA.segments.flatMap(s => s.lines);
 const LINE_U = DATA.lineU || ALL_LINES.map((_, i) => i);
 const isUttStart = n => n === 1 || LINE_U[n - 1] !== LINE_U[n - 2];
-const originalLayout = () => DATA.segments.map(s => ({ topic: s.topic, start: s.start, images: s.images.map(i => ({ no: i.no, ja: i.ja, en: i.en, native: i.native, caption: i.caption, trigger: i.trigger })) }));
+const originalLayout = () => DATA.segments.map(s => ({ topic: s.topic, start: s.start, images: s.images.map(i => ({ no: i.no, ja: i.ja, en: i.en, native: i.native, caption: i.caption, trigger: i.trigger, with: i.with, at: i.at })) }));
 let layout = null;
 try {
   const saved = JSON.parse(localStorage.getItem(EDIT_KEY) || "null");
@@ -295,6 +296,12 @@ let selected = null;
 
 function saveLayout() {
   try { localStorage.setItem(EDIT_KEY, JSON.stringify({ segs: layout.map(s => ({ topic: s.topic, start: s.start, images: s.images })) })); } catch (e) {}
+}
+// 区切りの画像を、同時に横に並べて出すまとまりに分ける(「with」の画像は前の画像といっしょ)
+function imageGroups(seg) {
+  const groups = [];
+  for (const img of seg.images) { if (img.with && groups.length) groups[groups.length - 1].push(img); else groups.push([img]); }
+  return groups;
 }
 function derive() {
   layout.forEach((s, i) => {
@@ -359,6 +366,7 @@ function imageItem(img, seg) {
   } }, "この画像を消す") : null;
   const item = el("div", { class: "item" + (box.checked ? " done" : ""), id: "img" + img.no },
     el("div", { class: "no" }, String(disp(img.no))),
+    img.with ? el("div", { class: "together" }, img.at ? `＋ ${img.at}行目から、前の画像の横に並べて出す` : "＋ 前の画像と同時に、横に並べて出す") : null,
     wordsBox(img),
     el("label", { class: "check" }, box, "済"),
     captionBox(img),
@@ -440,7 +448,14 @@ function sceneTableText() {
       if (cap) w += "|" + cap;
       return img.trigger ? w + " @" + img.trigger : w;
     });
-    out.push(`${seg.start}: ${words.join(", ")}`);
+    // 並べて出す画像は「A + B」(同時)か「+行: C」(途中から足す)で書く
+    let line = `${seg.start}: `, extra = [];
+    seg.images.forEach((img, k) => {
+      if (k === 0) line += words[k];
+      else if (img.with && img.at && img.at !== seg.start) extra.push(`+${img.at}: ${words[k]}`);
+      else line += (img.with ? " + " : ", ") + words[k];
+    });
+    out.push(line, ...extra);
   }
   return out.join("\n") + "\n";
 }
@@ -898,11 +913,17 @@ async function placeIntoYmm4(pickedFile) {
   derive();
   layout.forEach((seg, i) => {
     const first = seg.u, after = i + 1 < layout.length ? layout[i + 1].u : U;
-    const span = Math.max(after - first, 1), count = seg.images.length;
-    seg.images.forEach((img, k) => {
+    const groups = imageGroups(seg);
+    const span = Math.max(after - first, 1), count = groups.length;
+    groups.forEach((group, k) => {
       const su = first + Math.floor(span * k / count), eu = first + Math.floor(span * (k + 1) / count);
-      const start = frameOf(su), end = eu < U ? frameOf(eu) : endOfVoices;
-      if (end > start) plan.push({ img, start, length: end - start });
+      const end = eu < U ? frameOf(eu) : endOfVoices;
+      group.forEach((img, col) => {
+        // 並べて出す画像は、その画像の行(「+243:」)から、まとまりの終わりまで。場所は横に並べた何番目か
+        const atU = img.at ? LINE_U[img.at - 1] : null;
+        const start = frameOf(atU != null && atU > su ? atU : su);
+        if (end > start) plan.push({ img, start, length: end - start, col, cols: group.length });
+      });
     });
   });
 
@@ -931,11 +952,15 @@ async function placeIntoYmm4(pickedFile) {
       $type: "YukkuriMovieMaker.Project.Effects.InOutFadeEffect, YukkuriMovieMaker",
       Value: 0.0, IsInEffect: true, IsOutEffect: true, EffectTimeSeconds: L.fadeSec, EasingType: "Linear", EasingMode: "Out", IsEnabled: true, Remark: "",
     }] : [];
+    // 同時に出す画像が2枚以上なら、画像の枠を横に等分して並べる(1枚ならこれまでどおり枠いっぱい)
+    const boxW = W * L.fitW / 100, boxH = H * L.fitH / 100, cols = p.cols || 1;
+    const colW = boxW / cols, dx = Math.round(-boxW / 2 + colW * ((p.col || 0) + 0.5));
+    const fitW = cols > 1 ? colW * 0.96 : colW;
     let zoom = 100;
-    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
+    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(fitW / bmp.width, boxH / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
     const item = {
       $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
-      X: animated(L.x, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
+      X: animated(L.x + dx, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
       FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: fade(), Group: 0,
       Frame: p.start, Layer: layer, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
     };
@@ -943,7 +968,7 @@ async function placeIntoYmm4(pickedFile) {
     added.push(item);
     const caption = captionOf(p.img);
     if (L.capOn && caption) {
-      const size = Math.round(L.capSize * H / 1080);
+      const size = Math.round(L.capSize * H / 1080 * (cols > 2 ? 0.75 : 1));
       // 文字そのものの縁取りに加えて、黒い縁取りエフェクトで縁を太くする
       const outline = L.capBorder > 0 ? [{
         $type: "YukkuriMovieMaker.Project.Effects.OutlineEffect, YukkuriMovieMaker",
@@ -958,7 +983,7 @@ async function placeIntoYmm4(pickedFile) {
         WordWrap: "NoWrap", MaxWidth: animated(W, shape), BasePoint: "CenterBottom",
         FontColor: "#FFFFFFFF", Style: "Border", StyleColor: "#FF000000", Bold: true, Italic: false,
         IsTrimEndSpace: true, IsDevidedPerCharacter: false, DisplayInterval: 0, DisplayDirection: "FromFirst", HideInterval: 0, HideDirection: "FromFirst",
-        X: animated(L.capX, shape), Y: animated(L.capY, shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
+        X: animated(L.capX + dx, shape), Y: animated(L.capY, shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
         FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: shape ? outline.concat(fade()) : [], Group: 0,
         Frame: p.start, Layer: layer + 1, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
       };
