@@ -1,0 +1,192 @@
+# 小栗虫太郎の解説台本 その2(oguri_mushitaro_2.txt、ガイドブックのつかみで始まる版)の区切りと画像(2026年11月20日)
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 決め方:
+#   ・1つの話のまとまりに画像1枚。横に並べるのは、同じセリフで2〜3作品・人の名前を並べて言う所だけ
+#   ・ユーザーの希望(2026年11月20日): 透かし(ウォーターマーク)の入っていない、本人に関係ある写真を基本に使う。
+#     本人・作品の表紙・雑誌『新青年』・話に出てくる作家・ゆかりの場所にする。いらすとやはガイドブック・父の死・雷の3枚だけ
+# 小栗虫太郎は本人の写真がネットに少ないので、同じ写真を使い回している
+# 人の写真には「|名前」を付けている。主人公の小栗虫太郎には付けない
+
+## つかみ：ガイドブックで行った気になる
+1: いらすとや ガイドブック 旅行=irasutoya travel guidebook @ガイドブック
+
+## 主人公の紹介
+19: 小栗虫太郎 作家 写真=Mushitaro Oguri novelist photo @小栗虫太郎
+
+## 神田の酒問屋に生まれる
+20: 神田 明治 古写真=Kanda Tokyo Meiji old photo @-
+
+## 10歳で父の死と本家の仕送り
+29: いらすとや お葬式 子供=irasutoya funeral child @父親が亡くなって
+
+## 父の遺した骨董品
+38: 骨董品 古美術 掛け軸 壺=Japanese antiques scroll vase @骨董品
+
+## 自分中心の父
+42: 小栗虫太郎 若い頃 写真=young Mushitaro Oguri photo @父親
+
+## 東京女子高等師範学校附属小学校
+46: 東京女子高等師範学校 附属小学校 古写真=Tokyo Women's Higher Normal School old photo @女子高等師範
+
+## 京華中学校
+51: 京華中学校 旧校舎 古写真=Keika Junior High School old photo @京華中学校
+
+## 正則英語学校と洋書
+52: 正則英語学校 古写真=Seisoku English School old photo @正則英語学校
+
+## 先輩の甲賀三郎
+59: 甲賀三郎 作家=Saburo Koga novelist|甲賀三郎 @甲賀三郎
+
+## 会社勤めと結婚
+62: 小栗虫太郎 若い頃 写真=young Mushitaro Oguri photo @勤め先
+
+## 四海堂印刷所
+70: 活版印刷所 大正 白黒写真=letterpress printing shop Taisho photo @印刷所
+
+## 探偵小説を書き始める
+78: 紅殻駱駝の秘密 小栗虫太郎=Kogara Rakuda no Himitsu Mushitaro Oguri @探偵小説/紅殻駱駝
+
+## 印刷所を閉じて6年の無職
+93: 小栗虫太郎 白黒写真=Mushitaro Oguri black and white photo @無職/印刷所を閉め
+
+## 骨董品を売って暮らす
+98: 骨董品 古美術 掛け軸 壺=Japanese antiques scroll vase @骨董品
+
+## 『探偵趣味』に別名で載る
+109: 探偵趣味 雑誌 昭和初期=Tantei Shumi magazine 1920s @探偵趣味
+
+## 『完全犯罪』を書き上げる
+123: 完全犯罪 小栗虫太郎=Kanzen Hanzai Mushitaro Oguri @完全犯罪
+
+## 面識のない先輩・甲賀三郎の推薦
+127: 甲賀三郎 作家=Saburo Koga novelist|甲賀三郎 @甲賀三郎
+
+## 『新青年』の編集長・水谷準
+143: 水谷準 作家 編集長=Jun Mizutani editor Shinseinen|水谷準 @水谷準
+
+## 横溝正史の大喀血
+153: 横溝正史 若い頃=young Seishi Yokomizo|横溝正史 @横溝正史
+
+## 『新青年』に空いた穴
+157: 新青年 雑誌 表紙 昭和8年=Shinseinen magazine cover 1933 @雑誌
+
+## 代わりの原稿でデビュー
+162: 小栗虫太郎 作家 写真=Mushitaro Oguri novelist photo @小栗虫太郎
+
+## 横溝正史との会話
+172: 横溝正史 作家=Seishi Yokomizo novelist|横溝正史 @横溝
+
+## 『後光殺人事件』と法水麟太郎
+178: 後光殺人事件 小栗虫太郎=Goko Satsujin Jiken Mushitaro Oguri @後光殺人事件
+
+## 『黒死館殺人事件』
+194: 黒死館殺人事件 小栗虫太郎 初版=Kokushikan Satsujin Jiken Mushitaro Oguri first edition @黒死館殺人事件
+
+## 日本三大奇書
+219: ドグラ・マグラ 夢野久作 本=Dogra Magra Kyusaku Yumeno book @ドグラ・マグラ + 虚無への供物 中井英夫 本=Kyomu e no Kumotsu Hideo Nakai book @虚無への供物 + 黒死館殺人事件 小栗虫太郎 文庫=Kokushikan Satsujin Jiken Mushitaro Oguri bunko @三大奇書
+
+## 『白蟻』と『二十世紀鉄仮面』
+231: 白蟻 小栗虫太郎=Shiroari Mushitaro Oguri @白蟻 + 二十世紀鉄仮面 小栗虫太郎=Nijisseiki Tetsukamen Mushitaro Oguri @二十世紀鉄仮面
+
+## 直木賞候補
+240: 小栗虫太郎 作家 ポートレート=Mushitaro Oguri novelist portrait @-
+
+## 雑誌『シュピオ』
+245: シュピオ 雑誌 探偵小説=Shupio detective magazine 1937 @シュピオ + 海野十三 作家=Juza Unno novelist|海野十三 @海野十三 + 木々高太郎 作家=Takataro Kigi novelist|木々高太郎 @木々高太郎
+
+## 木々高太郎への辛口
+249: 木々高太郎 作家=Takataro Kigi novelist|木々高太郎 @木々高太郎
+
+## 居候の茂田井武と左頭弦馬
+253: 茂田井武 画家=Takeshi Motai painter|茂田井武 @居候/茂田井武
+
+## 夢野久作への手紙
+261: 夢野久作 作家=Kyusaku Yumeno novelist|夢野久作 @夢野久作
+
+## 雷が大の苦手
+266: いらすとや 雷 怖い=irasutoya thunder scared @雷
+
+## 妻の清書
+275: 小栗虫太郎 自筆原稿=Mushitaro Oguri manuscript @原稿/清書
+
+## 『大暗黒』で新青年賞、秘境ものへ
+289: 大暗黒 小栗虫太郎=Daiankoku Mushitaro Oguri @-
+
+## 『人外魔境』
+301: 人外魔境 小栗虫太郎=Jingai Makyo Mushitaro Oguri @人外魔境
+
+## 陸軍報道班員としてマレーへ
+325: 陸軍報道班員 作家 徴用 マレー 写真=Japanese army press corps writers Malaya WWII photo @報道班員/マレー
+
+## 井伏鱒二も同じマレーへ
+329: 井伏鱒二 作家 若い頃=young Masuji Ibuse novelist|井伏鱒二 @井伏鱒二
+
+## 初めての異国は戦地
+332: マレー作戦 白黒写真=Malayan campaign 1941 photo @戦地
+
+## 『海峡天地會』
+344: 海峡天地會 小栗虫太郎=Kaikyo Tenchikai Mushitaro Oguri @海峡天地會
+
+## 戦時中の東京
+351: 東京 戦時中 白黒写真=Tokyo wartime 1944 photo @東京/戦争
+
+## 菊芋から果糖を作る事業
+355: 菊芋=Jerusalem artichoke tuber @新しい仕事/菊芋
+
+## 長野へ疎開
+368: 中野市 昭和 古写真=Nakano Nagano Showa old photo @長野県
+
+## 戦後、『悪霊』を書き始める
+379: 悪霊 小栗虫太郎=Akuryo Mushitaro Oguri @-
+
+## 江戸川乱歩との再会
+393: 江戸川乱歩 作家=Edogawa Ranpo novelist|江戸川乱歩 @ある人物/江戸川乱歩
+
+## 突然の死
+410: 小栗虫太郎 作家 写真=Mushitaro Oguri novelist photo @この世を去った
+
+## 闇の酒
+415: 闇市 戦後 白黒写真=black market postwar Japan photo @闇
+
+## 自由に書ける矢先の死
+419: 小栗虫太郎 白黒写真=Mushitaro Oguri black and white photo @-
+
+## 書きかけの『悪霊』
+423: 悪霊 小栗虫太郎=Akuryo Mushitaro Oguri @悪霊
+
+## 雑誌『ロック』
+429: ロック 雑誌 昭和21年 探偵小説=Rock magazine 1946 detective @ロック
+
+## 横溝正史の『蝶々殺人事件』
+431: 横溝正史 作家=Seishi Yokomizo novelist|横溝正史 @横溝正史
+
+## 笹沢左保の完結編
+438: 笹沢左保 作家=Saho Sasazawa novelist|笹沢左保 @笹沢左保
+
+## 桃源社の『人外魔境』で復活
+440: 人外魔境 桃源社=Jingai Makyo Togensha @人外魔境/桃源社
+
+## 澁澤龍彦の解説
+442: 澁澤龍彦 作家=Tatsuhiko Shibusawa novelist|澁澤龍彦 @澁澤龍彦
+
+## 全作品集と文庫化
+447: 小栗虫太郎全作品 桃源社=Oguri Mushitaro complete works Togensha @全作品集/傑作選
+
+## 成蹊大学の資料と展示
+453: 成蹊大学 小栗虫太郎 展示=Seikei University Mushitaro Oguri exhibition @成蹊大学
+
+## 注釈付きの『黒死館殺人事件』
+459: 黒死館殺人事件 作品社 注釈=Kokushikan Satsujin Jiken Sakuhinsha annotated @黒死館殺人事件
+
+## 80年ぶりの『亜細亜の旗』
+462: 亜細亜の旗 小栗虫太郎 春陽堂=Asia no Hata Mushitaro Oguri Shunyodo @亜細亜の旗
+
+## 小樽の展覧会と角川文庫
+465: 市立小樽文学館 小栗虫太郎展=Otaru Literature Museum Mushitaro Oguri exhibition @小樽 + 黒死館殺人事件 角川文庫=Kokushikan Satsujin Jiken Kadokawa bunko @黒死館殺人事件
+
+## まとめ
+472: 小栗虫太郎 作家 写真=Mushitaro Oguri novelist photo @小栗虫太郎
