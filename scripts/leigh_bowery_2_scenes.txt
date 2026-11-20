@@ -1,0 +1,198 @@
+# リー・バウリーの解説台本 その2(leigh_bowery_2.txt、「毎日違う服」のつかみで始まる版)の区切りと画像(2026年11月20日)
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 決め方:
+#   ・1つの話のまとまりに画像1枚。横に並べるのは、同じセリフで2〜3人の名前を並べて言う所だけ
+#   ・ユーザーの希望(2026年11月20日): 透かし(ウォーターマーク)の入っていない、本人に関係ある写真を基本に使う。
+#     雰囲気だけの写真は使わず、本人・話に出てくる人物・フロイドの絵・ゆかりの場所にする。いらすとやはつかみの1枚だけ
+# 英語圏の人物なので、母語の検索ボタンは付けていない(英語のワードがそのまま母語)
+# 人の写真には「|名前」を付けている。主人公のリー・バウリーには付けない
+
+## つかみ：毎日違う服
+1: いらすとや 服 たくさん 選ぶ=irasutoya many clothes @違う服
+
+## 毎晩違う生き物みたいな男
+4: リー・バウリー 衣装 写真=Leigh Bowery look costume photo @主人公
+
+## サンシャインに生まれる
+19: サンシャイン メルボルン 昭和30年代 古写真=Sunshine Victoria 1960s old photo @サンシャイン
+
+## 母に習った手芸
+26: リー・バウリー 子供の頃=Leigh Bowery as a child @手芸
+
+## ピアノの才能
+40: リー・バウリー ピアノ=Leigh Bowery playing piano @音楽
+
+## メルボルン高校
+43: メルボルン高校 古写真=Melbourne High School old photo @メルボルン高校
+
+## ファッションの道とパンク
+50: パンク ファッション ロンドン 1977 白黒写真=punk fashion London 1977 black and white @ファッション
+
+## RMITを数か月で辞める
+57: RMIT 古写真=RMIT Melbourne old photo @RMIT
+
+## ロンドンへ
+64: ロンドン 1980年 白黒写真=London 1980 street black and white photo @ロンドン
+
+## バーガーキングで夜勤
+77: バーガーキング ロンドン 1980年代=Burger King London 1980s @バーガーキング
+
+## 新年の抱負
+82: リー・バウリー 若い頃 1981=young Leigh Bowery 1981 @抱負
+
+## オルタナティブ・ミス・ワールド
+91: オルタナティブ・ミス・ワールド アンドリュー・ローガン=Alternative Miss World Andrew Logan 1981 @オルタナティブ・ミス・ワールド
+
+## スカーレットのチャチャ・クラブ
+100: スカーレット・キャノン 1980年代=Scarlett Cannon 1980s Cha Cha club|スカーレット・キャノン @スカーレット・キャノン/チャチャ・クラブ
+
+## 店長研修生
+110: バーガーキング 1980年代 店=Burger King 1980s restaurant @バーガーキング
+
+## ケンジントン・マーケット
+119: ケンジントン・マーケット 1980年代=Kensington Market London 1980s @ケンジントン・マーケット
+
+## スー・ティリーと出会う
+121: スー・ティリー 若い頃=young Sue Tilley 1980s|スー・ティリー @スー・ティリー
+
+## 自分のための服
+124: リー・バウリー 1983 ファッション=Leigh Bowery 1983 fashion look @スーツ/自分用
+
+## ニューヨークと日本
+143: ライムライト ニューヨーク クラブ 1980年代=Limelight nightclub New York 1980s @ライムライト
+
+## 雑誌『ザ・フェイス』
+149: ザ・フェイス 雑誌 リー・バウリー=The Face magazine Leigh Bowery @ザ・フェイス
+
+## マイケル・クラーク
+151: マイケル・クラーク ダンサー 1980年代=Michael Clark dancer 1980s|マイケル・クラーク @協力者/マイケル・クラーク
+
+## スリー・キングス
+159: トロージャン デヴィッド・ウォールズ リー・バウリー=Trojan David Walls Leigh Bowery|トロージャンとデヴィッド・ウォールズ @仲間/トロージャン
+
+## クラブ「タブー」
+165: タブー クラブ リー・バウリー 1985=Taboo club Leigh Bowery 1985 @城/マキシマス/タブー
+
+## タブーの常連
+180: ボーイ・ジョージ 1980年代=Boy George 1980s|ボーイ・ジョージ @ボーイ・ジョージ + ジョージ・マイケル 1980年代=George Michael 1980s|ジョージ・マイケル @ジョージ・マイケル + ジョン・ガリアーノ 若い頃=young John Galliano 1980s|ジョン・ガリアーノ @ジョン・ガリアーノ
+
+## 自分たちが主役の場所
+185: リー・バウリー クラブ 1985=Leigh Bowery nightclub 1985 @自分の手で
+
+## テープとウォッカ
+194: リー・バウリー 衣装 1980年代 写真=Leigh Bowery 1980s outfit photo @派手な姿/ガムテープ
+
+## タブーの閉店
+208: タブー リー・バウリー 1986=Taboo nightclub London Leigh Bowery 1986 @タブー
+
+## トロージャンの死
+215: トロージャン 画家=Trojan Gary Barnes artist|トロージャン @悲しみ/トロージャン
+
+## 『ノー・ファイア・エスケープ・イン・ヘル』とベッシー賞
+225: マイケル・クラーク No Fire Escape in Hell リー・バウリー=Michael Clark No Fire Escape in Hell Leigh Bowery|マイケル・クラーク @別の舞台/マイケル・クラーク
+
+## 故郷での凱旋公演
+241: マイケル・クラーク リー・バウリー 舞台 1987=Michael Clark Leigh Bowery stage 1987|マイケル・クラーク @一座/オーストラリア
+
+## BBC『ザ・クローズ・ショー』
+255: ザ・クローズ・ショー リー・バウリー=The Clothes Show Leigh Bowery 1988 @お茶の間/ザ・クローズ・ショー
+
+## 画廊の展示『ミラー』
+263: リー・バウリー アンソニー・ドフェイ画廊 1988=Leigh Bowery Anthony d'Offay Gallery 1988 @美術/画廊
+
+## HIVの診断と秘密
+286: リー・バウリー 1988 写真=Leigh Bowery 1988 portrait @診断
+
+## ファーガス・グリアの写真
+299: ファーガス・グリア リー・バウリー=Fergus Greer Leigh Bowery photograph @作品を残し/ファーガス・グリア
+
+## ルシアン・フロイド
+306: ルシアン・フロイド 画家=Lucian Freud painter|ルシアン・フロイド @人物/ルシアン・フロイド
+
+## 裸で座る
+320: 座るリー・バウリー ルシアン・フロイド=Leigh Bowery (Seated) Lucian Freud @裸
+
+## 出産パフォーマンス
+337: リー・バウリー 出産 パフォーマンス=Leigh Bowery birth performance Nicola Bateman|ニコラ・ベイトマン @出産パフォーマンス
+
+## 過激な舞台
+353: リー・バウリー パフォーマンス 1990年代=Leigh Bowery performance 1990s @フリッジ/エイズ支援
+
+## スー・ティリーをフロイドに
+364: スー・ティリー ルシアン・フロイド=Sue Tilley Lucian Freud|スー・ティリーとルシアン・フロイド @スー・ティリー
+
+## メトロポリタン美術館
+369: リー・バウリー メトロポリタン美術館 1993=Leigh Bowery Metropolitan Museum 1993 @メトロポリタン美術館
+
+## バンド「ミンティ」
+384: ミンティ リー・バウリー バンド=Minty band Leigh Bowery @ミンティ
+
+## 逮捕とフロイド
+396: ルシアン・フロイド 1990年代=Lucian Freud 1990s|ルシアン・フロイド @フロイド
+
+## ニコラと結婚
+399: リー・バウリー ニコラ・ベイトマン=Leigh Bowery Nicola Bateman|ニコラ・ベイトマン @ニコラ・ベイトマン/結婚
+
+## 最後の撮影
+414: ファーガス・グリア リー・バウリー 1994=Fergus Greer Leigh Bowery 1994 session @ファーガス・グリア
+
+## フリーダム・カフェ
+416: ミンティ フリーダム・カフェ 1994=Minty Freedom Cafe 1994 Leigh Bowery @フリーダム・カフェ
+
+## 客席の3人
+419: ルシアン・フロイド 晩年=Lucian Freud old|ルシアン・フロイド @フロイド + スー・ティリー=Sue Tilley|スー・ティリー @スー + アレキサンダー・マックイーン 若い頃=young Alexander McQueen|アレキサンダー・マックイーン @マックイーン
+
+## スープを吐く舞台
+421: ミンティ ライブ リー・バウリー=Minty live Leigh Bowery @舞台
+
+## マックイーンの衝撃
+424: アレキサンダー・マックイーン 1990年代=Alexander McQueen 1990s|アレキサンダー・マックイーン @マックイーン
+
+## フロイドが見届けた夜
+426: ルシアン・フロイド アトリエ=Lucian Freud studio|ルシアン・フロイド @フロイド
+
+## 初日で打ち切り
+430: ウェストミンスター区役所=Westminster City Council Hall London @ウェストミンスター区
+
+## エイズとの闘い
+441: リー・バウリー 1994 写真=Leigh Bowery 1994 photo @エイズ
+
+## 入院
+446: ミドルセックス病院 古写真=Middlesex Hospital London old photo @入院/ミドルセックス病院
+
+## 大晦日の死
+454: リー・バウリー 晩年 写真=Leigh Bowery last photo 1994 @病状
+
+## フロイドが故郷へ送る
+463: ルシアン・フロイド 晩年 写真=Lucian Freud old photo|ルシアン・フロイド @フロイド
+
+## 母の隣に眠る
+468: リー・バウリー 墓 マセドン=Leigh Bowery grave Macedon @眠る
+
+## 眠るリー・バウリーの小さな頭部
+474: ルシアン・フロイド リー・バウリー 眠る 頭部=Lucian Freud Small Head of Leigh Bowery sleeping 1995 @フロイド
+
+## スー・ティリーの伝記
+480: スー・ティリー リー・バウリー 伝記 本=Sue Tilley Leigh Bowery The Life and Times of an Icon book @伝記
+
+## アルバム『オープン・ワイド』
+481: ミンティ オープン・ワイド アルバム=Minty Open Wide album @オープン・ワイド
+
+## ミュージカル『タブー』
+483: ボーイ・ジョージ ミュージカル タブー=Boy George Taboo musical 2002 Leigh Bowery|ボーイ・ジョージ @ボーイ・ジョージ
+
+## ドキュメンタリー映画
+487: リー・バウリー ドキュメンタリー 2002=The Legend of Leigh Bowery documentary 2002 @ドキュメンタリー
+
+## テート・モダンの大回顧展
+490: テート・モダン リー・バウリー展=Tate Modern Leigh Bowery! exhibition 2025 @テート・モダン
+
+## 影響を受けたデザイナーたち
+496: アレキサンダー・マックイーン=Alexander McQueen designer|アレキサンダー・マックイーン @アレキサンダー・マックイーン + ジョン・ガリアーノ=John Galliano designer|ジョン・ガリアーノ @ジョン・ガリアーノ + レディー・ガガ=Lady Gaga|レディー・ガガ @レディー・ガガ
+
+## 一着の衣装
+501: リー・バウリー 衣装 パフォーマンス=Leigh Bowery iconic look performance @作品/衣装
