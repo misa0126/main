@@ -33,22 +33,30 @@ PUNCT_AFTER = "、"
 STRONG_AFTER = "』"
 PARTICLES = "はがをにでともへやの"
 HIRAGANA = re.compile(r"[ぁ-ゖ]")
+ASCII_WORD = re.compile(r"[A-Za-z0-9'.&-]")
 
 
 def _break_score(text: str, n: int) -> int:
     """text[:n] の後ろで改行したときの、区切りのよさ(0 は区切りにしない)。"""
     ch = text[n - 1]
     if ch in SENTENCE_END and text[n] not in SENTENCE_END + "」』" and text[:n].count("『") <= text[:n].count("』"):
-        return 4  # 文の終わり(「！」「？」「。」の後ろ。『』の中は除く)がいちばん(ユーザーの希望)
+        return 8  # 文の終わり(「！」「？」「。」の後ろ。『』の中は除く)がいちばん(ユーザーの希望)
     if ch in PUNCT_AFTER:
-        return 3
+        return 6
     if ch in STRONG_AFTER:
-        return 2
+        return 4
     if text[n] in "『「":
-        return 2
+        return 4
     if ch in PARTICLES and not HIRAGANA.match(text[n]):
-        return 1
+        return 2
+    if ch == " " and ASCII_WORD.match(text[n - 2 : n - 1] or "、") and ASCII_WORD.match(text[n]):
+        return 1  # 英語のタイトルは、ほかに切れる所がなければ単語の区切り(空白の後ろ)で切る
     return 0
+
+
+def _inside_word(text: str, n: int) -> bool:
+    """text[:n] の後ろが英単語・数字の途中か(「of th / e Firebird」のように切らないため)。"""
+    return bool(ASCII_WORD.match(text[n - 1]) and ASCII_WORD.match(text[n]))
 
 
 def wrap_body(body: str, limit: int = LIMIT) -> list[str]:
@@ -65,7 +73,7 @@ def wrap_body(body: str, limit: int = LIMIT) -> list[str]:
         best: dict[int, tuple[tuple[int, int, int], int]] = {0: ((0, 0, 0), -1)}
         for i in range(1, length + 1):
             score = 0 if i == length else _break_score(body, i)
-            if i < length and score == 0 and not allow_any:
+            if i < length and score == 0 and (not allow_any or _inside_word(body, i)):
                 continue
             for j in range(max(0, i - limit), i):
                 if j not in best:
@@ -100,6 +108,8 @@ def _serifs(script_text: str) -> list[tuple[str, str]]:
         if match and not open_serif:
             serifs.append([match.group("speaker"), match.group("body")])
         elif serifs:
+            if ASCII_WORD.match(serifs[-1][1][-1:] or "、") and ASCII_WORD.match(line[:1]):
+                serifs[-1][1] += " "  # 英語のタイトルを単語の区切りで改行した所は、空白に戻す
             serifs[-1][1] += line
         else:
             raise ValueError(f"話者のないセリフがあります: {line!r}")
@@ -153,7 +163,7 @@ def split_sentences(body: str) -> list[str]:
     """「！」「？」「。」の後ろでセリフを分ける(『』の中とセリフの最後は除く。霊夢のセリフ用。ユーザーの希望)。"""
     parts, prev = [], 0
     for n in range(1, len(body)):
-        if _break_score(body, n) == 4:
+        if _break_score(body, n) == 8:
             parts.append(body[prev:n])
             prev = n
     parts.append(body[prev:])
@@ -197,7 +207,7 @@ def wrap_script(script_text: str, limit: int = LIMIT) -> tuple[str, dict[int, li
         for rows in (r for piece in pieces for r in split_serif(piece, limit)):
             parts.append((number + 1, commas))
             commas += _marks("".join(rows))
-            rows = list(rows)
+            rows = [r.rstrip() if k < len(rows) - 1 else r for k, r in enumerate(rows)]
             rows[0] = f"{speaker}「{rows[0]}"
             rows[-1] = f"{rows[-1]}」"
             out.extend(rows)

@@ -1,0 +1,230 @@
+# TAIJI(沢田泰司)の解説台本(taiji.txt)の区切りと画像(2026年11月22日)
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 決め方:
+#   ・1つの話のまとまりに画像1枚。横に並べるのは、同じセリフで2〜3のバンド・作品の名前を並べて言う所だけ
+#     (ビートルズ+クイーン、キッス+レインボー+モーターヘッド)
+#   ・透かしの入っていない、本人・バンド・アルバムのジャケット・話に出てくる人物・ゆかりの場所の写真を基本にする
+#   ・いらすとやは5枚(公園の再会のつかみ、入院、レストランごっこ、両親の離婚、バイク事故)
+# 人の写真には「|名前」を付けている。主人公のTAIJIには付けない
+
+## つかみ：何年ぶりの再会なら話せるか
+1: いらすとや 再会 友達=irasutoya reunion friends @久しぶり
+
+## 主人公の紹介
+9: TAIJI 沢田泰司 ベーシスト 写真=TAIJI Sawada bassist X Japan photo @TAIJI
+
+## 千葉県市川市に生まれる
+23: 市川市 昭和 古写真=Ichikawa Chiba Showa old photo @市川市
+
+## 2歳の事故と2本指の奏法
+28: TAIJI ベース 演奏 指弾き=TAIJI Sawada bass playing fingers @事故
+
+## ネフローゼで入院
+38: いらすとや 入院 子供=irasutoya hospital child @ネフローゼ
+
+## 父のギターを見よう見まね
+43: TAIJI 若い頃 ギター=young TAIJI Sawada guitar @ギター
+46: 禁じられた遊び 映画 1952=Forbidden Games 1952 film @禁じられた遊び
+
+## ビートルズとクイーンに憧れる
+50: ビートルズ 1960年代 写真=The Beatles 1960s photo|ビートルズ @ビートルズ + クイーン バンド 1970年代 写真=Queen band 1970s photo|クイーン @クイーン
+
+## 週末のレストランTAIJI
+51: いらすとや お店屋さんごっこ=irasutoya kids playing shop @レストラン
+
+## 両親の離婚
+61: いらすとや 離婚=irasutoya divorce @家庭
+
+## ハードロックに夢中
+66: KISS キッス 1970年代 写真=KISS band 1970s photo|キッス @キッス + Rainbow レインボー リッチー・ブラックモア 1970年代=Rainbow band Ritchie Blackmore 1970s|レインボー @レインボー + モーターヘッド レミー 1980年代=Motorhead Lemmy 1980s photo|モーターヘッド @モーターヘッド
+
+## 千葉明徳高校を1年で中退
+68: 千葉明徳高校=Chiba Meitoku High School @千葉明徳
+
+## バンドTRASHで優勝
+73: TAIJI 10代 ギター 写真=teenage TAIJI Sawada guitarist photo @TRASH
+
+## DEMENTIAでベースに持ち替え
+78: DEMENTIA TAIJI Ray バンド=Dementia band TAIJI Ray 1980s @DEMENTIA
+
+## PROWLERと勘当
+94: TAIJI 若い頃 写真 1980年代=young TAIJI Sawada 1980s photo @PROWLER
+
+## kyo・TETSUとのDead Wire
+102: D'ERLANGER kyo TETSU 1980年代=D'ERLANGER kyo Tetsu 1980s|kyo・TETSU @D'ERLANGER
+
+## 親友hideとの出会い
+104: hide サーベルタイガー 若い頃=young hide Saber Tiger guitarist|hide @親友
+
+## YOSHIKIのスカウトとXへの加入
+110: YOSHIKI 若い頃 X 1980年代=young YOSHIKI X 1980s|YOSHIKI @YOSHIKI
+
+## 伝説の5人
+121: X 5人 メンバー YOSHIKI Toshl hide PATA TAIJI=X Japan 1989 lineup YOSHIKI Toshl hide PATA TAIJI|X @5人
+
+## 髪型と衣装を手がける
+125: X インディーズ時代 TAIJI 衣装 髪型=X indies era TAIJI costume hair 1987 @髪型
+
+## Skull Thrash Zone
+133: Skull Thrash Zone Volume I ジャケット=Skull Thrash Zone Volume I album cover @Skull Thrash Zone
+
+## 1stアルバム Vanishing Vision
+136: Vanishing Vision X ジャケット=X Vanishing Vision album cover @Vanishing Vision
+
+## 映画 Tokyo Pop
+141: Tokyo Pop 映画 1988=Tokyo Pop 1988 film @Tokyo Pop
+
+## BLUE BLOODでメジャーデビュー
+147: BLUE BLOOD X ジャケット=X Blue Blood album cover @BLUE BLOOD
+
+## 両親をライブに招いて仲直り
+152: X 1989 ライブ TAIJI=X Japan 1989 live TAIJI bass @ライブ
+
+## 作曲とアコースティックギター
+162: TAIJI アコースティックギター 写真=TAIJI Sawada acoustic guitar photo @-
+
+## Jealousyでオリコン1位
+172: Jealousy X ジャケット=X Jealousy album cover @Jealousy
+
+## YOSHIKIとの対立
+184: YOSHIKI 1991 ドラム X 写真=YOSHIKI 1991 drums X Japan photo|YOSHIKI @ひび
+
+## 東京ドーム3日間『破滅に向かって』
+210: 破滅に向かって 東京ドーム 1992 X=X Japan Hametsu ni Mukatte Tokyo Dome 1992 @条件
+
+## Mステでの脱退発表
+226: X ミュージックステーション 1992=X Japan Music Station 1992 @ミュージックステーション
+
+## ART OF LIFEの録り直し
+228: ART OF LIFE X JAPAN ジャケット=X Japan Art of Life cover @ART OF LIFE
+
+## 高崎晃に誘われLOUDNESSへ
+234: 高崎晃 LOUDNESS ギタリスト=Akira Takasaki Loudness guitarist|高崎晃 @男
+
+## 本名の沢田泰司に改名
+247: 沢田泰司 LOUDNESS 1992=Taiji Sawada Loudness 1992 @沢田泰司
+
+## アルバム『LOUDNESS』
+252: LOUDNESS 1992 アルバム ジャケット=Loudness 1992 self-titled album cover @LOUDNESS
+
+## 前任の山下と比べられる地獄
+258: 山下昌良 LOUDNESS ベーシスト=Masayoshi Yamashita Loudness bassist|山下昌良 @山下
+
+## D.T.Rを立ち上げる
+266: D.T.R TAIJI バンド 1994=D.T.R Dirty Trash Road TAIJI 1994 @プロジェクト
+
+## Daring Tribal RoarとKings
+275: Daring Tribal Roar D.T.R ジャケット=D.T.R Daring Tribal Roar album cover @Daring Tribal Roar
+277: Kings TAIJI スーパーグループ 1995=Kings supergroup TAIJI 1995 @Kings
+
+## 沢田大司に改名
+280: 沢田大司 TAIJI 1995 写真=Taiji Sawada 1995 photo @沢田大司
+
+## 離婚とD.T.Rの活動停止
+289: TAIJI 沢田大司 1996 写真=TAIJI Sawada 1996 photo @離婚
+
+## 上野公園での暮らし
+303: 上野公園 1990年代 写真=Ueno Park Tokyo 1990s photo @住む場所
+
+## hideの死
+323: hide 1998 写真=hide X Japan 1998 photo|hide @知らせ
+
+## hideの葬儀でXの仲間と再会
+334: hide 葬儀 築地本願寺 1998=hide funeral Tsukiji Hongwanji 1998 @葬儀
+
+## Shuと組んだCloud Nine
+353: Cloud Nine TAIJI 沢田泰司 Shu 2000年=Cloud Nine Taiji Sawada Shu 2000 band|Shu @Shu
+
+## 自伝『宇宙を翔ける友へ』
+356: 宇宙を翔ける友へ TAIJI 自伝=TAIJI autobiography Uchu wo Kakeru Tomo e @宇宙を翔ける友へ
+
+## Cloud Nineを脱退
+366: Cloud Nine TAIJI Shu バンド=Cloud Nine band TAIJI Shu|Shu @Cloud Nine
+
+## 妹MASAYOと音風
+368: MASAYO Sister MAYO 歌手=Sister MAYO singer MASAYO|MASAYO @妹
+
+## バイク事故
+379: いらすとや バイク 事故=irasutoya motorcycle accident @バイク事故
+
+## TAIJI with HEAVEN'S
+385: TAIJI with HEAVEN'S ライブ 2006=TAIJI with Heaven's live 2006 @HEAVEN'S
+
+## てんかんと脳梗塞
+393: TAIJI 晩年 写真=TAIJI Sawada later years photo @てんかん
+
+## The Killing Red Addiction
+403: The Killing Red Addiction TAIJI=The Killing Red Addiction TAIJI 2009 @Killing Red Addiction
+
+## 婚約者・赤塚友美
+407: TAIJI 沢田泰司 2010 写真=Taiji Sawada 2010 photo @赤塚友美
+
+## D.T.Rの解散
+411: D.T.R TAIJI バンド 写真=D.T.R TAIJI band photo @D.T.R
+
+## TSPを結成
+416: TSP TAIJI Shu Project 2010=TSP TAIJI Shu Project 2010|Shu @TSP
+
+## 日産スタジアムのX JAPAN
+420: X JAPAN 日産スタジアム 2010 ライブ=X Japan Nissan Stadium 2010 concert @日産スタジアム
+
+## 18年半ぶりの同じステージ
+425: TAIJI X JAPAN 日産スタジアム 2010 YOSHIKI=TAIJI X Japan Nissan Stadium 2010 reunion YOSHIKI|YOSHIKI @アンコール
+
+## HEATHと並んでベースを弾く
+434: HEATH TAIJI 2010 日産スタジアム=HEATH TAIJI X Japan 2010 bass|HEATH @HEATH
+
+## 6万5000人の観客
+441: X JAPAN 日産スタジアム 2010 観客=X Japan Nissan Stadium 2010 crowd @観客
+
+## 公演後の会見
+447: YOSHIKI 記者会見 2010=YOSHIKI press conference 2010|YOSHIKI @会見
+
+## 最後のライブと最後の録音
+455: TSP TAIJI ライブ 2010=TSP TAIJI live 2010 @TSP
+
+## 韓国ライブの中止
+465: TAIJI with HEAVEN'S 2011=TAIJI with Heaven's 2011 @HEAVEN'S
+
+## サイパンへ
+469: サイパン 空港 写真=Saipan International Airport photo @サイパン
+
+## 機内の騒ぎと逮捕
+475: TAIJI サイパン 逮捕 報道 2011=TAIJI Saipan arrest 2011 news @逮捕
+
+## 45歳で生涯を閉じる
+497: TAIJI 沢田泰司 晩年=TAIJI Sawada 2011 photo @-
+
+## YOSHIKIの言葉
+504: YOSHIKI 2011 写真=YOSHIKI 2011 photo|YOSHIKI @つらい
+
+## 葬儀が開かれず、婚約者が真相を求める
+510: 赤塚友美 沢田泰司 宝島社=Tomomi Akatsuka Taiji Sawada book @葬儀
+
+## 日帰りでサイパンへ飛んだファン
+513: サイパン 海 写真=Saipan sea photo @サイパン
+
+## 遺作アルバム
+521: The Last Resistance of the Firebird TSP=TSP The Last Resistance of the Firebird album cover @亡くなった翌年
+
+## In Memory of TAIJI
+526: X JAPAN In Memory of TAIJI 2015=X Japan In Memory of TAIJI 2015 screen @2015年6月
+
+## コーチェラのホログラム
+533: X JAPAN コーチェラ 2018 ホログラム=X Japan Coachella 2018 hologram @コーチェラ
+
+## 史上最高のベーシストに選ばれる
+539: We Rock 雑誌 2018=We Rock magazine 2018 @2018年
+
+## 没後10年、青いバラ
+544: YOSHIKI 2021=YOSHIKI 2021 photo|YOSHIKI @YOSHIKI
+
+## 自伝が電子書籍に
+549: 宇宙を翔ける友へ 電子書籍=TAIJI Uchu wo Kakeru Tomo e ebook @電子書籍
+
+## 締め
+551: TAIJI ベース ライブ 写真=TAIJI Sawada bass live photo @-

@@ -118,6 +118,13 @@ class ReimuSentenceSplitTest(unittest.TestCase):
             "1: すごいぜ。ほんとうだぜ\n2: えっ。\n3: そんなことあるの？\n4: しんじられないわ\n5: しぬ。っていったの\n",
         )
 
+    def test_english_title_not_broken_inside_word(self):
+        # 「of th / e Firebird」のように英単語の途中で切らない(TAIJIの台本で起きた)
+        text = "魔理沙「TSPのアルバム『The Last Resistance of the Firebird』が発売された」\n"
+        out, _ = wrap_script(text)
+        self.assertEqual(out, "魔理沙「TSPのアルバム『The Last Resistance of\nthe Firebird』が発売された」\n")
+        self.assertEqual(wrap_script(out)[0], out)
+
 
 if __name__ == "__main__":
     unittest.main()
