@@ -46,6 +46,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 8px 20px 80px; }
 .item.done { background: var(--done-bg); border-color: var(--done); }
 .no { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center;
   font-weight: bold; font-size: 13px; font-variant-numeric: tabular-nums; }
+.together { grid-column: 1 / -1; font-size: 12px; font-weight: bold; color: #b45309; background: #fef3c7; border-radius: 6px; padding: 2px 8px; width: fit-content; }
 .item.done .no { background: var(--done); }
 .words .ja { font-weight: bold; font-size: 15px; word-break: break-word; }
 .words .en { color: var(--muted); font-size: 12px; word-break: break-word; }
@@ -103,6 +104,8 @@ body.editing .seg { border-color: var(--accent); }
   <span class="stats" id="stats"></span>
   <nav>
     <button type="button" id="ymm4" class="primary">YMM4に並べる</button>
+    <button type="button" id="folderLoad" title="「001_〇〇.jpg」のように番号で始まる画像を、その番号の枠にまとめて入れます">フォルダの画像をまとめて入れる</button>
+    <input type="file" id="folderInput" webkitdirectory multiple hidden>
     <button type="button" id="zip">画像をZIPで保存</button>
     <label class="check" title="オフにすると、検索はいつものように新しいタブで開きます"><input type="checkbox" id="sideWin"> 検索を右側の窓で開く</label>
     <button type="button" id="edit">区切りを編集</button>
@@ -112,6 +115,7 @@ body.editing .seg { border-color: var(--accent); }
 </header>
 <p class="notice"><b>使い方:</b> 番号は台本の順番です。青いボタンで日本語、灰色のボタンで英語のGoogle画像検索が<b>画面の右半分の窓</b>で開きます(この画像リストは <b>Windowsキー + ←</b> で左半分に寄せると見やすくなります)。Googleで見つからないときは、枠だけのボタンで同じ日本語ワードをYahoo!・Bingで探せます。
 画像を右クリック →「画像をコピー」→ このページに戻って <b>Ctrl+V</b>。青い枠で選ばれている番号に画像が入り、次の番号に進みます(番号の枠をクリックすると選び直せます。画像ファイルを枠にドラッグしても入ります)。
+Claude に画像を選んで保存してもらったときは、右上の「<b>フォルダの画像をまとめて入れる</b>」でそのフォルダ(例: 素材/人物名)を選ぶと、番号どおりの枠に一度に入ります(すでに貼ってある番号はそのまま。気に入らない番号だけ貼り直してください)。
 貼り終わったら右上の「<b>YMM4に並べる</b>」で、YMM4のプロジェクトに画像を自動で並べられます。</p>
 <div class="edittools" id="editTools" hidden>
   <p><b>区切りの編集中:</b> 台本のセリフの左の「<b>✂ ここで区切る</b>」で、そのセリフから新しい区切りになります。区切りの上の「<b>▲ 境目を上へ</b>」「<b>▼ 境目を下へ</b>」で境目を1セリフずつ動かし、「<b>前とつなげる</b>」で前の区切りにまとめます(画像も前に移ります)。
@@ -155,6 +159,11 @@ body.editing .seg { border-color: var(--accent); }
     <button type="button" class="big" id="pick">フォルダを選んで並べる</button>
     <button type="button" id="close">閉じる</button>
   </div>
+  <div class="row" style="margin-top:10px">
+    <button type="button" id="pickFile">うまくいかないとき: プロジェクト(.ymmp)を選んでZIPで受け取る</button>
+    <input type="file" id="ymmpFile" accept=".ymmp" hidden>
+  </div>
+  <p style="margin:4px 0 0;font-size:12px;color:var(--muted)">「編集を許可」が出ない・フォルダを選べないときはこちら。許可は要りません。YMM4のプロジェクト(.ymmp)を選ぶと、画像と並べ終えたプロジェクトを1つのZIPにしてダウンロードします。展開のしかたは、ダウンロードした後にここに出ます。</p>
   <div class="row" id="pathRow" hidden style="margin-top:12px">
     <span>そのフォルダの場所:</span>
     <input type="text" id="pathInput" placeholder="例: C:\Users\名前\Desktop\__TITLE__">
@@ -163,6 +172,11 @@ body.editing .seg { border-color: var(--accent); }
   <div id="log"></div>
 </dialog>
 <div class="toast" id="toast" hidden></div>
+<div id="wrongPlace" hidden style="margin:12px 16px;padding:12px 16px;border:3px solid #d22;border-radius:8px;background:#fff1f1;color:#900;font-weight:bold;line-height:1.7">
+  ⚠ いまの画面では、画像の保存や「YMM4に並べる」ができません(Claudeのアプリの中など、ブラウザ以外で開いています)。<br>
+  このHTMLファイルをパソコンに保存し、エクスプローラーでそのファイルを右クリック →「プログラムから開く」→「Google Chrome」か「Microsoft Edge」で開いてください。<br>
+  開けたら、いちばん上のアドレス欄が「file:///C:/…」で始まっていれば大丈夫です。<b>貼った画像は開いた画面ごとに別に覚えられるので、ここで貼る前に開き直してください。</b>
+</div>
 <main id="main"></main>
 <script>
 // ---- 読みの直し(YMM4の読みのうち、読みの表とちがう文字だけを置きかえる) ----
@@ -264,7 +278,7 @@ const EDIT_KEY = "image-list-edit:" + PAGE_KEY;
 const ALL_LINES = DATA.segments.flatMap(s => s.lines);
 const LINE_U = DATA.lineU || ALL_LINES.map((_, i) => i);
 const isUttStart = n => n === 1 || LINE_U[n - 1] !== LINE_U[n - 2];
-const originalLayout = () => DATA.segments.map(s => ({ topic: s.topic, start: s.start, images: s.images.map(i => ({ no: i.no, ja: i.ja, en: i.en, native: i.native, caption: i.caption, trigger: i.trigger })) }));
+const originalLayout = () => DATA.segments.map(s => ({ topic: s.topic, start: s.start, images: s.images.map(i => ({ no: i.no, ja: i.ja, en: i.en, native: i.native, caption: i.caption, trigger: i.trigger, with: i.with, at: i.at })) }));
 let layout = null;
 try {
   const saved = JSON.parse(localStorage.getItem(EDIT_KEY) || "null");
@@ -282,6 +296,12 @@ let selected = null;
 
 function saveLayout() {
   try { localStorage.setItem(EDIT_KEY, JSON.stringify({ segs: layout.map(s => ({ topic: s.topic, start: s.start, images: s.images })) })); } catch (e) {}
+}
+// 区切りの画像を、同時に横に並べて出すまとまりに分ける(「with」の画像は前の画像といっしょ)
+function imageGroups(seg) {
+  const groups = [];
+  for (const img of seg.images) { if (img.with && groups.length) groups[groups.length - 1].push(img); else groups.push([img]); }
+  return groups;
 }
 function derive() {
   layout.forEach((s, i) => {
@@ -346,6 +366,7 @@ function imageItem(img, seg) {
   } }, "この画像を消す") : null;
   const item = el("div", { class: "item" + (box.checked ? " done" : ""), id: "img" + img.no },
     el("div", { class: "no" }, String(disp(img.no))),
+    img.with ? el("div", { class: "together" }, img.at ? `＋ ${img.at}行目から、前の画像の横に並べて出す` : "＋ 前の画像と同時に、横に並べて出す") : null,
     wordsBox(img),
     el("label", { class: "check" }, box, "済"),
     captionBox(img),
@@ -427,7 +448,14 @@ function sceneTableText() {
       if (cap) w += "|" + cap;
       return img.trigger ? w + " @" + img.trigger : w;
     });
-    out.push(`${seg.start}: ${words.join(", ")}`);
+    // 並べて出す画像は「A + B」(同時)か「+行: C」(途中から足す)で書く
+    let line = `${seg.start}: `, extra = [];
+    seg.images.forEach((img, k) => {
+      if (k === 0) line += words[k];
+      else if (img.with && img.at && img.at !== seg.start) extra.push(`+${img.at}: ${words[k]}`);
+      else line += (img.with ? " + " : ", ") + words[k];
+    });
+    out.push(line, ...extra);
   }
   return out.join("\n") + "\n";
 }
@@ -500,9 +528,17 @@ async function takeOverPrevious() {
   if (db && empty.length) {
     const cands = [];
     for (const [order, version] of prev.entries()) {
+      // 前の版で Claude が入れたままの画像は引き継がない(この版にも Claude が選び直した画像が入っているので)。ユーザーが貼った画像だけ引き継ぐ
+      const key = DATA.title + ":" + version.id;
+      let autoNos = new Set(), legacy = false;
+      if (DATA.preload) {
+        try { autoNos = new Set(JSON.parse(localStorage.getItem("image-list-preload-nos:" + key) || "[]")); } catch (e) {}
+        try { legacy = localStorage.getItem("image-list-preload:" + key) === "1"; } catch (e) {}
+      }
       for (const img of version.images) {
-        const blob = await dbGetKey(DATA.title + ":" + version.id + ":" + img.no);
-        if (blob) cands.push({ order, ja: img.ja, start: img.start, value: blob });
+        const blob = await dbGetKey(key + ":" + img.no);
+        if (!blob || autoNos.has(img.no) || (legacy && blob.type === "image/jpeg")) continue;
+        cands.push({ order, ja: img.ja, start: img.start, value: blob });
       }
     }
     const got = matchPrevious(cands, empty);
@@ -535,7 +571,7 @@ let toastTimer = null;
 function toast(text) {
   const t = document.getElementById("toast");
   t.textContent = text; t.hidden = false;
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 2500);
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, Math.max(2500, text.length * 120));
 }
 function select(no, scroll = false) {
   if (selected != null) document.getElementById("img" + selected)?.classList.remove("selected");
@@ -564,7 +600,13 @@ function markDone(no, value) {
   item.querySelector("input").checked = value;
   save();
 }
+// Claude が最初から入れた画像の番号(ユーザーが貼り替えたら外す。新しい版の画像リストで入れかえてよい番号)
+const PRELOAD_NOS_KEY = "image-list-preload-nos:" + PAGE_KEY;
+function preloadNos() { try { return new Set(JSON.parse(localStorage.getItem(PRELOAD_NOS_KEY) || "[]")); } catch (e) { return new Set(); } }
+function savePreloadNos(set) { try { localStorage.setItem(PRELOAD_NOS_KEY, JSON.stringify([...set])); } catch (e) {} }
+function userTouched(no) { const s = preloadNos(); if (s.delete(no)) savePreloadNos(s); }
 function setImage(no, blob) {
+  userTouched(no);
   if (blob) pasted.set(no, blob); else pasted.delete(no);
   dbPut(no, blob);
   renderPaste(no);
@@ -615,6 +657,35 @@ function makeZip(files) {
 }
 const EXT = { "image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/gif": "gif", "image/bmp": "bmp", "image/avif": "avif" };
 const safeName = s => s.replace(/[\\/:*?"<>|]/g, "_").slice(0, 40);
+// ---- フォルダの画像をまとめて入れる(「001_ワード.jpg」の番号 = 画面の番号) ----
+const folderInput = document.getElementById("folderInput");
+document.getElementById("folderLoad").addEventListener("click", () => { folderInput.value = ""; folderInput.click(); });
+folderInput.addEventListener("change", () => {
+  const files = [...folderInput.files].filter(f => f.type.startsWith("image/") || /\.(jpe?g|png|gif|webp|bmp)$/i.test(f.name));
+  let added = 0, kept = 0, unknown = 0;
+  const taken = new Set();
+  for (const f of files.sort((a, b) => a.name.localeCompare(b.name))) {
+    const m = f.name.match(/^(\d+)/);
+    const img = m ? ALL[parseInt(m[1], 10) - 1] : null;
+    if (!img || taken.has(img.no)) { unknown++; continue; }
+    taken.add(img.no);
+    if (pasted.has(img.no)) { kept++; continue; }
+    userTouched(img.no);
+    pasted.set(img.no, f);
+    dbPut(img.no, f);
+    renderPaste(img.no);
+    markDone(img.no, true);
+    added++;
+  }
+  const empty = ALL.filter(i => !pasted.has(i.no)).map(i => disp(i.no));
+  let text = `${added}枚を入れました`;
+  if (kept) text += `(${kept}枚は貼ってあったのでそのまま)`;
+  if (unknown) text += `。番号の分からない画像${unknown}枚は使いませんでした`;
+  text += empty.length ? `。まだ空いている番号: ${empty.slice(0, 15).join("・")}${empty.length > 15 ? " ほか" : ""}` : "。全部の番号に画像が入りました";
+  toast(text);
+  if (empty.length) select(ALL.find(i => !pasted.has(i.no)).no, true);
+});
+
 document.getElementById("zip").addEventListener("click", async () => {
   const items = ALL.filter(i => pasted.has(i.no));
   if (!items.length) { toast("まだ画像が貼られていません。"); return; }
@@ -748,23 +819,29 @@ async function writeFile(dir, name, data) {
   const w = await handle.createWritable(); await w.write(data); await w.close();
 }
 
-async function placeIntoYmm4() {
+// pickedFile を渡したとき(ZIPで受け取る方法): フォルダの書き込み許可を使わず、できたものを1つのZIPにして保存してもらう
+async function placeIntoYmm4(pickedFile) {
   logBox.replaceChildren();
-  if (!window.showDirectoryPicker) { log("このブラウザでは使えません。Chrome か Edge で開いてください。", "ng"); return; }
-  let dir;
-  try { dir = await showDirectoryPicker({ id: "ymm4", mode: "readwrite" }); }
-  catch (e) {
-    if (e.name !== "AbortError") log("そのフォルダは選べませんでした。デスクトップなどの中に新しくフォルダを作り、そこにプロジェクトを保存して選んでください。", "ng");
-    return;
+  let dir = null, file = pickedFile;
+  if (!file) {
+    if (!window.showDirectoryPicker) { log("このブラウザではフォルダを選べません。Chrome か Edge で開くか、下の「プロジェクト(.ymmp)を選んでZIPで受け取る」を使ってください。", "ng"); return; }
+    try { dir = await showDirectoryPicker({ id: "ymm4", mode: "readwrite" }); }
+    catch (e) {
+      // 確認を何度か閉じると、Chromeは確認を出さずに断る(このときも AbortError になる)。黙って終わらせず、次の手を出す
+      if (e.name === "AbortError") log("フォルダが選ばれなかったか、Chromeが「ファイルの編集」の確認を出さずに断りました。フォルダを選んでも何も出ないときは、下の「プロジェクト(.ymmp)を選んでZIPで受け取る」を使ってください(許可は要りません)。", "ng");
+      else log("そのフォルダは選べませんでした(" + e.message + ")。デスクトップなどの中に新しくフォルダを作り、そこにプロジェクトを保存して選んでください。それでもだめなときは、下の「プロジェクト(.ymmp)を選んでZIPで受け取る」を使ってください。", "ng");
+      return;
+    }
+    // フォルダの中で一番新しく保存した .ymmp を使う
+    const found = [];
+    for await (const [name, handle] of dir.entries()) {
+      if (handle.kind === "file" && /\.ymmp$/i.test(name) && !name.includes("_画像入り")) found.push(await handle.getFile());
+    }
+    if (!found.length) { log("このフォルダにYMM4のプロジェクト(.ymmp)がありません。YMM4で保存したフォルダを選んでください。", "ng"); return; }
+    found.sort((a, b) => b.lastModified - a.lastModified);
+    file = found[0];
   }
-  // フォルダの中で一番新しく保存した .ymmp を使う
-  const found = [];
-  for await (const [name, handle] of dir.entries()) {
-    if (handle.kind === "file" && /\.ymmp$/i.test(name) && !name.includes("_画像入り")) found.push(await handle.getFile());
-  }
-  if (!found.length) { log("このフォルダにYMM4のプロジェクト(.ymmp)がありません。YMM4で保存したフォルダを選んでください。", "ng"); return; }
-  found.sort((a, b) => b.lastModified - a.lastModified);
-  const file = found[0];
+  const zipFiles = [];
   log(`プロジェクト「${file.name}」を読み込みます。`);
   const rawText = (await file.text()).replace(/^\uFEFF/, "");
   const project = JSON.parse(rawText);
@@ -783,6 +860,9 @@ async function placeIntoYmm4() {
     log("フォルダの場所が分からないので教えてください。エクスプローラーでそのフォルダを開き、上のアドレス欄をクリック → Ctrl+C → 下の欄に Ctrl+V → OK。");
     folderPath = await askPath();
   }
+  // ZIPで受け取るときは、ZIPを「すべて展開」でできるフォルダ(ZIPと同じ名前)の中に画像が入る
+  const outBase = file.name.replace(/\.ymmp$/i, "") + "_画像入り";
+  if (!dir) folderPath += "\\" + outBase;
 
   // 台本のセリフとYMM4のセリフを、文字の並びで突き合わせる
   const U = DATA.utterances.length;
@@ -833,17 +913,24 @@ async function placeIntoYmm4() {
   derive();
   layout.forEach((seg, i) => {
     const first = seg.u, after = i + 1 < layout.length ? layout[i + 1].u : U;
-    const span = Math.max(after - first, 1), count = seg.images.length;
-    seg.images.forEach((img, k) => {
+    const groups = imageGroups(seg);
+    const span = Math.max(after - first, 1), count = groups.length;
+    groups.forEach((group, k) => {
       const su = first + Math.floor(span * k / count), eu = first + Math.floor(span * (k + 1) / count);
-      const start = frameOf(su), end = eu < U ? frameOf(eu) : endOfVoices;
-      if (end > start) plan.push({ img, start, length: end - start });
+      const end = eu < U ? frameOf(eu) : endOfVoices;
+      group.forEach((img, col) => {
+        // 並べて出す画像は、その画像の行(「+243:」)から、まとまりの終わりまで。場所は横に並べた何番目か
+        const atU = img.at ? LINE_U[img.at - 1] : null;
+        const start = frameOf(atU != null && atU > su ? atU : su);
+        if (end > start) plan.push({ img, start, length: end - start, col, cols: group.length });
+      });
     });
   });
 
   // 画像をフォルダに書き出す
-  const subName = "画像_" + safeName(DATA.title);
-  const sub = await dir.getDirectoryHandle(subName, { create: true });
+  // ZIPの中の名前は英数字だけにする(Windowsの「すべて展開」で日本語の名前が化けて、YMM4が画像を見つけられないことがあるため)
+  const subName = dir ? "画像_" + safeName(DATA.title) : "images";
+  const sub = dir ? await dir.getDirectoryHandle(subName, { create: true }) : null;
   const video = timeline.VideoInfo || {};
   const W = video.Width || 1920, H = video.Height || 1080;
   const shape = (voices.find(v => v.X && v.X.Values) || {}).X || ((project.Timelines || voices.some(v => v.X && v.X.Values)) ? { Span: 0, AnimationType: "なし" } : null);
@@ -856,18 +943,24 @@ async function placeIntoYmm4() {
   for (const p of plan) {
     const blob = pasted.get(p.img.no);
     if (!blob) { missing.push(p.img); continue; }
-    const name = `${String(disp(p.img.no)).padStart(3, "0")}_${safeName(p.img.ja || p.img.en || "画像")}.${EXT[blob.type] || "png"}`;
-    await writeFile(sub, name, blob);
+    const num = String(disp(p.img.no)).padStart(3, "0"), ext = EXT[blob.type] || "png";
+    const name = dir ? `${num}_${safeName(p.img.ja || p.img.en || "画像")}.${ext}` : `${num}.${ext}`;
+    if (sub) await writeFile(sub, name, blob);
+    else zipFiles.push({ name: `${subName}/${name}`, data: new Uint8Array(await blob.arrayBuffer()) });
     // 登場・退場のフェード(ユーザーがいつも付けている映像エフェクト「フェードイン・フェードアウト」と同じ設定)
     const fade = () => shape && L.fadeOn ? [{
       $type: "YukkuriMovieMaker.Project.Effects.InOutFadeEffect, YukkuriMovieMaker",
       Value: 0.0, IsInEffect: true, IsOutEffect: true, EffectTimeSeconds: L.fadeSec, EasingType: "Linear", EasingMode: "Out", IsEnabled: true, Remark: "",
     }] : [];
+    // 同時に出す画像が2枚以上なら、画像の枠を横に等分して並べる(1枚ならこれまでどおり枠いっぱい)
+    const boxW = W * L.fitW / 100, boxH = H * L.fitH / 100, cols = p.cols || 1;
+    const colW = boxW / cols, dx = Math.round(-boxW / 2 + colW * ((p.col || 0) + 0.5));
+    const fitW = cols > 1 ? colW * 0.96 : colW;
     let zoom = 100;
-    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(W * L.fitW / 100 / bmp.width, H * L.fitH / 100 / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
+    try { const bmp = await createImageBitmap(blob); zoom = Math.round(Math.min(fitW / bmp.width, boxH / bmp.height) * 1000) / 10; bmp.close(); } catch (e) {}
     const item = {
       $type: IMAGE_TYPE, FilePath: `${folderPath}\\${subName}\\${name}`,
-      X: animated(L.x, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
+      X: animated(L.x + dx, shape), Y: animated(L.y, shape), Opacity: animated(100, shape), Zoom: animated(zoom, shape), Rotation: animated(0, shape),
       FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: fade(), Group: 0,
       Frame: p.start, Layer: layer, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
     };
@@ -875,7 +968,7 @@ async function placeIntoYmm4() {
     added.push(item);
     const caption = captionOf(p.img);
     if (L.capOn && caption) {
-      const size = Math.round(L.capSize * H / 1080);
+      const size = Math.round(L.capSize * H / 1080 * (cols > 2 ? 0.75 : 1));
       // 文字そのものの縁取りに加えて、黒い縁取りエフェクトで縁を太くする
       const outline = L.capBorder > 0 ? [{
         $type: "YukkuriMovieMaker.Project.Effects.OutlineEffect, YukkuriMovieMaker",
@@ -890,7 +983,7 @@ async function placeIntoYmm4() {
         WordWrap: "NoWrap", MaxWidth: animated(W, shape), BasePoint: "CenterBottom",
         FontColor: "#FFFFFFFF", Style: "Border", StyleColor: "#FF000000", Bold: true, Italic: false,
         IsTrimEndSpace: true, IsDevidedPerCharacter: false, DisplayInterval: 0, DisplayDirection: "FromFirst", HideInterval: 0, HideDirection: "FromFirst",
-        X: animated(L.capX, shape), Y: animated(L.capY, shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
+        X: animated(L.capX + dx, shape), Y: animated(L.capY, shape), Opacity: animated(100, shape), Zoom: animated(100, shape), Rotation: animated(0, shape),
         FadeIn: 0, FadeOut: 0, Blend: "Normal", IsInverted: false, IsAlwaysOnTop: false, VideoEffects: shape ? outline.concat(fade()) : [], Group: 0,
         Frame: p.start, Layer: layer + 1, Length: p.length, PlaybackRate: 100, ContentOffset: "00:00:00", IsLocked: false, IsHidden: false,
       };
@@ -905,9 +998,34 @@ async function placeIntoYmm4() {
   if (labels.length && !labels.some(l => l.Layer === layer)) labels.push(Object.assign(JSON.parse(JSON.stringify(labels[0])), { Layer: layer, Label: "画像", IsHidden: false }));
   if (captions.length && labels.length && !labels.some(l => l.Layer === layer + 1)) labels.push(Object.assign(JSON.parse(JSON.stringify(labels[0])), { Layer: layer + 1, Label: "名前", IsHidden: false }));
 
-  const outName = file.name.replace(/\.ymmp$/i, "") + "_画像入り.ymmp";
+  const outName = dir ? outBase + ".ymmp" : "open_in_ymm4.ymmp";
+  let showZipButton = null;
   if (project.FilePath) project.FilePath = `${folderPath}\\${outName}`;
-  await writeFile(dir, outName, "\uFEFF" + JSON.stringify(project, null, 2));
+  const projectText = "\uFEFF" + JSON.stringify(project, null, 2);
+  if (dir) await writeFile(dir, outName, projectText);
+  else {
+    zipFiles.unshift({ name: outName, data: new TextEncoder().encode(projectText) });
+    const zip = makeZip(zipFiles), zipName = outBase + ".zip";
+    // Chromeの「ファイルの編集」の許可を使わず、普通のダウンロードで渡す(ユーザーのPCで許可の確認が出ず、保存の窓でも保存されなかったため)
+    const extractTo = folderPath;  // 「すべて展開」の展開先(ここに展開すると、画像の場所がプロジェクトと合う)
+    const btn = el("button", { type: "button", class: "big primary" }, `「${zipName}」をダウンロード`);
+    btn.addEventListener("click", () => {
+      const a = el("a", { href: URL.createObjectURL(zip), download: zipName });
+      document.body.append(a); a.click(); a.remove();
+      log(`ダウンロードしました(ふつうは「ダウンロード」フォルダに入ります)。次の手順で開いてください。`, "ok");
+      log(`① ダウンロードしたZIPを右クリック →「すべて展開」\n② 「ファイルを下のフォルダーに展開する」の欄を、下の「展開先をコピー」でコピーした場所に書きかえる(欄の中を全部選んで Ctrl+V)→「展開」\n③ 開いたフォルダの「${outName}」をYMM4で開く`);
+      const copy = el("button", { type: "button" }, "展開先をコピー");
+      copy.addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(extractTo); copy.textContent = "コピーしました"; }
+        catch (e) { copy.textContent = "コピーできませんでした。右の文字を選んで Ctrl+C"; }
+      });
+      logBox.append(el("div", {}, copy, " 展開先: ", el("b", {}, extractTo))); logBox.scrollTop = logBox.scrollHeight;
+    });
+    showZipButton = () => {
+      log(`ZIPの準備ができました。下のボタンを押してダウンロードしてください。`, "ok");
+      logBox.append(el("div", {}, btn)); logBox.scrollTop = logBox.scrollHeight;
+    };
+  }
   log(`できました！ 画像${added.length}枚を並べました。` + (captions.length ? `名前のテロップを${captions.length}か所入れました。` : "") + (fixed.length ? `読みを${fixed.length}か所直しました。` : ""), "ok");
   // 名前のテロップが入らなかったときは、理由を出す
   const named = plan.filter(p => captionOf(p.img)).length;
@@ -921,8 +1039,9 @@ async function placeIntoYmm4() {
     for (const f of fixed) log(`・「${f.serif.slice(0, 30)}」\n　${f.before} → ${f.after}`);
   }
   if (skipped.length) log(`YMM4の側でセリフが分かれている・書きかえられているため、読みを直さなかったセリフ: ${skipped.length}個`);
-  log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}${captions.length ? `、名前はレイヤー${layer + 1}` : ""}、画像ファイルは「${subName}」フォルダに入っています)`);
+  if (dir) log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}${captions.length ? `、名前はレイヤー${layer + 1}` : ""}、画像ファイルは「${subName}」フォルダに入っています)`);
   if (missing.length) log(`まだ貼っていない番号(${missing.length}個。その場所は空いています): ` + missing.map(m => disp(m.no)).join(", ") + "\n貼ってからもう一度押せば、作り直せます。");
+  if (showZipButton) showZipButton();
 }
 // 画像の位置と大きさ(このブラウザに覚えておく)
 const LAYOUT_DEFAULT = { x: 0, y: -166, fitW: 62, fitH: 69, capSize: 52, capX: 0, capY: 190, capBorder: 4, capOn: true, fadeOn: true, fadeSec: 0.2 };
@@ -968,14 +1087,51 @@ function showLayout(L) {
     try { localStorage.removeItem("ymm4-layout"); } catch (e) {}
   });
 }
+// Claudeのアプリの中のプレビューなど(別のページの中に入っている・ファイル保存の仕組みがない)で開いたときは、保存できないので最初に知らせる
+// (ユーザーがアプリの中で開いていて「保存しても保存ファイルがない」となったことがある)
+{
+  let framed = false;
+  try { framed = window.self !== window.top; } catch (e) { framed = true; }
+  if (framed || !window.showDirectoryPicker || !window.showSaveFilePicker || location.protocol !== "file:" && location.protocol !== "http:" && location.protocol !== "https:") document.getElementById("wrongPlace").hidden = false;
+}
 document.getElementById("ymm4").addEventListener("click", () => { logBox.replaceChildren(); document.getElementById("pathRow").hidden = true; dlg.showModal(); });
 document.getElementById("close").addEventListener("click", () => dlg.close());
 document.getElementById("pick").addEventListener("click", () => placeIntoYmm4().catch(e => log("うまくいきませんでした: " + e.message, "ng")));
+const ymmpFile = document.getElementById("ymmpFile");
+document.getElementById("pickFile").addEventListener("click", () => { ymmpFile.value = ""; ymmpFile.click(); });
+ymmpFile.addEventListener("change", () => { const f = ymmpFile.files[0]; if (f) placeIntoYmm4(f).catch(e => log("うまくいきませんでした: " + e.message, "ng")); });
 
 (async () => {
-  db = await openDb();
+  try { db = await openDb(); } catch (e) { db = null; }
   for (const i of ALL) { const blob = await dbGet(i.no); if (blob) { pasted.set(i.no, blob); renderPaste(i.no); } }
-  await takeOverPrevious();
+  try { await takeOverPrevious(); } catch (e) { console.error(e); }  // 引き継ぎで失敗しても、下の画像は入れる
+  // Claude が選んで最初から入れた画像(html_sheet の --images)。最初に開いたときだけ、空いている番号に入れる
+  // (あとでユーザーが「外す」した番号に、開き直すたびに戻ってこないように)
+  if (DATA.preload) {
+    // 版ごとに1回だけ入れる。前の版で Claude が入れたまま(ユーザーが貼り替えていない)の番号は、新しい版の画像に入れかえる
+    const flag = "image-list-preload:" + PAGE_KEY;
+    let applied = null;
+    try { applied = localStorage.getItem(flag); } catch (e) {}
+    if (applied !== DATA.preloadVersion) {
+      const auto = preloadNos();
+      if (applied === "1") {
+        // 前の作り方(番号を覚えていない版)で入れた画像: Claude が入れたJPEGのままなら入れかえてよい。
+        // 画像のコピー&貼り付けはPNGになるので、ユーザーが貼った画像とは分けられる
+        for (const [no, blob] of pasted) if (blob.type === "image/jpeg" && String(no) in DATA.preload) auto.add(no);
+      }
+      let count = 0;
+      for (const [no, url] of Object.entries(DATA.preload)) {
+        const n = Number(no);
+        if (!ALL.some(i => i.no === n)) continue;
+        if (pasted.has(n) && !auto.has(n)) continue;  // ユーザーが自分で貼った画像は残す
+        const blob = dataUrlToBlob(url);
+        pasted.set(n, blob); dbPut(n, blob); renderPaste(n); markDone(n, true); auto.add(n); count++;
+      }
+      savePreloadNos(auto);
+      try { localStorage.setItem(flag, DATA.preloadVersion); } catch (e) {}
+      if (count) toast(`Claude が選んだ画像を ${count} 枚入れてあります。合わない番号だけ貼り直してください`);
+    }
+  }
   const first = ALL.find(i => !pasted.has(i.no));
   if (first) select(first.no);
 })();

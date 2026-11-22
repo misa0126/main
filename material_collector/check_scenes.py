@@ -13,7 +13,9 @@
   - きっかけの言葉が、出し始めの2セリフより後で初めて出てくる(切り替えが早すぎる)
   - きっかけの言葉が、1つ前の画像の最後の2セリフにもう出てくる(切り替えが遅すぎる)
   - 霊夢のセリフから始まっている(あいづち・ツッコミは前の区切りに含める)
-  - 長すぎる・短すぎる、きっかけ(@)が書いていない
+  - きっかけの言葉が、出し始めのセリフに出てこない(切り替えが早すぎる。前置きの「ところが」の行ではなく、話が出てくる行から出す)
+  - きっかけ(@)が書いていない
+  (区切りの長さは見ない。話が変わる所なら1セリフで変えてよく、同じ話題なら何セリフ続いてもよい。ユーザーの希望)
 """
 
 from __future__ import annotations
@@ -24,18 +26,16 @@ from pathlib import Path
 
 import re
 
-from .html_sheet import parse_scene_table, script_utterances
+from .html_sheet import image_groups, parse_scene_table, script_utterances
 
 REIMU = "霊夢"
 HEAD = 2  # 出し始めの何セリフ以内に、きっかけの言葉が出てくればよいか
-MIN_LINES = 2
-MAX_LINES = 12  # 話が変わらないなら長くてよいので、目安を大きく超えたときだけ知らせる
 
 
 def _script_rows(script_text: str) -> list[dict]:
     """空行を除いた1行ごとに、その行が属するセリフ(話者・全文・何番目のセリフか)を返す。
 
-    「」の中で改行しているセリフ(36文字を超えて折り返したもの)は、続きの行も同じセリフとして扱う。
+    「」の中で改行しているセリフ(34文字を超えて折り返したもの)は、続きの行も同じセリフとして扱う。
     """
     utterances, line_to_utterance = script_utterances(script_text)
     speakers: dict[int, str] = {}
@@ -68,15 +68,20 @@ def check(script_text: str, table_text: str) -> list[dict]:
     for i, seg in enumerate(segments):
         end = segments[i + 1]["start"] - 1 if i + 1 < len(segments) else total
         span = max(end - seg["start"] + 1, 1)
-        count = len(seg["keywords"]) or 1
-        for k, kw in enumerate(seg["keywords"]):
-            number += 1
-            # YMM4に並べるときと同じく、1つの区切りに2枚あれば、セリフを等分して順に出す
-            images.append({
-                "no": number, "topic": seg["topic"], "ja": kw.ja, "triggers": seg["triggers"][k],
-                "first": seg["start"] + span * k // count, "last": seg["start"] + span * (k + 1) // count - 1,
-                "seg_start": k == 0,
-            })
+        groups = image_groups(seg)
+        count = len(groups) or 1
+        for g, group in enumerate(groups):
+            # YMM4に並べるときと同じく、1つの区切りに順に出すまとまりが2つあれば、セリフを等分して順に出す
+            g_first, g_last = seg["start"] + span * g // count, seg["start"] + span * (g + 1) // count - 1
+            for j, k in enumerate(group):
+                number += 1
+                at = seg["ats"][k]
+                # 並べて出す画像(「+」)は、その画像を出し始める行から、まとまりの終わりまで
+                first = max(at, g_first) if at else g_first
+                images.append({
+                    "no": number, "topic": seg["topic"], "ja": seg["keywords"][k].ja, "triggers": seg["triggers"][k],
+                    "first": first, "last": g_last, "seg_start": g == 0 and j == 0, "joined": j > 0,
+                })
     for idx, img in enumerate(images):
         first, last = img["first"], img["last"]
         warnings = []
@@ -92,8 +97,9 @@ def check(script_text: str, table_text: str) -> list[dict]:
                 earlier = _first_hit(words, lines, 1, first - 1)
                 where = f"(台本では {later} 行目に出てくる)" if later else (f"(台本では {earlier} 行目に出てくる)" if earlier else "(台本のどこにも出てこない)")
                 warnings.append(f"きっかけ「{'/'.join(words)}」が、この画像のあいだに出てこない{where}")
-            elif lines[hit - 1]["utt"] - lines[first - 1]["utt"] >= HEAD:
-                warnings.append(f"きっかけ「{'/'.join(words)}」は {hit} 行目で初めて出てくる → 切り替えが早すぎる(開始行を {hit} 前後に)")
+            elif lines[hit - 1]["utt"] > lines[first - 1]["utt"]:
+                # 画像は、その話が出てくるセリフから出す(「ところがそうじゃなかった。」の次の「1900年、〇〇が発売」から。ユーザーの希望)
+                warnings.append(f"きっかけ「{'/'.join(words)}」は {hit} 行目で初めて出てくる → 切り替えが早すぎる(開始行を {lines.index(next(l for l in lines if l['utt'] == lines[hit - 1]['utt'])) + 1} に)")
             if idx > 0 and img["seg_start"]:
                 prev = images[idx - 1]
                 # 1つ前の画像の最後の2セリフ(出し始めの2セリフは除く)
@@ -106,11 +112,6 @@ def check(script_text: str, table_text: str) -> list[dict]:
                 early = _first_hit(words, lines, tail_from, prev["last"])
                 if early is not None:
                     warnings.append(f"きっかけ「{'/'.join(words)}」は 1つ前の画像の {early} 行目でもう出てくる → 切り替えが遅すぎる(開始行を {early} に)")
-        n = len({line["utt"] for line in lines[first - 1 : last]})
-        if n > MAX_LINES:
-            warnings.append(f"{n}セリフと長い → 話の流れが変わる所で分ける")
-        elif n < MIN_LINES and first != 1:
-            warnings.append(f"{n}セリフと短い")
         img["lines"] = lines[first - 1 : last]
         img["warnings"] = warnings
     return images

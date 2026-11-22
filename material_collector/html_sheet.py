@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import base64
 import json
 import re
 import subprocess
@@ -59,7 +60,14 @@ def normalize(text: str) -> str:
 
 
 def parse_scene_table(text: str) -> list[dict]:
-    """区切り表を読む。「## 見出し」と「開始行: 日本語=English, ...」の並び。"""
+    """区切り表を読む。「## 見出し」と「開始行: 日本語=English, ...」の並び。
+
+    同じ時間に並べて出す画像(ユーザーの希望。2026年11月19日「2、3作品出てくる解説の時には並べて同時に出していい。
+    1枚の途中で別の重要な本や人が出たら、あいている所に並べておいてもいい」):
+      ・「A + B」… AとBを同時に、横に並べて出す
+      ・「+243: C」… 前の区切りの画像を出したまま、243行目からCを横の空いている所に足す
+    「,」で区切ったものは、これまでどおり区切りのセリフを等分して順に出す。
+    """
     segments: list[dict] = []
     topic = ""
     for raw in text.splitlines():
@@ -71,27 +79,59 @@ def parse_scene_table(text: str) -> list[dict]:
             continue
         if line.startswith("#"):
             continue
+        join_line = line[:1] in "+＋"
+        if join_line:
+            line = line[1:].strip()
         match = START_PATTERN.match(line)
         if not match:
-            raise ValueError(f"区切り表の書式が読めません: {line!r}")
+            raise ValueError(f"区切り表の書式が読めません: {raw.strip()!r}")
+        start = int(match.group(1))
         # 「検索ワード=英語|名前 @きっかけ」の「|」の後ろは、人の写真に入れる名前のテロップ。
         # 「@」の後ろは、この画像を出すきっかけになる台本の言葉(区切りの見直し用。「/」で複数。HTMLには使わない)
-        keywords, captions, triggers = [], [], []
+        keywords, captions, triggers, joins, ats = [], [], [], [], []
         for item in re.split(r"[,、，]", match.group(2)):
-            item, at, trigger = item.partition("@")
-            words, _, caption = item.partition("|")
-            parsed = parse_keyword_items(words)
-            if parsed:
-                keywords.append(parsed[0])
-                captions.append(caption.strip())
-                triggers.append([t.strip() for t in trigger.split("/") if t.strip()] if at else None)
+            for j, part in enumerate(re.split(r"\s*[+＋]\s*", item)):
+                part, at, trigger = part.partition("@")
+                words, _, caption = part.partition("|")
+                parsed = parse_keyword_items(words)
+                if parsed:
+                    keywords.append(parsed[0])
+                    captions.append(caption.strip())
+                    triggers.append([t.strip() for t in trigger.split("/") if t.strip()] if at else None)
+                    joins.append(join_line or j > 0)
+                    ats.append(start if join_line else None)
+        if join_line:
+            if not segments:
+                raise ValueError(f"「+」の行の前に、ふつうの区切りの行が要ります: {raw.strip()!r}")
+            seg = segments[-1]
+            if start < seg["start"]:
+                raise ValueError(f"「+{start}:」は、前の区切り({seg['start']}行目から)より前の行です。")
+            for key, values in (("keywords", keywords), ("captions", captions), ("triggers", triggers), ("joins", joins), ("ats", ats)):
+                seg[key].extend(values)
+            continue
         segments.append(
-            {"topic": topic, "start": int(match.group(1)), "keywords": keywords, "captions": captions, "triggers": triggers}
+            {"topic": topic, "start": start, "keywords": keywords, "captions": captions, "triggers": triggers, "joins": joins, "ats": ats}
         )
     starts = [s["start"] for s in segments]
     if starts != sorted(set(starts)):
         raise ValueError("区切り表の開始行は、小さい順に重複なく並べてください。")
+    for i, seg in enumerate(segments):
+        end = segments[i + 1]["start"] - 1 if i + 1 < len(segments) else None
+        for at in seg["ats"]:
+            if at is not None and end is not None and at > end:
+                raise ValueError(f"「+{at}:」は、{seg['start']}行目からの区切り({end}行目まで)の外です。次の区切りの行として書いてください。")
     return segments
+
+
+def image_groups(segment: dict) -> list[list[int]]:
+    """区切りの画像を、同時に並べて出すまとまりに分ける(番号は segment の keywords の位置)。"""
+    groups: list[list[int]] = []
+    for k, joined in enumerate(segment.get("joins") or [False] * len(segment["keywords"])):
+        if joined and groups:
+            groups[-1].append(k)
+        else:
+            groups.append([k])
+    return groups
 
 
 def script_lines(script_text: str) -> list[dict]:
@@ -172,6 +212,7 @@ def build_sheet(
     title: str,
     yomi_text: str | None = None,
     previous: list[tuple[str, str]] | None = None,
+    preload: dict[int, str] | None = None,
 ) -> str:
     lines = script_lines(script_text)
     utterances, line_to_utterance = script_utterances(script_text)
@@ -191,11 +232,19 @@ def build_sheet(
         images = []
         captions = segment.pop("captions")
         triggers = segment.pop("triggers")
-        for keyword, caption, trigger in zip(segment.pop("keywords"), captions, triggers):
+        joins = segment.pop("joins")
+        ats = segment.pop("ats")
+        for keyword, caption, trigger, joined, at in zip(segment.pop("keywords"), captions, triggers, joins, ats):
             number += 1
             # 「日本語=英語=母語」の3つ目は母語の検索ワード
             en, _, native = keyword.en.partition("=")
             images.append({"no": number, "ja": keyword.ja, "en": en.strip() or keyword.ja, "native": native.strip(), "caption": caption})
+            if joined:
+                # 前の画像と同時に、横に並べて出す。at はその画像を出し始める行(なければ前の画像と同時)
+                images[-1]["with"] = True
+                if at is not None:
+                    images[-1]["at"] = at
+                    images[-1]["atU"] = line_to_utterance[at - 1]
             if trigger is not None:
                 # 区切り表の「@きっかけ」。画面で区切りを編集して「区切り表をコピー」したときに残す
                 images[-1]["trigger"] = "/".join(trigger) or "-"
@@ -211,6 +260,11 @@ def build_sheet(
         # 前の版の画像リストで貼った画像を、検索ワードと位置で引き継ぐ
         "previous": previous_versions(title, [(script_text, table_text)] + list(previous or []), page_id),
     }
+    if preload:
+        # Claude が選んで最初から入れておく画像(番号 → data URL)。最初に開いたときだけ空いている番号に入る
+        data["preload"] = {str(no): url for no, url in preload.items() if 1 <= no <= number}
+        # 画像を選び直して作り直したとき、前の版で入れた画像を入れかえるための目印
+        data["preloadVersion"] = hashlib.sha1(json.dumps(data["preload"], sort_keys=True).encode()).hexdigest()[:12]
     if yomi_text:
         # YMM4の読み(発音)をセリフごとに直すための読み。キーはセリフの番号
         readings = {}
@@ -225,6 +279,18 @@ def build_sheet(
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     return template.replace("__TITLE__", title).replace("/*__DATA__*/null", payload)
+
+
+def load_images(folder: Path) -> dict[int, str]:
+    """「001_ワード.jpg」のような画像を、番号 → data URL にする。"""
+    types = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".gif": "image/gif", ".webp": "image/webp"}
+    images: dict[int, str] = {}
+    for path in sorted(folder.iterdir()):
+        m = re.match(r"(\d+)", path.name)
+        kind = types.get(path.suffix.lower())
+        if m and kind and int(m.group(1)) not in images:
+            images[int(m.group(1))] = f"data:{kind};base64," + base64.b64encode(path.read_bytes()).decode()
+    return images
 
 
 def git_history(script: Path, table: Path) -> list[tuple[str, str]]:
@@ -258,6 +324,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("table", type=Path)
     parser.add_argument("output", type=Path, nargs="?", help="省略すると「タイトル_image_list.html」")
     parser.add_argument("--title", required=True)
+    parser.add_argument("--images", type=Path, help="「001_ワード.jpg」のように番号で始まる画像のフォルダ。最初から画像リストに入れておく")
     parser.add_argument("--yomi", type=Path, help="読みの直し表。省略すると「台本の名前_yomi.txt」があれば使う")
     args = parser.parse_args(argv)
     yomi = args.yomi or args.script.with_name(args.script.stem + "_yomi.txt")
@@ -265,9 +332,13 @@ def main(argv: list[str] | None = None) -> int:
     if args.yomi and yomi_text is None:
         parser.error(f"読みの直し表が見つかりません: {args.yomi}")
     previous = git_history(args.script, args.table)
+    preload = load_images(args.images) if args.images else None
     html = build_sheet(
-        args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title, yomi_text, previous
+        args.script.read_text(encoding="utf-8"), args.table.read_text(encoding="utf-8"), args.title, yomi_text, previous,
+        preload,
     )
+    if preload:
+        print(f"画像を {len(preload)} 枚入れました: {args.images}")
     if previous:
         print(f"前の版の区切り表 {len(previous)} 個から、貼った画像を引き継げるようにしました")
     if yomi_text:

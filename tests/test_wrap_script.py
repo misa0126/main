@@ -36,7 +36,7 @@ class WrapBodyTest(unittest.TestCase):
     def test_fewest_lines(self):
         parts = wrap_body("そこで2008年2月10日、エイミーはロンドンのリバーサイド・スタジオから、中継で出演することになった")
         self.assertEqual(len(parts), 2)
-        self.assertTrue(all(len(p) <= 36 for p in parts))
+        self.assertTrue(all(len(p) <= 34 for p in parts))
 
 
 class WrapScriptTest(unittest.TestCase):
@@ -59,6 +59,8 @@ class WrapScriptTest(unittest.TestCase):
         )
         self.assertEqual(mapping, {1: [(1, 0)], 2: [(2, 0)], 3: [(4, 0)]})
         self.assertEqual(renumber("# メモ\n1: a\n3: b @へえ\n", mapping), "# メモ\n1: a\n4: b @へえ\n")
+        # 横に足す画像の「+行:」も付け直す(半村良で付け直されず、区切りの順番が崩れた)
+        self.assertEqual(renumber("1: a\n+3: b @へえ\n", mapping), "1: a\n+4: b @へえ\n")
 
     def test_idempotent(self):
         wrapped, _ = wrap_script(self.SCRIPT)
@@ -93,6 +95,27 @@ class SplitSerifTest(unittest.TestCase):
         self.assertEqual(
             renumber(yomi, mapping, reading=True),
             "1: へえ。\n2: にせんななねん、あめりかの、れたーまんのしょーで、\n4: にゅーよーくで。\n",
+        )
+
+
+class ReimuSentenceSplitTest(unittest.TestCase):
+    def test_reimu_split_at_sentence_end(self):
+        # 霊夢のセリフは「！」「？」「。」で 霊夢「」 を分ける(ユーザーの希望)。魔理沙はそのまま
+        script = "魔理沙「すごいぜ！本当だぜ」\n\n霊夢「えっ！そんなことあるの？信じられないわ」\n\n霊夢「『死ぬ！』って言ったの」\n"
+        wrapped, mapping = wrap_script(script)
+        self.assertEqual(
+            wrapped,
+            "魔理沙「すごいぜ！本当だぜ」\n\n"
+            "霊夢「えっ！」\n霊夢「そんなことあるの？」\n霊夢「信じられないわ」\n\n"
+            "霊夢「『死ぬ！』って言ったの」\n",
+        )
+        self.assertEqual(mapping[2], [(2, 0), (3, 1), (4, 2)])
+        again, _ = wrap_script(wrapped)
+        self.assertEqual(again, wrapped)
+        yomi = "1: すごいぜ。ほんとうだぜ\n2: えっ。そんなことあるの？しんじられないわ\n3: しぬ。っていったの\n"
+        self.assertEqual(
+            renumber(yomi, mapping, reading=True),
+            "1: すごいぜ。ほんとうだぜ\n2: えっ。\n3: そんなことあるの？\n4: しんじられないわ\n5: しぬ。っていったの\n",
         )
 
 
