@@ -104,6 +104,8 @@ body.editing .seg { border-color: var(--accent); }
   <span class="stats" id="stats"></span>
   <nav>
     <button type="button" id="ymm4" class="primary">YMM4に並べる</button>
+    <button type="button" id="align" title="「YMM4に並べる」で作ったプロジェクトをYMM4で開いて上書き保存した後に押します。読みを直したセリフも、ほかと同じ間で次のセリフに進むように並べ直します">間をそろえる</button>
+    <input type="file" id="alignInput" accept=".ymmp" hidden>
     <button type="button" id="folderLoad" title="「001_〇〇.jpg」のように番号で始まる画像を、その番号の枠にまとめて入れます">フォルダの画像をまとめて入れる</button>
     <input type="file" id="folderInput" webkitdirectory multiple hidden>
     <button type="button" id="zip">画像をZIPで保存</button>
@@ -192,7 +194,10 @@ function sameKana(h, r) { return h === r || PARTICLE[h] === r; }
 function punctOf(c) { return /[、,，]/.test(c) ? "、" : /[。．！!]/.test(c) ? "。" : /[？?]/.test(c) ? "？" : ""; }
 function patchHatsuon(hatsuon, reading) {
   const want = [...(reading || "").normalize("NFKC")].map(c => punctOf(c) || hiraOf(c)).filter(c => /[\u3041-\u3096ー、。？]/.test(c))
-    .map(c => c === "づ" ? "ず" : c === "ぢ" ? "じ" : c);
+    .map(c => c === "づ" ? "ず" : c === "ぢ" ? "じ" : c)
+    // 「ゔ」はゆっくりボイスが読めず声が作られないので、ば行にする(ゔぃ→び)
+    .map((c, i, a) => c !== "ゔ" ? c : ({ "ぁ": "ば", "ぃ": "び", "ぇ": "べ", "ぉ": "ぼ", "ゅ": "び" }[a[i + 1]] || "ぶ"))
+    .filter((c, i, a) => !(i > 0 && a[i - 1] === "ゔ" && /[ぁぃぇぉ]/.test(c)));
   if (!want.some(c => !punctOf(c))) return hatsuon;
   // YMM4の読みを、かな1文字ずつと、それ以外(記号・タグ)に分ける
   const toks = [];
@@ -238,7 +243,9 @@ function patchHatsuon(hatsuon, reading) {
     ti = tEnd + 1; pj = j;
   }
   // 消した言葉の区切りが重なった「//」や、先頭・句読点の前の「/」を片づける
-  return out.replace(/\/{2,}/g, "/").replace(/^\/+/, "").replace(/\/+(?=[、。？?！!]|$)/g, "");
+  // 小さい「ょ」「っ」や「ー」の前の「/」も消す(「じ/ょうじゅん」のように残ると、そのセリフの声が作られなかった)
+  return out.replace(/\/{2,}/g, "/").replace(/^\/+/, "").replace(/\/+(?=[、。？?！!]|$)/g, "")
+    .replace(/[\/']+(?=[ぁぃぅぇぉゃゅょゎっァィゥェォャュョヮッー])/g, "");
 }
 
 const DATA = /*__DATA__*/null;
@@ -835,9 +842,17 @@ function resizeVoices(items, voices, fixed) {
     changes.push({ voice: v, end: (v.Frame || 0) + oldLen, delta: newLen - oldLen });
     f.lengthBefore = oldLen; f.lengthAfter = newLen;
   }
-  if (!changes.length) return 0;
+  rippleItems(items, changes);
+  return changes.length;
+}
+
+// 長さを変えるセリフ(changes: { voice, end: 元の終わりのフレーム, delta: 長さの差 })に合わせて、
+// そのセリフより後ろにある物(セリフ・字幕・立ち絵・画像・BGMなど全部)をずらす。全体に流れる物は長さを変える。
+// セリフとセリフの間(フレームの空き)は変えない
+function rippleItems(items, changes) {
+  if (!changes.length) return;
   changes.sort((a, b) => a.end - b.end);
-  // shift(f): フレーム f より前で終わった、直したセリフの長さの差の合計
+  // shift(f): フレーム f より前で終わった、長さを変えたセリフの差の合計
   const shift = frame => { let d = 0; for (const c of changes) { if (c.end <= frame) d += c.delta; else break; } return d; };
   for (const it of items) {
     const start = it.Frame || 0, end = start + (it.Length || 0);
@@ -847,7 +862,27 @@ function resizeVoices(items, voices, fixed) {
     it.Frame = ns;
     if (Number.isFinite(it.Length)) it.Length = Math.max(ne - ns, 1);
   }
-  return changes.length;
+}
+
+// ---- 声の長さに合わせて間をそろえる ----
+// YMM4は声を作り直すと、本当の声の長さ(VoiceLength)をプロジェクトに書くが、タイムラインの長さ(Length)は変えない。
+// セリフの長さは「(声の長さ + セリフの後の間 AdditionalTime 秒) × FPS」を四捨五入したもの
+// (ユーザーの送った .ymmp の、声を作り直していない237セリフで確かめた)。その長さに直し、後ろをずらす
+function secondsOf(ts) {
+  const m = /^(?:(\d+)\.)?(\d+):(\d+):(\d+(?:\.\d+)?)$/.exec(ts || "");
+  return m ? (+(m[1] || 0)) * 86400 + (+m[2]) * 3600 + (+m[3]) * 60 + (+m[4]) : null;
+}
+function alignVoices(items, voices, fps) {
+  const changes = [], silent = [];
+  for (const v of voices) {
+    const sec = secondsOf(v.VoiceLength);
+    // 声がまだ作られていない(読みに使えない字があるなど)セリフは、長さを変えずに知らせる
+    if (!sec || !v.VoiceCache) { silent.push(v); continue; }
+    const target = Math.max(1, Math.round((sec + (Number(v.AdditionalTime) || 0)) * fps));
+    if (target !== v.Length) changes.push({ voice: v, end: (v.Frame || 0) + (v.Length || 0), delta: target - (v.Length || 0) });
+  }
+  rippleItems(items, changes);
+  return { changed: changes.length, silent };
 }
 
 // ---- YMM4のプロジェクトに画像を並べる ----
@@ -1192,6 +1227,43 @@ function showLayout(L) {
 document.getElementById("ymm4").addEventListener("click", () => { logBox.replaceChildren(); document.getElementById("pathRow").hidden = true; dlg.showModal(); });
 document.getElementById("close").addEventListener("click", () => dlg.close());
 document.getElementById("pick").addEventListener("click", () => placeIntoYmm4().catch(e => log("うまくいきませんでした: " + e.message, "ng")));
+// 「間をそろえる」: YMM4で開いて保存したプロジェクトの、本当の声の長さでセリフを並べ直す
+async function alignProject(file) {
+  log(`プロジェクト「${file.name}」を読み込みます。`);
+  const project = JSON.parse((await file.text()).replace(/^\uFEFF/, ""));
+  const timeline = getTimeline(project);
+  const items = timeline.Items || [];
+  const voices = items.filter(i => (i.$type || "").startsWith(VOICE_TYPE)).sort((a, b) => (a.Frame - b.Frame) || (a.Layer - b.Layer));
+  if (!voices.length) { log("このプロジェクトにはセリフがありません。", "ng"); return; }
+  const fps = (timeline.VideoInfo || {}).FPS || 60;
+  const { changed, silent } = alignVoices(items, voices, fps);
+  if (Number.isInteger(timeline.Length)) timeline.Length = Math.max(...items.map(i => (i.Frame || 0) + (i.Length || 0)));
+  if (silent.length) {
+    const many = silent.length > voices.length / 2;
+    log(many
+      ? `声がまだ作られていないセリフが${silent.length}個あります。このプロジェクトをいったんYMM4で開き、声が作り直されたら Ctrl+S で上書き保存してから、もう一度選んでください。`
+      : `次の${silent.length}個のセリフは声が作られていないので、長さを変えませんでした(読みに、ゆっくりボイスが読めない字が入っているかもしれません。このセリフの文字を Claude に送ってください):`, "ng");
+    if (!many) for (const v of silent) log(`・「${(v.Serif || "").replace(/\s+/g, " ").slice(0, 30)}」`);
+  }
+  if (!changed) { if (!silent.length) log("どのセリフも、もう声の長さどおりに並んでいます。直す所はありません。", "ok"); return; }
+  const outName = file.name.replace(/\.ymmp$/i, "") + "_間そろえ.ymmp";
+  const blob = new Blob(["\uFEFF" + JSON.stringify(project, null, 2)], { type: "application/octet-stream" });
+  log(`できました！ ${changed}個のセリフの長さを、本当の声の長さに合わせて直し、後ろをずらしました。どのセリフの後も同じ間で次に進みます。`, "ok");
+  const btn = el("button", { type: "button", class: "big primary" }, `「${outName}」をダウンロード`);
+  btn.addEventListener("click", () => {
+    const a = el("a", { href: URL.createObjectURL(blob), download: outName });
+    document.body.append(a); a.click(); a.remove();
+    log(`ダウンロードしました(ふつうは「ダウンロード」フォルダに入ります)。そのファイルをYMM4で開いてください(ダブルクリック、またはYMM4の「ファイル → 開く」)。画像の場所は前と同じなので、そのまま表示されます。`, "ok");
+  });
+  logBox.append(el("div", {}, btn)); logBox.scrollTop = logBox.scrollHeight;
+}
+const alignInput = document.getElementById("alignInput");
+document.getElementById("align").addEventListener("click", () => {
+  logBox.replaceChildren(); document.getElementById("pathRow").hidden = true; dlg.showModal();
+  log("「YMM4に並べる」で受け取った open_in_ymm4.ymmp をYMM4で開き、声が作り直されたら Ctrl+S で上書き保存してから、そのファイルを選んでください。");
+  alignInput.value = ""; alignInput.click();
+});
+alignInput.addEventListener("change", () => { const f = alignInput.files[0]; if (f) alignProject(f).catch(e => log("うまくいきませんでした: " + e.message, "ng")); });
 const ymmpFile = document.getElementById("ymmpFile");
 document.getElementById("pickFile").addEventListener("click", () => { ymmpFile.value = ""; ymmpFile.click(); });
 ymmpFile.addEventListener("change", () => { const f = ymmpFile.files[0]; if (f) placeIntoYmm4(f).catch(e => log("うまくいきませんでした: " + e.message, "ng")); });

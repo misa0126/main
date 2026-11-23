@@ -167,8 +167,15 @@ def parse_yomi_table(text: str) -> dict[int, str]:
 _AQUESTALK_KANA = str.maketrans({"づ": "ず", "ぢ": "じ", "ヅ": "ず", "ヂ": "じ"})
 
 
+# 「ゔ」も読めず、そのセリフの声が作られない(2026年11月23日、TAIJIの「へゔぃめたる」の3セリフで声が出なかった)。
+# 日本語で言うときの音(ヘビーメタル)に合わせて、ば行にする
+_VU = {"ゔぁ": "ば", "ゔぃ": "び", "ゔぇ": "べ", "ゔぉ": "ぼ", "ゔゅ": "びゅ", "ゔ": "ぶ"}
+
+
 def to_aquestalk_kana(reading: str) -> str:
-    return reading.translate(_AQUESTALK_KANA)
+    reading = reading.translate(_AQUESTALK_KANA).replace("ヴ", "ゔ")
+    small = str.maketrans("ァィェォュ", "ぁぃぇぉゅ")
+    return re.sub("ゔ[ぁぃぇぉゅァィェォュ]?", lambda m: _VU[m.group(0).translate(small)], reading)
 
 
 def page_ids(title: str, script_text: str, table_text: str) -> list[str]:

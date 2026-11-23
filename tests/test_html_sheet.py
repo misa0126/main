@@ -152,6 +152,13 @@ class PatchHatsuonTest(unittest.TestCase):
         code = template[start:end] + "\nconst a = JSON.parse(process.argv[1]); process.stdout.write(patchHatsuon(a[0], a[1]));"
         return subprocess.run(["node", "-e", code, json.dumps([hatsuon, reading])], capture_output=True, text=True, encoding="utf-8", check=True).stdout
 
+    def test_vu_and_slash_before_small_kana(self):
+        # 「ゔ」はゆっくりボイスが読めない。「じ/ょうじゅん」のように小さい字の前に「/」が残ると声が作られない
+        out = self.run_patch("へびー/めたる/ばんど", "へゔぃめたるばんど")
+        self.assertNotIn("ゔ", out)
+        out = self.run_patch("せんきゅうひゃくきゅうじゅういちねん<NUMK VAL=12 COUNTER=がつ>じょう/じゅん", "せんきゅうひゃくきゅうじゅういちねんじゅうにがつじょうじゅん")
+        self.assertNotRegex(out, r"/[ゃゅょぁぃぅぇぉっー]")
+
     def test_keeps_accent_marks_and_fixes_only_the_misread_word(self):
         self.assertEqual(
             self.run_patch("おおい/なか/しょうぎで、こま/どうしの/れんけいを/ねばりずよい", "おおいちゅうしょうぎで、こまどうしの、れんけいおねばりづよい。"),
@@ -216,7 +223,7 @@ class ResizeVoicesTest(unittest.TestCase):
             self.skipTest("node がない")
         template = (Path(__file__).resolve().parents[1] / "material_collector" / "html_sheet_template.html").read_text(encoding="utf-8")
         start = template.index("const LETTER_MORA")
-        end = template.index("\n}\n", template.index("function resizeVoices")) + 3
+        end = template.index("\n}\n", template.index("function rippleItems")) + 3
         code = template[start:end] + (
             "\nconst a = JSON.parse(process.argv[1]); const items = a[0];"
             "const voices = items.filter(i => i.$type === 'V');"
@@ -289,3 +296,58 @@ class ResizeVoicesTest(unittest.TestCase):
         items = self.project(["あいうえおかきくけこ"] + self.LINES)
         r = self.run_resize(items, [[0, "あいうえおかきくけこ", "あいうえおかきくけそ"]])
         self.assertEqual(r["n"], 0)
+
+
+class AlignVoicesTest(unittest.TestCase):
+    """「間をそろえる」: YMM4が書いた本当の声の長さ(VoiceLength)+セリフの後の間(AdditionalTime)で長さを直す"""
+
+    def run_align(self, items, fps=60):
+        import shutil
+        import subprocess
+        if not shutil.which("node"):
+            self.skipTest("node がない")
+        template = (Path(__file__).resolve().parents[1] / "material_collector" / "html_sheet_template.html").read_text(encoding="utf-8")
+        start = template.index("function rippleItems")
+        end = template.index("\n}\n", template.index("function alignVoices")) + 3
+        code = template[start:end] + (
+            "\nconst a = JSON.parse(process.argv[1]); const items = a[0];"
+            "const voices = items.filter(i => i.$type === 'V');"
+            "const r = alignVoices(items, voices, a[1]);"
+            "process.stdout.write(JSON.stringify({ changed: r.changed, silent: r.silent.length, items }));"
+        )
+        out = subprocess.run(["node", "-e", code, json.dumps([items, fps])], capture_output=True, text=True, encoding="utf-8", check=True).stdout
+        return json.loads(out)
+
+    def voice(self, frame, length, voice_length, cache="abc"):
+        return {"$type": "V", "Frame": frame, "Length": length, "VoiceLength": voice_length, "AdditionalTime": 0.4, "VoiceCache": cache}
+
+    def test_lengths_follow_real_voice_and_gaps_stay(self):
+        items = [
+            self.voice(0, 300, "00:00:04.5942500"),    # 本当は (4.59425+0.4)*60 = 299.66 → 300 のまま
+            self.voice(300, 327, "00:00:04.5942500"),  # 見積もりで長すぎた → 300
+            {"$type": "Image", "Frame": 300, "Length": 400},
+            self.voice(627, 100, "00:00:02.0000000"),  # 本当は 144 → 長くする
+            self.voice(737, 48, "00:00:00.4000000"),   # (0.4+0.4)*60 = 48 で合っている。前との間の10フレームはそのまま
+            {"$type": "BGM", "Frame": 0, "Length": 900},
+        ]
+        r = self.run_align(items)
+        v1, v2, img, v3, v4, bgm = r["items"]
+        self.assertEqual(r["changed"], 2)
+        self.assertEqual((v2["Frame"], v2["Length"]), (300, 300))
+        self.assertEqual((img["Frame"], img["Length"]), (300, 373))    # 画像はセリフに合わせて縮む
+        self.assertEqual((v3["Frame"], v3["Length"]), (600, 144))
+        self.assertEqual(v4["Frame"], 600 + 144 + 10)
+        self.assertEqual(bgm["Length"], 900 - 27 + 44)
+
+    def test_voice_not_made_is_left_alone(self):
+        items = [self.voice(0, 300, "00:00:00", cache=""), self.voice(300, 100, "00:00:02.0000000")]
+        r = self.run_align(items)
+        self.assertEqual(r["silent"], 1)
+        self.assertEqual(r["items"][0]["Length"], 300)
+        self.assertEqual(r["items"][1]["Length"], 144)
+
+
+class VuTest(unittest.TestCase):
+    def test_vu_becomes_ba_row(self):
+        from material_collector.html_sheet import to_aquestalk_kana
+        self.assertEqual(to_aquestalk_kana("へゔぃめたる、えゔぁんす、ヴォーカル、ゔ"), "へびめたる、えばんす、ぼーカル、ぶ")
