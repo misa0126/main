@@ -760,42 +760,80 @@ async function dropImage(no, dt) {
 
 // ---- 読みを直したセリフの長さを合わせる ----
 // YMM4の読み(音声記号)の拍の数を数える。小さい「ゃゅょぁぃぅぇぉゎ」は前の字と1拍、「ー」「っ」「ん」は1拍。
-// 数字のタグ(<NUMK ...>)は何拍か分からないので hasTag で知らせる
+// 句読点(息継ぎの間)は別に数える。数字のタグ(<NUMK ...>)や英字が残っていると拍が数えられないので hasTag で知らせる
+const LETTER_MORA = { A: 2, B: 2, C: 2, D: 3, E: 2, F: 3, G: 2, H: 3, I: 2, J: 3, K: 2, L: 3, M: 3, N: 3, O: 2, P: 2, Q: 3, R: 3, S: 3, T: 3, U: 2, V: 3, W: 4, X: 4, Y: 2, Z: 3 };
 function moraOf(hatsuon) {
-  const s = (hatsuon || "").replace(/<[^>]*>/g, "");
-  const hasTag = /<[^>]*>/.test(hatsuon || "") || /[A-Za-z0-9\uff10-\uff19]/.test(s);
-  const kana = [...s].filter(c => /[\u3041-\u3096\u30a1-\u30faー]/.test(c) && !/[ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ]/.test(c));
-  return { mora: kana.length, hasTag };
+  const raw = hatsuon || "";
+  const s = raw.replace(/<[^>]*>/g, "");
+  const t = s.normalize("NFKC");
+  const hasTag = /<[^>]*>/.test(raw) || /[0-9]/.test(t);
+  const kana = [...t].filter(c => /[\u3041-\u3096\u30a1-\u30faー]/.test(c) && !/[ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ]/.test(c));
+  // 英字が残っていたら、1文字ずつ読んだときの拍の数で数える(「TAIJI」→ てぃー・えー・あい・じぇー・あい)
+  const letters = [...t].filter(c => /[A-Za-z]/.test(c)).reduce((n, c) => n + (LETTER_MORA[c.toUpperCase()] || 2), 0);
+  const punct = [...t].filter(c => /[、。？?！!,.]/.test(c)).length;
+  return { mora: kana.length + letters, punct, hasTag };
+}
+// 同じキャラクターのセリフから「長さ = 前後の間 + 1拍の長さ×拍の数 + 句読点の間×句読点の数」を割り出す(最小二乗法)。
+// YMM4のセリフの長さには、話す部分のほかに前後の間(息継ぎ)が入っているので、割合で伸び縮みさせると間まで削れてしまう
+// (ユーザーの指摘: 間がなくなった・息継ぎがなくなった・短いセリフが途中で切れた)
+function voiceModel(samples) {
+  const solve = (rows) => {
+    // rows: [[x1, x2, ...], y]。正規方程式を解く
+    const k = rows[0][0].length, A = Array.from({ length: k }, () => new Array(k + 1).fill(0));
+    for (const [x, y] of rows) for (let i = 0; i < k; i++) { for (let j = 0; j < k; j++) A[i][j] += x[i] * x[j]; A[i][k] += x[i] * y; }
+    for (let c = 0; c < k; c++) {
+      let piv = c; for (let r = c + 1; r < k; r++) if (Math.abs(A[r][c]) > Math.abs(A[piv][c])) piv = r;
+      if (Math.abs(A[piv][c]) < 1e-9) return null;
+      [A[c], A[piv]] = [A[piv], A[c]];
+      for (let r = 0; r < k; r++) if (r !== c) { const f = A[r][c] / A[c][c]; for (let j = c; j <= k; j++) A[r][j] -= f * A[c][j]; }
+    }
+    return A.map((row, i) => row[k] / row[i]);
+  };
+  if (samples.length >= 8) {
+    const m = solve(samples.map(s => [[1, s.mora, s.punct], s.len]));
+    if (m && m[1] > 0 && m[0] >= 0 && m[2] >= 0) return { pad: m[0], perMora: m[1], perPunct: m[2] };
+    const m2 = solve(samples.map(s => [[1, s.mora], s.len]));
+    if (m2 && m2[1] > 0 && m2[0] >= 0) return { pad: m2[0], perMora: m2[1], perPunct: 0 };
+  }
+  // セリフが少ないときは、1拍あたりの長さの中央値だけで見る(間は0とみなす)
+  const r = samples.map(s => s.len / Math.max(s.mora, 1)).sort((x, y) => x - y);
+  return r.length ? { pad: 0, perMora: r[r.length >> 1], perPunct: 0 } : null;
 }
 // 直したセリフの新しい長さを見積もり、そのセリフより後ろにある物(セリフ・字幕・立ち絵・画像など全部)をずらす。
-// 長さは、そのセリフの1拍あたりの長さ × 新しい拍の数。前の読みに数字のタグがあって拍が数えられないときは、
-// 同じキャラクターのほかのセリフの1拍あたりの長さ(中央値)を使う
+// セリフとセリフの間(フレームの空き)はそのまま残すので、どのセリフの後も、元と同じ間で次のセリフに進む。
+// ・前の読みの拍が数えられるとき: 元の長さ + 1拍の長さ×(増えた拍の数)。前後の間・句読点の間は元のまま
+// ・前の読みに数字のタグなどがあって数えられないとき: 前後の間 + 1拍の長さ×拍の数 + 句読点の間×句読点の数。
+//   ただし元の長さより短くはしない(数字を読むと長くなることはあっても、短くなって途中で切れるのを防ぐ)
 function resizeVoices(items, voices, fixed) {
   const changes = [];
-  const rate = {};
+  const byChar = {}, all = [];
   for (const v of voices) {
     if (fixed.some(f => f.voice === v)) continue;
     const m = moraOf(v.Hatsuon);
-    if (m.hasTag || m.mora < 4 || !(v.Length > 0)) continue;
-    (rate[v.CharacterName || ""] = rate[v.CharacterName || ""] || []).push(v.Length / m.mora);
+    if (m.hasTag || m.mora < 2 || !(v.Length > 0)) continue;
+    const s = { mora: m.mora, punct: m.punct, len: v.Length };
+    (byChar[v.CharacterName || ""] = byChar[v.CharacterName || ""] || []).push(s); all.push(s);
   }
-  const median = a => { const b = [...a].sort((x, y) => x - y); return b.length ? b[b.length >> 1] : 0; };
-  const all = Object.values(rate).flat();
+  const models = {};
+  const modelOf = name => (name in models) ? models[name] : (models[name] = (byChar[name] && byChar[name].length >= 8 ? voiceModel(byChar[name]) : null) || voiceModel(all));
   for (const f of fixed) {
     const v = f.voice, oldLen = v.Length || 0;
     if (!(oldLen > 0)) continue;
     const before = moraOf(f.before), after = moraOf(f.after);
     if (!after.mora) continue;
-    let perMora;
-    if (!before.hasTag && before.mora > 0) perMora = oldLen / before.mora;
-    else perMora = median(rate[v.CharacterName || ""] || []) || median(all);
-    if (!perMora) continue;
-    // 前の読みと拍の数が同じなら変えない。タグがあったときは、見積もった長さとの差が小さければ変えない
-    const newLen = before.hasTag ? Math.round(after.mora * perMora) : Math.round(oldLen * after.mora / before.mora);
-    if (!before.hasTag && after.mora === before.mora) continue;
+    const model = modelOf(v.CharacterName || "");
+    if (!model) continue;
+    let newLen;
+    if (!before.hasTag) {
+      if (after.mora === before.mora) continue;
+      newLen = Math.round(oldLen + model.perMora * (after.mora - before.mora));
+    } else {
+      newLen = Math.max(oldLen, Math.round(model.pad + model.perMora * after.mora + model.perPunct * after.punct));
+    }
+    newLen = Math.max(newLen, 1);
     if (Math.abs(newLen - oldLen) < 2) continue;
-    changes.push({ voice: v, end: (v.Frame || 0) + oldLen, delta: Math.max(newLen, 1) - oldLen });
-    f.lengthBefore = oldLen; f.lengthAfter = Math.max(newLen, 1);
+    changes.push({ voice: v, end: (v.Frame || 0) + oldLen, delta: newLen - oldLen });
+    f.lengthBefore = oldLen; f.lengthAfter = newLen;
   }
   if (!changes.length) return 0;
   changes.sort((a, b) => a.end - b.end);
@@ -804,8 +842,8 @@ function resizeVoices(items, voices, fixed) {
   for (const it of items) {
     const start = it.Frame || 0, end = start + (it.Length || 0);
     const ns = start + shift(start);
-    let ne = end + shift(end);
-    if (changes.some(c => c.voice === it)) ne = ns + (it.Length || 0) + changes.find(c => c.voice === it).delta;
+    const own = changes.find(c => c.voice === it);
+    const ne = own ? ns + (it.Length || 0) + own.delta : end + shift(end);
     it.Frame = ns;
     if (Number.isFinite(it.Length)) it.Length = Math.max(ne - ns, 1);
   }

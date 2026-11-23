@@ -204,66 +204,88 @@ class PatchHatsuonTest(unittest.TestCase):
 
 
 class ResizeVoicesTest(unittest.TestCase):
-    """読みを直して拍の数が変わったセリフは、声の長さを読みに合わせて変え、後ろの物をずらす(ユーザーの指摘:
-    長さがそのままだと間が空いたり、声が途中で切れたりした)"""
+    """読みを直して拍の数が変わったセリフは、声の長さを読みに合わせて変え、後ろの物をずらす(ユーザーの指摘)。
+    YMM4のセリフの長さには前後の間(息継ぎ)が入っているので、増えた・減った拍の分だけ変え、間は削らない"""
 
-    def run_resize(self, items, fixed_index, before, after):
+    PAD, PER_MORA, PER_PUNCT = 20, 6, 8
+
+    def run_resize(self, items, fixes):
         import shutil
         import subprocess
         if not shutil.which("node"):
             self.skipTest("node がない")
         template = (Path(__file__).resolve().parents[1] / "material_collector" / "html_sheet_template.html").read_text(encoding="utf-8")
-        start = template.index("function moraOf")
+        start = template.index("const LETTER_MORA")
         end = template.index("\n}\n", template.index("function resizeVoices")) + 3
         code = template[start:end] + (
             "\nconst a = JSON.parse(process.argv[1]); const items = a[0];"
             "const voices = items.filter(i => i.$type === 'V');"
             "const fixed = a[1].map(([k, b, f]) => ({ voice: voices[k], before: b, after: f }));"
-            "voices.forEach((v, k) => { const f = fixed.find(x => x.voice === v); if (f) v.Hatsuon = f.after; });"
+            "fixed.forEach(f => { f.voice.Hatsuon = f.after; });"
             "const n = resizeVoices(items, voices, fixed);"
             "process.stdout.write(JSON.stringify({ n, items }));"
         )
-        out = subprocess.run(["node", "-e", code, json.dumps([items, [[fixed_index, before, after]]])],
+        out = subprocess.run(["node", "-e", code, json.dumps([items, fixes])],
                              capture_output=True, text=True, encoding="utf-8", check=True).stdout
         return json.loads(out)
 
-    def items(self):
-        return [
-            {"$type": "V", "CharacterName": "魔理沙", "Hatsuon": "あいうえおかきくけこ", "Frame": 0, "Length": 100},
-            {"$type": "T", "Frame": 0, "Length": 100},          # そのセリフの立ち絵
-            {"$type": "V", "CharacterName": "霊夢", "Hatsuon": "さしすせそ", "Frame": 110, "Length": 50},
-            {"$type": "BGM", "Frame": 0, "Length": 300},        # 全体に流れる物
-        ]
+    def project(self, hatsuons, gap=0):
+        """前後の間20フレーム、1拍6フレーム、句読点1つ8フレームで話すセリフを並べる(間 gap フレームずつ空ける)"""
+        items, frame = [], 0
+        for k, h in enumerate(hatsuons):
+            body = re.sub(r"<[^>]*>", "", h)   # 数字のタグは、ここでは2拍ぶんの長さとみなす
+            mora = len([c for c in body if c not in "、。？ぁぃぅぇぉゃゅょゎァィゥェォャュョ"]) + 2 * len(re.findall(r"<[^>]*>", h))
+            punct = len([c for c in body if c in "、。？"])
+            length = self.PAD + self.PER_MORA * mora + self.PER_PUNCT * punct
+            items.append({"$type": "V", "CharacterName": "魔理沙" if k % 2 == 0 else "霊夢", "Hatsuon": h, "Frame": frame, "Length": length})
+            items.append({"$type": "T", "Frame": frame, "Length": length})   # そのセリフの字幕・立ち絵
+            frame += length + gap
+        items.append({"$type": "BGM", "Frame": 0, "Length": frame})
+        return items
 
-    def test_longer_reading_pushes_later_items(self):
-        r = self.run_resize(self.items(), 0, "あいうえおかきくけこ", "あいうえおかきくけこさしすせそ")
-        v1, stand, v2, bgm = r["items"]
-        self.assertEqual(r["n"], 1)
-        self.assertEqual((v1["Frame"], v1["Length"]), (0, 150))
-        self.assertEqual((stand["Frame"], stand["Length"]), (0, 150))
-        self.assertEqual((v2["Frame"], v2["Length"]), (160, 50))   # 間(10フレーム)はそのまま
-        self.assertEqual((bgm["Frame"], bgm["Length"]), (0, 350))
+    LINES = ["あいうえおかきくけこ", "さしすせそ、たちつ", "なにぬねのはひふへほまみ", "やゆよ、らりるれろ", "わをんあいうえ、おかき",
+             "くけこさしすせそたちつてと", "なにぬね、のはひふへほ", "まみむめもやゆよ", "らりるれろわを", "あいう、えおかきくけ", "こさしす"]
 
-    def test_shorter_reading_pulls_later_items(self):
-        r = self.run_resize(self.items(), 0, "あいうえおかきくけこ", "あいうえお")
-        v1, _, v2, _ = r["items"]
-        self.assertEqual(v1["Length"], 50)
-        self.assertEqual(v2["Frame"], 60)
+    def test_shorter_reading_keeps_the_pause(self):
+        # 「ティーエーアイジェーアイ」(10拍)を「たいじ」(3拍)に。前後の間は残り、話す部分だけ7拍ぶん短くなる
+        items = self.project(["それじゃあ、こんかいわティーエーアイジェーアイのしょうがい"] + self.LINES, gap=4)
+        old = items[0]["Length"]
+        r = self.run_resize(items, [[0, "それじゃあ、こんかいわティーエーアイジェーアイのしょうがい", "それじゃあ、こんかいわたいじのしょうがい"]])
+        v1, t1, v2 = r["items"][0], r["items"][1], r["items"][2]
+        self.assertEqual(v1["Length"], old - 7 * self.PER_MORA)
+        self.assertEqual(t1["Length"], v1["Length"])
+        self.assertEqual(v2["Frame"] - (v1["Frame"] + v1["Length"]), 4)   # 次のセリフまでの間はそのまま
+
+    def test_english_letters_left_in_reading_are_counted(self):
+        items = self.project(["こんかいわTAIJIのしょうがい"] + self.LINES)
+        old = items[0]["Length"]
+        r = self.run_resize(items, [[0, "こんかいわTAIJIのしょうがい", "こんかいわたいじのしょうがい"]])
+        # TAIJI = てぃー(3)えー(2)あい(2)じぇー(3)あい(2) = 12拍 → たいじ 3拍
+        self.assertEqual(r["items"][0]["Length"], old - 9 * self.PER_MORA)
+
+    def test_short_line_with_number_is_not_cut(self):
+        # 「えっ、2歳で！？」: 前の読みが数字のタグで拍が数えられない。元の長さより短くしない
+        items = self.project(self.LINES + ["えっ、<NUMK VAL=2 COUNTER=さい>で？"])
+        k = len(self.LINES)
+        old = items[2 * k]["Length"]
+        r = self.run_resize(items, [[k, "えっ、<NUMK VAL=2 COUNTER=さい>で？", "えっ、にさいで？"]])
+        self.assertGreaterEqual(r["items"][2 * k]["Length"], old)
+
+    def test_long_number_reading_gets_pad_and_mora(self):
+        items = self.project(self.LINES + ["<NUMK VAL=1923 COUNTER=ねん>"])
+        k = len(self.LINES)
+        r = self.run_resize(items, [[k, "<NUMK VAL=1923 COUNTER=ねん>", "せんきゅうひゃくにじゅうさんねん"]])
+        # 前後の間20 + 13拍×6
+        self.assertAlmostEqual(r["items"][2 * k]["Length"], self.PAD + 13 * self.PER_MORA, delta=2)
+
+    def test_later_items_shift_and_bgm_stretches(self):
+        items = self.project(["あいうえおかきくけこ"] + self.LINES)
+        total = items[-1]["Length"]
+        r = self.run_resize(items, [[0, "あいうえおかきくけこ", "あいうえおかきくけこさしすせそ"]])
+        self.assertEqual(r["items"][2]["Frame"], items[2]["Frame"] + 5 * self.PER_MORA)
+        self.assertEqual(r["items"][-1]["Length"], total + 5 * self.PER_MORA)
 
     def test_same_mora_count_keeps_length(self):
-        r = self.run_resize(self.items(), 0, "あいうえおかきくけこ", "あいうえおかきくけそ")
+        items = self.project(["あいうえおかきくけこ"] + self.LINES)
+        r = self.run_resize(items, [[0, "あいうえおかきくけこ", "あいうえおかきくけそ"]])
         self.assertEqual(r["n"], 0)
-        self.assertEqual(r["items"][2]["Frame"], 110)
-
-    def test_small_kana_do_not_count(self):
-        # 「きゃ」は1拍。「ぎゃー」は2拍
-        r = self.run_resize(self.items(), 0, "あいうえおかきくけこ", "きゃきゅきょしゃしゅしょちゃちゅちょにゃ")
-        self.assertEqual(r["n"], 0)
-
-    def test_number_tag_uses_speaker_rate(self):
-        items = self.items()
-        items.append({"$type": "V", "CharacterName": "魔理沙", "Hatsuon": "たちつてとなにぬねの", "Frame": 200, "Length": 100})
-        items[0]["Hatsuon"] = "<NUMK VAL=1923 COUNTER=ねん>"
-        r = self.run_resize(items, 0, "<NUMK VAL=1923 COUNTER=ねん>", "せんきゅうひゃくにじゅうさんねん")
-        # 魔理沙のほかのセリフは1拍10フレーム。「せんきゅうひゃくにじゅうさんねん」は13拍
-        self.assertEqual(r["items"][0]["Length"], 130)
