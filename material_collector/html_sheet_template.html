@@ -758,6 +758,60 @@ async function dropImage(no, dt) {
   toast("この画像はドラッグでは入れられませんでした。画像を右クリック →「画像をコピー」→ Ctrl+V で貼ってください。");
 }
 
+// ---- 読みを直したセリフの長さを合わせる ----
+// YMM4の読み(音声記号)の拍の数を数える。小さい「ゃゅょぁぃぅぇぉゎ」は前の字と1拍、「ー」「っ」「ん」は1拍。
+// 数字のタグ(<NUMK ...>)は何拍か分からないので hasTag で知らせる
+function moraOf(hatsuon) {
+  const s = (hatsuon || "").replace(/<[^>]*>/g, "");
+  const hasTag = /<[^>]*>/.test(hatsuon || "") || /[A-Za-z0-9\uff10-\uff19]/.test(s);
+  const kana = [...s].filter(c => /[\u3041-\u3096\u30a1-\u30faー]/.test(c) && !/[ぁぃぅぇぉゃゅょゎァィゥェォャュョヮ]/.test(c));
+  return { mora: kana.length, hasTag };
+}
+// 直したセリフの新しい長さを見積もり、そのセリフより後ろにある物(セリフ・字幕・立ち絵・画像など全部)をずらす。
+// 長さは、そのセリフの1拍あたりの長さ × 新しい拍の数。前の読みに数字のタグがあって拍が数えられないときは、
+// 同じキャラクターのほかのセリフの1拍あたりの長さ(中央値)を使う
+function resizeVoices(items, voices, fixed) {
+  const changes = [];
+  const rate = {};
+  for (const v of voices) {
+    if (fixed.some(f => f.voice === v)) continue;
+    const m = moraOf(v.Hatsuon);
+    if (m.hasTag || m.mora < 4 || !(v.Length > 0)) continue;
+    (rate[v.CharacterName || ""] = rate[v.CharacterName || ""] || []).push(v.Length / m.mora);
+  }
+  const median = a => { const b = [...a].sort((x, y) => x - y); return b.length ? b[b.length >> 1] : 0; };
+  const all = Object.values(rate).flat();
+  for (const f of fixed) {
+    const v = f.voice, oldLen = v.Length || 0;
+    if (!(oldLen > 0)) continue;
+    const before = moraOf(f.before), after = moraOf(f.after);
+    if (!after.mora) continue;
+    let perMora;
+    if (!before.hasTag && before.mora > 0) perMora = oldLen / before.mora;
+    else perMora = median(rate[v.CharacterName || ""] || []) || median(all);
+    if (!perMora) continue;
+    // 前の読みと拍の数が同じなら変えない。タグがあったときは、見積もった長さとの差が小さければ変えない
+    const newLen = before.hasTag ? Math.round(after.mora * perMora) : Math.round(oldLen * after.mora / before.mora);
+    if (!before.hasTag && after.mora === before.mora) continue;
+    if (Math.abs(newLen - oldLen) < 2) continue;
+    changes.push({ voice: v, end: (v.Frame || 0) + oldLen, delta: Math.max(newLen, 1) - oldLen });
+    f.lengthBefore = oldLen; f.lengthAfter = Math.max(newLen, 1);
+  }
+  if (!changes.length) return 0;
+  changes.sort((a, b) => a.end - b.end);
+  // shift(f): フレーム f より前で終わった、直したセリフの長さの差の合計
+  const shift = frame => { let d = 0; for (const c of changes) { if (c.end <= frame) d += c.delta; else break; } return d; };
+  for (const it of items) {
+    const start = it.Frame || 0, end = start + (it.Length || 0);
+    const ns = start + shift(start);
+    let ne = end + shift(end);
+    if (changes.some(c => c.voice === it)) ne = ns + (it.Length || 0) + changes.find(c => c.voice === it).delta;
+    it.Frame = ns;
+    if (Number.isFinite(it.Length)) it.Length = Math.max(ne - ns, 1);
+  }
+  return changes.length;
+}
+
 // ---- YMM4のプロジェクトに画像を並べる ----
 const VOICE_TYPE = "YukkuriMovieMaker.Project.Items.VoiceItem";
 const IMAGE_TYPE = "YukkuriMovieMaker.Project.Items.ImageItem, YukkuriMovieMaker";
@@ -880,18 +934,6 @@ async function placeIntoYmm4(pickedFile) {
     return;
   }
   if (U !== voices.length) log(`台本のセリフは${U}個、YMM4のセリフは${voices.length}個で数が違いますが、本文で位置を合わせました。`);
-  const endOfVoices = Math.max(...voices.map(v => (v.Frame || 0) + (v.Length || 0)));
-  const frameOf = u => {
-    if (u >= U || starts[u] >= scriptJoined.length) return endOfVoices;
-    const p = pos[starts[u]];
-    if (p >= voiceJoined.length) return endOfVoices;
-    let k = 0, lo = 0, hi = voiceStarts.length - 1;
-    while (lo <= hi) { const mid = (lo + hi) >> 1; if (voiceStarts[mid] <= p) { k = mid; lo = mid + 1; } else hi = mid - 1; }
-    const v = voices[k], size = texts[k].length;
-    // 1つのセリフにまとめられていたときは、文字の位置の割合で途中のフレームにする
-    return (v.Frame || 0) + (size ? Math.floor((v.Length || 0) * (p - voiceStarts[k]) / size) : 0);
-  };
-
   // 読みの直し(台本と同じ本文のセリフだけ、YMM4の読みとちがっていれば置きかえる)
   const fixed = [], skipped = [];
   for (const [key, reading] of Object.entries(DATA.readings || {})) {
@@ -903,10 +945,25 @@ async function placeIntoYmm4(pickedFile) {
     const v = voices[k];
     const patched = patchHatsuon(v.Hatsuon || "", reading);
     if (patched === (v.Hatsuon || "")) continue;
-    fixed.push({ serif: (v.Serif || "").replace(/\s+/g, " "), before: v.Hatsuon || "", after: patched });
+    fixed.push({ voice: v, serif: (v.Serif || "").replace(/\s+/g, " "), before: v.Hatsuon || "", after: patched });
     v.Hatsuon = patched;
     v.VoiceCache = "";  // 古い声を捨てて、YMM4に作り直してもらう
   }
+  // 読みの長さが変わったセリフは、声の長さ(タイムラインの長さ)も読みに合わせて変え、後ろの物をずらす
+  // (YMM4は声を作り直しても長さを変えないので、そのままだと間が空いたり声が途中で切れたりする。ユーザーの指摘)
+  const resized = resizeVoices(items, voices, fixed);
+
+  const endOfVoices = Math.max(...voices.map(v => (v.Frame || 0) + (v.Length || 0)));
+  const frameOf = u => {
+    if (u >= U || starts[u] >= scriptJoined.length) return endOfVoices;
+    const p = pos[starts[u]];
+    if (p >= voiceJoined.length) return endOfVoices;
+    let k = 0, lo = 0, hi = voiceStarts.length - 1;
+    while (lo <= hi) { const mid = (lo + hi) >> 1; if (voiceStarts[mid] <= p) { k = mid; lo = mid + 1; } else hi = mid - 1; }
+    const v = voices[k], size = texts[k].length;
+    // 1つのセリフにまとめられていたときは、文字の位置の割合で途中のフレームにする
+    return (v.Frame || 0) + (size ? Math.floor((v.Length || 0) * (p - voiceStarts[k]) / size) : 0);
+  };
 
   // 番号ごとの表示時間
   const plan = [];
@@ -1026,7 +1083,7 @@ async function placeIntoYmm4(pickedFile) {
       logBox.append(el("div", {}, btn)); logBox.scrollTop = logBox.scrollHeight;
     };
   }
-  log(`できました！ 画像${added.length}枚を並べました。` + (captions.length ? `名前のテロップを${captions.length}か所入れました。` : "") + (fixed.length ? `読みを${fixed.length}か所直しました。` : ""), "ok");
+  log(`できました！ 画像${added.length}枚を並べました。` + (captions.length ? `名前のテロップを${captions.length}か所入れました。` : "") + (fixed.length ? `読みを${fixed.length}か所直しました。` : "") + (resized ? `読みの長さが変わった${resized}か所は、声の長さを読みに合わせて変え、後ろをずらしました。` : ""), "ok");
   // 名前のテロップが入らなかったときは、理由を出す
   const named = plan.filter(p => captionOf(p.img)).length;
   if (!captions.length && named) {
@@ -1036,7 +1093,7 @@ async function placeIntoYmm4(pickedFile) {
   }
   if (fixed.length) {
     log("読みを直したセリフ(YMM4で開いて、ここが正しく読まれているか聞いてみてください):");
-    for (const f of fixed) log(`・「${f.serif.slice(0, 30)}」\n　${f.before} → ${f.after}`);
+    for (const f of fixed) log(`・「${f.serif.slice(0, 30)}」\n　${f.before} → ${f.after}` + (f.lengthAfter ? `\n　声の長さ ${f.lengthBefore} → ${f.lengthAfter} フレーム` : ""));
   }
   if (skipped.length) log(`YMM4の側でセリフが分かれている・書きかえられているため、読みを直さなかったセリフ: ${skipped.length}個`);
   if (dir) log(`YMM4で、同じフォルダの「${outName}」を開いてください。(画像はレイヤー${layer}${captions.length ? `、名前はレイヤー${layer + 1}` : ""}、画像ファイルは「${subName}」フォルダに入っています)`);
