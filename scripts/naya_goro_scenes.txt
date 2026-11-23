@@ -1,0 +1,195 @@
+# 納谷悟朗の解説台本(naya_goro.txt)の区切りと画像(2026年11月23日)
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 決め方:
+#   ・1つの話のまとまりに画像1枚。横に並べるのは、同じセリフで3つの役を並べて言う所だけ(ショッカー首領+銭形警部+沖田十三)
+#   ・透かしの入っていない、本人・演じた役(アニメ・ドラマ)・話に出てくる人物・ゆかりの場所の写真を基本にする
+#   ・いらすとやは胃潰瘍の手術の1枚だけ
+# 納谷悟朗は本人の写真がネットに少ないので、同じ写真を使い回している
+# 人の写真には「|名前」を付けている。主人公の納谷悟朗には付けない
+
+## つかみ：同じ相手を追いかけ続けた男
+1: ルパン三世 銭形警部 追いかける=Lupin III Inspector Zenigata chase @追いかけ
+
+## 主人公の紹介
+20: 納谷悟朗 声優 写真=Goro Naya voice actor photo @納谷悟朗
+
+## 函館に生まれる
+21: 函館 昭和初期 古写真=Hakodate early Showa old photo @函館
+
+## 東京・永福町へ
+27: 永福町 戦前 古写真=Eifukucho Suginami prewar old photo @永福町
+
+## 勉強嫌いと高等科
+34: 国民学校 高等科 戦時中 白黒写真=wartime Japan national school higher course photo @勉強嫌い/高等科
+
+## 戦時中の働き手
+40: 勤労動員 少年 工場 戦時中 白黒写真=wartime Japan student labor mobilization factory photo @戦争
+
+## 15歳で特攻隊へ
+53: 特攻隊 出撃 白黒写真=kamikaze pilots 1945 photo @特攻隊
+
+## 終戦と空っぽの気持ち
+68: 玉音放送 終戦 1945 写真=Japan surrender August 1945 radio photo @終戦
+
+## 毎日新聞の給仕
+80: 毎日新聞 旧社屋 有楽町 戦後=Mainichi Shimbun old building Yurakucho postwar @毎日新聞
+
+## 京都で働きながら学ぶ
+83: 京都 戦後 古写真=Kyoto postwar old photo @京都
+
+## 立命館大学へ
+88: 立命館大学 広小路 旧校舎 古写真=Ritsumeikan University Hirokoji old campus photo @立命館
+
+## 演劇部で芝居にハマる
+92: 納谷悟朗 若い頃 白黒写真=young Goro Naya black and white photo @演劇部
+
+## 児童劇団・東童に入る
+105: 劇団東童 児童劇団 昭和=Todo children's theater company Showa @兄/東童
+
+## NHKラジオで初レギュラー
+119: NHK 旧放送会館 内幸町 古写真=NHK old broadcasting hall Uchisaiwaicho photo @NHKラジオ
+
+## 劇団を渡り歩く貧乏時代
+126: 納谷悟朗 若い頃 俳優 写真=young Goro Naya actor photo @劇団
+
+## 熊倉一雄の誘い
+138: 熊倉一雄 若い頃 俳優=young Kazuo Kumakura actor|熊倉一雄 @熊倉一雄
+
+## ヒッチコック劇場と新劇の俳優
+139: ヒッチコック劇場 テレビ=Alfred Hitchcock Presents TV series @ヒッチコック劇場
+
+## テアトル・エコーに入団
+152: テアトル・エコー 劇団 恵比寿 劇場=Theatre Echo Ebisu theater @テアトル・エコー
+
+## 声の仕事が押し寄せる
+158: 納谷悟朗 声優 吹き替え 収録=Goro Naya dubbing recording @声の仕事
+
+## チャールトン・ヘストンの声
+186: チャールトン・ヘストン 写真=Charlton Heston photo|チャールトン・ヘストン @ハリウッド/ヘストン
+
+## クラーク・ゲーブル
+197: クラーク・ゲーブル 写真=Clark Gable photo|クラーク・ゲーブル @クラーク・ゲーブル
+
+## ジョン・ウェイン
+199: ジョン・ウェイン 写真=John Wayne photo|ジョン・ウェイン @ジョン・ウェイン
+
+## ナレーションと納谷節
+204: 納谷悟朗 ナレーター 写真=Goro Naya narrator photo @ナレーション
+
+## 泥棒が主人公の漫画
+214: ルパン三世 原作 漫画 モンキー・パンチ=Lupin III manga Monkey Punch original @漫画
+
+## パイロットフィルムで五ェ門
+219: ルパン三世 パイロットフィルム 1969=Lupin III pilot film 1969 @パイロットフィルム
+
+## 1971年、銭形警部に
+227: ルパン三世 1971 第1シリーズ 銭形警部=Lupin III 1971 first series Zenigata @銭形警部
+
+## 仮面ライダーのショッカー首領
+232: 仮面ライダー ショッカー 首領=Kamen Rider Shocker Great Leader @仮面ライダー/ショッカー
+
+## 銭形の役作り
+249: 銭形警部 ルパン三世 アニメ=Inspector Zenigata Lupin III anime @銭形警部
+
+## 火野カチ子と結婚
+268: 火野カチ子 女優=Kachiko Hino actress|火野カチ子 @火野カチ子
+
+## 宇宙戦艦ヤマトの沖田十三
+278: 宇宙戦艦ヤマト 沖田十三=Space Battleship Yamato Captain Okita @宇宙戦艦ヤマト/沖田
+
+## ルパン三世 第2シリーズとカリオストロの城
+295: ルパン三世 カリオストロの城 銭形=Lupin III Castle of Cagliostro Zenigata @ルパン三世
+
+## まるで違う3つの顔
+299: ショッカー 首領 仮面ライダー=Kamen Rider Shocker leader @首領 + ルパン三世 銭形警部=Lupin III Inspector Zenigata @警部 + 宇宙戦艦ヤマト 沖田十三 艦長=Space Battleship Yamato Okita captain @艦長
+
+## クラッシャージョウのコワルスキー
+306: クラッシャージョウ コワルスキー=Crusher Joe Kowalski @クラッシャージョウ
+
+## 風の谷のナウシカのユパ
+308: 風の谷のナウシカ ユパ=Nausicaa Lord Yupa @ナウシカ/ユパ
+
+## 阪神タイガースが大好き
+313: 納谷悟朗 阪神 帽子 写真=Goro Naya Hanshin Tigers cap photo @野球
+
+## 劇団と飲み代、講師を断る
+319: 納谷悟朗 俳優 写真=Goro Naya actor portrait photo @-
+
+## 胃潰瘍と胃がんの手術
+333: いらすとや 入院 手術=irasutoya hospital surgery @悲鳴/胃潰瘍
+
+## ルパン三世 PARTIII
+342: ルパン三世 PARTIII 銭形=Lupin III Part III Zenigata @銭形の帽子/PARTIII
+
+## 山田康雄の死
+346: 山田康雄 声優 写真=Yasuo Yamada voice actor photo|山田康雄 @山田康雄
+
+## 葬儀で叫んだ言葉
+359: 山田康雄 葬儀 納谷悟朗=Yasuo Yamada funeral 1995 Goro Naya @葬儀
+
+## 栗田貫一が2代目ルパンに
+367: 栗田貫一 ルパン三世 声優=Kanichi Kurita Lupin III voice|栗田貫一 @栗田貫一
+
+## 間質性肺炎
+385: 納谷悟朗 晩年 写真=Goro Naya later years photo @間質性肺炎
+
+## 脳梗塞と最後の舞台
+392: テアトル・エコー 舞台 ルームサービス=Theatre Echo Room Service stage @舞台
+
+## 千葉へ、妻に支えられて
+406: 納谷悟朗 火野カチ子 夫婦=Goro Naya Kachiko Hino couple|火野カチ子 @千葉市/火野カチ子
+
+## アテ師と若い声優への苦言
+412: 納谷悟朗 晩年 声優 写真=Goro Naya veteran voice actor photo @声優
+
+## 最後の銭形 the Last Job
+428: ルパン三世 the Last Job 銭形=Lupin III The Last Job 2010 Zenigata @the Last Job
+
+## 山寺宏一が銭形を引き継ぐ
+434: 山寺宏一 声優 写真=Koichi Yamadera voice actor photo|山寺宏一 @山寺宏一
+
+## 「これは俺のものだ」
+436: 納谷悟朗 晩年 写真=Goro Naya later years photo @-
+
+## 山寺宏一の思い
+442: 山寺宏一 銭形警部=Koichi Yamadera Zenigata|山寺宏一 @山寺
+
+## 降りたあとも
+449: 納谷悟朗 声優 晩年=Goro Naya voice actor elderly @銭形を降りた
+
+## 最後の仕事『インセプション』
+456: インセプション 映画 2010=Inception 2010 film @インセプション
+
+## 腎不全
+463: 納谷悟朗 晩年 写真=Goro Naya later years photo @腎不全
+
+## 千葉の自宅で介護
+468: 火野カチ子 女優=Kachiko Hino actress|火野カチ子 @千葉市の自宅/火野カチ子
+
+## 死去
+473: 納谷悟朗 声優 写真=Goro Naya voice actor photo @息を引き取った
+
+## お別れ会
+481: 納谷悟朗 お別れ会 テアトル・エコー=Goro Naya farewell ceremony Theatre Echo 2013 @お別れ会
+
+## 栗田貫一の呼びかけ
+487: 栗田貫一 物まね ルパン=Kanichi Kurita impressionist Lupin|栗田貫一 @栗田
+
+## 妻・火野カチ子のあいさつ
+495: 火野カチ子 女優=Kachiko Hino actress|火野カチ子 @火野
+
+## 弟・納谷六朗
+503: 納谷六朗 声優=Rokuro Naya voice actor|納谷六朗 @納谷六朗
+
+## 小林清志の言葉
+510: 小林清志 次元大介 声優=Kiyoshi Kobayashi Jigen voice actor|小林清志 @小林清志
+
+## 山寺宏一の言葉
+512: 山寺宏一 声優 写真=Koichi Yamadera voice actor photo|山寺宏一 @山寺宏一
+
+## 追いかけっこを楽しみ切った人生
+518: ルパン三世 銭形警部 追いかける=Lupin III Inspector Zenigata chase @銭形/追いかけっこ
