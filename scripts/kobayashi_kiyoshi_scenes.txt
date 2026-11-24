@@ -1,0 +1,247 @@
+# 小林清志の解説台本(kobayashi_kiyoshi.txt)の区切りと画像(2026年11月24日)
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 決め方:
+#   ・1つの話のまとまりに画像1枚。横に並べるのは、同じセリフで2〜3人・作品を並べて言う所だけ
+#     (今井正+山本薩夫、リー・マーヴィン+トミー・リー・ジョーンズ+コバーン、次元+コバーン、
+#      ハービー・ハンコック+マカロニウエスタン、新キャスト3人、大塚明夫+大塚周夫)
+#   ・透かしの入っていない、本人・演じた役(アニメ・洋画)・話に出てくる人物・ゆかりの場所の写真を基本にする
+#   ・いらすとやは退職・押入れ・禁煙の3枚だけ
+# 小林清志は本人の写真がネットに少ないので、同じ写真の使い回しも前提にしている
+# 人の写真には「|名前」を付けている。主人公の小林清志には付けない
+
+## つかみ：仕事を辞めるときの一言
+1: いらすとや 退職 挨拶=irasutoya retirement farewell @辞める
+
+## つかみ：88歳で降りた男と次元大介
+4: ルパン三世 次元大介 アニメ=Lupin III Daisuke Jigen anime @長年の仕事
+
+## 主人公の紹介
+18: 小林清志 声優 写真=Kiyoshi Kobayashi voice actor photo @小林清志
+
+## 根津に生まれる
+19: 根津 戦前 古写真=Nezu Tokyo prewar old photo @根津
+
+## 戦争と疎開
+25: 学童疎開 塩原温泉 白黒写真=Shiobara onsen school evacuation wartime photo @戦争/疎開
+
+## 不動岡中学で卓球の県代表
+33: 不動岡中学 旧制 古写真=Fudooka middle school old photo Kazo @不動岡
+
+## ジャパンタイムズと推理小説
+38: ジャパンタイムズ 昭和20年代 紙面=The Japan Times 1940s newspaper @ジャパンタイムズ
+
+## 小石川高校と英語のアルバイト
+48: 都立小石川高校 旧校舎 古写真=Koishikawa high school old building photo @小石川
+
+## 東大仏文科を目指して不合格
+55: 東京大学 赤門 昭和20年代 白黒写真=University of Tokyo Akamon 1940s photo @東京大学
+
+## 浪人時代に学んだもの
+67: 小林秀雄 評論家 写真=Hideo Kobayashi critic photo|小林秀雄 @小林秀雄/奥井潔/ブレイク
+
+## 日大芸術学部の演劇科へ
+69: 日本大学芸術学部 江古田 旧校舎 古写真=Nihon University College of Art Ekoda old photo @日本大学芸術学部
+
+## 芝居の実習で主役に
+77: 小林清志 若い頃 写真=young Kiyoshi Kobayashi photo @主役
+
+## 学生のうちに映画に出る
+86: 今井正 映画監督 写真=Tadashi Imai film director|今井正 @今井正 + 山本薩夫 映画監督 写真=Satsuo Yamamoto film director|山本薩夫 @山本薩夫
+
+## 劇団泉座の研究生
+93: 小林清志 若い頃 俳優 白黒写真=young Kiyoshi Kobayashi actor black and white @劇団泉座
+
+## 『ケイン号の反乱』の翻訳
+102: ケイン号の反乱 映画 ポスター=The Caine Mutiny 1954 poster @ケイン号の反乱
+
+## 小林守夫と東北新社
+105: 東北新社 ロゴ=Tohokushinsha Film logo @東北新社/小林守夫
+
+## 植村伴次郎のすすめ
+112: 植村伴次郎 東北新社 社長=Banjiro Uemura Tohokushinsha founder|植村伴次郎 @植村伴次郎
+
+## アテレコという新しい仕事
+116: アテレコ 吹き替え 収録 昭和30年代 白黒写真=Japanese dubbing recording 1950s photo @アテレコ
+
+## 『コンバット』の名もない兵隊
+128: コンバット テレビドラマ 1962=Combat! TV series 1962 @コンバット
+
+## 東京俳協の立ち上げ
+135: 東京俳優生活協同組合 俳協=Tokyo Actor's Consumer's Cooperative Society Haikyo @東京俳優生活協同組合/俳協
+
+## 『ジスマン・ドーソン』で初主役
+152: ジスマン・ドーソン テレビドラマ=This Man Dawson TV series 1959 Keith Andes @ジスマン・ドーソン
+
+## 昼は声、夜は翻訳
+157: 小林清志 若い頃 声優 写真=young Kiyoshi Kobayashi voice actor photo @翻訳の仕事
+
+## 六畳の家と押入れ
+161: いらすとや 押入れ=irasutoya oshiire closet @六畳/押入れ
+
+## 声の仕事が中心に
+170: 小林清志 声優 白黒写真=Kiyoshi Kobayashi voice actor black and white photo @暮らしの中心
+
+## 『鉄腕アトム』
+174: 鉄腕アトム 1963 アニメ=Astro Boy 1963 anime @鉄腕アトム
+
+## 『妖怪人間ベム』のベム
+179: 妖怪人間ベム 1968 ベム=Humanoid Monster Bem 1968 anime @妖怪人間ベム
+
+## ハリウッドスターの持ち役
+184: リー・マーヴィン 写真=Lee Marvin photo|リー・マーヴィン @洋画/ハリウッド
++186: トミー・リー・ジョーンズ 写真=Tommy Lee Jones photo|トミー・リー・ジョーンズ @トミー・リー・ジョーンズ
++186: ジェームズ・コバーン 写真=James Coburn photo|ジェームズ・コバーン @ジェームズ・コバーン
+
+## 『ルパン三世』アニメ化の動き
+203: ルパン三世 原作 漫画 モンキー・パンチ=Lupin III manga Monkey Punch original @ルパン三世
+
+## パイロットフィルム
+205: ルパン三世 パイロットフィルム 1969=Lupin III pilot film 1969 @パイロットフィルム
+
+## 次元のモデルはコバーン
+212: 次元大介 ルパン三世 第1シリーズ=Daisuke Jigen Lupin III first series @次元のイメージ + ジェームズ・コバーン 荒野の七人=James Coburn The Magnificent Seven|ジェームズ・コバーン @ジェームズ・コバーン
+
+## 1971年、テレビシリーズ開始
+218: ルパン三世 1971 第1シリーズ=Lupin III 1971 first series @テレビシリーズ
+
+## 次元大介という名前
+221: 次元大介 早撃ち ルパン三世=Daisuke Jigen quick draw Lupin III @次元は第1話
+
+## 人気作になるとは思わなかった
+230: 小林清志 1970年代 写真=Kiyoshi Kobayashi 1970s photo @本人はこんな人気作
+
+## 劇団泉座がなくなる
+244: 小林清志 声優 ナレーション 写真=Kiyoshi Kobayashi narrator photo @劇団泉座
+
+## 『北国の帝王』
+250: 北国の帝王 リー・マーヴィン=Emperor of the North Pole Lee Marvin @北国の帝王
+
+## 劇場版『ルパンVS複製人間』
+258: ルパンVS複製人間 1978=Lupin III The Mystery of Mamo 1978 @映画館/ルパンVS複製人間
+
+## お気に入りは『ロシアより愛をこめて』
+264: ルパン三世 ロシアより愛をこめて=Lupin III From Russia with Love 1992 @ロシアより愛をこめて
+
+## 『アンタッチャブル』のアル・カポネ
+266: アンタッチャブル デ・ニーロ アル・カポネ=The Untouchables De Niro Al Capone|ロバート・デ・ニーロ @アンタッチャブル
+
+## 『風魔一族の陰謀』で声優交代
+272: ルパン三世 風魔一族の陰謀=Lupin III The Fuma Conspiracy 1987 @風魔一族の陰謀
+
+## 相棒・山田康雄
+284: 山田康雄 声優 写真=Yasuo Yamada voice actor photo|山田康雄 @山田康雄
+
+## 木曜スペシャルの生アフレコ
+291: ルパン三世 声優 山田康雄 納谷悟朗 小林清志=Lupin III voice actors Yamada Naya Kobayashi|山田康雄・納谷悟朗 @木曜スペシャル
+
+## 『ガンダム0083』のデラーズ
+297: ガンダム0083 エギーユ・デラーズ=Gundam 0083 Aiguille Delaz @ガンダム0083
+
+## 『勇者王ガオガイガー』
+298: 勇者王ガオガイガー=The King of Braves GaoGaiGar @ガオガイガー
+
+## 『SASUKE』のナレーション
+300: SASUKE 番組 そり立つ壁=SASUKE Ninja Warrior TBS @SASUKE
+
+## 『名探偵コナン ベイカー街の亡霊』
+308: 名探偵コナン ベイカー街の亡霊=Detective Conan The Phantom of Baker Street @ベイカー街の亡霊
+
+## 新しもの好きの私生活
+310: 小林清志 晩年 写真=Kiyoshi Kobayashi later years photo @-
+
+## ジャズとマカロニウエスタン
+316: ハービー・ハンコック 写真=Herbie Hancock photo|ハービー・ハンコック @ハービー・ハンコック + マカロニウエスタン 荒野の用心棒=Spaghetti western A Fistful of Dollars @マカロニウエスタン
+
+## 山田康雄の死
+320: 山田康雄 葬儀 1995=Yasuo Yamada funeral 1995 @山田康雄
+
+## 2代目ルパン・栗田貫一
+325: 栗田貫一 ルパン三世=Kan'ichi Kurita Lupin III|栗田貫一 @栗田貫一
+
+## 2011年の声優交代
+331: 浪川大輔 声優 写真=Daisuke Namikawa voice actor|浪川大輔 @浪川大輔 + 沢城みゆき 声優 写真=Miyuki Sawashiro voice actress|沢城みゆき @沢城みゆき + 山寺宏一 声優 写真=Koichi Yamadera voice actor|山寺宏一 @山寺宏一
+
+## ひとり残った次元
+341: 小林清志 晩年 声優 写真=Kiyoshi Kobayashi elderly voice actor photo @次元にふさわしい後任
+
+## 『次元大介の墓標』
+350: LUPIN THE IIIRD 次元大介の墓標=Lupin the Third Jigen's Gravestone @次元が主役の映画
+
+## 栗田貫一と初めての舞台あいさつ
+353: 次元大介の墓標 舞台挨拶 栗田貫一 小林清志=Jigen's Gravestone stage greeting Kurita Kobayashi|栗田貫一 @舞台あいさつ
+
+## 声の秘訣は腹筋
+362: 小林清志 収録 マイク=Kiyoshi Kobayashi recording microphone @腹筋
+
+## 声優アワード功労賞
+373: 声優アワード 功労賞 小林清志 清水マリ 堀絢子=Seiyu Awards merit award 2017 Kobayashi Shimizu Hori|清水マリ・堀絢子 @声優アワード
+
+## 東京アニメアワードフェスティバル
+381: 東京アニメアワードフェスティバル 2018 顕彰=Tokyo Anime Award Festival 2018 @東京アニメアワードフェスティバル
+
+## モンキー・パンチの死
+386: モンキー・パンチ 漫画家 写真=Monkey Punch manga artist photo|モンキー・パンチ @モンキー・パンチ
+
+## 偲ぶ会での弔辞
+387: モンキー・パンチ 偲ぶ会 小林清志=Monkey Punch memorial Kiyoshi Kobayashi @偲ぶ会
+
+## たばこをやめる
+402: いらすとや 禁煙=irasutoya no smoking quit @たばこをやめた
+
+## 次元役を降りる発表
+406: 小林清志 次元大介 降板=Kiyoshi Kobayashi Jigen retirement 2021 @次元役を降りる
+
+## 後を継ぐ大塚明夫
+408: 大塚明夫 声優 写真=Akio Otsuka voice actor|大塚明夫 @大塚明夫 + 大塚周夫 声優 写真=Chikao Otsuka voice actor|大塚周夫 @大塚周夫
+
+## 「一生ものの仕事」
+411: 小林清志 次元大介 声優 晩年=Kiyoshi Kobayashi Jigen voice actor later years @発表のコメント
+
+## 大塚周夫と五ェ門
+417: 石川五ェ門 大塚周夫 ルパン三世=Goemon Ishikawa Chikao Otsuka Lupin III|大塚周夫 @父親/五ェ門
+
+## 「わたしゃ齢88歳であるぞ」
+424: 小林清志 晩年 写真=Kiyoshi Kobayashi later years photo @-
+
+## 次元は江戸っ子でジャズ
+431: 大塚明夫 次元大介=Akio Otsuka Daisuke Jigen|大塚明夫 @大塚
+
+## 『ルパン三世 PART6』と最後の次元
+442: ルパン三世 PART6=Lupin III Part 6 2021 @PART6
+
+## 降板後もナレーション
+449: 小林清志 ナレーション 写真=Kiyoshi Kobayashi narration photo @マイクの前
+
+## 『THE追跡』
+452: 列島警察捜査網 THE追跡 テレビ朝日=THE Tsuiseki TV Asahi police documentary @THE追跡
+
+## 89歳で旅立つ
+464: 小林清志 訃報 2022=Kiyoshi Kobayashi death 2022 @2022年7月30日
+
+## ルパン一家の追悼
+478: ルパン三世 PART6 キャスト 次元大介=Lupin III Part 6 cast Jigen @訃報/ルパンの仲間
+
+## 栗田貫一の言葉
+482: 栗田貫一 声優 写真=Kan'ichi Kurita photo|栗田貫一 @栗田貫一
+
+## 大塚明夫の言葉
+487: 大塚明夫 声優 写真=Akio Otsuka photo|大塚明夫 @大塚明夫
+
+## 浪川大輔の言葉
+495: 浪川大輔 石川五ェ門=Daisuke Namikawa Goemon|浪川大輔 @浪川大輔
+
+## 山口勝平の言葉
+500: 山口勝平 声優 写真=Kappei Yamaguchi voice actor|山口勝平 @山口勝平
+
+## 古川登志夫の言葉
+503: 古川登志夫 声優 写真=Toshio Furukawa voice actor|古川登志夫 @古川登志夫
+
+## 平野文の言葉
+506: 平野文 声優 写真=Fumi Hirano voice actress|平野文 @平野文
+
+## しめくくり：粋を貫いた東京っ子
+510: 小林清志 次元大介 声優 写真=Kiyoshi Kobayashi Daisuke Jigen voice actor photo @英字新聞/次元大介
