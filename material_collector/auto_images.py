@@ -13,6 +13,9 @@
     # 3. 選んだ画像を保存する(作業フォルダ/選んだ画像/001_ワード.jpg)
     python -m material_collector.auto_images fetch 作業フォルダ
 
+    # 3の2. 人の写真が本人か、顔の照合で確かめる(別人の疑いがあれば選び直す)
+    python -m material_collector.face_check 作業フォルダ scripts/台本_scenes.txt --name 主人公の名前
+
     # 4. 画像入りの画像リストを作る
     python -m material_collector.html_sheet 台本.txt 区切り表.txt 出力.html --title 名前 --images 作業フォルダ/選んだ画像
 """
