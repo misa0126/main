@@ -1,0 +1,181 @@
+# 第101警察予備大隊の解説台本(police_battalion_101.txt)の区切りと画像(2026年11月26日)
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 決め方:
+#   ・1つの話のまとまりに画像1枚。横に並べるのは、同じ話で2〜3人の歴史家を並べて比べる所だけ
+#   ・透かしの入っていない、話に関係ある写真を基本に使う(大隊の隊員の写真・ユゼフフの追悼碑・話に出てくる人物・本の表紙)
+#   ・主人公は人物ではなく部隊なので、迷う所は大隊の隊員の写真(ウォマジーで撮られたもの)にした
+#   ・いらすとやは【現代に置き換えると】の4枚だけ
+# 人の写真には「|名前」を付けている。大隊の隊員の集合写真には付けない
+
+## つかみ：1942年7月13日、ポーランドの村
+1: ユゼフフ 虐殺 追悼碑 Józefów 1942=Jozefow massacre memorial 1942=Józefów Biłgorajski pomnik 1942 @ポーランドの小さな村
+
+## 部隊の名前：第101警察予備大隊
+15: 第101警察予備大隊 Reserve Police Battalion 101 写真=Reserve Police Battalion 101 photo 1942=Reserve-Polizei-Bataillon 101 Foto @第101警察予備大隊
+
+## 秩序警察とは
+23: 秩序警察 Ordnungspolizei 1940 写真=Ordnungspolizei 1940 photo=Ordnungspolizei Foto 1940 @秩序警察
+
+## 1939年 ポーランド侵攻
+31: ポーランド侵攻 1939 ドイツ軍 白黒写真=German invasion of Poland 1939 photo @ポーランド侵攻
+
+## 1940年 強制移住
+33: ポーランド人 強制移住 1940 Warthegau=expulsion of Poles Warthegau 1940=Wysiedlenia Polaków 1940 @強制移住
+
+## ウッチのゲットー
+37: ウッチ ゲットー Litzmannstadt 1940=Lodz ghetto fence 1940=getto Łódź 1940 @ウッチ
+
+## 隊員の入れ替わり：予備役の男たち
+40: 第101警察予備大隊 隊員 Reserve Police Battalion 101 men=Reserve Police Battalion 101 men=Reserve-Polizei-Bataillon 101 Männer @隊員
+
+## ザモシチに到着
+48: ザモシチ 旧市街 古写真 Zamość=Zamosc old town old photo=Zamość stare zdjęcia @ザモシチ
+
+## トラップ少佐と命令
+50: ヴィルヘルム・トラップ 少佐 Wilhelm Trapp=Wilhelm Trapp major Reserve Police Battalion 101=Wilhelm Trapp Polizei|ヴィルヘルム・トラップ @トラップ
+
+## ユゼフフの虐殺
+63: ユゼフフ 虐殺 追悼碑 Józefów 1942=Jozefow massacre memorial 1942=Józefów Biłgorajski pomnik 1942 @村
+
+## 隊員の出身：ハンブルク
+83: ハンブルク 1930年代 白黒写真 Hamburg=Hamburg 1930s black and white photo=Hamburg 1930er Jahre Foto @ハンブルク
+
+## ダリューゲと予備役
+84: クルト・ダリューゲ Kurt Daluege=Kurt Daluege=Kurt Daluege Ordnungspolizei|クルト・ダリューゲ @ダリューゲ
+
+## 年を取りすぎた隊員たち
+93: 第101警察予備大隊 Reserve Police Battalion 101 写真=Reserve Police Battalion 101 photo 1942=Reserve-Polizei-Bataillon 101 Foto @大隊の隊員
+
+## ナチ党員は約25%
+97: ナチ党 党員証 NSDAP Mitgliedsbuch=NSDAP membership book=NSDAP Mitgliedsbuch @ナチ党員
+
+## 1942年 大量殺戮の波
+111: ホロコースト 1942 ポーランド ゲットー 移送=Holocaust Poland 1942 deportation photo @ホロコースト
+
+## トレブリンカへ
+121: トレブリンカ 絶滅収容所 Treblinka=Treblinka extermination camp photo=Treblinka obóz zagłady @トレブリンカ
+
+## 定説チェック①：命令だから仕方がなかった？
+126: 第101警察予備大隊 隊員 Reserve Police Battalion 101 men=Reserve Police Battalion 101 men=Reserve-Polizei-Bataillon 101 Männer @-
+
+## アウシュヴィッツ裁判
+133: フランクフルト アウシュヴィッツ裁判 1963=Frankfurt Auschwitz trial 1963 defendants=Frankfurter Auschwitzprozess 1963 @アウシュヴィッツ裁判
+
+## 部隊の記録では
+139: 第101警察予備大隊 Reserve Police Battalion 101 写真=Reserve Police Battalion 101 photo 1942=Reserve-Polizei-Bataillon 101 Foto @この部隊
+
+## 定説チェック②：SSだけが実行した？
+155: SS 親衛隊 1942 白黒写真=SS troops 1942 photo=Waffen-SS 1942 Foto @SS
+
+## 秩序警察も担い手だった
+158: 秩序警察 Ordnungspolizei 1940 写真=Ordnungspolizei 1940 photo=Ordnungspolizei Foto 1940 @秩序警察
+
+## 当時の目線に立つ
+165: 第101警察予備大隊 隊員 Reserve Police Battalion 101 men=Reserve Police Battalion 101 men=Reserve-Polizei-Bataillon 101 Männer @当時の彼ら
+
+## ブラウニングの登場
+173: クリストファー・ブラウニング 歴史家 Christopher Browning=Christopher Browning historian|クリストファー・ブラウニング @ブラウニング
+
+## 『普通の人びと』と捜査記録
+179: 普通の人びと ブラウニング 本 Ordinary Men=Ordinary Men Christopher Browning book cover @普通の人びと
+
+## ブラウニングの答え
+197: クリストファー・ブラウニング 歴史家 Christopher Browning=Christopher Browning historian|クリストファー・ブラウニング @ブラウニングの答え
+
+## ユゼフフの朝の仲間の圧力
+208: ユゼフフ 虐殺 追悼碑 Józefów 1942=Jozefow massacre memorial 1942=Józefów Biłgorajski pomnik 1942 @ユゼフフ
+
+## ウォマジーなどの虐殺
+222: ウォマジー 1942 第101警察予備大隊 Łomazy=Lomazy 1942 Reserve Police Battalion 101=Łomazy 1942 @ウォマジー
+
+## トレブリンカへの移送
+229: トレブリンカ 移送 列車 1942=Treblinka deportation train 1942=deportacja do Treblinki 1942 @トレブリンカ行きの列車
+
+## ユダヤ人狩り
+238: ユダヤ人狩り Judenjagd 第101警察予備大隊=Judenjagd Reserve Police Battalion 101 Poland=Judenjagd Polen 1943 @ユダヤ人狩り
+
+## 収穫祭作戦とマイダネク
+246: マイダネク強制収容所 収穫祭作戦 Majdanek=Operation Harvest Festival Majdanek 1943=Aktion Erntefest Majdanek @収穫祭作戦
+
+## 普通の人びとが殺戮者になるまで
+257: 普通の人びと ブラウニング 本 Ordinary Men=Ordinary Men Christopher Browning book cover @普通の人びと
+
+## ゴールドハーゲンの登場
+261: ダニエル・ゴールドハーゲン Daniel Goldhagen=Daniel Jonah Goldhagen|ダニエル・ゴールドハーゲン @ゴールドハーゲン
+
+## 『ヒトラーの自発的死刑執行人たち』
+264: ヒトラーの自発的死刑執行人たち Hitler's Willing Executioners=Hitler's Willing Executioners book cover Goldhagen @ヒトラーの自発的死刑執行人たち
+
+## ブラウニングとゴールドハーゲンの違い
+281: クリストファー・ブラウニング 歴史家 Christopher Browning=Christopher Browning historian|クリストファー・ブラウニング @ブラウニング
++282: ダニエル・ゴールドハーゲン Daniel Goldhagen=Daniel Jonah Goldhagen|ダニエル・ゴールドハーゲン @ゴールドハーゲン
+
+## ブラウニング側の言い分
+295: クリストファー・ブラウニング 歴史家 Christopher Browning=Christopher Browning historian|クリストファー・ブラウニング @ブラウニング側
+
+## 1996年の公開討論
+308: アメリカ ホロコースト記念博物館 USHMM=United States Holocaust Memorial Museum @ホロコースト記念博物館
+
+## キュールの『ごく普通の組織』
+317: シュテファン・キュール 社会学者 Stefan Kühl=Stefan Kühl sociologist=Stefan Kühl Soziologe|シュテファン・キュール @キュール
+
+## 三人の答えを整理
+342: クリストファー・ブラウニング 歴史家 Christopher Browning=Christopher Browning historian|クリストファー・ブラウニング @三人 + ダニエル・ゴールドハーゲン Daniel Goldhagen=Daniel Jonah Goldhagen|ダニエル・ゴールドハーゲン @三人 + シュテファン・キュール 社会学者 Stefan Kühl=Stefan Kühl sociologist=Stefan Kühl Soziologe|シュテファン・キュール @三人
+
+## ミルグラムの服従実験
+351: ミルグラム実験 電気ショック 1961 写真=Milgram experiment shock generator 1961 photo @実験
+
+## 熱心なフォロワーシップ：ライカーとハスラム
+365: スティーブン・ライカー アレックス・ハスラム=Stephen Reicher Alex Haslam psychologists|ライカーとハスラム @ライカーやハスラム
+
+## ミルグラムの強調
+372: スタンレー・ミルグラム 心理学者=Stanley Milgram psychologist|スタンレー・ミルグラム @ミルグラム
+
+## バーガーの追試
+376: ジェリー・バーガー 心理学者 Jerry Burger=Jerry M. Burger psychologist Milgram replication|ジェリー・バーガー @バーガー
+
+## ユゼフフとトラップに重ねる
+384: ヴィルヘルム・トラップ 少佐 Wilhelm Trapp=Wilhelm Trapp major Reserve Police Battalion 101=Wilhelm Trapp Polizei|ヴィルヘルム・トラップ @トラップ
+
+## 実験と戦場は同じじゃない
+389: ミルグラム実験 電気ショック 1961 写真=Milgram experiment shock generator 1961 photo @実験室
+
+## 次の定説：あの実験
+397: スタンフォード監獄実験 1971 写真=Stanford prison experiment 1971 photo @役割
+
+## 撃たなかった男たち
+402: 第101警察予備大隊 Reserve Police Battalion 101 写真=Reserve Police Battalion 101 photo 1942=Reserve-Polizei-Bataillon 101 Foto @撃たなかった
+
+## 本の中の少尉ブーフマン
+416: 普通の人びと ブラウニング 本 Ordinary Men=Ordinary Men Christopher Browning book cover @本の中
+
+## 戦後のハンブルクの裁判
+437: ユリウス・ヴォーラウフ Julius Wohlauf=Julius Wohlauf Reserve Police Battalion 101|ユリウス・ヴォーラウフ @ヴォーラウフ
+
+## 近所のおじさんに戻った
+443: ハンブルク 1960年代 白黒写真 Hamburg=Hamburg 1960s black and white photo=Hamburg 1960er Jahre Foto @ハンブルク
+
+## 現代に置き換えると
+448: いらすとや 会社 職場 会議=irasutoya office meeting @定番コーナー
+
+## ①嫌なら抜けていいよ
+456: いらすとや 上司 部下 仕事 頼む=irasutoya boss asking subordinate work @抜けていいよ
+
+## ②少しずつ慣れる：企業の不正
+461: いらすとや 謝罪会見 不祥事=irasutoya apology press conference @慣れていく/不正
+
+## ③忖度
+467: いらすとや 忖度=irasutoya sontaku @忖度
+
+## 魔理沙の考察
+475: 第101警察予備大隊 隊員 Reserve Police Battalion 101 men=Reserve Police Battalion 101 men=Reserve-Polizei-Bataillon 101 Männer @-
+
+## あの朝、あの場所にいたら
+512: ユゼフフ 虐殺 追悼碑 Józefów 1942=Jozefow massacre memorial 1942=Józefów Biłgorajski pomnik 1942 @あの朝
+
+## 次回予告：スタンフォード監獄実験
+518: スタンフォード監獄実験 1971 写真=Stanford prison experiment 1971 photo @心理実験
