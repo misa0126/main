@@ -8,7 +8,8 @@
 #   ・1つの話のまとまりに画像1枚。横に並べるのは、同じ話で2〜3人の歴史家を並べて比べる所だけ
 #   ・透かしの入っていない、話に関係ある写真を基本に使う(大隊の隊員の写真・ユゼフフの追悼碑・話に出てくる人物・本の表紙)
 #   ・主人公は人物ではなく部隊なので、迷う所は大隊の隊員の写真(ウォマジーで撮られたもの)にした
-#   ・いらすとやは【現代に置き換えると】の4枚だけ
+#   ・重い話なので、いらすとやは使わない(ユーザーの希望。2026年11月26日)。
+#     【現代に置き換えると】も、それぞれの話のもとになった場面(大隊の隊員・トラップ・ウォマジーやウクフ・ライカーとハスラム)の写真にした
 # 人の写真には「|名前」を付けている。大隊の隊員の集合写真には付けない
 
 ## つかみ：1942年7月13日、ポーランドの村
@@ -160,16 +161,16 @@
 443: ハンブルク 1960年代 白黒写真 Hamburg=Hamburg 1960s black and white photo=Hamburg 1960er Jahre Foto @ハンブルク
 
 ## 現代に置き換えると
-448: いらすとや 会社 職場 会議=irasutoya office meeting @定番コーナー
+448: 第101警察予備大隊 Reserve Police Battalion 101 写真=Reserve Police Battalion 101 photo 1942=Reserve-Polizei-Bataillon 101 Foto @-
 
 ## ①嫌なら抜けていいよ
-456: いらすとや 上司 部下 仕事 頼む=irasutoya boss asking subordinate work @抜けていいよ
+456: ヴィルヘルム・トラップ 少佐 Wilhelm Trapp=Wilhelm Trapp major Reserve Police Battalion 101=Wilhelm Trapp Polizei|ヴィルヘルム・トラップ @抜けていいよ
 
 ## ②少しずつ慣れる：企業の不正
-461: いらすとや 謝罪会見 不祥事=irasutoya apology press conference @慣れていく/不正
+461: ウォマジー 1942 第101警察予備大隊 Łomazy=Lomazy 1942 Reserve Police Battalion 101=Łomazy 1942 @慣れていく
 
 ## ③忖度
-467: いらすとや 忖度=irasutoya sontaku @忖度
+467: スティーブン・ライカー アレックス・ハスラム=Stephen Reicher Alex Haslam psychologists|ライカーとハスラム @忖度
 
 ## 魔理沙の考察
 475: 第101警察予備大隊 隊員 Reserve Police Battalion 101 men=Reserve Police Battalion 101 men=Reserve-Polizei-Bataillon 101 Männer @-
