@@ -9,6 +9,8 @@
 #   ・透かしの入っていない、話に関係ある写真を基本に使う(大隊の隊員の写真・ユゼフフの追悼碑・話に出てくる人物・本の表紙)
 #   ・主人公は人物ではなく部隊なので、迷う所は大隊の隊員の写真(ウォマジーで撮られたもの)にした
 #   ・重い話なので、いらすとやは使わない(ユーザーの希望。2026年11月26日)。
+#   ・「重圧感のある解説にしたい」ので、当時の実写だけにする(本の表紙・今の明るい風景は使わない)。
+#     今のカラー写真(追悼碑・歴史家の顔写真・博物館など)は、画像を白黒にして入れた(ユーザーの希望。2026年11月26日)
 #     【現代に置き換えると】も、それぞれの話のもとになった場面(大隊の隊員・トラップ・ウォマジーやウクフ・ライカーとハスラム)の写真にした
 # 人の写真には「|名前」を付けている。大隊の隊員の集合写真には付けない
 
@@ -34,7 +36,7 @@
 40: 第101警察予備大隊 隊員 Reserve Police Battalion 101 men=Reserve Police Battalion 101 men=Reserve-Polizei-Bataillon 101 Männer @隊員
 
 ## ザモシチに到着
-48: ザモシチ 旧市街 古写真 Zamość=Zamosc old town old photo=Zamość stare zdjęcia @ザモシチ
+48: ザモシチ 1942 占領下 写真 Zamość=Zamosc 1942 occupation photo=Zamość 1942 okupacja zdjęcie @ザモシチ
 
 ## トラップ少佐と命令
 50: ヴィルヘルム・トラップ 少佐 Wilhelm Trapp=Wilhelm Trapp major Reserve Police Battalion 101=Wilhelm Trapp Polizei|ヴィルヘルム・トラップ @トラップ
@@ -82,7 +84,7 @@
 173: クリストファー・ブラウニング 歴史家 Christopher Browning=Christopher Browning historian|クリストファー・ブラウニング @ブラウニング
 
 ## 『普通の人びと』と捜査記録
-179: 普通の人びと ブラウニング 本 Ordinary Men=Ordinary Men Christopher Browning book cover @普通の人びと
+179: 第101警察予備大隊 宿舎 写真 Reserve Police Battalion 101=Reserve Police Battalion 101 barracks photo @本
 
 ## ブラウニングの答え
 197: クリストファー・ブラウニング 歴史家 Christopher Browning=Christopher Browning historian|クリストファー・ブラウニング @ブラウニングの答え
@@ -91,25 +93,25 @@
 208: ユゼフフ 虐殺 追悼碑 Józefów 1942=Jozefow massacre memorial 1942=Józefów Biłgorajski pomnik 1942 @ユゼフフ
 
 ## ウォマジーなどの虐殺
-222: ウォマジー 1942 第101警察予備大隊 Łomazy=Lomazy 1942 Reserve Police Battalion 101=Łomazy 1942 @ウォマジー
+222: ウォマジー 1942 虐殺 写真 Łomazy=Lomazy massacre 1942 photo=Łomazy 1942 zdjęcie @ウォマジー
 
 ## トレブリンカへの移送
 229: トレブリンカ 移送 列車 1942=Treblinka deportation train 1942=deportacja do Treblinki 1942 @トレブリンカ行きの列車
 
 ## ユダヤ人狩り
-238: ユダヤ人狩り Judenjagd 第101警察予備大隊=Judenjagd Reserve Police Battalion 101 Poland=Judenjagd Polen 1943 @ユダヤ人狩り
+238: 森に隠れたユダヤ人 ポーランド 1943 写真=Jews hiding forest Poland 1943 photo=Żydzi ukrywający się w lesie 1943 @ユダヤ人狩り
 
 ## 収穫祭作戦とマイダネク
 246: マイダネク強制収容所 収穫祭作戦 Majdanek=Operation Harvest Festival Majdanek 1943=Aktion Erntefest Majdanek @収穫祭作戦
 
 ## 普通の人びとが殺戮者になるまで
-257: 普通の人びと ブラウニング 本 Ordinary Men=Ordinary Men Christopher Browning book cover @普通の人びと
+257: 第101警察予備大隊 隊列 写真 Reserve Police Battalion 101=Reserve Police Battalion 101 policemen 1942 photo @普通の人びと
 
 ## ゴールドハーゲンの登場
 261: ダニエル・ゴールドハーゲン Daniel Goldhagen=Daniel Jonah Goldhagen|ダニエル・ゴールドハーゲン @ゴールドハーゲン
 
 ## 『ヒトラーの自発的死刑執行人たち』
-264: ヒトラーの自発的死刑執行人たち Hitler's Willing Executioners=Hitler's Willing Executioners book cover Goldhagen @ヒトラーの自発的死刑執行人たち
+264: ユダヤ人商店 ボイコット 1933 写真=Nazi boycott Jewish shops 1933 photo=Boykott jüdischer Geschäfte 1933 @本を出す
 
 ## ブラウニングとゴールドハーゲンの違い
 281: クリストファー・ブラウニング 歴史家 Christopher Browning=Christopher Browning historian|クリストファー・ブラウニング @ブラウニング
@@ -152,7 +154,7 @@
 402: 第101警察予備大隊 Reserve Police Battalion 101 写真=Reserve Police Battalion 101 photo 1942=Reserve-Polizei-Bataillon 101 Foto @撃たなかった
 
 ## 本の中の少尉ブーフマン
-416: 普通の人びと ブラウニング 本 Ordinary Men=Ordinary Men Christopher Browning book cover @本の中
+416: 警察大隊 隊員 1940年代 写真 Polizei-Bataillon=Polizei-Bataillon soldier 1940s photo=Polizei-Bataillon Foto @少尉
 
 ## 戦後のハンブルクの裁判
 437: ユリウス・ヴォーラウフ Julius Wohlauf=Julius Wohlauf Reserve Police Battalion 101|ユリウス・ヴォーラウフ @ヴォーラウフ
@@ -167,7 +169,7 @@
 456: ヴィルヘルム・トラップ 少佐 Wilhelm Trapp=Wilhelm Trapp major Reserve Police Battalion 101=Wilhelm Trapp Polizei|ヴィルヘルム・トラップ @抜けていいよ
 
 ## ②少しずつ慣れる：企業の不正
-461: ウォマジー 1942 第101警察予備大隊 Łomazy=Lomazy 1942 Reserve Police Battalion 101=Łomazy 1942 @慣れていく
+461: ウクフ 1942 第101警察予備大隊 Łuków=Lukow 1942 Reserve Police Battalion 101=Łuków 1942 @慣れていく
 
 ## ③忖度
 467: スティーブン・ライカー アレックス・ハスラム=Stephen Reicher Alex Haslam psychologists|ライカーとハスラム @忖度
