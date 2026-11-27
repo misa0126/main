@@ -12,15 +12,18 @@
     写真: 大山康晴 若い頃=young Yasuharu Oyama
 
     ## 案1                                       ← 案は3つまで(YouTubeの「テストと比較」が3枚まで)
-    型: 顔アップ                                  ← 顔アップ / 煽り金文字 / 右に写真 / 全面写真 / 比較 / 文字だけ
+    型: 顔アップ                                  ← 顔アップ / 人間電風 / すあし社長風 / 煽り金文字 / 右に写真 / 全面写真 / 比較 / 文字だけ
                                                      顔アップ: 顔を大きく、上に赤い一言(文字)、下に黄色の名前。白黒になる
                                                      吹き出し: カラーの写真、上に黄色の一言(上の文字)、下に大きな赤い文字、
                                                                ゆっくりを大きめにしてセリフの吹き出しを付ける
                                                      文字だけ: 黒い背景に文字だけ
-                                                     煽り金文字: 写真を画面いっぱいに暗く重い色で出し、上に白い煽り(強調は赤)、
-                                                               まん中の左に傾いた白い箱(「箱:」)、下に金色の大きな文字(「文字:」)、
-                                                               右下に驚いた霊夢(人間電とすあし社長のサムネを合わせた型。2026年11月27日、
-                                                               第101警察予備大隊でユーザーが頼んだ)。魔理沙は書かなければ出さない
+                                                     人間電風: 写真を画面いっぱいに暗く重い色で出し、上に赤い煽り(「上の文字:」)、
+                                                               下に金色の大きな文字(「文字:」)
+                                                     すあし社長風: 写真に、上に白い文字(強調は「色:」の色)、傾いた白い箱(「箱:」)、
+                                                               下に白ふちの赤い特大文字(強調は「色:」の色)
+                                                     煽り金文字: 2つを合わせた型。上に白い文字(強調は赤)、傾いた白い箱、下に金色の大きな文字
+                                                     この3つは明朝体で、漢字は大きくひらがなは小さめ。ゆっくりは書かなければ出さない
+                                                     (2026年11月27日、第101警察予備大隊でユーザーが頼んだ)
     箱: 断っても{よかった}のに                     ← 煽り金文字の型の、傾いた白い箱の文字({ } は赤)
     上の文字: 入門した次の日にボコボコ            ← 吹き出しの型の上の一言
     霊夢のセリフ: 戦争に病気まで…                 ← 吹き出し(どの型でも付く。| で改行)
@@ -60,7 +63,7 @@ from PIL import Image
 from material_collector.thumb_faces import ASSETS, CHARS, EXPRESSIONS
 
 TEMPLATE_PATH = Path(__file__).with_name("thumbnail_template.html")
-LAYOUTS = ["顔アップ", "煽り金文字", "吹き出し", "右に写真", "全面写真", "比較", "文字だけ"]
+LAYOUTS = ["顔アップ", "人間電風", "すあし社長風", "煽り金文字", "吹き出し", "右に写真", "全面写真", "比較", "文字だけ"]
 FACE_CHOICES = EXPRESSIONS + ["なし"]
 COLORS = {"黄": "#ffe600", "赤": "#ff3b3b", "水色": "#46d4ff"}
 CHAR_KEYS = {"霊夢": "reimu", "魔理沙": "marisa"}
@@ -143,7 +146,7 @@ def parse_thumb_table(text: str) -> dict:
             if value not in LAYOUTS:
                 raise ValueError(f"型は {' / '.join(LAYOUTS)} のどれかにしてください: {line}")
             plan["layout"] = value
-            plan["mono"] = plan["mono"] or value in ("顔アップ", "煽り金文字")
+            plan["mono"] = plan["mono"] or value in ("顔アップ", "人間電風", "煽り金文字")
         elif key == "箱":
             plan["box"] = value
         elif key == "上の文字":
@@ -208,9 +211,9 @@ def parse_thumb_table(text: str) -> dict:
         raise ValueError("案は3つまでにしてください(YouTubeのテストと比較が3枚までのため)。")
     for plan in plans:
         plan["video_title"] = format_video_title(plan["video_title"], name, suffix)
-        auto_reimu, auto_marisa = guess_faces(plan["top"] + plan["text"] if plan["layout"] == "煽り金文字" else plan["text"])  # 書いていなければ一言から決める
-        if plan["layout"] == "煽り金文字":
-            auto_marisa = "なし"  # すあし社長のように、右下に驚いたキャラ1人だけ
+        auto_reimu, auto_marisa = guess_faces(plan["text"])  # 書いていなければ一言から決める
+        if plan["layout"] in ("人間電風", "すあし社長風", "煽り金文字"):
+            auto_reimu = auto_marisa = "なし"  # ゆっくりは出さない(ユーザーの希望)
         plan["reimu"] = plan["reimu"] or auto_reimu
         plan["marisa"] = plan["marisa"] or auto_marisa
         if plan["big_face"] is None:  # 顔アップは顔を大きくするのが標準(ユーザーと決めた)
