@@ -455,7 +455,7 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
       c.translate(it.x, y - s * 0.12 * stretch); c.scale(xs, stretch);
       fn(it.p, it.ps, it.ring); c.restore();
     });
-    if (look) { drawLook(g, items, each, look, color, y, s, stretch, texture, gloss); y -= heights[i]; continue; }
+    if (look) { drawLook(g, items, each, look, color, y, s, stretch, texture, gloss); g.letterSpacing = "0px"; y -= heights[i]; continue; }
     each((p, ps, ring) => {  // 影
       g.shadowColor = style === "gold" ? "rgba(255,150,30,.55)" : "rgba(0,0,0,.6)"; g.shadowBlur = ps * (style === "gold" ? 0.22 : 0.18);
       g.strokeStyle = style === "gold" ? "#000" : "rgba(0,0,0,.55)"; g.lineWidth = ps * (style === "gold" ? 0.3 : ring ? 0.2 + ringW : 0.3);
@@ -518,20 +518,34 @@ function drawBand(g, text, x, y, family, centered = false) {
 }
 // すあし社長のような、少し傾いた白い箱(黒いふち)。{ } で囲んだ所は赤
 function drawTag(g, text, x, y, family, angle = -0.045, smallKana = false, bg = "#fff") {
+  // 1字ずつ、字の形(インク)の幅で詰めて並べる。明朝体の「人」「以」「上」などは左右の余白が大きく、
+  // そのまま並べると「8万人以上」の字のあいだにすきまが見えた(ユーザーの指摘)
   if (!text) return;
   const parts = (l => smallKana ? splitKana(l) : l)(parseText(text)[0] || []);
-  let size = 50;
-  let w = lineWidth(g, parts, size, family);
-  if (w > 620) { size = size * 620 / w; w = lineWidth(g, parts, size, family); }
-  const pw = w + 40, ph = size + 26;
+  const layout = size => {
+    const chars = [];
+    let w = 0;
+    g.letterSpacing = "0px";
+    for (const p of parts) for (const ch of p.t) {
+      const fs = size * (p.k || 1);
+      g.font = font(fs, family);
+      const m = g.measureText(ch), ink = m.actualBoundingBoxLeft + m.actualBoundingBoxRight;
+      const narrow = /[\s]/.test(ch) || ink < fs * 0.1;
+      const adv = narrow ? fs * 0.3 : ink;
+      chars.push({ ch, fs, em: p.em, x: w + (narrow ? 0 : m.actualBoundingBoxLeft) });
+      w += adv + size * 0.05;
+    }
+    return { chars, w: w - size * 0.05 };
+  };
+  let size = 50, L = layout(size);
+  if (L.w > 620) { size = size * 620 / L.w; L = layout(size); }
+  const pw = L.w + 44, ph = size + 26;
   g.save(); g.translate(x + pw / 2, y + ph / 2); g.rotate(angle);
   g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = 12; g.shadowOffsetY = 5;
   g.fillStyle = bg; g.beginPath(); g.roundRect(-pw / 2, -ph / 2, pw, ph, 10); g.fill();
   g.shadowColor = "transparent"; g.lineWidth = 6; g.strokeStyle = "#000"; g.stroke();
-  g.textBaseline = "middle"; g.textAlign = "left";
-  let tx = -w / 2;
-  g.textBaseline = "alphabetic";
-  for (const p of parts) { g.font = font(size * (p.k || 1), family); g.fillStyle = p.em ? "#e00000" : "#111"; g.fillText(p.t, tx, size * 0.38); tx += g.measureText(p.t).width; }
+  g.textBaseline = "alphabetic"; g.textAlign = "left"; g.letterSpacing = "0px";
+  for (const c of L.chars) { g.font = font(c.fs, family); g.fillStyle = c.em ? "#e00000" : "#111"; g.fillText(c.ch, -L.w / 2 + c.x, size * 0.38); }
   g.restore();
 }
 function drawLabel(g, text, x, y, bg, family) {
