@@ -735,7 +735,7 @@ function render(g, st) {
     const k = st.smallKana !== false;
     drawTextBlock(g, st.top, { cx: W / 2, top: 6, maxW: 1220, maxH: humanden ? 165 : 150, maxSize: humanden ? 130 : 118, color, family: fam, scale: st.textScale, style: humanden ? "red" : "top", smallKana: k, keepHeight: true, spacing: 0.04, texture: humanden ? 0.6 : 0, look: humanden ? "hRed" : "sTop" });
     drawTextBlock(g, st.text, { cx: (left + right) / 2, bottom: H - 8, maxW: right - left, maxH: 230, maxSize: 185, color, family: fam, scale: st.textScale, style: suasi ? "red" : "gold", keepHeight: true, smallKana: k, spacing: 0.04, texture: suasi ? 0 : 0.5, gloss: suasi, look: suasi ? "sRed" : "gold" });
-    if (!humanden) drawTag(g, st.box, Math.max(24, left), 392, fam, -0.045, k, suasi ? "#ffe23a" : "#fff");
+    if (!humanden) drawTag(g, st.box, st.boxPos ? st.boxPos[0] : Math.max(24, left), st.boxPos ? st.boxPos[1] : 392, fam, -0.045, k, suasi ? "#ffe23a" : "#fff");
     if (showR) drawFace(g, reimu, W - 100 * fs, H - 2, 205 * fs);
     if (showM) drawFace(g, marisa, 100 * fs, H - 2, 205 * fs);
   } else if (st.layout === "吹き出し") {
@@ -825,7 +825,7 @@ const plans = [];
 function makePlan(def, index) {
   const key = PAGE_KEY + ":plan" + index;
   const initial = () => ({ layout: def.layout, band: def.band, text: def.text, photos: [def.photos[0], def.photos[1] || def.photos[0]],
-    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, shift: def.photo_shift || 0, bright: def.brightness || 1, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, box: def.box || "", cutouts: def.cutouts || [], circles: def.circles || [], arrows: def.arrows || [], places: def.places || [], tone: def.tone || "", font: ["人間電風", "すあし社長風", "煽り金文字"].includes(def.layout) ? "Noto Serif JP" : def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
+    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, shift: def.photo_shift || 0, bright: def.brightness || 1, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, box: def.box || "", cutouts: def.cutouts || [], circles: def.circles || [], arrows: def.arrows || [], places: def.places || [], tone: def.tone || "", boxPos: def.box_pos || null, font: ["人間電風", "すあし社長風", "煽り金文字"].includes(def.layout) ? "Noto Serif JP" : def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
     textScale: 1, faceScale: def.face_scale || 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
   const plan = { state: Object.assign(initial(), loadJson(key, {})) };
   plan.save = () => saveJson(key, plan.state);

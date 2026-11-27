@@ -29,6 +29,7 @@
                                                      写真の番号, 横のまん中, 下の端, 高さ(1280×720 の画素)。何行でも書ける。
                                                      下の方はやみに溶ける(切り口を見せない)。「反転」で左右反転(顔を内側に向ける)。
                                                      参考チャンネルのように、胸から上を大きく、画面の端や下で切れるように置く
+    箱の位置: 300, 480                             ← 箱の左上の位置(横, 縦)。人の顔にかぶるときに動かす
     丸: 900, 420, 60                               ← 赤い丸(横, 縦, 半径)。地図の場所を囲む
     矢印: 120, 300, 880, 410                       ← 光る矢印(始まりの横, 縦, 終わりの横, 縦)
     地名: 900, 330, ユゼフフ                       ← 小さな地名(横, 縦, 文字)
@@ -131,7 +132,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "photo_shift": 0, "brightness": 1.0, "reimu": None, "marisa": None, "color": "黄", "video_title": "", "box": "", "cutouts": [], "circles": [], "arrows": [], "places": [], "tone": ""})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "photo_shift": 0, "brightness": 1.0, "reimu": None, "marisa": None, "color": "黄", "video_title": "", "box": "", "cutouts": [], "circles": [], "arrows": [], "places": [], "tone": "", "box_pos": None})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -175,6 +176,11 @@ def parse_thumb_table(text: str) -> dict:
                 plan["arrows"].append({"x1": nums[0], "y1": nums[1], "x2": nums[2], "y2": nums[3]})
             else:
                 plan["places"].append({"x": nums[0], "y": nums[1], "text": ",".join(items[2:])})
+        elif key == "箱の位置":
+            try:
+                plan["box_pos"] = [float(x) for x in re.split(r"[,、，]", value)][:2]
+            except ValueError:
+                raise ValueError(f"箱の位置は「横, 縦」の数字で書いてください: {line}") from None
         elif key == "色調":
             if value not in ("重厚", "冷たい", "なし"):
                 raise ValueError(f"色調は「重厚」「冷たい」「なし」のどれかにしてください: {line}")

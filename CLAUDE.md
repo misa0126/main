@@ -210,7 +210,8 @@
 - **赤・黄の文字の後ろに白いふちを付けない**(ユーザー「赤文字、黄文字の後ろ白なくない？」。参考チャンネルは細い暗いふちと黒いぼかしの影だけ)。
 - 人間電風: 場面+手前に人物の切り抜き、上にざらついた赤い煽り、下に金の大文字(題材の名前)。
 - すあし社長風: 地図(透かしのないもの)に `丸:`・`矢印:`・`地名:`(位置は緯度経度から計算する)、横に人物の切り抜き、上に白い文字の1語だけ黄色、黄色い箱、下に白ふちのつやのある赤い特大文字(問いかけ)。
-- 重い話では、ここでも当時の実写だけを使う。
+- **絵はAIで作る**(ユーザー「文字入れはめっちゃいいのに画像が全然ちがう…」「それはあなたが作れば良くない？」。2026年11月27日)。参考チャンネルの絵はAIで作ったカラーの絵で、白黒の古い写真を色付け・拡大しても近づけなかった。この作業場所で `pip install torch --index-url https://download.pytorch.org/whl/cpu` と `pip install diffusers transformers accelerate` をして、`stabilityai/sd-turbo`(4ステップ、guidance 0、1枚30秒)で、背景の場面(768×432)と、手前に置く人物の顔(512×640。「close-up portrait」)を別々に3枚ずつ作り、良いものを選ぶ。指示文の最後に「cinematic dramatic oil painting, masterpiece, highly detailed, dark moody atmosphere, warm orange lantern light, deep black shadows, high contrast, epic historical illustration」を付けると参考チャンネルに近い油絵になる。背景は LANCZOS で1600幅に広げ、人物は1024幅に広げて切り抜く。無料の画像サービス(Pollinations)は透かしが入り、すぐ有料と断られたので使わない。
+- 重い話では、銃撃や犠牲者は描かず、隊列・森・人物の顔など雰囲気の絵にする。AIの人物は架空の顔なので、本人の写真のようには使わない(地図などの事実の部分は本物を使う)。
 
 立ち絵の表情差分は `material_collector/thumb_assets/` にある(ユーザーの立ち絵 `tachie_source.jpg` から `python -m material_collector.thumb_faces` で作ったもの)。立ち絵が変わったら差し替えて作り直す(目・口の位置は `thumb_faces.py` の CHARS で測り直す)。
 
