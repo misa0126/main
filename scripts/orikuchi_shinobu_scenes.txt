@@ -1,0 +1,194 @@
+# 折口信夫の解説台本(orikuchi_shinobu.txt)の区切りと画像(2026年11月27日)
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 決め方:
+#   ・1つの話のまとまりに画像1枚。横に並べるのは、同じセリフで2作品の名前を並べて言う所(『かぶき讃』と『倭をぐな』)だけ
+#   ・透かしのない、本人に関係ある写真(本人・著書・話に出てくる人物・ゆかりの場所・当時の写真)を基本にする。いらすとやはつかみの赤点の1枚だけ
+# 折口信夫は本人の写真がネットに少ないので、同じ写真を使い回している
+# 人の写真には「|名前」を付けている。主人公の折口信夫には付けない
+
+## つかみ：赤点と落第
+1: いらすとや テスト 赤点=irasutoya test bad score @赤点
+
+## 主人公の紹介
+22: 折口信夫 民俗学者 写真=Shinobu Orikuchi folklorist photo @折口信夫
+
+## 大阪・木津の生まれ
+23: 折口信夫生誕の地 碑 浪速区=Orikuchi Shinobu birthplace monument Naniwa Osaka @木津村
+
+## 飛鳥坐神社と神様の話
+30: 飛鳥坐神社 古写真=Asukaniimasu Shrine old photo @神様/飛鳥坐神社
+
+## 叔母えいと東京名所図会
+37: 東京名所図会 明治=Tokyo Meisho Zue Meiji @叔母
+
+## 天王寺中学と短歌
+44: 天王寺中学 旧校舎 古写真=Tennoji Middle School Osaka old photo @天王寺中学
+
+## 成績の低下と落第、卒業
+53: 折口信夫 中学時代 写真=young Shinobu Orikuchi middle school photo @-
+
+## 國學院大學へ
+70: 國學院大學 明治 古写真=Kokugakuin University Meiji old photo @國學院大學
+
+## 500首の短歌
+75: 折口信夫 若い頃 写真=young Shinobu Orikuchi photo @500首
+
+## 恩師・三矢重松
+80: 三矢重松 国学者=Shigematsu Mitsuya scholar|三矢重松 @恩師
+
+## 根岸短歌会と卒業
+86: 折口信夫 國學院 学生時代=Shinobu Orikuchi Kokugakuin student @-
+
+## 釈迢空の名前
+90: 釈迢空 短冊 書=Shaku Choku calligraphy tanzaku @絵はがき
+
+## 今宮中学の先生
+102: 今宮中学 旧校舎 古写真=Imamiya Middle School Osaka old photo @今宮中学
+
+## 『郷土研究』への投稿
+109: 郷土研究 雑誌 大正=Kyodo Kenkyu magazine Taisho @ある雑誌
+
+## 柳田國男との出会い
+112: 柳田國男 民俗学者 写真=Kunio Yanagita folklorist photo|柳田國男 @柳田國男
+
+## 再び東京へ、教え子と借金
+124: 折口信夫 大正時代 写真=Shinobu Orikuchi Taisho era photo @東京
+
+## 柱松考と髯籠の話
+132: 郷土研究 柳田國男 雑誌 表紙=Kyodo Kenkyu Yanagita magazine cover @柳田の雑誌
+
+## 郷土研究会と民俗学
+149: 折口信夫 民俗学 写真=Shinobu Orikuchi folklore studies photo @民俗学
+
+## 『口訳万葉集』
+152: 口訳万葉集 折口信夫=Kouyaku Manyoshu Orikuchi @万葉集
+
+## アララギの選者
+158: アララギ 雑誌 大正=Araragi tanka magazine Taisho @歌の世界
+
+## 國學院の講師に
+169: 國學院大學 大正 古写真=Kokugakuin University Taisho old photo @学問
+
+## 柳田から聞いた南の島
+174: 柳田國男 若い頃=young Kunio Yanagita|柳田國男 @柳田
+
+## 沖縄の旅
+180: 沖縄 大正 古写真=Okinawa Taisho old photo @沖縄
+
+## 『白鳥』と教授就任
+192: 折口信夫 國學院大學 教授=Shinobu Orikuchi professor Kokugakuin @教授
+
+## 慶應義塾大学の講師
+198: 慶應義塾大学 大正 古写真=Keio University Taisho old photo @大学
+
+## 三矢重松の源氏物語講義
+203: 三矢重松 写真=Shigematsu Mitsuya photo|三矢重松 @恩師
+
+## アララギを離れ『日光』へ
+208: 釈迢空 歌人 写真=Shaku Choku poet photo @歌の世界
+211: 北原白秋 詩人 写真=Hakushu Kitahara poet photo|北原白秋 @北原白秋
+
+## 最初の歌集『海やまのあひだ』
+213: 海やまのあひだ 釈迢空 歌集=Umi Yama no Aida Shaku Choku @海やまのあひだ
+
+## 花祭と雪祭
+217: 花祭 奥三河 古写真=Hana Matsuri Okumikawa old photo @花祭
+
+## 能登と藤井春洋
+223: 藤井春洋 折口春洋 写真=Harumi Fujii Orikuchi photo|藤井春洋 @能登半島
+
+## 慶應の教授と大嘗祭
+228: 折口信夫 慶應義塾 講義=Shinobu Orikuchi Keio lecture @慶應
+229: 大嘗祭 昭和3年 写真=Daijosai 1928 photo @大嘗祭
+
+## 落第点をつけない
+232: 折口信夫 教授 写真=Shinobu Orikuchi professor photo @教授
+
+## 『古代研究』とまれびと
+239: 古代研究 折口信夫=Kodai Kenkyu Orikuchi Shinobu @代表作
+
+## 柳田とちがう答え
+251: 柳田國男 写真=Kunio Yanagita photo|柳田國男 @柳田
+
+## 雪祭りを明治神宮へ
+256: 新野の雪祭り=Niino Yuki Matsuri festival @行動力
+
+## 講義の毒舌と源実朝
+261: 源実朝 肖像=Minamoto no Sanetomo portrait|源実朝 @毒舌
+
+## 黄金期の影と文学博士
+267: 折口信夫 昭和初期 写真=Shinobu Orikuchi early Showa photo @影
+
+## 小説『死者の書』
+278: 死者の書 折口信夫=Shisha no Sho Orikuchi Shinobu @死者の書
+
+## 民俗学の講座
+283: 國學院大學 昭和 古写真=Kokugakuin University Showa old photo @國學院大學
+
+## 戦争へ
+287: 太平洋戦争 開戦 昭和16年 新聞=Pacific War outbreak 1941 newspaper Japan @戦争
+
+## 藤井春洋の召集
+290: 藤井春洋 軍服=Harumi Fujii soldier uniform|藤井春洋 @藤井春洋
+
+## 歌集『天地に宣る』
+297: 天地に宣る 釈迢空 歌集=Ametsuchi ni Noru Shaku Choku @別の顔
+
+## 現人神の論争
+315: 日本文学報国会 写真=Nihon Bungaku Hokokai photo @日本文学報国会
+
+## 硫黄島へ、養子に
+330: 折口春洋 写真=Harumi Orikuchi photo|折口春洋 @春洋
+
+## 大阪大空襲
+339: 大阪大空襲 写真=Osaka air raid 1945 photo @大阪大空襲
+
+## 硫黄島の戦い
+340: 硫黄島の戦い 写真=Battle of Iwo Jima photo @硫黄島
+
+## 玉音放送と箱根の40日
+350: 玉音放送 写真=Gyokuon-hoso surrender broadcast 1945 photo @玉音放送
+
+## 戦死公報と『山の端』
+360: 折口信夫 戦後 写真=Shinobu Orikuchi postwar photo @戦死
+
+## 神々の敗北
+370: 折口信夫 晩年 写真=Shinobu Orikuchi later years photo @戦後
+
+## 柳田との沈黙
+383: 柳田國男 晩年=Kunio Yanagita later years|柳田國男 @柳田
+
+## 岡野弘彦
+387: 岡野弘彦 歌人=Hirohiko Okano poet|岡野弘彦 @岡野弘彦
+
+## 日本芸術院賞
+393: 古代感愛集 釈迢空=Kodai Kan'ai Shu Shaku Choku @評価
+
+## 能登の父子の墓
+399: 折口信夫 春洋 墓 羽咋=Orikuchi Shinobu Harumi grave Hakui @能登
+
+## 最期
+416: 折口信夫 晩年 白黒写真=Shinobu Orikuchi later years black and white @残された時間
+
+## 死後に出た本と全集
+427: かぶき讃 折口信夫=Kabuki San Orikuchi @かぶき讃 + 倭をぐな 釈迢空 歌集=Yamato Oguna Shaku Choku @倭をぐな
+429: 折口信夫全集 中央公論社=Orikuchi Shinobu Zenshu Chuokoron @全集
+
+## 迢空賞
+431: 迢空賞 授賞式=Choku Prize ceremony @迢空賞
+
+## 柳田の一番弟子？
+439: 柳田國男 折口信夫 写真=Kunio Yanagita Shinobu Orikuchi photo|柳田國男 @柳田國男
+
+## 大嘗祭の仮説
+448: 大嘗宮 写真=Daijokyu hall photo @大嘗祭
+
+## 生誕の地の碑
+454: 鴎町公園 折口信夫 文学碑=Kamome-cho Park Orikuchi literary monument @生誕の地
+
+## まれびとになった男
+458: 折口信夫 写真=Shinobu Orikuchi photo @まれびと
