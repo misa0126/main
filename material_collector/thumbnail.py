@@ -24,7 +24,14 @@
                                                      煽り金文字: 2つを合わせた型。上に白い文字(強調は赤)、傾いた白い箱、下に金色の大きな文字
                                                      この3つは明朝体で、漢字は大きくひらがなは小さめ。ゆっくりは書かなければ出さない
                                                      (2026年11月27日、第101警察予備大隊でユーザーが頼んだ)
-    箱: 断っても{よかった}のに                     ← 煽り金文字の型の、傾いた白い箱の文字({ } は赤)
+    箱: 断っても{よかった}のに                     ← すあし社長風・煽り金文字の型の、傾いた箱の文字({ } は赤)
+    切り抜き: 4, 380, 720, 640                     ← 切り抜いた人物(透明なPNG。thumb_photo で作る)を重ねる。
+                                                     写真の番号, 横のまん中, 下の端, 高さ(1280×720 の画素)。何行でも書ける
+    丸: 900, 420, 60                               ← 赤い丸(横, 縦, 半径)。地図の場所を囲む
+    矢印: 120, 300, 880, 410                       ← 光る矢印(始まりの横, 縦, 終わりの横, 縦)
+    地名: 900, 330, ユゼフフ                       ← 小さな地名(横, 縦, 文字)
+    色調: なし                                     ← 人間電風・煽り金文字で写真にのせる色(重厚 / 冷たい / なし)。
+                                                     thumb_photo で色を付けた写真は「なし」にする
     上の文字: 入門した次の日にボコボコ            ← 吹き出しの型の上の一言
     霊夢のセリフ: 戦争に病気まで…                 ← 吹き出し(どの型でも付く。| で改行)
     魔理沙のセリフ: それでも必ずはい上がる
@@ -122,7 +129,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "photo_shift": 0, "brightness": 1.0, "reimu": None, "marisa": None, "color": "黄", "video_title": "", "box": ""})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "photo_shift": 0, "brightness": 1.0, "reimu": None, "marisa": None, "color": "黄", "video_title": "", "box": "", "cutouts": [], "circles": [], "arrows": [], "places": [], "tone": ""})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -149,6 +156,27 @@ def parse_thumb_table(text: str) -> dict:
             plan["mono"] = plan["mono"] or value in ("顔アップ", "人間電風", "煽り金文字")
         elif key == "箱":
             plan["box"] = value
+        elif key in ("切り抜き", "丸", "矢印", "地名"):
+            items = [x.strip() for x in re.split(r"[,、，]", value)]
+            need = {"切り抜き": 4, "丸": 3, "矢印": 4, "地名": 3}[key]
+            try:
+                nums = [float(x) for x in items[: need if key != "地名" else 2]]
+            except ValueError:
+                raise ValueError(f"{key}は数字をカンマで区切って書いてください: {line}") from None
+            if len(items) < need:
+                raise ValueError(f"{key}は {need} つの値をカンマで区切って書いてください: {line}")
+            if key == "切り抜き":
+                plan["cutouts"].append({"photo": int(nums[0]), "x": nums[1], "bottom": nums[2], "h": nums[3]})
+            elif key == "丸":
+                plan["circles"].append({"x": nums[0], "y": nums[1], "r": nums[2]})
+            elif key == "矢印":
+                plan["arrows"].append({"x1": nums[0], "y1": nums[1], "x2": nums[2], "y2": nums[3]})
+            else:
+                plan["places"].append({"x": nums[0], "y": nums[1], "text": ",".join(items[2:])})
+        elif key == "色調":
+            if value not in ("重厚", "冷たい", "なし"):
+                raise ValueError(f"色調は「重厚」「冷たい」「なし」のどれかにしてください: {line}")
+            plan["tone"] = value
         elif key == "上の文字":
             plan["top"] = value
         elif key in ("動画タイトル", "タイトル"):
@@ -221,7 +249,7 @@ def parse_thumb_table(text: str) -> dict:
         need = {"比較": 2, "文字だけ": 0}.get(plan["layout"], 1)
         if len(plan["photos"]) < need:
             raise ValueError(f"{plan['title']}: 比較の型は写真を2つ(例: 写真: 1, 2)書いてください。")
-        for n in plan["photos"]:
+        for n in plan["photos"] + [c["photo"] for c in plan["cutouts"]]:
             if not 1 <= n <= len(photos):
                 raise ValueError(f"{plan['title']}: 写真 {n} 番がありません(写真は {len(photos)} つ)。")
         if not plan["text"]:
@@ -283,10 +311,17 @@ def embed_photos(photo_paths: dict[int, Path]) -> tuple[dict, dict]:
     embedded, faces = {}, {}
     for no, path in photo_paths.items():
         raw = path.read_bytes()
-        img = Image.open(io.BytesIO(raw)).convert("RGB")
+        img = Image.open(io.BytesIO(raw))
+        clear = img.mode in ("RGBA", "LA", "P") and img.convert("RGBA").getchannel("A").getextrema()[0] < 250
+        img = img.convert("RGBA" if clear else "RGB")
         if max(img.size) > 1600:  # ページが重くならないように縮める
             img.thumbnail((1600, 1600))
         buf = io.BytesIO()
+        if clear:  # 切り抜いた人物(透明なPNG)は透明のまま入れる
+            img.save(buf, "WEBP", quality=92, method=6)
+            embedded[str(no)] = "data:image/webp;base64," + base64.b64encode(buf.getvalue()).decode("ascii")
+            faces[str(no)] = find_face(path.read_bytes())
+            continue
         img.save(buf, "JPEG", quality=92)
         raw = buf.getvalue()
         embedded[str(no)] = "data:image/jpeg;base64," + base64.b64encode(raw).decode("ascii")
