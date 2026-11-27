@@ -268,7 +268,7 @@ function parseText(text) {
 }
 const EM_SCALE = 1.18;  // 強調の文字は少し大きく
 // 漢字は大きく、ひらがなは小さめ(ユーザーの希望。2026年11月27日、人間電・すあし社長風の型で「明朝体で漢字は大きくひらがなは小さめ」)
-const KANA_SCALE = 0.82;  // 参考チャンネルのひらがなは漢字の8割ほど(0.74 だと小さすぎて読みにくかった)
+const KANA_SCALE = 0.88;  // 参考チャンネルのひらがなは漢字の9割ほど
 function splitKana(parts) {
   const out = [];
   for (const p of parts) p.t.replace(/[\u3041-\u309f]+|[^\u3041-\u309f]+/g, t => { out.push({ t, em: p.em, k: /^[\u3041-\u309f]/.test(t) ? KANA_SCALE : 1 }); return ""; });
@@ -292,7 +292,7 @@ const STYLES = {
 // 白いふちは付けない。細い暗いふち + 黒いぼかしの影で背景から浮かせ、文字の内側のふちだけを明るく光らせる
 //   hRed: 人間電の赤(ざらついた濃い赤) / sRed: すあし社長の赤(つやのある赤) / sTop: 上の白い文字(強調は黄か赤) / gold: 金
 // 文字を太らせる量(字の大きさに対する割合)。ユーザー「もう少し文字太く」「太さはもっとほしい」(2026年11月27日)
-const FATTEN = 0.035;  // 極太の明朝体(Kaisei Tokumin)なので少しだけ。0.07 だと「撃」「警」など画数の多い漢字がつぶれた
+const FATTEN = 0.05;  // 参考チャンネルは源ノ明朝(Noto Serif JP)の極太を、文字と同じ色の縁取りで大きく太らせている(2026年11月27日、ユーザー「フォントが全然違う」で見比べて分かった)
 // 参考チャンネルの文字(2026年11月27日、ユーザー「なんでこんなに見にくいんだろ」「フォント、色、サイズ、影、グラデとか真似して」で見直した):
 //   人間電の赤: 明るい赤→暗い赤のグラデに、濃い赤の大理石のような模様。ふちに細い白い線、外に黒いぼかしの影
 //   人間電の金: 濃い黄色→オレンジのこってりした金に、こげ茶のひび模様。ふちは付けず、黒いぼかしの影とオレンジの光
@@ -867,7 +867,7 @@ const plans = [];
 function makePlan(def, index) {
   const key = PAGE_KEY + ":plan" + index;
   const initial = () => ({ layout: def.layout, band: def.band, text: def.text, photos: [def.photos[0], def.photos[1] || def.photos[0]],
-    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, shift: def.photo_shift || 0, bright: def.brightness || 1, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, box: def.box || "", cutouts: def.cutouts || [], circles: def.circles || [], arrows: def.arrows || [], places: def.places || [], tone: def.tone || "", boxPos: def.box_pos || null, font: ["人間電風", "すあし社長風", "煽り金文字"].includes(def.layout) ? "Kaisei Tokumin" : def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
+    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, shift: def.photo_shift || 0, bright: def.brightness || 1, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, box: def.box || "", cutouts: def.cutouts || [], circles: def.circles || [], arrows: def.arrows || [], places: def.places || [], tone: def.tone || "", boxPos: def.box_pos || null, font: ["人間電風", "すあし社長風", "煽り金文字"].includes(def.layout) ? "Noto Serif JP" : def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
     textScale: 1, faceScale: def.face_scale || 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
   const plan = { state: Object.assign(initial(), loadJson(key, {})) };
   plan.save = () => saveJson(key, plan.state);
