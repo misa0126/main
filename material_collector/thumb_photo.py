@@ -11,6 +11,7 @@
     python -m material_collector.thumb_photo 絵画風 入力.jpg 出力.jpg --色調 重厚
 
     # 切り抜き: 人物だけを残して、まわりを透明にしたPNGにする(rembg が要る。pip install "rembg[cpu]")
+    #   地図や物を切り抜くときは --もの を付ける
     #   --crop 左,上,右,下(幅と高さに対する割合)で、先に写真の一部だけにできる
     #   --絵画風 重厚 を付けると、切り抜いた人物も絵画風にする
     python -m material_collector.thumb_photo 切り抜き 入力.jpg 出力.png --crop 0,0,0.48,0.85 --絵画風 重厚
@@ -83,14 +84,18 @@ def illustrate(img: Image.Image, tone: str = "重厚", strength: float = 1.0) ->
     return result
 
 
-def cutout(img: Image.Image, crop: tuple[float, float, float, float] | None = None) -> Image.Image:
-    """人物(手前に写っているもの)だけを残し、まわりを透明にする。"""
+def cutout(img: Image.Image, crop: tuple[float, float, float, float] | None = None, model: str = "birefnet-portrait") -> Image.Image:
+    """人物(手前に写っているもの)だけを残し、まわりを透明にする。
+
+    model: 人物は birefnet-portrait(髪や肩のふちまできれい。白黒の古い写真でも背景が残りにくい)、
+    地図や物は isnet-general-use。birefnet は重いので、1枚ずつ実行する(並べて動かすとメモリが足りなくなった)。
+    """
     from rembg import new_session, remove
 
     if crop:
         w, h = img.size
         img = img.crop((int(crop[0] * w), int(crop[1] * h), int(crop[2] * w), int(crop[3] * h)))
-    out = remove(img.convert("RGB"), session=new_session("isnet-general-use"))
+    out = remove(img.convert("RGB"), session=new_session(model))
     # ふちの半端な透明を少し締めて、背景の色が残らないようにする
     a = np.asarray(out.getchannel("A")).astype(np.float32) / 255
     a = np.clip((a - 0.12) / 0.76, 0, 1)
@@ -107,6 +112,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--色調", dest="tone", default="重厚", choices=list(TONES) + ["なし"])
     parser.add_argument("--強さ", dest="strength", type=float, default=1.0)
     parser.add_argument("--crop", help="左,上,右,下(幅と高さに対する割合)")
+    parser.add_argument("--もの", dest="thing", action="store_true", help="人物ではなく地図や物を切り抜く(isnet-general-use を使う)")
     parser.add_argument("--絵画風", dest="paint", choices=list(TONES) + ["なし"], help="切り抜いた人物も絵画風にする")
     args = parser.parse_args(argv)
     img = Image.open(args.input)
@@ -115,7 +121,7 @@ def main(argv: list[str] | None = None) -> int:
         out.save(args.output, quality=94)
     else:
         crop = tuple(float(x) for x in args.crop.split(",")) if args.crop else None
-        out = cutout(img, crop)
+        out = cutout(img, crop, "isnet-general-use" if args.thing else "birefnet-portrait")
         if args.paint:
             out = illustrate(out, args.paint, args.strength)
         out.save(args.output.with_suffix(".png"))

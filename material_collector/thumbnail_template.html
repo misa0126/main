@@ -288,6 +288,51 @@ const STYLES = {
   top: { fill: "#fff", ring: null },          // 煽り金文字の上: 白文字、強調は赤のグラデーションに白ふち(すあし社長)
   gold: { fill: "gold", ring: null },         // 煽り金文字の下: 金色のメタリック(人間電)
 };
+// 人間電・すあし社長の文字(2026年11月27日。ユーザー「赤文字、黄文字の後ろ白なくない？」で見直した):
+// 白いふちは付けない。細い暗いふち + 黒いぼかしの影で背景から浮かせ、文字の内側のふちだけを明るく光らせる
+//   hRed: 人間電の赤(ざらついた濃い赤) / sRed: すあし社長の赤(つやのある赤) / sTop: 上の白い文字(強調は黄か赤) / gold: 金
+const LOOK_EDGE = { hRed: "#3a0000", sRed: "#2e0000", gold: "#2a1300" };
+function lookFill(g, look, p, ps, color) {
+  const grad = stops => { const gr = g.createLinearGradient(0, -ps * 0.88, 0, ps * 0.04); stops.forEach(([o, c]) => gr.addColorStop(o, c)); return gr; };
+  if (look === "gold") return goldFill(g, ps);
+  if (look === "hRed") return grad([[0, "#ff5a40"], [0.45, "#d80a00"], [1, "#6e0000"]]);
+  if (look === "sRed") return grad([[0, "#ff6a4a"], [0.5, "#ff1a0f"], [1, "#a80000"]]);
+  if (!p.em) return grad([[0, "#ffffff"], [1, "#dcdcdc"]]);
+  if (color === DATA.colors["赤"]) return grad([[0, "#ff5a40"], [0.5, "#ff1a0f"], [1, "#b00000"]]);
+  return grad([[0, "#fffbb0"], [0.45, "#ffe000"], [1, "#ff9800"]]);  // 黄: 上は明るく下はオレンジ
+}
+function drawLook(g, items, each, look, color, y, s, stretch, texture, gloss) {
+  const edge = (p) => look === "sTop" ? (p.em ? (color === DATA.colors["赤"] ? "#2e0000" : "#4a2a00") : "#000") : LOOK_EDGE[look];
+  each((p, ps) => {  // 黒いぼかしの影(2回重ねて濃くする)
+    g.shadowColor = "rgba(0,0,0,.95)"; g.shadowBlur = ps * 0.28; g.fillStyle = "#000"; g.strokeStyle = "#000"; g.lineWidth = ps * 0.1;
+    g.strokeText(p.t, 0, ps * 0.03); g.fillText(p.t, 0, ps * 0.03); g.shadowBlur = ps * 0.12; g.fillText(p.t, 0, ps * 0.03);
+  }, g);
+  if (look === "gold") each((p, ps) => { g.shadowColor = "rgba(255,140,20,.6)"; g.shadowBlur = ps * 0.25; g.fillStyle = "#000"; g.fillText(p.t, 0, 0); }, g);
+  each((p, ps) => { g.strokeStyle = edge(p); g.lineWidth = ps * (look === "sTop" && !p.em ? 0.11 : 0.08); g.strokeText(p.t, 0, 0); }, g);  // 細い暗いふち
+  const main = g, off = document.createElement("canvas"); off.width = W; off.height = H;
+  g = off.getContext("2d");
+  each((p, ps) => { g.fillStyle = lookFill(g, look, p, ps, color); g.fillText(p.t, 0, 0); }, g);
+  if (texture) {
+    g.globalCompositeOperation = "source-atop"; g.globalAlpha = texture;
+    g.fillStyle = g.createPattern(grain(), "repeat"); g.fillRect(0, 0, W, H); g.globalAlpha = 1;
+  }
+  const top0 = y - s * 1.02 * stretch, mid = y - s * 0.5 * stretch;
+  if (gloss) {
+    g.globalCompositeOperation = "source-atop";
+    const gl = g.createLinearGradient(0, top0, 0, mid); gl.addColorStop(0, "rgba(255,255,255,.6)"); gl.addColorStop(0.6, "rgba(255,255,255,.15)"); gl.addColorStop(1, "rgba(255,255,255,0)");
+    g.fillStyle = gl; g.fillRect(0, top0, W, mid - top0);
+  }
+  // 内側のふちだけを明るく(立体感)。source-atop なので文字の外には出ない
+  g.globalCompositeOperation = "source-atop";
+  each((p, ps) => {
+    g.globalCompositeOperation = "source-atop";
+    // 赤い文字に線を入れると中に白いすじが見えるので、金だけにする
+    g.strokeStyle = look === "gold" ? "rgba(255,250,210,.6)" : "rgba(0,0,0,0)";
+    g.lineWidth = ps * 0.035; g.strokeText(p.t, 0, 0);
+  }, g);
+  g.globalCompositeOperation = "source-over";
+  main.drawImage(off, 0, 0);
+}
 // 文字のざらつき用の細かい点(一度だけ作る)
 let grainCanvas = null;
 function grain() {
@@ -303,15 +348,31 @@ function grain() {
   return grainCanvas;
 }
 // 切り抜いた人物を重ねる(後ろに黒い影、ふちに薄い光)。glow: 光の色
-function drawCutout(g, no, x, bottom, h, glow) {
-  const p = photos.get(no);
+function drawCutout(g, c, glow) {
+  // 参考チャンネルの重ね方: 人は胸から上を大きく、下はやみに溶かす(切り口を見せない)。
+  // 後ろに黒い影で背景から離し、ふちに背景の光(glow)を少し当てる。flip で左右反転(顔を画面の内側に向ける)
+  const p = photos.get(c.photo);
   if (!p) return;
-  const img = p.img, w = img.width * h / img.height, left = x - w / 2, top = bottom - h;
+  const img = p.img, h = c.h, w = img.width * h / img.height, left = c.x - w / 2, top = c.bottom - h;
+  const off = document.createElement("canvas"); off.width = Math.ceil(w); off.height = Math.ceil(h);
+  const o = off.getContext("2d");
+  if (c.flip) { o.translate(w, 0); o.scale(-1, 1); }
+  o.drawImage(img, 0, 0, w, h); o.setTransform(1, 0, 0, 1, 0, 0);
+  if (c.grade) {
+    // 背景の光に色を合わせる(人間電の場面はこはく色で少し暗く)。透明な所はあとで元に戻す
+    o.globalCompositeOperation = "multiply"; o.fillStyle = c.grade; o.fillRect(0, 0, w, h);
+    o.globalCompositeOperation = "destination-in";
+    if (c.flip) { o.translate(w, 0); o.scale(-1, 1); }
+    o.drawImage(img, 0, 0, w, h); o.setTransform(1, 0, 0, 1, 0, 0);
+  }
+  o.globalCompositeOperation = "destination-in";
+  const fade = o.createLinearGradient(0, 0, 0, h); fade.addColorStop(0, "#000"); fade.addColorStop(1 - (c.fade ?? 0.38), "#000"); fade.addColorStop(1, "rgba(0,0,0,0)");
+  o.fillStyle = fade; o.fillRect(0, 0, w, h);
   g.save();
-  g.shadowColor = "rgba(0,0,0,.85)"; g.shadowBlur = 50; g.drawImage(img, left, top, w, h);
-  g.shadowColor = glow; g.shadowBlur = 18; g.drawImage(img, left, top, w, h);
+  g.shadowColor = "rgba(0,0,0,.9)"; g.shadowBlur = 60; g.drawImage(off, left, top);
+  g.shadowColor = glow; g.shadowBlur = 14; g.shadowOffsetX = c.flip ? -5 : 5; g.drawImage(off, left, top);
   g.restore();
-  g.drawImage(img, left, top, w, h);
+  g.drawImage(off, left, top);
 }
 // 地図の印: 赤い丸・光る矢印・地名(すあし社長の地図)
 function drawCircle(g, c) {
@@ -358,7 +419,7 @@ function redFill(g, ps) {
   return gr;
 }
 // 文字の行を、枠に収まる大きさで描く。bottom(下の位置)、top(上の位置)、middle(まん中の位置)のどれかで置く
-function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1, fillWidth = false, keepHeight = false, smallKana = false, spacing = 0, texture = 0, gloss = false }) {
+function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1, fillWidth = false, keepHeight = false, smallKana = false, spacing = 0, texture = 0, gloss = false, look = "" }) {
   const lines = parseText(text).map(l => smallKana ? splitKana(l) : l);
   if (!lines.length) return;
   const st = STYLES[style] || STYLES.white;
@@ -386,13 +447,15 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
       return it;
     });
     const ringW = st.ring ? (stretch > 1 ? 0.26 : 0.2) : 0.1;
-    const each = fn => items.forEach(it => {
-      g.save(); g.font = font(it.ps, family); g.letterSpacing = `${it.ps * spacing}px`;
-      g.textBaseline = "alphabetic"; g.textAlign = "left"; g.lineJoin = "round"; g.miterLimit = 2;
+    const each = (fn, ctx) => items.forEach(it => {
+      const c = ctx || g;  // ctx: 描く先(drawLook が別の絵に描くとき)
+      c.save(); c.font = font(it.ps, family); c.letterSpacing = `${it.ps * spacing}px`;
+      c.textBaseline = "alphabetic"; c.textAlign = "left"; c.lineJoin = "round"; c.miterLimit = 2;
       // 縦に伸ばすときは、文字の下の位置を原点にして縦だけ拡大する
-      g.translate(it.x, y - s * 0.12 * stretch); g.scale(xs, stretch);
-      fn(it.p, it.ps, it.ring); g.restore();
+      c.translate(it.x, y - s * 0.12 * stretch); c.scale(xs, stretch);
+      fn(it.p, it.ps, it.ring); c.restore();
     });
+    if (look) { drawLook(g, items, each, look, color, y, s, stretch, texture, gloss); y -= heights[i]; continue; }
     each((p, ps, ring) => {  // 影
       g.shadowColor = style === "gold" ? "rgba(255,150,30,.55)" : "rgba(0,0,0,.6)"; g.shadowBlur = ps * (style === "gold" ? 0.22 : 0.18);
       g.strokeStyle = style === "gold" ? "#000" : "rgba(0,0,0,.55)"; g.lineWidth = ps * (style === "gold" ? 0.3 : ring ? 0.2 + ringW : 0.3);
@@ -662,7 +725,7 @@ function render(g, st) {
     (st.circles || []).forEach(c => drawCircle(g, c));
     (st.places || []).forEach(t => drawPlace(g, t, "Noto Sans JP"));
     if (!suasi) drawEmbers(g);
-    (st.cutouts || []).forEach(c => drawCutout(g, c.photo, c.x, c.bottom, c.h, suasi ? "rgba(140,200,255,.55)" : "rgba(255,170,80,.5)"));
+    (st.cutouts || []).forEach(c => drawCutout(g, { ...c, grade: suasi ? "" : "rgb(225,190,150)" }, suasi ? "rgba(150,200,255,.6)" : "rgba(255,160,60,.65)"));
     const topShade = g.createLinearGradient(0, 0, 0, 190); topShade.addColorStop(0, "rgba(0,0,0,.75)"); topShade.addColorStop(1, "rgba(0,0,0,0)");
     g.fillStyle = topShade; g.fillRect(0, 0, W, 190);
     const bottomShade = g.createLinearGradient(0, 470, 0, H); bottomShade.addColorStop(0, "rgba(0,0,0,0)"); bottomShade.addColorStop(1, "rgba(0,0,0,.8)");
@@ -670,8 +733,8 @@ function render(g, st) {
     const showR = st.reimu !== "なし", showM = st.marisa !== "なし";
     const left = showM ? 205 * fs : 24, right = showR ? W - 205 * fs : W - 24;
     const k = st.smallKana !== false;
-    drawTextBlock(g, st.top, { cx: W / 2, top: 6, maxW: 1220, maxH: humanden ? 165 : 150, maxSize: humanden ? 130 : 118, color, family: fam, scale: st.textScale, style: humanden ? "red" : "top", smallKana: k, keepHeight: true, spacing: 0.06, texture: humanden ? 0.55 : 0 });
-    drawTextBlock(g, st.text, { cx: (left + right) / 2, bottom: H - 8, maxW: right - left, maxH: 230, maxSize: 185, color, family: fam, scale: st.textScale, style: suasi ? "red" : "gold", keepHeight: true, smallKana: k, spacing: 0.06, texture: suasi ? 0 : 0.45, gloss: suasi });
+    drawTextBlock(g, st.top, { cx: W / 2, top: 6, maxW: 1220, maxH: humanden ? 165 : 150, maxSize: humanden ? 130 : 118, color, family: fam, scale: st.textScale, style: humanden ? "red" : "top", smallKana: k, keepHeight: true, spacing: 0.04, texture: humanden ? 0.6 : 0, look: humanden ? "hRed" : "sTop" });
+    drawTextBlock(g, st.text, { cx: (left + right) / 2, bottom: H - 8, maxW: right - left, maxH: 230, maxSize: 185, color, family: fam, scale: st.textScale, style: suasi ? "red" : "gold", keepHeight: true, smallKana: k, spacing: 0.04, texture: suasi ? 0 : 0.5, gloss: suasi, look: suasi ? "sRed" : "gold" });
     if (!humanden) drawTag(g, st.box, Math.max(24, left), 392, fam, -0.045, k, suasi ? "#ffe23a" : "#fff");
     if (showR) drawFace(g, reimu, W - 100 * fs, H - 2, 205 * fs);
     if (showM) drawFace(g, marisa, 100 * fs, H - 2, 205 * fs);
