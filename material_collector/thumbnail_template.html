@@ -277,7 +277,19 @@ const STYLES = {
   white: { fill: "#fff", ring: null },
   red: { fill: "#ff1a1a", ring: "#fff" },
   yellow: { fill: "#ffe100", ring: "#000" },  // 名前は黒ふちを太く(伸びた頃のサムネに合わせる)
+  top: { fill: "#fff", ring: null },          // 煽り金文字の上: 白文字、強調は赤のグラデーションに白ふち(すあし社長)
+  gold: { fill: "gold", ring: null },         // 煽り金文字の下: 金色のメタリック(人間電)
 };
+// 金色のメタリック: 上は明るく、まん中で暗い帯が入り、下でまた光る
+function goldFill(g, ps) {
+  const gr = g.createLinearGradient(0, -ps * 0.9, 0, ps * 0.05);
+  [[0, "#fffbe6"], [0.28, "#ffe48a"], [0.5, "#f2b632"], [0.56, "#9a6510"], [0.66, "#d89a22"], [0.85, "#ffe07a"], [1, "#fff4c2"]].forEach(([o, c]) => gr.addColorStop(o, c));
+  return gr;
+}
+function redFill(g, ps) {
+  const gr = g.createLinearGradient(0, -ps * 0.85, 0, 0); gr.addColorStop(0, "#ff5a4a"); gr.addColorStop(0.55, "#ff1a1a"); gr.addColorStop(1, "#b80000");
+  return gr;
+}
 // 文字の行を、枠に収まる大きさで描く。bottom(下の位置)、top(上の位置)、middle(まん中の位置)のどれかで置く
 function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1, fillWidth = false, keepHeight = false }) {
   const lines = parseText(text);
@@ -301,7 +313,7 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
       const ps = s * (p.em ? EM_SCALE : 1);
       g.font = font(ps, family);
       g.textBaseline = "alphabetic"; g.textAlign = "left"; g.lineJoin = "round"; g.miterLimit = 2;
-      const ring = st.ring || (p.em && style === "white" ? "#fff" : null);
+      const ring = st.ring || (p.em && (style === "white" || style === "top") ? "#fff" : null);
       const ringW = st.ring ? (stretch > 1 ? 0.26 : 0.2) : 0.1;
       // 縦に伸ばすときは、文字の下の位置を原点にして縦だけ拡大する
       g.save(); g.translate(x, y - s * 0.12 * stretch); g.scale(xs, stretch);
@@ -309,13 +321,21 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
       g.save(); g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = ps * 0.18;
       g.strokeStyle = "rgba(0,0,0,.55)"; g.lineWidth = ps * (ring ? 0.2 + ringW : 0.3); g.strokeText(p.t, ps * 0.03, ps * 0.04);
       g.restore();
-      g.strokeStyle = "#000"; g.lineWidth = ps * (ring ? 0.1 + ringW : 0.24); g.strokeText(p.t, 0, 0);
+      if (style === "gold") {
+        // 金文字: 外にオレンジの光 → 黒の太ふち → こげ茶のふち
+        g.save(); g.shadowColor = "rgba(255,150,30,.55)"; g.shadowBlur = ps * 0.22;
+        g.strokeStyle = "#000"; g.lineWidth = ps * 0.3; g.strokeText(p.t, 0, 0); g.restore();
+        g.strokeStyle = "#000"; g.lineWidth = ps * 0.3; g.strokeText(p.t, 0, 0);
+        g.strokeStyle = "#4a2600"; g.lineWidth = ps * 0.13; g.strokeText(p.t, 0, 0);
+      } else { g.strokeStyle = "#000"; g.lineWidth = ps * (ring ? 0.1 + ringW : 0.24); g.strokeText(p.t, 0, 0); }
       if (ring) { g.strokeStyle = ring; g.lineWidth = ps * ringW; g.strokeText(p.t, 0, 0); }
       if (!p.em && style === "red") {
         // 赤は上を明るく下を濃く(いつもの型)
         const gr = g.createLinearGradient(0, -ps * 0.85, 0, 0); gr.addColorStop(0, "#ff3a3a"); gr.addColorStop(1, "#cc0000");
         g.fillStyle = gr;
-      } else g.fillStyle = p.em ? color : st.fill;
+      } else if (style === "gold") g.fillStyle = goldFill(g, ps);
+      else if (style === "top" && p.em) g.fillStyle = redFill(g, ps);
+      else g.fillStyle = p.em ? color : st.fill;
       g.fillText(p.t, 0, 0);
       x += g.measureText(p.t).width * xs;
       g.restore();
@@ -336,6 +356,24 @@ function drawBand(g, text, x, y, family, centered = false) {
   g.restore();
   g.fillStyle = "#fff"; g.textBaseline = "middle"; g.textAlign = "left";
   g.fillText(text, x + 28, y + h / 2 + 2);
+}
+// すあし社長のような、少し傾いた白い箱(黒いふち)。{ } で囲んだ所は赤
+function drawTag(g, text, x, y, family, angle = -0.045) {
+  if (!text) return;
+  const parts = parseText(text)[0] || [];
+  let size = 46;
+  g.font = font(size, family);
+  let w = parts.reduce((a, p) => a + g.measureText(p.t).width, 0);
+  if (w > 620) { size = size * 620 / w; g.font = font(size, family); w = 620; }
+  const pw = w + 40, ph = size + 26;
+  g.save(); g.translate(x + pw / 2, y + ph / 2); g.rotate(angle);
+  g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = 12; g.shadowOffsetY = 5;
+  g.fillStyle = "#fff"; g.fillRect(-pw / 2, -ph / 2, pw, ph);
+  g.shadowColor = "transparent"; g.lineWidth = 6; g.strokeStyle = "#000"; g.strokeRect(-pw / 2, -ph / 2, pw, ph);
+  g.textBaseline = "middle"; g.textAlign = "left";
+  let tx = -w / 2;
+  for (const p of parts) { g.fillStyle = p.em ? "#e00000" : "#111"; g.fillText(p.t, tx, 3); tx += g.measureText(p.t).width; }
+  g.restore();
 }
 function drawLabel(g, text, x, y, bg, family) {
   if (!text) return;
@@ -455,6 +493,11 @@ function autoView(no, layout, index, big = false, shift = 0) {
   const f = (DATA.face_boxes || {})[no], p = photos.get(no);
   const t = layout === "顔アップ" && big === "close" ? CLOSE_FACE : big && layout === "顔アップ" ? BIG_FACE : FACE_TARGET[layout];
   const r = photoRects(layout)[index];
+  if (p && r && !t && shift) {
+    // 顔に合わせない型(煽り金文字など。集合写真や場面の写真を使うため)は、「写真を下げる」の分だけ動かす
+    const s0 = Math.max(r.w / p.img.width, r.h / p.img.height), my = (p.img.height * s0 - r.h) / 2;
+    return { x: 0, y: Math.max(-my, Math.min(my + 260, shift)), z: 1 };
+  }
   if (!f || !p || !t || !r) return { x: 0, y: 0, z: 1 };
   const k = p.img.width / f.iw;  // 埋め込むときに縮めた分
   const cx = f.cx * k, cy = f.cy * k, fh = f.h * k;
@@ -472,7 +515,7 @@ function autoView(no, layout, index, big = false, shift = 0) {
 // 型ごとの写真の枠
 function photoRects(layout) {
   if (layout === "右に写真") return [{ x: 470, y: 0, w: 810, h: H }];
-  if (layout === "全面写真" || layout === "顔アップ" || layout === "吹き出し") return [{ x: 0, y: 0, w: W, h: H }];
+  if (layout === "全面写真" || layout === "顔アップ" || layout === "吹き出し" || layout === "煽り金文字") return [{ x: 0, y: 0, w: W, h: H }];
   if (layout === "文字だけ") return [];
   return [{ x: 0, y: 0, w: W / 2, h: H }, { x: W / 2, y: 0, w: W / 2, h: H }];
 }
@@ -498,6 +541,26 @@ function render(g, st) {
     drawTextBlock(g, st.nameText, { cx: W / 2, bottom: H - 10, maxW: 860, maxH: 150, maxSize: 112, color, family: fam, scale: st.textScale, style: "yellow", stretch: tall, keepHeight: true });
     drawFace(g, reimu, 95 * fs, H - 6, 164 * fs);
     drawFace(g, marisa, W - 112 * fs, H - 6, 172 * fs);
+  } else if (st.layout === "煽り金文字") {
+    // 人間電(暗く重い場面・上に煽り・下に金の大文字)とすあし社長(1語だけ赤・傾いた白い箱・右下に驚いたキャラ)を合わせた型
+    drawPhoto(g, st.photos[0], rects[0], st.views[0], st.mono, st.bright * 0.92);
+    // 白黒写真に、暗いこはく色をのせて重い空気にする
+    g.save(); g.globalCompositeOperation = "multiply"; g.fillStyle = "rgba(190,120,60,.55)"; g.fillRect(0, 0, W, H);
+    g.globalCompositeOperation = "soft-light"; g.fillStyle = "rgba(140,20,0,.35)"; g.fillRect(0, 0, W, H); g.restore();
+    edgeBlur(g, 300, 720, 12);
+    const vig = g.createRadialGradient(W / 2, H / 2 - 20, 260, W / 2, H / 2, 760); vig.addColorStop(0, "rgba(0,0,0,0)"); vig.addColorStop(1, "rgba(0,0,0,.92)");
+    g.fillStyle = vig; g.fillRect(0, 0, W, H);
+    const topShade = g.createLinearGradient(0, 0, 0, 190); topShade.addColorStop(0, "rgba(0,0,0,.7)"); topShade.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = topShade; g.fillRect(0, 0, W, 190);
+    const bottomShade = g.createLinearGradient(0, 440, 0, H); bottomShade.addColorStop(0, "rgba(0,0,0,0)"); bottomShade.addColorStop(1, "rgba(0,0,0,.85)");
+    g.fillStyle = bottomShade; g.fillRect(0, 440, W, H - 440);
+    const showR = st.reimu !== "なし", showM = st.marisa !== "なし";
+    const left = showM ? 205 * fs : 24, right = showR ? W - 205 * fs : W - 24;
+    drawTextBlock(g, st.top, { cx: W / 2, top: 6, maxW: 1220, maxH: 150, maxSize: 118, color, family: fam, scale: st.textScale, style: "top", stretch: 1.15 });
+    drawTextBlock(g, st.text, { cx: (left + right) / 2, bottom: H - 8, maxW: right - left, maxH: 215, maxSize: 175, color, family: fam, scale: st.textScale, style: "gold", stretch: 1.15, fillWidth: true });
+    drawTag(g, st.box, Math.max(24, left), 400, fam);
+    if (showR) drawFace(g, reimu, W - 100 * fs, H - 2, 205 * fs);
+    if (showM) drawFace(g, marisa, 100 * fs, H - 2, 205 * fs);
   } else if (st.layout === "吹き出し") {
     // ゆっくり解説全体で最近伸びている型: カラーの場面、上に黄色の一言、下に大きな赤い文字、キャラのセリフの吹き出し
     drawPhoto(g, st.photos[0], rects[0], st.views[0], st.mono, st.bright);
@@ -585,7 +648,7 @@ const plans = [];
 function makePlan(def, index) {
   const key = PAGE_KEY + ":plan" + index;
   const initial = () => ({ layout: def.layout, band: def.band, text: def.text, photos: [def.photos[0], def.photos[1] || def.photos[0]],
-    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, shift: def.photo_shift || 0, bright: def.brightness || 1, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, font: def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
+    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, shift: def.photo_shift || 0, bright: def.brightness || 1, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, box: def.box || "", font: def.layout === "顔アップ" || def.layout === "煽り金文字" ? "Noto Sans JP" : "Dela Gothic One",
     textScale: 1, faceScale: def.face_scale || 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
   const plan = { state: Object.assign(initial(), loadJson(key, {})) };
   plan.save = () => saveJson(key, plan.state);
@@ -658,7 +721,8 @@ function makePlan(def, index) {
     }, "| で改行、{ } で強調"),
     el("div", { class: "note" }, "| で改行、{ } で囲むと強調の色。顔アップの型は上の一言(1行12文字くらいまで)"),
     el("label", {}, "上の帯"), text(st.band, v => { st.band = v; }, "なしでもよい"),
-    el("label", {}, "上の文字"), text(st.top, v => { st.top = v; }, "吹き出しの型の上の一言"),
+    el("label", {}, "上の文字"), text(st.top, v => { st.top = v; }, "吹き出し・煽り金文字の型の上の一言"),
+    el("label", {}, "箱"), text(st.box || "", v => { st.box = v; }, "煽り金文字の型の傾いた白い箱({ } は赤)"),
     el("label", {}, "霊夢のセリフ"), text(st.reimuSays, v => { st.reimuSays = v; }, "空なら吹き出しなし"),
     el("label", {}, "魔理沙のセリフ"), text(st.marisaSays, v => { st.marisaSays = v; }, "空なら吹き出しなし"),
     el("label", {}, "名前"), text(st.nameText, v => { st.nameText = v; }, "空にすると名前を出さない"),
@@ -712,7 +776,7 @@ document.getElementById("saveAll").addEventListener("click", async () => {
 });
 function waitFont(family) {
   if (!document.fonts) return Promise.resolve();
-  const chars = [DATA.name, ...DATA.plans.map(p => p.text + p.band + p.labels.join("")), ...plans.map(p => p.state.text + p.state.band + p.state.labels.join("")),
+  const chars = [DATA.name, ...DATA.plans.map(p => p.text + p.band + p.top + (p.box || "") + p.labels.join("")), ...plans.map(p => p.state.text + p.state.band + p.state.labels.join("")),
     "写真を貼ってください0123456789"].join("");
   return Promise.race([document.fonts.load(`40px "${family}"`, chars), new Promise(r => setTimeout(r, 4000))]).catch(() => {});
 }

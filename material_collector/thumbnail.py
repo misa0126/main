@@ -7,15 +7,21 @@
     # メモ(# で始まる行は読み飛ばす)
     名前: 大山康晴
     名前の表示: 大山 康晴                         ← サムネに出す名前(姓と名の間に空白など。なくてもよい)
+    タイトルの後ろ: 【ゆっくり解説】               ← 動画タイトルの後ろ(書かなければ【ゆっくり生涯解説】。人物でない回に)
     写真: 大山康晴 晩年=Yasuharu Oyama          ← 写真の検索ワード。書いた順に 1, 2, ... 番
     写真: 大山康晴 若い頃=young Yasuharu Oyama
 
     ## 案1                                       ← 案は3つまで(YouTubeの「テストと比較」が3枚まで)
-    型: 顔アップ                                  ← 顔アップ / 右に写真 / 全面写真 / 比較 / 文字だけ
+    型: 顔アップ                                  ← 顔アップ / 煽り金文字 / 右に写真 / 全面写真 / 比較 / 文字だけ
                                                      顔アップ: 顔を大きく、上に赤い一言(文字)、下に黄色の名前。白黒になる
                                                      吹き出し: カラーの写真、上に黄色の一言(上の文字)、下に大きな赤い文字、
                                                                ゆっくりを大きめにしてセリフの吹き出しを付ける
                                                      文字だけ: 黒い背景に文字だけ
+                                                     煽り金文字: 写真を画面いっぱいに暗く重い色で出し、上に白い煽り(強調は赤)、
+                                                               まん中の左に傾いた白い箱(「箱:」)、下に金色の大きな文字(「文字:」)、
+                                                               右下に驚いた霊夢(人間電とすあし社長のサムネを合わせた型。2026年11月27日、
+                                                               第101警察予備大隊でユーザーが頼んだ)。魔理沙は書かなければ出さない
+    箱: 断っても{よかった}のに                     ← 煽り金文字の型の、傾いた白い箱の文字({ } は赤)
     上の文字: 入門した次の日にボコボコ            ← 吹き出しの型の上の一言
     霊夢のセリフ: 戦争に病気まで…                 ← 吹き出し(どの型でも付く。| で改行)
     魔理沙のセリフ: それでも必ずはい上がる
@@ -54,7 +60,7 @@ from PIL import Image
 from material_collector.thumb_faces import ASSETS, CHARS, EXPRESSIONS
 
 TEMPLATE_PATH = Path(__file__).with_name("thumbnail_template.html")
-LAYOUTS = ["顔アップ", "吹き出し", "右に写真", "全面写真", "比較", "文字だけ"]
+LAYOUTS = ["顔アップ", "煽り金文字", "吹き出し", "右に写真", "全面写真", "比較", "文字だけ"]
 FACE_CHOICES = EXPRESSIONS + ["なし"]
 COLORS = {"黄": "#ffe600", "赤": "#ff3b3b", "水色": "#46d4ff"}
 CHAR_KEYS = {"霊夢": "reimu", "魔理沙": "marisa"}
@@ -76,7 +82,7 @@ FACE_RULES = [
 TITLE_SUFFIX = "【ゆっくり生涯解説】"
 
 
-def format_video_title(title: str, name: str) -> str:
+def format_video_title(title: str, name: str, suffix: str = TITLE_SUFFIX) -> str:
     """動画タイトルを、ユーザーと決めた「タイトル｜名前【ゆっくり生涯解説】」の形にそろえる。
 
     タイトルだけ書いても、前の形(「名前｜タイトル【ゆっくり生涯解説】」)で書いても、この形になる。
@@ -84,12 +90,13 @@ def format_video_title(title: str, name: str) -> str:
     title = title.strip()
     if not title:
         return ""
-    if title.endswith(TITLE_SUFFIX):
-        title = title[: -len(TITLE_SUFFIX)].strip()
+    for end in (suffix, TITLE_SUFFIX):
+        if title.endswith(end):
+            title = title[: -len(end)].strip()
     parts = [p.strip() for p in re.split(r"[｜|]", title) if p.strip()]
     plain = name.replace(" ", "").replace("　", "")
     body = [p for p in parts if p.replace(" ", "").replace("　", "") != plain]
-    return f"{'｜'.join(body) or title}｜{name}{TITLE_SUFFIX}"
+    return f"{'｜'.join(body) or title}｜{name}{suffix}"
 
 
 def guess_faces(text: str) -> tuple[str, str]:
@@ -103,6 +110,7 @@ def guess_faces(text: str) -> tuple[str, str]:
 def parse_thumb_table(text: str) -> dict:
     name = ""
     name_display = ""
+    suffix = TITLE_SUFFIX
     photos: list[dict] = []
     plans: list[dict] = []
     for raw in text.splitlines():
@@ -111,7 +119,7 @@ def parse_thumb_table(text: str) -> dict:
             continue
         if line.startswith("##"):
             plans.append({"title": line.lstrip("#").strip(), "layout": "右に写真", "band": "", "text": "",
-                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "photo_shift": 0, "brightness": 1.0, "reimu": None, "marisa": None, "color": "黄", "video_title": ""})
+                          "photos": [1], "labels": ["", ""], "mono": False, "top": "", "reimu_says": "", "marisa_says": "", "face_scale": 1.0, "big_face": None, "photo_shift": 0, "brightness": 1.0, "reimu": None, "marisa": None, "color": "黄", "video_title": "", "box": ""})
             continue
         key, sep, value = re.split(r"([:：])", line, maxsplit=1) if re.search(r"[:：]", line) else (line, "", "")
         if not sep:
@@ -122,18 +130,22 @@ def parse_thumb_table(text: str) -> dict:
                 name = value
             elif key == "名前の表示":
                 name_display = value
+            elif key == "タイトルの後ろ":
+                suffix = value
             elif key == "写真":
                 ja, _, en = value.partition("=")
                 photos.append({"ja": ja.strip(), "en": en.strip() or ja.strip()})
             else:
-                raise ValueError(f"案(## 案1)の前に書けるのは「名前」「名前の表示」「写真」だけです: {line}")
+                raise ValueError(f"案(## 案1)の前に書けるのは「名前」「名前の表示」「タイトルの後ろ」「写真」だけです: {line}")
             continue
         plan = plans[-1]
         if key == "型":
             if value not in LAYOUTS:
                 raise ValueError(f"型は {' / '.join(LAYOUTS)} のどれかにしてください: {line}")
             plan["layout"] = value
-            plan["mono"] = plan["mono"] or value == "顔アップ"
+            plan["mono"] = plan["mono"] or value in ("顔アップ", "煽り金文字")
+        elif key == "箱":
+            plan["box"] = value
         elif key == "上の文字":
             plan["top"] = value
         elif key in ("動画タイトル", "タイトル"):
@@ -195,8 +207,10 @@ def parse_thumb_table(text: str) -> dict:
     if len(plans) > 3:
         raise ValueError("案は3つまでにしてください(YouTubeのテストと比較が3枚までのため)。")
     for plan in plans:
-        plan["video_title"] = format_video_title(plan["video_title"], name)
-        auto_reimu, auto_marisa = guess_faces(plan["text"])  # 書いていなければ一言から決める
+        plan["video_title"] = format_video_title(plan["video_title"], name, suffix)
+        auto_reimu, auto_marisa = guess_faces(plan["top"] + plan["text"] if plan["layout"] == "煽り金文字" else plan["text"])  # 書いていなければ一言から決める
+        if plan["layout"] == "煽り金文字":
+            auto_marisa = "なし"  # すあし社長のように、右下に驚いたキャラ1人だけ
         plan["reimu"] = plan["reimu"] or auto_reimu
         plan["marisa"] = plan["marisa"] or auto_marisa
         if plan["big_face"] is None:  # 顔アップは顔を大きくするのが標準(ユーザーと決めた)
