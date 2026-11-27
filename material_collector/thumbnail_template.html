@@ -6,7 +6,7 @@
 <title>__TITLE__ サムネ作成</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Noto+Sans+JP:wght@900&family=Noto+Serif+JP:wght@900&family=Reggae+One&family=RocknRoll+One&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Noto+Sans+JP:wght@900&family=Noto+Serif+JP:wght@900&family=Kaisei+Tokumin:wght@800&family=Reggae+One&family=RocknRoll+One&display=swap" rel="stylesheet">
 <style>
 /* 上に写真の貼り付け欄、下に案ごとのサムネ(1280x720)と設定 */
 :root {
@@ -94,7 +94,7 @@ h2 { font-size: 16px; margin: 22px 0 8px; padding-left: 10px; border-left: 4px s
 const DATA = /*__DATA__*/null;
 const W = 1280, H = 720;
 const PAGE_KEY = "thumb:" + DATA.id;
-const FONTS = { "Noto Sans JP": "縦長の太ゴシック(いつもの型)", "Noto Serif JP": "太い明朝体", "Dela Gothic One": "極太", "RocknRoll One": "丸ゴシック", "Reggae One": "筆っぽい" };
+const FONTS = { "Noto Sans JP": "縦長の太ゴシック(いつもの型)", "Noto Serif JP": "太い明朝体", "Kaisei Tokumin": "極太の明朝体(人間電・すあし社長風)", "Dela Gothic One": "極太", "RocknRoll One": "丸ゴシック", "Reggae One": "筆っぽい" };
 const FALLBACK = '"Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif';
 
 function el(tag, attrs = {}, ...children) {
@@ -257,7 +257,7 @@ document.addEventListener("click", e => {
 });
 
 // ---- 描く ----
-function font(size, family) { return `${family === "Noto Sans JP" || family === "Noto Serif JP" ? "900 " : ""}${size}px "${family}", ${FALLBACK}`; }
+function font(size, family) { return `${family === "Noto Sans JP" || family === "Noto Serif JP" ? "900 " : family === "Kaisei Tokumin" ? "800 " : ""}${size}px "${family}", ${FALLBACK}`; }
 // 「69歳まで|{A級}にいた男」→ 行ごとの [{t, em}]
 function parseText(text) {
   return text.split("|").map(line => {
@@ -268,7 +268,7 @@ function parseText(text) {
 }
 const EM_SCALE = 1.18;  // 強調の文字は少し大きく
 // 漢字は大きく、ひらがなは小さめ(ユーザーの希望。2026年11月27日、人間電・すあし社長風の型で「明朝体で漢字は大きくひらがなは小さめ」)
-const KANA_SCALE = 0.74;
+const KANA_SCALE = 0.82;  // 参考チャンネルのひらがなは漢字の8割ほど(0.74 だと小さすぎて読みにくかった)
 function splitKana(parts) {
   const out = [];
   for (const p of parts) p.t.replace(/[\u3041-\u309f]+|[^\u3041-\u309f]+/g, t => { out.push({ t, em: p.em, k: /^[\u3041-\u309f]/.test(t) ? KANA_SCALE : 1 }); return ""; });
@@ -292,46 +292,72 @@ const STYLES = {
 // 白いふちは付けない。細い暗いふち + 黒いぼかしの影で背景から浮かせ、文字の内側のふちだけを明るく光らせる
 //   hRed: 人間電の赤(ざらついた濃い赤) / sRed: すあし社長の赤(つやのある赤) / sTop: 上の白い文字(強調は黄か赤) / gold: 金
 // 文字を太らせる量(字の大きさに対する割合)。ユーザー「もう少し文字太く」「太さはもっとほしい」(2026年11月27日)
-const FATTEN = 0.045;  // 0.07 だと「撃」「警」など画数の多い漢字がつぶれた
-const LOOK_EDGE = { hRed: "#3a0000", sRed: "#2e0000", gold: "#2a1300" };
+const FATTEN = 0.035;  // 極太の明朝体(Kaisei Tokumin)なので少しだけ。0.07 だと「撃」「警」など画数の多い漢字がつぶれた
+// 参考チャンネルの文字(2026年11月27日、ユーザー「なんでこんなに見にくいんだろ」「フォント、色、サイズ、影、グラデとか真似して」で見直した):
+//   人間電の赤: 明るい赤→暗い赤のグラデに、濃い赤の大理石のような模様。ふちに細い白い線、外に黒いぼかしの影
+//   人間電の金: 濃い黄色→オレンジのこってりした金に、こげ茶のひび模様。ふちは付けず、黒いぼかしの影とオレンジの光
+//   すあし社長の赤: 明るく鮮やかな赤に、上半分のつや。細い暗いふちと黒いぼかしの影
+//   すあし社長の白: 真っ白(下だけ少し灰色)に、強調は黄色→オレンジ。細い黒いふちと黒いぼかしの影
+const LOOK_EDGE = { hRed: "#ffffff", sRed: "#3a0000", gold: null };
 function lookFill(g, look, p, ps, color) {
-  const grad = stops => { const gr = g.createLinearGradient(0, -ps * 0.88, 0, ps * 0.04); stops.forEach(([o, c]) => gr.addColorStop(o, c)); return gr; };
-  if (look === "gold") return goldFill(g, ps);
-  if (look === "hRed") return grad([[0, "#ff5a40"], [0.45, "#d80a00"], [1, "#6e0000"]]);
-  if (look === "sRed") return grad([[0, "#ff6a4a"], [0.5, "#ff1a0f"], [1, "#a80000"]]);
-  if (!p.em) return grad([[0, "#ffffff"], [1, "#dcdcdc"]]);
-  if (color === DATA.colors["赤"]) return grad([[0, "#ff5a40"], [0.5, "#ff1a0f"], [1, "#b00000"]]);
-  return grad([[0, "#fffbb0"], [0.45, "#ffe000"], [1, "#ff9800"]]);  // 黄: 上は明るく下はオレンジ
+  const grad = stops => { const gr = g.createLinearGradient(0, -ps * 0.9, 0, ps * 0.05); stops.forEach(([o, c]) => gr.addColorStop(o, c)); return gr; };
+  if (look === "gold") return grad([[0, "#fffbe0"], [0.18, "#ffe45a"], [0.45, "#ffc21a"], [0.7, "#f29200"], [1, "#b85a00"]]);
+  if (look === "hRed") return grad([[0, "#ff4630"], [0.5, "#e20000"], [1, "#8c0000"]]);
+  if (look === "sRed") return grad([[0, "#ff6a46"], [0.45, "#ff1f10"], [1, "#c40000"]]);
+  if (!p.em) return grad([[0, "#ffffff"], [0.7, "#ffffff"], [1, "#d8d8d8"]]);
+  if (color === DATA.colors["赤"]) return grad([[0, "#ff6a46"], [0.45, "#ff1f10"], [1, "#c40000"]]);
+  return grad([[0, "#fffab0"], [0.45, "#ffe000"], [1, "#ffa000"]]);
+}
+// 大理石・ひびのような模様(低い周波数のノイズを重ねる。細かい点々は汚れに見えたのでやめた)
+const marbleCache = {};
+function marble(kind) {
+  if (marbleCache[kind]) return marbleCache[kind];
+  const N = 512, c = document.createElement("canvas"); c.width = c.height = N;
+  const o = c.getContext("2d"), d = o.createImageData(N, N);
+  let seed = kind === "gold" ? 17 : 5; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const grids = [16, 32, 64, 128].map(n => ({ n, v: Array.from({ length: (n + 1) * (n + 1) }, rnd) }));
+  const val = (gr, x, y) => {
+    const fx = x / N * gr.n, fy = y / N * gr.n, ix = Math.floor(fx), iy = Math.floor(fy), tx = fx - ix, ty = fy - iy;
+    const sx = tx * tx * (3 - 2 * tx), sy = ty * ty * (3 - 2 * ty), at = (i, j) => gr.v[(j % gr.n) * (gr.n + 1) + (i % gr.n)];
+    return (at(ix, iy) * (1 - sx) + at(ix + 1, iy) * sx) * (1 - sy) + (at(ix, iy + 1) * (1 - sx) + at(ix + 1, iy + 1) * sx) * sy;
+  };
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    let n = 0, amp = 1, sum = 0;
+    for (const gr of grids) { n += val(gr, x, y) * amp; sum += amp; amp *= 0.5; }
+    n /= sum;
+    const vein = 1 - Math.min(1, Math.abs(n - 0.5) * (kind === "gold" ? 16 : 8));  // 0.5 付近が筋になる
+    const i = (y * N + x) * 4;
+    d.data[i] = kind === "gold" ? 90 : 70; d.data[i + 1] = kind === "gold" ? 40 : 0; d.data[i + 2] = 0;
+    d.data[i + 3] = Math.min(255, Math.pow(vein, 2.2) * 255 + (kind === "gold" ? 0 : (1 - n) * 50));  // 細い筋だけ(全体を暗くすると金がくすんだ)
+  }
+  o.putImageData(d, 0, 0);
+  return (marbleCache[kind] = c);
 }
 function drawLook(g, items, each, look, color, y, s, stretch, texture, gloss) {
-  const edge = (p) => look === "sTop" ? (p.em ? (color === DATA.colors["赤"] ? "#2e0000" : "#4a2a00") : "#000") : LOOK_EDGE[look];
+  const edge = p => look === "sTop" ? (p.em ? (color === DATA.colors["赤"] ? "#2e0000" : "#5a3000") : "#000") : LOOK_EDGE[look];
   each((p, ps) => {  // 黒いぼかしの影(2回重ねて濃くする)
-    g.shadowColor = "rgba(0,0,0,.95)"; g.shadowBlur = ps * 0.28; g.fillStyle = "#000"; g.strokeStyle = "#000"; g.lineWidth = ps * 0.1;
-    g.strokeText(p.t, 0, ps * 0.03); g.fillText(p.t, 0, ps * 0.03); g.shadowBlur = ps * 0.12; g.fillText(p.t, 0, ps * 0.03);
+    g.shadowColor = "rgba(0,0,0,.95)"; g.shadowBlur = ps * 0.3; g.fillStyle = "#000"; g.strokeStyle = "#000"; g.lineWidth = ps * 0.12;
+    g.strokeText(p.t, 0, ps * 0.03); g.fillText(p.t, 0, ps * 0.03); g.shadowBlur = ps * 0.12; g.strokeText(p.t, 0, ps * 0.03);
   }, g);
-  if (look === "gold") each((p, ps) => { g.shadowColor = "rgba(255,140,20,.6)"; g.shadowBlur = ps * 0.25; g.fillStyle = "#000"; g.fillText(p.t, 0, 0); }, g);
-  each((p, ps) => { g.strokeStyle = edge(p); g.lineWidth = ps * ((look === "sTop" && !p.em ? 0.11 : 0.08) + FATTEN); g.strokeText(p.t, 0, 0); }, g);  // 細い暗いふち(太らせた分も足す)
+  if (look === "gold") each((p, ps) => { g.shadowColor = "rgba(255,130,0,.55)"; g.shadowBlur = ps * 0.28; g.fillStyle = "#000"; g.fillText(p.t, 0, 0); }, g);
+  // ふち: 人間電の赤は細い白(参考のとおり、文字のすぐ外に細く)。金はふちなし
+  each((p, ps) => {
+    const e = edge(p); if (!e) return;
+    g.strokeStyle = e; g.lineWidth = ps * ((look === "hRed" ? 0.06 : look === "sTop" && !p.em ? 0.1 : 0.07) + FATTEN); g.strokeText(p.t, 0, 0);
+  }, g);
   const main = g, off = document.createElement("canvas"); off.width = W; off.height = H;
   g = off.getContext("2d");
   each((p, ps) => { const f = lookFill(g, look, p, ps, color); g.fillStyle = f; g.strokeStyle = f; g.lineJoin = "round"; g.lineWidth = ps * FATTEN; g.strokeText(p.t, 0, 0); g.fillText(p.t, 0, 0); }, g);
   if (texture) {
     g.globalCompositeOperation = "source-atop"; g.globalAlpha = texture;
-    g.fillStyle = g.createPattern(grain(), "repeat"); g.fillRect(0, 0, W, H); g.globalAlpha = 1;
+    g.fillStyle = g.createPattern(marble(look === "gold" ? "gold" : "red"), "repeat"); g.fillRect(0, 0, W, H); g.globalAlpha = 1;
   }
   const top0 = y - s * 1.02 * stretch, mid = y - s * 0.5 * stretch;
   if (gloss) {
     g.globalCompositeOperation = "source-atop";
-    const gl = g.createLinearGradient(0, top0, 0, mid); gl.addColorStop(0, "rgba(255,255,255,.6)"); gl.addColorStop(0.6, "rgba(255,255,255,.15)"); gl.addColorStop(1, "rgba(255,255,255,0)");
+    const gl = g.createLinearGradient(0, top0, 0, mid); gl.addColorStop(0, "rgba(255,255,255,.55)"); gl.addColorStop(0.6, "rgba(255,255,255,.12)"); gl.addColorStop(1, "rgba(255,255,255,0)");
     g.fillStyle = gl; g.fillRect(0, top0, W, mid - top0);
   }
-  // 内側のふちだけを明るく(立体感)。source-atop なので文字の外には出ない
-  g.globalCompositeOperation = "source-atop";
-  each((p, ps) => {
-    g.globalCompositeOperation = "source-atop";
-    // 赤い文字に線を入れると中に白いすじが見えるので、金だけにする
-    g.strokeStyle = look === "gold" ? "rgba(255,250,210,.6)" : "rgba(0,0,0,0)";
-    g.lineWidth = ps * 0.035; g.strokeText(p.t, 0, 0);
-  }, g);
   g.globalCompositeOperation = "source-over";
   main.drawImage(off, 0, 0);
 }
@@ -742,15 +768,15 @@ function render(g, st) {
     (st.places || []).forEach(t => drawPlace(g, t, "Noto Sans JP"));
     if (!suasi) drawEmbers(g);
     (st.cutouts || []).forEach(c => drawCutout(g, { ...c, grade: suasi ? "" : "rgb(225,190,150)" }, suasi ? "rgba(150,200,255,.6)" : "rgba(255,160,60,.65)"));
-    const topShade = g.createLinearGradient(0, 0, 0, 190); topShade.addColorStop(0, "rgba(0,0,0,.75)"); topShade.addColorStop(1, "rgba(0,0,0,0)");
-    g.fillStyle = topShade; g.fillRect(0, 0, W, 190);
-    const bottomShade = g.createLinearGradient(0, 470, 0, H); bottomShade.addColorStop(0, "rgba(0,0,0,0)"); bottomShade.addColorStop(1, "rgba(0,0,0,.8)");
-    g.fillStyle = bottomShade; g.fillRect(0, 470, W, H - 470);
+    const topShade = g.createLinearGradient(0, 0, 0, 230); topShade.addColorStop(0, "rgba(0,0,0,.9)"); topShade.addColorStop(0.6, "rgba(0,0,0,.55)"); topShade.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = topShade; g.fillRect(0, 0, W, 230);  // 文字の後ろを暗くして読みやすく(参考チャンネルも上下が暗い)
+    const bottomShade = g.createLinearGradient(0, 440, 0, H); bottomShade.addColorStop(0, "rgba(0,0,0,0)"); bottomShade.addColorStop(0.5, "rgba(0,0,0,.6)"); bottomShade.addColorStop(1, "rgba(0,0,0,.92)");
+    g.fillStyle = bottomShade; g.fillRect(0, 440, W, H - 440);
     const showR = st.reimu !== "なし", showM = st.marisa !== "なし";
     const left = showM ? 205 * fs : 24, right = showR ? W - 205 * fs : W - 24;
     const k = st.smallKana !== false;
     drawTextBlock(g, st.top, { cx: W / 2, top: 6, maxW: 1220, maxH: 180, maxSize: 138, color, family: fam, scale: st.textScale, style: humanden ? "red" : "top", smallKana: k, keepHeight: true, spacing: 0.04, texture: humanden ? 0.6 : 0, look: humanden ? "hRed" : "sTop" });
-    drawTextBlock(g, st.text, { cx: (left + right) / 2, bottom: H - 8, maxW: right - left, maxH: 230, maxSize: 185, color, family: fam, scale: st.textScale, style: suasi ? "red" : "gold", keepHeight: true, smallKana: k, spacing: 0.04, texture: suasi ? 0 : 0.5, gloss: suasi, look: suasi ? "sRed" : "gold" });
+    drawTextBlock(g, st.text, { cx: (left + right) / 2, bottom: H - 8, maxW: right - left, maxH: 230, maxSize: 185, color, family: fam, scale: st.textScale, style: suasi ? "red" : "gold", keepHeight: true, smallKana: k, spacing: 0.04, texture: suasi ? 0 : 0.6, gloss: suasi, look: suasi ? "sRed" : "gold" });
     if (!humanden) drawTag(g, st.box, st.boxPos ? st.boxPos[0] : Math.max(24, left), st.boxPos ? st.boxPos[1] : 392, fam, -0.045, k, suasi ? "#ffe23a" : "#fff");
     if (showR) drawFace(g, reimu, W - 100 * fs, H - 2, 205 * fs);
     if (showM) drawFace(g, marisa, 100 * fs, H - 2, 205 * fs);
@@ -841,7 +867,7 @@ const plans = [];
 function makePlan(def, index) {
   const key = PAGE_KEY + ":plan" + index;
   const initial = () => ({ layout: def.layout, band: def.band, text: def.text, photos: [def.photos[0], def.photos[1] || def.photos[0]],
-    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, shift: def.photo_shift || 0, bright: def.brightness || 1, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, box: def.box || "", cutouts: def.cutouts || [], circles: def.circles || [], arrows: def.arrows || [], places: def.places || [], tone: def.tone || "", boxPos: def.box_pos || null, font: ["人間電風", "すあし社長風", "煽り金文字"].includes(def.layout) ? "Noto Serif JP" : def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
+    labels: [...def.labels], mono: def.mono, bigFace: def.big_face, shift: def.photo_shift || 0, bright: def.brightness || 1, top: def.top, reimuSays: def.reimu_says, marisaSays: def.marisa_says, nameText: DATA.name_display || DATA.name, reimu: def.reimu, marisa: def.marisa, color: def.color, box: def.box || "", cutouts: def.cutouts || [], circles: def.circles || [], arrows: def.arrows || [], places: def.places || [], tone: def.tone || "", boxPos: def.box_pos || null, font: ["人間電風", "すあし社長風", "煽り金文字"].includes(def.layout) ? "Kaisei Tokumin" : def.layout === "顔アップ" ? "Noto Sans JP" : "Dela Gothic One",
     textScale: 1, faceScale: def.face_scale || 1, views: [{ x: 0, y: 0, z: 1 }, { x: 0, y: 0, z: 1 }] });
   const plan = { state: Object.assign(initial(), loadJson(key, {})) };
   plan.save = () => saveJson(key, plan.state);
