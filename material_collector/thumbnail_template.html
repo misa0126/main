@@ -274,9 +274,10 @@ function splitKana(parts) {
   for (const p of parts) p.t.replace(/[\u3041-\u309f]+|[^\u3041-\u309f]+/g, t => { out.push({ t, em: p.em, k: /^[\u3041-\u309f]/.test(t) ? KANA_SCALE : 1 }); return ""; });
   return out;
 }
-function lineWidth(g, parts, size, family) {
+function lineWidth(g, parts, size, family, spacing = 0) {
   let w = 0;
-  for (const p of parts) { g.font = font(size * (p.em ? EM_SCALE : 1) * (p.k || 1), family); w += g.measureText(p.t).width; }
+  for (const p of parts) { const ps = size * (p.em ? EM_SCALE : 1) * (p.k || 1); g.font = font(ps, family); g.letterSpacing = `${ps * spacing}px`; w += g.measureText(p.t).width; }
+  g.letterSpacing = "0px";
   return w;
 }
 // 文字の色の組み合わせ。white: 白文字(強調は指定の色) / red: 赤文字に白ふち / yellow: 黄文字
@@ -298,7 +299,7 @@ function redFill(g, ps) {
   return gr;
 }
 // 文字の行を、枠に収まる大きさで描く。bottom(下の位置)、top(上の位置)、middle(まん中の位置)のどれかで置く
-function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1, fillWidth = false, keepHeight = false, smallKana = false }) {
+function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, family, scale = 1, maxSize = 150, style = "white", stretch = 1, fillWidth = false, keepHeight = false, smallKana = false, spacing = 0 }) {
   const lines = parseText(text).map(l => smallKana ? splitKana(l) : l);
   if (!lines.length) return;
   const st = STYLES[style] || STYLES.white;
@@ -306,36 +307,46 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
   const size = Math.min(maxSize, maxH / stretch / (lines.length * (1 + gap) * EM_SCALE)) * scale;
   // fillWidth の一言は、文字数が多くても縦の大きさを変えない(ユーザーの希望)。長いときは横に縮めて収める
   // keepHeight の名前も、長い名前で縦を小さくせず横に縮める(草間彌生と同じ縦の大きさにそろえる。ユーザーの希望)
-  const sizes = lines.map(parts => (fillWidth || keepHeight) ? size : Math.min(size, size * maxW / Math.max(1, lineWidth(g, parts, size, family))));
+  const sizes = lines.map(parts => (fillWidth || keepHeight) ? size : Math.min(size, size * maxW / Math.max(1, lineWidth(g, parts, size, family, spacing))));
   const heights = lines.map((parts, i) => sizes[i] * stretch * (1 + gap) * (parts.some(p => p.em) ? EM_SCALE : 1));
   const total = heights.reduce((a, b) => a + b, 0);
   let y = top != null ? top + total : middle != null ? middle + total / 2 : bottom;
   for (let i = lines.length - 1; i >= 0; i--) {
     const parts = lines[i], s = sizes[i];
-    const w = lineWidth(g, parts, s, family);
+    const w = lineWidth(g, parts, s, family, spacing);
     // fillWidth: 一言をちょうど横いっぱいにする。短いときは横に伸ばし、長いときは横に縮める(高さは変えない)
     const xs = fillWidth ? Math.min(2.2, maxW / Math.max(1, w)) : keepHeight ? Math.min(1, maxW / Math.max(1, w)) : 1;
     let x = cx - w * xs / 2;
-    for (const p of parts) {
+    // 先に全部の文字の位置を決め、影 → ふち → 文字の順に1行まとめて描く
+    // (1文字ずつ描くと、次の文字の太いふちが前の文字に重なって見えるため。ユーザーの指摘「文字重なってる」)
+    const items = parts.map(p => {
       const ps = s * (p.em ? EM_SCALE : 1) * (p.k || 1);
-      g.font = font(ps, family);
+      g.font = font(ps, family); g.letterSpacing = `${ps * spacing}px`;
+      const it = { p, ps, x, ring: st.ring || (p.em && (style === "white" || style === "top") ? "#fff" : null) };
+      x += g.measureText(p.t).width * xs;
+      return it;
+    });
+    const ringW = st.ring ? (stretch > 1 ? 0.26 : 0.2) : 0.1;
+    const each = fn => items.forEach(it => {
+      g.save(); g.font = font(it.ps, family); g.letterSpacing = `${it.ps * spacing}px`;
       g.textBaseline = "alphabetic"; g.textAlign = "left"; g.lineJoin = "round"; g.miterLimit = 2;
-      const ring = st.ring || (p.em && (style === "white" || style === "top") ? "#fff" : null);
-      const ringW = st.ring ? (stretch > 1 ? 0.26 : 0.2) : 0.1;
       // 縦に伸ばすときは、文字の下の位置を原点にして縦だけ拡大する
-      g.save(); g.translate(x, y - s * 0.12 * stretch); g.scale(xs, stretch);
-      // 影 → 太い黒ふち → (白ふち) → 文字
-      g.save(); g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = ps * 0.18;
-      g.strokeStyle = "rgba(0,0,0,.55)"; g.lineWidth = ps * (ring ? 0.2 + ringW : 0.3); g.strokeText(p.t, ps * 0.03, ps * 0.04);
-      g.restore();
-      if (style === "gold") {
-        // 金文字: 外にオレンジの光 → 黒の太ふち → こげ茶のふち
-        g.save(); g.shadowColor = "rgba(255,150,30,.55)"; g.shadowBlur = ps * 0.22;
-        g.strokeStyle = "#000"; g.lineWidth = ps * 0.3; g.strokeText(p.t, 0, 0); g.restore();
-        g.strokeStyle = "#000"; g.lineWidth = ps * 0.3; g.strokeText(p.t, 0, 0);
-        g.strokeStyle = "#4a2600"; g.lineWidth = ps * 0.13; g.strokeText(p.t, 0, 0);
-      } else { g.strokeStyle = "#000"; g.lineWidth = ps * (ring ? 0.1 + ringW : 0.24); g.strokeText(p.t, 0, 0); }
-      if (ring) { g.strokeStyle = ring; g.lineWidth = ps * ringW; g.strokeText(p.t, 0, 0); }
+      g.translate(it.x, y - s * 0.12 * stretch); g.scale(xs, stretch);
+      fn(it.p, it.ps, it.ring); g.restore();
+    });
+    each((p, ps, ring) => {  // 影
+      g.shadowColor = style === "gold" ? "rgba(255,150,30,.55)" : "rgba(0,0,0,.6)"; g.shadowBlur = ps * (style === "gold" ? 0.22 : 0.18);
+      g.strokeStyle = style === "gold" ? "#000" : "rgba(0,0,0,.55)"; g.lineWidth = ps * (style === "gold" ? 0.3 : ring ? 0.2 + ringW : 0.3);
+      g.strokeText(p.t, style === "gold" ? 0 : ps * 0.03, style === "gold" ? 0 : ps * 0.04);
+    });
+    each((p, ps, ring) => {  // 太い黒ふち
+      g.strokeStyle = "#000"; g.lineWidth = ps * (style === "gold" ? 0.3 : ring ? 0.1 + ringW : 0.24); g.strokeText(p.t, 0, 0);
+    });
+    each((p, ps, ring) => {  // 金文字はこげ茶のふち、ほかは白ふち
+      if (style === "gold") { g.strokeStyle = "#4a2600"; g.lineWidth = ps * 0.13; g.strokeText(p.t, 0, 0); }
+      else if (ring) { g.strokeStyle = ring; g.lineWidth = ps * ringW; g.strokeText(p.t, 0, 0); }
+    });
+    each((p, ps) => {  // 文字
       if (!p.em && style === "red") {
         // 赤は上を明るく下を濃く(いつもの型)
         const gr = g.createLinearGradient(0, -ps * 0.85, 0, 0); gr.addColorStop(0, "#ff3a3a"); gr.addColorStop(1, "#cc0000");
@@ -344,9 +355,8 @@ function drawTextBlock(g, text, { cx, bottom, top, middle, maxW, maxH, color, fa
       else if (style === "top" && p.em) g.fillStyle = color === DATA.colors["赤"] ? redFill(g, ps) : color;
       else g.fillStyle = p.em ? color : st.fill;
       g.fillText(p.t, 0, 0);
-      x += g.measureText(p.t).width * xs;
-      g.restore();
-    }
+    });
+    g.letterSpacing = "0px";
     y -= heights[i];
   }
 }
@@ -575,8 +585,8 @@ function render(g, st) {
     const showR = st.reimu !== "なし", showM = st.marisa !== "なし";
     const left = showM ? 205 * fs : 24, right = showR ? W - 205 * fs : W - 24;
     const k = st.smallKana !== false;
-    drawTextBlock(g, st.top, { cx: W / 2, top: 6, maxW: 1220, maxH: humanden ? 165 : 150, maxSize: humanden ? 130 : 118, color, family: fam, scale: st.textScale, style: humanden ? "red" : "top", stretch: 1.08, smallKana: k, fillWidth: humanden });
-    drawTextBlock(g, st.text, { cx: (left + right) / 2, bottom: H - 8, maxW: right - left, maxH: 230, maxSize: 185, color, family: fam, scale: st.textScale, style: suasi ? "red" : "gold", stretch: 1.08, fillWidth: true, smallKana: k });
+    drawTextBlock(g, st.top, { cx: W / 2, top: 6, maxW: 1220, maxH: humanden ? 165 : 150, maxSize: humanden ? 130 : 118, color, family: fam, scale: st.textScale, style: humanden ? "red" : "top", smallKana: k, keepHeight: true, spacing: 0.06 });
+    drawTextBlock(g, st.text, { cx: (left + right) / 2, bottom: H - 8, maxW: right - left, maxH: 230, maxSize: 185, color, family: fam, scale: st.textScale, style: suasi ? "red" : "gold", keepHeight: true, smallKana: k, spacing: 0.06 });
     if (!humanden) drawTag(g, st.box, Math.max(24, left), 392, fam, -0.045, k);
     if (showR) drawFace(g, reimu, W - 100 * fs, H - 2, 205 * fs);
     if (showM) drawFace(g, marisa, 100 * fs, H - 2, 205 * fs);
