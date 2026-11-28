@@ -1,0 +1,212 @@
+# 小池重明の解説台本(koike_shigeaki.txt)の区切りと画像(2026年11月28日)
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 決め方:
+#   ・1つの話のまとまりに画像1枚。横に並べる所はなし
+#   ・透かしのない、本人に関係ある写真(本人・対局相手・著書・ゆかりの場所・当時の写真)を基本にする。いらすとやは4枚
+# 小池重明は本人の写真がネットに少ないので、同じ写真を使い回している。
+#   本人の写真がなさそうな場面は、対局相手の棋士、団鬼六の本、当時の場所の写真で代える
+# 人の写真には「|名前」を付けている。主人公の小池重明には付けない
+
+## つかみ：大一番にサンダル
+1: いらすとや サンダル=irasutoya sandals @格好
+
+## 主人公の紹介
+19: 小池重明 真剣師 写真=Shigeaki Koike shogi @小池重明
+
+## 名古屋・笹島に生まれる
+20: 名古屋 笹島 昭和 古写真=Nagoya Sasashima old photo @生まれた場所
+
+## 父と母
+28: 傷痍軍人 昭和 白黒写真=wounded veterans begging Japan 1950s @元兵士/父親
+
+## 家で開かれた博打
+35: おいちょかぶ 株札=oicho-kabu hanafuda cards @博打/オイチョカブ
+
+## 将棋に夢中になる
+45: 小池重明 若い頃=young Shigeaki Koike @将棋
+
+## 花村元司からの誘い
+56: 花村元司 九段=Motoji Hanamura shogi|花村元司 @花村元司
+
+## 片思いと5万円の賭け将棋
+65: いらすとや 片思い=irasutoya unrequited love @片思い
+
+## 出入り禁止と高校中退
+71: いらすとや 不良 学生=irasutoya delinquent student @出入り禁止/不良
+
+## 職を転々とする
+78: 昭和 喫茶店 白黒写真=Showa era kissaten coffee shop black and white @喫茶店
+
+## アマチュア名人戦に出る
+85: アマチュア名人戦 将棋 昭和=amateur meijin shogi tournament Showa @アマチュア名人戦
+
+## 関則可に負ける
+92: 関則可 アマ名人=Norika Seki shogi|関則可 @関則可
+
+## 上京と上野の将棋センター
+98: 上野 昭和40年代 白黒写真=Ueno Tokyo 1960s black and white @上京/上野
+
+## ホステスと店の金
+112: キャバレー 昭和 白黒写真=Showa cabaret hostess black and white @キャバレー
+
+## 東京から逃げる
+116: 小池重明 若い頃=young Shigeaki Koike @-
+
+## 市川でトラック運転手に
+123: 昭和 トラック 運送 白黒写真=Showa era truck black and white @トラック
+
+## 盤の前に戻る
+131: 小池重明 将棋=Shigeaki Koike shogi @盤の前
+
+## 新宿の殺し屋
+135: 新宿 将棋道場 昭和 白黒写真=Shinjuku shogi dojo Showa @新宿の将棋道場
+
+## 将棋世界のプロ対アマ企画
+149: 将棋世界 雑誌 昭和=Shogi Sekai magazine 1970s @将棋世界
+
+## 飯野健二に勝つ「プロ落城の日」
+159: 飯野健二 棋士=Kenji Iino shogi|飯野健二 @飯野健二
+
+## 鬼加賀との頂上決戦
+172: 加賀敬治 真剣師=Keiji Kaga shogi|加賀敬治 @頂上決戦/加賀敬治
+176: 通天閣 昭和 白黒写真=Tsutenkaku Osaka Showa black and white @通天閣
+
+## プロ棋士キラー
+185: 小池重明 真剣師 写真=Shigeaki Koike shogi @プロ棋士キラー
+
+## アマ名人戦の東京予選
+191: アマチュア名人戦 将棋 対局 昭和=amateur meijin shogi game Showa @アマチュア将棋の頂点
+
+## 記録係の羽生善治
+195: 羽生善治 小学生=young Yoshiharu Habu child|羽生善治 @羽生善治
+
+## アマチュア名人に
+202: 小池重明 アマ名人=Shigeaki Koike amateur meijin @アマチュア名人
+
+## 花村元司に負ける
+207: 花村元司 九段=Motoji Hanamura shogi|花村元司 @花村
+
+## 大山康晴との駒落ち
+213: 大山康晴 十五世名人=Yasuharu Oyama 15th Meijin|大山康晴 @大山康晴
+
+## 前の晩に歌舞伎町で喧嘩
+215: 歌舞伎町 昭和50年代 白黒写真=Kabukicho 1970s black and white @歌舞伎町
+
+## 警察帰りで大山に勝つ
+221: 大山康晴 名人=Yasuharu Oyama Meijin|大山康晴 @大山を倒して
+
+## 消費者金融から借金
+226: サラ金 昭和 看板=Japanese consumer loan 1980s sign @消費者金融
+
+## A級棋士・森雞二
+232: 森雞二 九段=Keiji Mori shogi|森雞二 @会いに来た/森雞二
+
+## 渋谷の道場で初対面
+239: 渋谷 昭和50年代 白黒写真=Shibuya 1970s black and white @渋谷
+
+## 将棋会館の三番勝負
+248: 将棋会館 千駄ヶ谷 旧会館=Shogi Kaikan Sendagaya old @将棋会館
+
+## 裸足にサンダルの当日
+250: 小池重明 森雞二 対局=Shigeaki Koike Keiji Mori game|森雞二 @格好
+
+## 角落ちから平手へのルール
+257: 角落ち 将棋 盤面=shogi bishop handicap board @ルール/角
+
+## 1局目・2局目
+263: 森雞二 若い頃=young Keiji Mori shogi|森雞二 @1局目
+
+## 3局目・穴熊と罠の歩
+269: 振り飛車 穴熊 盤面図=furibisha anaguma shogi diagram @振り飛車/穴熊
+
+## 森の振り返り
+282: 森雞二 棋士=Keiji Mori shogi|森雞二 @森自身
+
+## 森の初タイトル・棋聖
+287: 森雞二 棋聖=Keiji Mori Kisei title|森雞二 @棋聖
+
+## 京王プラザのお祝いの会
+291: 京王プラザホテル 開業当時=Keio Plaza Hotel 1971 @京王プラザ
+
+## 罰金の噂と寄付
+299: 大山康晴 将棋連盟会長=Yasuharu Oyama JSA president|大山康晴 @大山会長
+
+## 村山聖との一局
+311: 村山聖 少年=young Satoshi Murayama|村山聖 @村山聖
+
+## プロになりたい
+325: 小池重明 真剣師 写真=Shigeaki Koike shogi @-
+
+## 新幹線で大山と出会う
+331: 新幹線 0系 昭和=Shinkansen 0 series Showa @新幹線
+333: 大山康晴 名人=Yasuharu Oyama Meijin|大山康晴 @大山
+
+## 師匠・松田茂
+336: 松田茂 九段=Shigeru Matsuda shogi|松田茂 @松田茂
+
+## 棋士の会合
+344: 将棋会館 千駄ヶ谷 昭和=Shogi Kaikan Sendagaya Showa @将棋会館
+
+## 田丸昇の励まし
+369: 田丸昇 九段=Noboru Tamaru shogi|田丸昇 @田丸昇
+
+## 借金が報じられ締め出される
+375: 小池重明 真剣師=Shigeaki Koike shinkenshi @借りた金
+
+## 名古屋で日雇い
+389: 名古屋 笹島 日雇い 白黒写真=Nagoya Sasashima day laborers black and white @名古屋/日雇い
+
+## 団鬼六
+399: 団鬼六 作家=Oniroku Dan writer|団鬼六 @手を差し伸べた/団鬼六
+
+## 茨城の焼肉店
+419: 小池重明 晩年=Shigeaki Koike later years @-
+
+## 駆け落ち
+422: いらすとや 駆け落ち=irasutoya elopement @姿を消した/駆け落ち
+
+## トラックに戻る
+431: 小池重明 晩年=Shigeaki Koike later years @-
+
+## 食道静脈瘤
+433: 食道静脈瘤 図解=esophageal varices diagram @食道静脈瘤
+
+## 最後まで強かった将棋
+442: 小池重明 対局=Shigeaki Koike shogi game @天野高志/2連勝
+
+## 最期
+452: 小池重明 晩年=Shigeaki Koike later years @1992年
+
+## 清澄白河の墓と戒名
+456: 清澄白河 昭和 古写真=Kiyosumi-shirakawa old photo @清澄白河
+
+## 団鬼六『真剣師小池重明』
+462: 真剣師小池重明 団鬼六 本=Shinkenshi Koike Shigeaki Oniroku Dan book @真剣師小池重明
+
+## 『疾風三十一番勝負』
+470: 疾風三十一番勝負 小池重明=Koike Shigeaki shogi game collection book @疾風三十一番勝負
+
+## 文庫『光と影』
+472: 真剣師小池重明の光と影 文庫=Shinkenshi Koike Shigeaki no hikari to kage @光と影/文庫
+
+## 遠藤憲一の映画
+481: 遠藤憲一 俳優=Kenichi Endo actor|遠藤憲一 @遠藤憲一
+
+## 瀬川晶司の嘆願書
+491: 瀬川晶司 アマチュア=Shoji Segawa shogi amateur|瀬川晶司 @瀬川晶司
+
+## 61年ぶりの試験
+495: 花村元司 九段=Motoji Hanamura shogi|花村元司 @花村
+
+## 瀬川の合格
+500: 瀬川晶司 プロ入り 記者会見=Shoji Segawa press conference|瀬川晶司 @合格
+
+## 羽生善治の言葉
+508: 羽生善治 九段=Yoshiharu Habu shogi|羽生善治 @この人の言葉
+
+## まとめ
+514: 小池重明 真剣師 写真=Shigeaki Koike shogi @通算成績
