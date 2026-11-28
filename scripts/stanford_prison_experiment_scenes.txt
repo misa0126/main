@@ -1,0 +1,207 @@
+# スタンフォード監獄実験の解説台本(stanford_prison_experiment.txt)の区切りと画像(2026年11月28日)
+# 書き方:
+#   ## 話題の見出し
+#   開始行: 画像の検索ワード(日本語)=英語|名前 @きっかけ
+#   ・開始行は、台本の空行を除いた行番号(「」の中で改行した続きの行も1行と数える)
+#   ・「#」で始まる行はメモとして無視される
+# 決め方:
+#   ・1つの話のまとまりに画像1枚。横に並べるのは、同じ話で2つの刑務所・映画を並べて言う所だけ
+#   ・主人公は人物ではなく実験なので、迷う所は1971年の実験の写真(看守・囚人)にした
+#   ・前回(第101警察予備大隊)と同じく重い話の続きなので、いらすとやは使わず当時の実写だけにした。
+#     今のカラー写真(研究者の顔写真など)は白黒にしてそろえた(次回予告のチューリップの絵だけはそのまま)
+# 人の写真には「|名前」を付けている。実験の看守・囚人の写真には付けない
+
+## つかみ：スタンフォード大学の地下の刑務所
+1: スタンフォード監獄実験 1971 囚人 廊下 白黒写真=Stanford prison experiment 1971 prisoners hallway photo @スタンフォード大学
+
+## スタンフォード監獄実験
+11: スタンフォード監獄実験 看守 サングラス 1971=Stanford prison experiment guard sunglasses 1971 @スタンフォード監獄実験
+
+## 2018年『嘘の歴史』
+14: ティボー・ルテクシエ 研究者=Thibault Le Texier=Thibault Le Texier chercheur|ティボー・ルテクシエ @フランスの研究者
+
+## 三つの問い
+18: スタンフォード監獄実験 看守 囚人 1971 写真=Stanford prison experiment guards prisoners 1971 photo @問い
+
+## 前回：普通の人が殺戮に
+23: 第101警察予備大隊 Reserve Police Battalion 101 写真=Reserve Police Battalion 101 photo 1942=Reserve-Polizei-Bataillon 101 Foto @前回
+
+## 新聞広告と参加者の選考
+25: スタンフォード監獄実験 新聞広告 1971=Stanford prison experiment newspaper ad 1971 male college students needed @6日間
+
+## ジンバルドー
+34: フィリップ・ジンバルドー 1971 心理学者=Philip Zimbardo 1971 Stanford psychologist|フィリップ・ジンバルドー @ジンバルドー
+
+## 看守役への説明
+39: スタンフォード監獄実験 看守 制服 1971=Stanford prison experiment guards uniform khaki 1971 @看守役
+
+## 自宅で逮捕
+40: スタンフォード監獄実験 逮捕 パトカー 1971=Stanford prison experiment arrest police car Palo Alto 1971 @逮捕
+
+## 地下の刑務所
+44: スタンフォード郡拘置所 看板 監獄実験=Stanford County Jail sign prison experiment 1971 @刑務所
+
+## 2日目の反乱
+50: スタンフォード監獄実験 囚人 腕立て伏せ 1971=Stanford prison experiment prisoners push-ups 1971 @看守
+
+## 囚人8612の叫び
+56: スタンフォード監獄実験 囚人 独房 1971=Stanford prison experiment prisoner cell 1971 @叫び
+
+## ジョン・ウェインと5日目の夜
+61: スタンフォード監獄実験 ジョン・ウェイン 看守=Stanford prison experiment John Wayne guard Dave Eshleman 1971 @看守
+
+## 5日目の辱めと中止
+65: スタンフォード監獄実験 囚人 袋 頭 1971=Stanford prison experiment prisoners bags over heads 1971 @5日目
+
+## サンクエンティンとアティカ
+73: サンクエンティン刑務所 1971 白黒写真=San Quentin prison 1971 photo @サンクエンティン
++76: アティカ刑務所 暴動 1971 写真=Attica prison riot 1971 photo @アティカ
+
+## 議会での証言
+80: ジンバルドー 議会 証言 1971=Philip Zimbardo congressional testimony 1971 prison reform|フィリップ・ジンバルドー @ジンバルドー
+
+## アブグレイブ
+85: アブグレイブ刑務所 2004 写真=Abu Ghraib prison 2004 photo @アブグレイブ
+
+## 『ルシファー・エフェクト』と映画
+90: フィリップ・ジンバルドー 講演 ルシファー・エフェクト=Philip Zimbardo Lucifer Effect lecture 2007|フィリップ・ジンバルドー @ルシファー・エフェクト
+94: 映画 スタンフォード監獄実験 2015=The Stanford Prison Experiment 2015 film still @映画
+
+## 1975年の最初の批判
+100: スタンフォード監獄実験 囚人 番号 1971 白黒=Stanford prison experiment prisoners numbers 1971 black and white @批判
+
+## 要求特性
+109: スタンフォード監獄実験 看守 警棒 1971=Stanford prison experiment guard baton 1971 @要求特性
+
+## オーン
+119: マーティン・オーン 心理学者=Martin Orne psychologist|マーティン・オーン @オーン
+
+## 教科書に載り続けた
+133: スタンフォード監獄実験 1971 写真 看守 点呼=Stanford prison experiment 1971 count guards prisoners line @入門書
+
+## ルテクシエの調査
+141: ティボー・ルテクシエ 研究者=Thibault Le Texier=Thibault Le Texier chercheur|ティボー・ルテクシエ @ルテクシエ
+
+## 資料のオンライン公開
+152: スタンフォード監獄実験 資料 アーカイブ=Stanford Prison Experiment archive records Stanford Libraries @資料
+
+## 証拠その1：前の実験とジャフィ
+161: デイヴィッド・ジャフィ 所長 スタンフォード監獄実験=David Jaffe warden Stanford prison experiment @前の実験
+
+## 証拠その2：看守への説明
+177: スタンフォード監獄実験 看守 オリエンテーション ジンバルドー=Stanford prison experiment guard orientation Zimbardo 1971 @説明
+
+## 証拠その3：ジャフィの説得の録音
+199: デイヴィッド・ジャフィ 所長 スタンフォード監獄実験=David Jaffe warden Stanford prison experiment @録音
+
+## ジンバルドーの言い分
+211: フィリップ・ジンバルドー 1971 心理学者=Philip Zimbardo 1971 Stanford psychologist|フィリップ・ジンバルドー @ジンバルドー
+
+## 命令ではなく目的で説得
+219: デイヴィッド・ジャフィ 所長 スタンフォード監獄実験=David Jaffe warden Stanford prison experiment @ジャフィ
+
+## 証拠その4：研究者が刑務所長
+225: ジンバルドー 刑務所長 スタンフォード監獄実験 1971=Zimbardo superintendent Stanford prison experiment 1971|フィリップ・ジンバルドー @刑務所長
+
+## 証拠その5：先に書かれた発表文
+236: スタンフォード監獄実験 1971 新聞記事=Stanford prison experiment 1971 newspaper article @結論
+
+## 証拠その6：一部だけの記録
+247: スタンフォード監獄実験 ビデオ 映像 1971=Stanford prison experiment video footage 1971 @記録
+
+## 囚人8612 ダグラス・コーピ
+266: ダグラス・コーピ 8612 スタンフォード監獄実験=Douglas Korpi 8612 Stanford prison experiment|ダグラス・コーピ @8612
+
+## ジョン・ウェイン デイヴィッド・エシュルマン
+287: デイヴィッド・エシュルマン ジョン・ウェイン 看守=Dave Eshleman John Wayne guard Stanford prison experiment|デイヴィッド・エシュルマン @ジョン・ウェイン
++293: 暴力脱獄 1967 映画=Cool Hand Luke 1967 film @暴力脱獄
+
+## ジンバルドーの反論
+300: フィリップ・ジンバルドー 1971 心理学者=Philip Zimbardo 1971 Stanford psychologist|フィリップ・ジンバルドー @ジンバルドー
+
+## 看守全体の様子
+303: スタンフォード監獄実験 看守たち 1971=Stanford prison experiment guards group 1971 @看守全体
+
+## 囚人の側
+311: スタンフォード監獄実験 囚人たち 1971=Stanford prison experiment prisoners group 1971 @忘れて
+
+## やめられなかった：申請書と同意書
+316: スタンフォード監獄実験 同意書 1971=Stanford prison experiment consent form 1971 @記録
+
+## 実験を止めたマスラック
+334: クリスティーナ・マスラック 心理学者=Christina Maslach psychologist|クリスティーナ・マスラック @止めた
+
+## 別の見方
+347: スタンフォード監獄実験 囚人 反抗 1971=Stanford prison experiment prisoners rebellion 1971 @別の見方
+
+## 定説チェック①：自然に残酷になった
+360: スタンフォード監獄実験 看守 サングラス 1971=Stanford prison experiment guard sunglasses 1971 @定説チェック
+
+## 定説チェック②：フロム
+365: エーリッヒ・フロム=Erich Fromm=Erich Fromm Psychoanalytiker|エーリッヒ・フロム @サディスティック
+
+## 定説チェック③：いつでもやめられた
+371: スタンフォード監獄実験 同意書 1971=Stanford prison experiment consent form 1971 @やめられた
+
+## 定説チェック④：精神的に崩壊
+374: スタンフォード監獄実験 囚人 独房 1971=Stanford prison experiment prisoner cell 1971 @崩壊
+
+## 定説チェック⑤：実験だと忘れた
+380: スタンフォード監獄実験 看守 囚人 1971 写真=Stanford prison experiment guards prisoners 1971 photo @実験
+
+## 定説チェック⑥：すべて嘘だった
+384: スタンフォード監獄実験 囚人 袋 頭 1971=Stanford prison experiment prisoners bags over heads 1971 @嘘
+
+## ジンバルドーの2018年の声明
+397: フィリップ・ジンバルドー 晩年=Philip Zimbardo 2018|フィリップ・ジンバルドー @ジンバルドー
+
+## 第101警察予備大隊と似ている
+413: 第101警察予備大隊 Reserve Police Battalion 101 写真=Reserve Police Battalion 101 photo 1942=Reserve-Polizei-Bataillon 101 Foto @第101警察予備大隊
+
+## カーナハンとマクファーランドの新聞広告
+415: スタンフォード監獄実験 新聞広告 1971=Stanford prison experiment newspaper ad 1971 male college students needed @指摘
+
+## BBC監獄実験
+441: BBC監獄実験 2002=BBC Prison Study 2002 The Experiment Reicher Haslam @テレビ局
+
+## ライカーとハスラム
+445: スティーブン・ライカー アレックス・ハスラム=Stephen Reicher Alex Haslam psychologists|ライカーとハスラム @ライカーとハスラム
+
+## 指示を出さなかった看守たち
+448: BBC監獄実験 看守 2002=BBC Prison Study The Experiment 2002 guards @看守
+
+## コミューンとその崩れ
+469: BBC監獄実験 囚人 2002=BBC Prison Study The Experiment 2002 prisoners commune @自治
+
+## 独裁を受け入れやすくなる
+485: スティーブン・ライカー アレックス・ハスラム=Stephen Reicher Alex Haslam psychologists|ライカーとハスラム @ライカーとハスラム
+
+## ジンバルドーの批判
+494: フィリップ・ジンバルドー 晩年=Philip Zimbardo 2018|フィリップ・ジンバルドー @ジンバルドー
+
+## アイデンティティ・リーダーシップ
+500: アレックス・ハスラム 心理学者=Alex Haslam psychologist|アレックス・ハスラム @ハスラム
+
+## 魔理沙の考察：研究者の側
+514: ジンバルドー 刑務所長 スタンフォード監獄実験 1971=Zimbardo superintendent Stanford prison experiment 1971|フィリップ・ジンバルドー @考察
+
+## 個人の責任：アブグレイブの裁判
+546: アブグレイブ 軍法会議 2004=Abu Ghraib court martial 2004 Ivan Frederick @アブグレイブ
+
+## 現代に置き換えると①：やり方は任せる上司
+558: スタンフォード監獄実験 看守 オリエンテーション ジンバルドー=Stanford prison experiment guard orientation Zimbardo 1971 @現代
+
+## ②部活やサークルの伝統
+565: デイヴィッド・エシュルマン ジョン・ウェイン 看守=Dave Eshleman John Wayne guard Stanford prison experiment|デイヴィッド・エシュルマン @伝統
+
+## ③SNSと「有名な実験によれば」
+571: スタンフォード監獄実験 看守たち 1971=Stanford prison experiment guards group 1971 @SNS
+
+## 三つの問いのまとめ
+580: スタンフォード監獄実験 1971 囚人 廊下 白黒写真=Stanford prison experiment 1971 prisoners hallway photo @三つの問い
+
+## あなたに渡す問い
+588: スタンフォード監獄実験 看守 囚人 1971 写真=Stanford prison experiment guards prisoners 1971 photo @問い
+
+## 次回予告：チューリップ・バブル
+600: チューリップ・バブル 1637 絵画=Tulip mania 1637 painting Brueghel satire @チューリップ
